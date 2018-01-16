@@ -1,0 +1,31 @@
+@import "~nord/src/sass/nord.scss";
+@import "~open-color/open-color.scss";
+@import "~bulma/sass/utilities/_all.sass";
+
+$--colorSiteTitle: $oc-gray-0;
+$--colorTitle: $oc-gray-0;
+
+$--colorHeadlineBorder: #CCC8AE;
+
+$--colorNavBar: #1f1f1f;
+//$--colorBackground:
+$--colorHighlight: #546672;
+$--colorSelected: #98b1c2;
+//$--colorText:
+
+$--colorEvent: #c2e4c0;
+
+/*
+$--colorSiteTitle: $oc-gray-0;
+$--colorTitle: $oc-gray-0;
+
+$--colorHeadlineBorder: #CCC8AE;
+
+$--colorNavBar: #1f1f1f;
+//$--colorBackground:
+$--colorHighlight: #1c7cd6;
+$--colorSelected: #98b1c2;
+//$--colorText:
+
+$--colorEvent: #b0e2d1;
+*/

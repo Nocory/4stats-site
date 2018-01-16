@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+//@import url('https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Open+Sans|Raleway|Roboto|Roboto+Mono|Source+Code+Pro|Ubuntu+Mono');
+
+//@import "~nord/src/sass/nord.scss";
+//@import "~open-color/open-color.scss";
+@import "fa_boiler.css";
+@import "icomoon_cogs.css";
+@import "~bulma/bulma.sass";
+@import "variables.scss";
+
+// Containers & Sections
+
+.section {
+	padding: 1.5rem 0;
+}
+
+.greentext {
+	color: #75a000;
+}
+
+.whitelist-greentext {
+	color: #75a000;
+}
+
+.headline {
+  position: relative;
+  z-index: 10;
+  color: $--colorTitle;
+	background: transparent;
+	//border-bottom: 4px solid $--colorHighlight;
+  padding: 0.25rem;
+  font-weight: normal;
+  margin: 0 !important;
+}
