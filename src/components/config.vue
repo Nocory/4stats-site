@@ -1,24 +1,24 @@
 <template>
-	<div class="component">
+  <div class="component">
     <div class="config-wrapper" @click="toggleConfig">
 			
       <div class="section">
-				<div class="delete-button">x</div>
+        <div class="delete-button">x</div>
         <div class="container">
-					<div class="toggle-all columns is-multiline is-mobile individual-boards">
-						<div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('default')">
-							<div class="board" :class="{enabled : (availableBoards['default'].every((el) => tempEnabledBoards.includes(el)))}">Default</div>
-						</div>
-						<div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('imageGenerals')">
-							<div class="board" :class="{enabled : (availableBoards['imageGenerals'].every((el) => tempEnabledBoards.includes(el)))}">Image Generals</div>
-						</div>
-						<div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('misc')">
-							<div class="board" :class="{enabled : (availableBoards['misc'].every((el) => tempEnabledBoards.includes(el)))}">Misc</div>
-						</div>
-						<div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('nsfw')">
-							<div class="board" :class="{enabled : (availableBoards['nsfw'].every((el) => tempEnabledBoards.includes(el)))}">NSFW</div>
-						</div>
-						<!--
+          <div class="toggle-all columns is-multiline is-mobile individual-boards">
+            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('default')">
+              <div class="board" :class="{enabled : (availableBoards['default'].every((el) => tempEnabledBoards.includes(el)))}">Default</div>
+            </div>
+            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('imageGenerals')">
+              <div class="board" :class="{enabled : (availableBoards['imageGenerals'].every((el) => tempEnabledBoards.includes(el)))}">Image Generals</div>
+            </div>
+            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('misc')">
+              <div class="board" :class="{enabled : (availableBoards['misc'].every((el) => tempEnabledBoards.includes(el)))}">Misc</div>
+            </div>
+            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('nsfw')">
+              <div class="board" :class="{enabled : (availableBoards['nsfw'].every((el) => tempEnabledBoards.includes(el)))}">NSFW</div>
+            </div>
+            <!--
 						<div class="column is-6-mobile is-6-tablet is-2-fullhd" @click.stop="savePreset">
 							<div class="board save-preset">Save preset</div>
 						</div>
@@ -26,55 +26,56 @@
 							<div class="board load-preset">Load preset</div>
 						</div>
 						-->
-					</div>
+          </div>
           <div class="board-buttons columns is-multiline">
 
-						<div class="column is-6">
-							<div class="title is-6">Default Boards</div>
-							<div class="columns is-multiline is-mobile individual-boards">
-								<div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.default" :key="board" @click.stop="toggleBoard(board)">
-									<div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-										/{{board}}/
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="column is-6">
+              <div class="title is-6">Default Boards</div>
+              <div class="columns is-multiline is-mobile individual-boards">
+                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.default" :key="board" @click.stop="toggleBoard(board)">
+                  <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
+                    /{{ board }}/
+                  </div>
+                </div>
+              </div>
+            </div>
 
-						<div class="column is-6">
-							<div class="title is-6">Image Generals</div>
-							<div class="columns is-multiline is-mobile individual-boards">
-								<div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.imageGenerals" :key="board" @click.stop="toggleBoard(board)">
-									<div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-										/{{board}}/
-									</div>
-								</div>
-							</div>
-							<div class="title is-6">Misc</div>
-							<div class="columns is-multiline is-mobile individual-boards">
-								<div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.misc" :key="board" @click.stop="toggleBoard(board)">
-									<div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-										/{{board}}/
-									</div>
-								</div>
-							</div>
-							<div class="title is-6">NSFW</div>
-							<div class="columns is-multiline is-mobile individual-boards">
-								<div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.nsfw" :key="board" @click.stop="toggleBoard(board)">
-									<div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-										/{{board}}/
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="column is-6">
+              <div class="title is-6">Image Generals</div>
+              <div class="columns is-multiline is-mobile individual-boards">
+                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.imageGenerals" :key="board" @click.stop="toggleBoard(board)">
+                  <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
+                    /{{ board }}/
+                  </div>
+                </div>
+              </div>
+              <div class="title is-6">Misc</div>
+              <div class="columns is-multiline is-mobile individual-boards">
+                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.misc" :key="board" @click.stop="toggleBoard(board)">
+                  <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
+                    /{{ board }}/
+                  </div>
+                </div>
+              </div>
+              <div class="title is-6">NSFW</div>
+              <div class="columns is-multiline is-mobile individual-boards">
+                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.nsfw" :key="board" @click.stop="toggleBoard(board)">
+                  <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
+                    /{{ board }}/
+                  </div>
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
       </div>
     </div>
-	</div>
+  </div>
 </template>
 
 <script>
+const pino = require("../js/pino")
 import { mapState } from 'vuex'
 const config = require("../js/config")
 export default {
@@ -113,14 +114,14 @@ export default {
 			this.$store.commit("sortBoardList")
 		},
 		toggleBoard(board){
-			console.log("checking for",board)
+			pino.debug("config.vue toggleBoard checking for",board)
 			let index = this.tempEnabledBoards.indexOf(board)
 			if(index >= 0){
 				this.tempEnabledBoards.splice(index,1)
 			}else{
 				this.tempEnabledBoards.push(board)
 			}
-			console.log("new list",this.tempEnabledBoards)
+			pino.debug("config.vue toggleBoard new list",this.tempEnabledBoards)
 		},
 		savePreset(){
 			localStorage.setItem("config_boardPreset",JSON.stringify(this.tempEnabledBoards))

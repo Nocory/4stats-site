@@ -1,17 +1,17 @@
 <template>
-	<div class="component-feedback has-text-centered">
+  <div class="component-feedback has-text-centered">
     <div class="section">
       <div class="container">
         <div class="sorf">Feedback, bugs or suggestions:</div>
         <form method="post" class="has-text-left" name="contact" autocomplete="off" netlify-honeypot="dont">
           <input type="hidden" name="form-name" value="feedback">
-		      <input type="text" name="dont" class="is-hidden">
+          <input type="text" name="dont" class="is-hidden">
           <input type="text" class="input" name="message" required minlength="10" maxlength="1000" placeholder="type...">
           <button class="button" type="submit">Send</button>
         </form>
       </div>
     </div>
-	</div>
+  </div>
 </template>
 
 <script>

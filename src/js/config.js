@@ -1,12 +1,14 @@
-const VERSION = 8
+const VERSION = 9
 if(localStorage.getItem("VERSION") != VERSION){
-	console.log("clearing localstorage")
 	localStorage.clear()
 	localStorage.setItem("VERSION",VERSION)
 }
 
 let config = {
 	VERSION,
+	debugLevelProduction: "info",
+	debugLevelDevelopment: "trace",
+	url: "https://api.4stats.io",
 	availableBoards : {
 		default: [
 			'3',
@@ -91,6 +93,6 @@ let config = {
 	}
 }
 
-config.allBoards = [...config.availableBoards.default,...config.availableBoards.imageGenerals,...config.availableBoards.misc,...config.availableBoards.nsfw]
+config.allBoards = [...config.availableBoards.default,...config.availableBoards.imageGenerals,...config.availableBoards.misc,...config.availableBoards.nsfw].sort()
 
 module.exports = config

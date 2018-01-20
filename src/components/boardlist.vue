@@ -13,6 +13,7 @@
           <div @click="sortClicked('threadsPerHour')" class="is-hidden-touch" :class="{'category-active' : sortThreadlistBy == 'threadsPerHour'}"><abbr title="Over the last hour">Threads/hour</abbr></div>
           <div @click="sortClicked('avgPostsPerDay')" :class="{'category-active' : sortThreadlistBy == 'avgPostsPerDay'}"><abbr title="Over the last 4 weeks. Weighted towards more recent weeks.">Avg.Posts/day</abbr></div>
           <div @click="sortClicked('postCountDevelopment')" class="is-hidden is-hidden-touch is-hidden-desktop-only" :class="{'category-active' : sortThreadlistBy == 'postCountDevelopment'}"><abbr title="Posts during the last 30 days vs the month before" style="white-space: nowrap;">30 day change</abbr></div>
+          <div @click="sortClicked('imagesPerReply')" class="is-hidden-touch" :class="{'category-active' : sortThreadlistBy == 'imagesPerReply'}"><abbr title="Posts with files attached" style="white-space: nowrap;">Images</abbr></div>
           <div @click="sortClicked('relativeActivity')" :class="{'category-active' : sortThreadlistBy == 'relativeActivity'}"><abbr title="Current posts-per-minute relative to the boards usual top ppm rate" style="white-space: nowrap;">Activity Now</abbr></div>
         </div>
         <transition-group :name="updateInProgress ? 'delayed' : 'flip-list'" tag="div" class="bl_row-wrapper">
@@ -23,8 +24,11 @@
             <div class="board">/{{ boardName }}/</div>
             <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
             <div class="is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
+            
             <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
             <div class="is-hidden is-hidden-touch is-hidden-desktop-only">{{ boardData[boardName].postCountDevelopment>1?"+":"" }}{{ Math.round((boardData[boardName].postCountDevelopment - 1) * 100) }}%</div>
+            
+            <div class="is-hidden-touch">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
             <div class="">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
           </div>
         </transition-group>

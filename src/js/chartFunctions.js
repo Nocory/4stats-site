@@ -1,6 +1,4 @@
 window.moment = require('moment/min/moment.min.js')
-window.moment.locale("en-monday",{parentLocale: 'en', week : {dow : 1}})
-window.moment.locale("en-monday")
 
 const Chart = require('chart.js/dist/Chart.js')
 Chart.defaults.global.defaultFontFamily = 'monospace'
@@ -64,12 +62,14 @@ const init = id => {
 				xAxes: [{
 					type: 'time',
 					time: {
-						//stepSize: 1,
-						unit: 'day',
+						stepSize: 1,
 						tooltipFormat: 'MMM Do, h:mma',
 						displayFormats: {
-							day: 'MMMD'
-						}
+							hour: 'hA',
+							day: 'MMMD',
+							week: 'MMMD',
+						},
+						isoWeekday: true
 					}
 				}],
 				yAxes: [{
@@ -83,32 +83,32 @@ const init = id => {
 	return chart
 }
 
-let currentTimeframe = ""
+let addBoard = (board, history, options, updateTime = 1000) => {
+	chart.options.elements.line.stepped = options.term == "day"
+	chart.options.scales.xAxes[0].time.unit = options.term == "day" ? "week" : {
+		24: "hour",
+		[24*7]: "day",
+		[24*7*4]: "week"
+	}[options.maxEntries.hour]
+	/*
+	let latestTime = history[history.length - 1].x
+	let startFrom = Math.max(history[0].x,latestTime - options.maxEntries[options.term] * (options.term == "day" ? 86400000 : 3600000))
 
-let addBoard = (board, timeframe, history, maxEntries, weekProperty, smoothingLevel, updateTime = 1000) => {
-	if(currentTimeframe != timeframe){
-		if(timeframe === "daily"){
-			chart.options.scales.xAxes[0].time.stepSize = 7
-			chart.options.elements.line.stepped = true
-		}else{
-			chart.options.scales.xAxes[0].time.stepSize = 1
-			chart.options.elements.line.stepped = false
-		}
-		currentTimeframe = timeframe
-	}
-
-	let chartThis = history[timeframe][board].history.slice(timeframe === "daily" ? 0 : -maxEntries)
-	if(timeframe == "hourly" && weekProperty == "activity"){
+	chart.options.scales.xAxes[0].time.min = startFrom
+	let chartThis = history
+	*/
+	let chartThis = history.slice(-options.maxEntries[options.term]) //TODO: replace slice with min value date
+	if(options.term == "hour" && options.hourProperty == "activity"){
 		chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / store.state.boardData[board].topPPM}))
 	}
 	
-	if(timeframe == "hourly" && smoothingLevel){
+	if(options.term == "hour" && options.smoothingLevel){
 		// I don't even remember how this exactly works
 		let maxVariance = chartThis.reduce((totalY, entry) => totalY + entry.y, 0) / chartThis.length
 		//console.log(maxVariance)
-		maxVariance *= 0.01 + 0.01 / smoothingLevel //TODO: find best values
+		maxVariance *= 0.01 + 0.01 / options.smoothingLevel //TODO: find best values
 		//console.log(maxVariance)
-		for (let i = 0; i < smoothingLevel; i++) {
+		for (let i = 0; i < options.smoothingLevel; i++) {
 			let smoothedHistory = []
 			for (let i = 0; i < chartThis.length; i++) {
 				if (i == 0 || i == chartThis.length - 1) {

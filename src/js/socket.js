@@ -1,25 +1,18 @@
 const socketIO = require('socket.io-client')
+const config = require('./config')
+const pino = require("./pino")
 
-
-const url = location.hostname == "localhost" ? `http://${location.hostname}:4001` : "https://chanstats.conroy.link"
-//const url = "https://chanstats.conroy.link"
-//const url = `http://${location.hostname}:4002`
-//const url = "http://chanstats.conroy.link:4002"
-
-console.log("Initiating socket.io connection with hostURL: ", url)
-let socket = socketIO(url,{
-	transports: ['websocket'],
-	query: {
-		ref: document.referrer
-	}
+pino.info("Initiating socket.io connection with hostURL: ", config.url)
+let socket = socketIO(config.url,{
+	transports: ['websocket']
 })
 
 let enforcedClientVersion = null
 socket.on("enforcedClientVersion", data => {
 	enforcedClientVersion = enforcedClientVersion || data
-	console.log("server version", data)
+	pino.info("Enforced client version is %d", data)
 	if (enforcedClientVersion != data) {
-		console.log("reloading")
+		pino.info("reloading")
 		window.location.reload(true)
 	}
 })

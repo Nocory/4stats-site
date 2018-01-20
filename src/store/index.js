@@ -1,3 +1,5 @@
+const pino = require("../js/pino")
+
 import axios from "axios"
 
 import Vue from "vue/dist/vue.runtime.esm.js"
@@ -21,7 +23,7 @@ const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	state: {
 		showConfig: false,
-		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || [...config.availableBoards.default,...config.availableBoards.imageGenerals,...config.availableBoards.nsfw],
+		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || [...config.availableBoards.default,...config.availableBoards.imageGenerals,...config.availableBoards.misc,...config.availableBoards.nsfw],
 		selectedBoard: localStorage.getItem("selectedBoard") || "g",
 		boardData: config.allBoards.reduce((obj,key) => ({...obj, [key]: {
 			postsPerMinute: -1,
@@ -55,10 +57,6 @@ const store = new Vuex.Store({
 		toggleShowConfig(state){
 			state.showConfig = !state.showConfig
 		},
-		setStatusMessage(state,payload){
-			state.statusMessage.connected = payload.connected
-			state.statusMessage.message = payload.message
-		},
 		setEnabledBoards(state, payload) {
 			state.enabledBoards = payload
 			localStorage.setItem("enabledBoards",JSON.stringify(payload))
@@ -80,7 +78,7 @@ const store = new Vuex.Store({
 				}
 			}else{
 				Vue.set(state.boardData, payload.board, payload.data)
-				console.log(`${payload.board} missing from list. Adding it now. This shouldn't happen really.`)
+				pino.warn(`${payload.board} missing from list. Adding it now. This shouldn't happen really.`)
 			}
 		},
 		updateThreadData(state,payload){
@@ -123,12 +121,8 @@ const store = new Vuex.Store({
 	actions: {
 		getActiveThreads(context,board = context.state.selectedBoard){
 			//console.log("requesting",payload)
-			const url = location.hostname == "localhost" ? `http://${location.hostname}:4001` : "https://chanstats.conroy.link"
-			axios.get(url + "/activeThreads",{
-				params: {
-					board
-				}
-			})
+			pino.debug("Requesting /activeThreads /%s/ from API",board)
+			axios.get(config.url + `/activeThreads/${board}`)
 				.then(function (response) {
 					context.commit("updateThreadData",{
 						board,
@@ -136,7 +130,7 @@ const store = new Vuex.Store({
 					})
 				})
 				.catch(function (error) {
-					console.error(error)
+					pino.error(error)
 				})
 		},
 		boardClicked(context,board = context.state.selectedBoard) {
@@ -149,26 +143,26 @@ const store = new Vuex.Store({
 	}
 })
 
-// THREADS
-store.dispatch('boardClicked')
+// Get all stats
+// The API server automatically sends the latest stats object to every newly connected client
+socket.on('disconnect', reason => {
+	pino.error("Lost connection to API. %s",reason)
+})
 
-// BOARD STATS
-const url = location.hostname == "localhost" ? `http://${location.hostname}:4001` : "https://chanstats.conroy.link"
+// Get active threads initially and on every reconnect
+store.dispatch("getActiveThreads")
+socket.on("reconnect",() => {
+	pino.info("Reconnected to API. Requesting latest data.")
+	store.dispatch("getActiveThreads")
+})
 
-axios.get(url + "/allBoardStats")
-	.then(function (response) {
-		store.commit("setInitialData",response.data)
-		store.commit("sortBoardList")
-	})
-	.catch(function (error) {
-		console.log(error)
-	})
-	
+socket.on("allBoardStats",allBoardStats => {
+	pino.info("Received allBoardStats from API")
+	store.commit("setInitialData",allBoardStats)
+	store.commit("sortBoardList")
+})
 
 socket.on("boardUpdate",(board,data) => {
-	//tempRemoveThis_itsJustForTesting(board,data)
-	//console.log("boardUpdate",board,data)
-	//if(!store.state.boardData[board]) return console.warn("Received stats for board that is not in the list:",board)
 	store.commit("updateBoardData",{
 		board,
 		data
@@ -179,7 +173,7 @@ socket.on("boardUpdate",(board,data) => {
 	}
 
 	if(store.state.selectedBoard == board){
-		setTimeout(store.dispatch,Math.random() * 500,"getActiveThreads",board) //stagger thread requests coming from different clients
+		setTimeout(store.dispatch,Math.random() * 2000,"getActiveThreads",board) //stagger automatic thread requests coming from different clients
 	}else{
 		store.commit("updateThreadData",{
 			board,

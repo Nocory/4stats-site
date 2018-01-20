@@ -4,8 +4,8 @@
 		<component-config v-if="showConfig"></component-config>
 		<div class="main">
 			<h6 class="connected is-hidden-mobile">
-				{{serverMessage}}<br>
-				users: {{serverConnectedClients}}
+				just updated: /{{recentBoard}}/<br>
+				users on site: {{connectedUsers}}
 			</h6>
 			<div class="container is-fullhd">
 				<div class="columns has-text-centered">
@@ -15,10 +15,10 @@
 			</div>
 		</div>
 
-		<div class="section has-text-centered">
+		<div class="section has-text-centered is-hidden-mobile">
 			<component-chart class="container" v-if="renderChart || forceChart"></component-chart>
 			<button v-else @click="forceChart = true" class="button">
-				Load Chart Module<br>
+				Force-Load Chart Module<br>
 				not reccommended on mobile
 			</button>
 		</div>
@@ -36,8 +36,8 @@ export default {
 		showDebugInfo: localStorage.getItem("showDebugInfo") || "",
 		forceChart: false,
 		renderChart: window.innerWidth >= 1216, // the bulma breakpoint for desktops
-		serverMessage: "",
-		serverConnectedClients: 0
+		recentBoard: "",
+		connectedUsers: 0
 	}),
 	computed: mapState([
 		'showConfig'
@@ -47,7 +47,7 @@ export default {
 		componentBoardlist: require("./boardlist.vue").default,
 		componentThreadlist: require("./threadlist.vue").default,
 		//componentChart: require("./chart.vue").default,
-		componentChart: () => import('./chart.vue'), // lazy loading for relevant screens
+		componentChart: () => import('./chart.vue'), // lazy loading for relevant screen-width
 		componentFooter: require("./footer.vue").default,
 		componentFeedback: require("./feedback.vue").default,
 		componentConfig: require("./config.vue").default
@@ -56,9 +56,11 @@ export default {
 		window.addEventListener("resize",event => {
 			this.renderChart = window.innerWidth >= 1216
 		})
-		socket.on("serverStatus",(message,connectedClients)=>{
-			this.serverMessage = message
-			this.serverConnectedClients = connectedClients
+		socket.on("userCount",userCount => {
+			this.connectedUsers = userCount
+		})
+		socket.on("boardUpdate",board => {
+			this.recentBoard = board
 		})
 	}
 }
