@@ -24,6 +24,7 @@
 		"moment": "latest",
 		"nord": "latest",
 		"open-color": "latest",
+		"pino": "^4.10.3",
 		"postcss-loader": "^2.0.9",
 		"prerender-spa-plugin": "latest",
 		"prerenderer-webpack-plugin": "latest",

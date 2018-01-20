@@ -1,8 +1,8 @@
-const npmEvent = process.env.npm_lifecycle_event;
-const merge = require('webpack-merge');
+const npmEvent = process.env.npm_lifecycle_event
+const merge = require('webpack-merge')
 const path = require('path')
 
-let devConfig = require(`./webpack.config.dev.js`);
+let devConfig = require(`./webpack.config.dev.js`)
 
 module.exports = merge(devConfig, {
 	devServer: {

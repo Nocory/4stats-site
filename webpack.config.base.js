@@ -98,6 +98,7 @@ module.exports = {
 	},
 	plugins: [
 		//new DashboardPlugin(),
+		//new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new CleanWebpackPlugin(['dist'], {
 			root: __dirname,
@@ -120,7 +121,7 @@ module.exports = {
 			template: 'src/index.html'
 		}),
 		//new HtmlWebpackInlineSourcePlugin(),
-		new CopyWebpackPlugin([{ from: 'src/stats-bars.png', to: 'favicon.png' }]),
+		new CopyWebpackPlugin([{ from: 'src/favicon_inverted.png', to: 'favicon.png' }]),
 		new ExtractTextPlugin({
 			//filename: "[name]_[contenthash:8].css",
 			filename: "[name].css",
