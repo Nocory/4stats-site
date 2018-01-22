@@ -99,6 +99,9 @@ module.exports = {
 	plugins: [
 		//new DashboardPlugin(),
 		//new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+		new webpack.ProvidePlugin({
+			axios: 'axios'
+		}),		
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new CleanWebpackPlugin(['dist'], {
 			root: __dirname,

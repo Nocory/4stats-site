@@ -1,7 +1,5 @@
 const pino = require("../js/pino")
 
-import axios from "axios"
-
 import Vue from "vue/dist/vue.runtime.esm.js"
 import Vuex from "vuex"
 Vue.use(Vuex)
