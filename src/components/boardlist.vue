@@ -17,11 +17,11 @@
           <div @click="sortClicked('relativeActivity')" :class="{'category-active' : sortThreadlistBy == 'relativeActivity'}"><abbr title="Current posts-per-minute relative to the boards usual top ppm rate" style="white-space: nowrap;">Activity Now</abbr></div>
         </div>
         <transition-group :name="updateInProgress ? 'delayed' : 'flip-list'" tag="div" class="bl_row-wrapper">
-          <div v-for="(boardName,index) in enabledBoards" v-if="boardData[boardName]"
+          <div v-for="boardName in enabledBoards" v-if="boardData[boardName]"
                :ref="boardName" :key="boardName"
                @click="boardClicked(boardName)" class="bl_row"
                :class="{'board-selected' : (selectedBoard == boardName)}">
-            <div class="board">/{{ boardName }}/</div>
+            <div :data-long-board-name="config.boardNames[boardName]" class="board">/{{ boardName }}/</div>
             <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
             <div class="is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
             
@@ -38,9 +38,11 @@
 </template>
 
 <script>
+import config from '../js/config'
 import { mapState } from 'vuex'
 export default {
 	data: () => ({
+		config,
 		isThreadlistReversed: false,
 		updateInProgress: false
 	}),
@@ -163,6 +165,22 @@ export default {
 .bl_row>div.board{
   justify-content: flex-start;
   padding: 0 0 0 1em;
+
+  flex: 1 1 0 !important;
+  min-width: 4em !important;
+  text-align: left !important;
+  font-weight: bold;
+  position: relative;
+  &:hover:after{
+    content: attr(data-long-board-name);
+    white-space: nowrap;
+    padding: 0 1em;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: rgba(0,0,0,0.75);
+    color: #f1f1f1;
+  }
 }
 
 .bl_row:nth-of-type(2n){
@@ -174,13 +192,6 @@ export default {
   color: $oc-gray-9;
   //font-weight: bolder;
   transition: all 0.25s ease-out 0s;
-}
-
-.board{
-  flex: 1 1 0 !important;
-  min-width: 4em !important;
-  text-align: left !important;
-  font-weight: bold;
 }
 
 .category-active{
