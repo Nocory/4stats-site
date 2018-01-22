@@ -44,7 +44,8 @@ export default {
 					let boardsWrapper = document.querySelector(".boardlist-wrapper")
 					//console.log("ele1",boardsWrapper)
 					this.listHeight = boardsWrapper.clientHeight
-					this.threadsToShow = Math.max(Math.floor(this.listHeight / 150),4)
+					this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 150),4)
+					//console.log(this.threadsToShow)
 					let threadsWrapper = document.querySelector(".threads-wrapper")
 					//console.log("ele2",threadsWrapper)
 					threadsWrapper.style.minHeight = this.listHeight + "px"
@@ -52,15 +53,13 @@ export default {
 			},500)
 		}
 	},
-	created(){
+	mounted(){
+		this.setListHeight()
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setEnabledBoards" || mutation.type == "setInitialData"){
 				this.setListHeight()
 			}
 		})
-	},
-	mounted(){
-		this.setListHeight()
 	}
 }
 </script>

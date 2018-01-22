@@ -12,7 +12,6 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"animejs": "latest",
 		"autoprefixer": "^7.2.3",
 		"axios": "^0.17.1",
 		"babel-polyfill": "^6.26.0",

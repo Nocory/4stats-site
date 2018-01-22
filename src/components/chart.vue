@@ -52,7 +52,6 @@
 <script>
 const pino = require("../js/pino")
 const config = require("../js/config")
-const axios = require("axios")
 const socket = require("../js/socket")
 const chartFunctions = require("../js/chartFunctions")
 export default {
@@ -162,7 +161,9 @@ export default {
 			chartFunctions.addBoard(board,historyData.history,this.chartOptions)
 		}
 	},
-	created(){
+	mounted() {
+		chartFunctions.init("myChart")
+
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setEnabledBoards"){
 				this.graphedBoards.forEach(board => {
@@ -182,15 +183,26 @@ export default {
 				}
 			}
 		})
-	},
-	mounted() {
-		chartFunctions.init("myChart")
 	}
 }
 </script>
 
 <style scoped lang="scss">
 @import "~css/variables.scss";
+
+.headline{
+	position: relative;
+}
+
+.headline:after{
+	content: "since july 2017";
+	font-size: 0.75rem;
+	font-weight: normal;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	top: calc(100% - 0.25rem);
+}
 
 abbr {
   cursor: pointer;
