@@ -4,8 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "NODE_ENV=development webpack --color --hide-modules",
-		"build": "NODE_ENV=production webpack --color --hide-modules --display-optimization-bailout",
+		"dev": "NODE_ENV=development webpack --config build_config/webpack.config.js --color --hide-modules",
+		"build": "NODE_ENV=production webpack --config build_config/webpack.config.js --color --hide-modules --display-optimization-bailout",
 		"dev-server": "NODE_ENV=development webpack-dev-server --compress --color",
 		"start": "node main.js"
 	},

@@ -22,7 +22,7 @@ module.exports = {
 	output: {
 		//filename: '[name]_[chunkhash:8].js',
 		filename: '[name].js',
-		path: path.resolve(__dirname, 'build')
+		path: path.resolve('dist')
 	},
 	/*
 	watch: true,
@@ -92,8 +92,8 @@ module.exports = {
 			//"vue-router$": 'vue-router/dist/vue-router.esm.js'
 		},
 		modules: [
-			path.resolve(__dirname, 'src'),
-			path.resolve(__dirname, 'node_modules')
+			path.resolve('src'),
+			path.resolve('node_modules')
 		]
 	},
 	plugins: [
@@ -124,7 +124,8 @@ module.exports = {
 		//new HtmlWebpackInlineSourcePlugin(),
 		new CopyWebpackPlugin([
 			{ from: 'src/favicon_inverted.png', to: 'favicon.png' },
-			{ from: 'src/manifest.json', to: 'manifest.json' }
+			{ from: 'src/manifest.json', to: 'manifest.json' },
+			{ from: 'src/_headers', to: '_headers', toType: 'file'}
 		]),
 		new ExtractTextPlugin({
 			//filename: "[name]_[contenthash:8].css",
