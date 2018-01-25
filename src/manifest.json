@@ -1,0 +1,14 @@
+{
+  "name": "4stats.io",
+  "short_name": "4stats.io",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#2e3440",
+  "theme_color": "#2e3440",
+  "description": "Live statistics and timeline of 4chan boards.",
+  "icons": [{
+    "src": "favicon.png",
+    "sizes": "32x32",
+    "type": "image/png"
+  }]
+}

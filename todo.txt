@@ -4,3 +4,5 @@
   -> make update color an overlay? extra elements
 - 404 threads modify the image of threads in the store, resulting in a mutation error (check on /adv/)
 - on reconnect fetch all boards again
+- add contact link (netlify form)
+- add links to github

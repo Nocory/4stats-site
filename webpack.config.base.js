@@ -99,9 +99,6 @@ module.exports = {
 	plugins: [
 		//new DashboardPlugin(),
 		//new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-		new webpack.ProvidePlugin({
-			axios: 'axios'
-		}),		
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new CleanWebpackPlugin(['dist'], {
 			root: __dirname,
@@ -120,11 +117,15 @@ module.exports = {
 
 		new HtmlWebpackPlugin({
 			//inlineSource: '\.(js|css)$',
-			inlineSource: '.css$',
+			//inlineSource: '.css$',
+			manifest: "manifest.json",
 			template: 'src/index.html'
 		}),
 		//new HtmlWebpackInlineSourcePlugin(),
-		new CopyWebpackPlugin([{ from: 'src/favicon_inverted.png', to: 'favicon.png' }]),
+		new CopyWebpackPlugin([
+			{ from: 'src/favicon_inverted.png', to: 'favicon.png' },
+			{ from: 'src/manifest.json', to: 'manifest.json' }
+		]),
 		new ExtractTextPlugin({
 			//filename: "[name]_[contenthash:8].css",
 			filename: "[name].css",

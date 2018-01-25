@@ -4,7 +4,7 @@ pino.info("NODE_ENV is:", process.env.NODE_ENV)
 
 //import "babel-polyfill"
 
-if(location.hostname === "4statstest.netlify.com"){
+if(location.hostname === "4stats-test.netlify.com"){
 	(function() {
 		var errorBoxElement = false
 		var showError = function(error) {
