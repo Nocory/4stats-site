@@ -3,5 +3,5 @@
   command = "npm run build"
   
 [context.production]
-  NODE_VERSION = 9.4.0
+  NODE_VERSION = 9
   NODE_ENV = "production"
