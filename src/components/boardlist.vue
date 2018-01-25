@@ -16,7 +16,7 @@
           <div @click="sortClicked('imagesPerReply')" class="is-hidden-touch" :class="{'category-active' : sortThreadlistBy == 'imagesPerReply'}"><abbr title="Posts with files attached" style="white-space: nowrap;">Images</abbr></div>
           <div @click="sortClicked('relativeActivity')" :class="{'category-active' : sortThreadlistBy == 'relativeActivity'}"><abbr title="Current posts-per-minute relative to the boards usual top ppm rate" style="white-space: nowrap;">Activity Now</abbr></div>
         </div>
-        <transition-group :name="updateInProgress ? 'delayed' : 'flip-list'" tag="div" class="bl_row-wrapper">
+        <transition-group name="flip-list" tag="div" class="bl_row-wrapper">
           <div v-for="boardName in enabledBoards" v-if="boardData[boardName]"
                :ref="boardName" :key="boardName"
                @click="boardClicked(boardName)" class="bl_row"
@@ -77,17 +77,14 @@ export default {
         &&
         !this.$refs[mutation.payload.board][0].classList.contains("tableHighlight")
 			){
-				//console.log(board, "isreffed")
 				let element = this.$refs[mutation.payload.board][0]
 				element.classList.add("just-updated")
 				this.updateInProgress = true
-				//table.classList.add("delayed-anim")
 				element.addEventListener(
 					"animationend",
 					event => {
 						event.target.classList.remove("just-updated")
 						this.updateInProgress = false
-						//table.classList.remove("delayed-anim")
 					},
 					{
 						once: true,
@@ -162,6 +159,8 @@ export default {
   //border: 1px solid red;
 }
 
+//FIXME: these 2 below
+
 .bl_row>div.board{
   justify-content: flex-start;
   padding: 0 0 0 1em;
@@ -171,6 +170,10 @@ export default {
   text-align: left !important;
   font-weight: bold;
   position: relative;
+}
+
+
+.bl_row-wrapper>.bl_row>div.board{
   &:hover:after{
     content: attr(data-long-board-name);
     white-space: nowrap;
@@ -190,7 +193,6 @@ export default {
 .board-selected>div{
   background: $--colorSelected;
   color: $oc-gray-9;
-  //font-weight: bolder;
   transition: all 0.25s ease-out 0s;
 }
 
@@ -204,7 +206,7 @@ export default {
 }
 
 .flip-list-move {
-  transition: transform 0.5s;
+  transition: transform 0.5s ease-out;
 }
 
 .just-updated {
@@ -212,10 +214,6 @@ export default {
   animation-name: updateAnim;
   animation-timing-function: ease-out;
   z-index: 99;
-}
-
-.delayed-move{
-  transition: transform 1s 0.5s;
 }
 
 @keyframes updateAnim {

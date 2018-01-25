@@ -6,7 +6,6 @@
         <div class="site-description is-hidden-mobile">Currently {{ getTotalPPM.toFixed(2) }} posts/minute across all boards</div>
       </div>
       <div class="spacer"/>
-      <span class="oaf-arrow">&#10140;</span>
       <button v-show="!showConfig" class="config-button" @click="$store.commit('toggleShowConfig')">
         <span class="icon">
           <i class="fa fa-cog"/>
@@ -82,13 +81,6 @@ export default {
 
 .spacer{
 	flex-grow: 1;
-}
-
-.oaf-arrow{
-	padding: 0 1rem;
-	font-size: 1.5rem;
-	font-weight: lighter;
-	color: $oc-gray-0;
 }
 
 .config-button{
