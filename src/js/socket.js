@@ -4,7 +4,7 @@ const pino = require("./pino")
 
 pino.info("Initiating socket.io connection with hostURL: ", config.url)
 let socket = socketIO(config.url,{
-	transports: ['websocket']
+	//transports: ['websocket']
 })
 
 let enforcedClientVersion = null
