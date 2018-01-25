@@ -23,7 +23,7 @@ const store = new Vuex.Store({
 	state: {
 		showConfig: false,
 		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || config.allBoards,
-		selectedBoard: localStorage.getItem("selectedBoard") || "g",
+		selectedBoard: localStorage.getItem("selectedBoard") || config.safeInitialBoard[Math.floor(Math.random() * config.safeInitialBoard.length)],
 		boardData: {} || config.allBoards.reduce((obj,key) => ({...obj, [key]: {
 			postsPerMinute: 0,
 			threadsPerHour: 0,

@@ -9,6 +9,7 @@ let config = {
 	debugLevelProduction: "info",
 	debugLevelDevelopment: "trace",
 	url: "https://api.4stats.io",
+	safeInitialBoard : ["3","a","an","ck","diy","g","gd","his","lit","n","news","o","out","p","po","sci","tg","trv","vr","wg"],
 	availableBoards : {
 		standard: [
 			'3',
