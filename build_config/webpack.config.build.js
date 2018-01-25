@@ -16,7 +16,7 @@ module.exports = {
 	plugins: [
 		new PurifyCSSPlugin({
 			styleExtensions: [".css", ".sass", ".scss"],
-			paths: glob.sync(path.join(__dirname, '/src/{*.html,components/*.vue,js/**/*.vue}')),
+			paths: glob.sync(path.join('src/{*.html,components/*.vue,js/**/*.vue}')),
 			//paths: glob.sync(path.join(__dirname, '/build/*.js')),
 			verbose: true,
 			purifyOptions: {
