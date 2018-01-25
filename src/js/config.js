@@ -10,7 +10,7 @@ let config = {
 	debugLevelDevelopment: "trace",
 	url: "https://api.4stats.io",
 	availableBoards : {
-		default: [
+		standard: [
 			'3',
 			'a',
 			'adv',
@@ -165,6 +165,6 @@ let config = {
 		y: 'Yaoi' }
 }
 
-config.allBoards = [...config.availableBoards.default,...config.availableBoards.imageGenerals,...config.availableBoards.misc,...config.availableBoards.nsfw].sort()
+config.allBoards = [...config.availableBoards.standard,...config.availableBoards.imageGenerals,...config.availableBoards.misc,...config.availableBoards.nsfw].sort()
 
 module.exports = config

@@ -4,6 +4,7 @@ import Vue from "vue/dist/vue.runtime.esm.js"
 import Vuex from "vuex"
 Vue.use(Vuex)
 
+const axios = require("axios")
 const socket = require("../js/socket.js")
 const config = require("../js/config")
 
@@ -21,14 +22,15 @@ const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	state: {
 		showConfig: false,
-		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || [...config.availableBoards.default,...config.availableBoards.imageGenerals,...config.availableBoards.misc,...config.availableBoards.nsfw],
+		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || config.allBoards,
 		selectedBoard: localStorage.getItem("selectedBoard") || "g",
-		boardData: config.allBoards.reduce((obj,key) => ({...obj, [key]: {
-			postsPerMinute: -1,
-			threadsPerHour: -1,
-			avgPostsPerDay: -1,
-			topPPM: -1,
-			relativeActivity: -1
+		boardData: {} || config.allBoards.reduce((obj,key) => ({...obj, [key]: {
+			postsPerMinute: 0,
+			threadsPerHour: 0,
+			avgPostsPerDay: 0,
+			topPPM: 0,
+			imagesPerReply: 0,
+			relativeActivity: 0
 		}}),{}), //technology
 		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{}), //technology
 		sortThreadlistBy: localStorage.getItem("sortThreadlistBy") || "avgPostsPerDay",
@@ -93,6 +95,7 @@ const store = new Vuex.Store({
 			localStorage.setItem("selectedBoard",payload)
 		},
 		sortBoardList(state,payload){
+			if(!Object.keys(state.boardData).length) return
 			if(payload){
 				state.isThreadlistReversed = state.sortThreadlistBy == payload ? !state.isThreadlistReversed : false
 				state.sortThreadlistBy = payload

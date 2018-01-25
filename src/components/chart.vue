@@ -50,6 +50,7 @@
 </template>
 
 <script>
+const axios = require("axios")
 const pino = require("../js/pino")
 const config = require("../js/config")
 const socket = require("../js/socket")
