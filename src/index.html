@@ -3,27 +3,33 @@
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="referrer" content="never">
-	<title>4stats.io - live board statistics</title>
-	<meta name="description" content="Live statistics and timeline of 4chan boards.">
-	<meta name="google-site-verification" content="TILzvemVwW4O3wsWegRpNk1XByhw5JbCoTG9znFlBnc">
-	<meta name="google-site-verification" content="Id130RlSmX6YVBPjxXL_UlxYjK9C3nrFOG043ZUouuc" /> <!--4stats-test-->
-	<link rel="shortcut icon" href="favicon.png">
-	<link rel="manifest" href="manifest.json">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="referrer" content="never" />
+
+	<title>4stats.io - live 4chan board & thread statistics</title>
+	<meta name="description" content="This site provides continuously updating statistics on 4chan boards & threads and also keeps a record of past board activity." />
+
+	<meta name="google-site-verification" content="TILzvemVwW4O3wsWegRpNk1XByhw5JbCoTG9znFlBnc" /> <!--https://4stats.io-->
+	<meta name="google-site-verification" content="Id130RlSmX6YVBPjxXL_UlxYjK9C3nrFOG043ZUouuc" /> <!--https://4stats-test.netlify.com-->
+	<meta name="robots" content="noarchive" />
+	<meta name="google" content="notranslate" />
+
+	<link rel="shortcut icon" href="favicon.png" />
+	<link rel="manifest" href="manifest.json" />
 </head>
 
 <body>
 	<div id="app">
+		<noscript>
+				<div class="section container">
+						Will see if I can also come up with a sensible non-JS version in a while.<br>
+						Currently board updates are streamed in via a socket-connection and threads + timeline are requested with AJAX and then rendered with Vue.js<br>
+						I can try and render a basic version server-side, though it couldn't make use of preferences saved in local storage regarding board-selection and sorting-parameters.
+				</div>
+				<!--<meta http-equiv="refresh" content="0;url=http://noscript.4stats.io">-->
+			</noscript>
 	</div>
-	<noscript>
-		<div class="section container">
-				Will see if I can also come up with a sensible non-JS version in a while.<br>
-				Currently board updates are streamed in via a socket-connection and threads + timeline are requested with AJAX and then rendered with Vue.js<br>
-				I can try and render a basic version server-side, though it couldn't make use of preferences saved in local storage regarding board-selection and sorting-parameters.
-		</div>
-		<!--<meta http-equiv="refresh" content="0;url=http://noscript.4stats.io">-->
-	</noscript>
+
 	<!--
 	<form name="feedback" netlify hidden netlify-honeypot="dont">
 		<input type="text" name="dont">
