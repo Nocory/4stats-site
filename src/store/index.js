@@ -24,7 +24,7 @@ const store = new Vuex.Store({
 		showConfig: false,
 		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || config.allBoards,
 		selectedBoard: localStorage.getItem("selectedBoard") || config.safeInitialBoard[Math.floor(Math.random() * config.safeInitialBoard.length)],
-		boardData: {} || config.allBoards.reduce((obj,key) => ({...obj, [key]: {
+		boardData: config.allBoards.reduce((obj,key) => ({...obj, [key]: {
 			postsPerMinute: 0,
 			threadsPerHour: 0,
 			avgPostsPerDay: 0,
@@ -96,9 +96,9 @@ const store = new Vuex.Store({
 		},
 		sortBoardList(state,payload){
 			if(!Object.keys(state.boardData).length) return
-			if(payload == state.sortThreadlistBy) return state.enabledBoards.reverse()
-
+			
 			if(payload){
+				state.isThreadlistReversed = payload == state.sortThreadlistBy ? !state.isThreadlistReversed : false
 				state.sortThreadlistBy = payload
 				localStorage.setItem("sortThreadlistBy",payload)
 			}
@@ -113,6 +113,8 @@ const store = new Vuex.Store({
 					return state.boardData[b][state.sortThreadlistBy] - state.boardData[a][state.sortThreadlistBy] + (a>b?0.0001:-0.0001)
 				})
 			}
+			
+			if(state.isThreadlistReversed) state.enabledBoards.reverse()
 		}
 	},
 	actions: {

@@ -5,7 +5,7 @@
     </h4>
     
     <div class="boardlist-wrapper">
-      <div class="boardlist-header board_row">
+      <div class="boardlist-header board-row">
         <div @click="sortClicked('name')" class="board-name" :class="{'category-selected' : sortThreadlistBy == 'name'}">
           <span>Board</span>
         </div>
@@ -17,12 +17,12 @@
       </div>
       <transition-group name="flip-list" class="boardlist-rows">
         <div
-          v-for="boardName in enabledBoards" v-if="boardData[boardName]"
+          v-for="boardName in enabledBoards"
           :ref="boardName" :key="boardName"
-          @click="boardClicked(boardName)" class="board_row"
+          @click="boardClicked(boardName)" class="board-row"
           :class="{'board-selected' : (selectedBoard == boardName)}"
         >
-          <div :data-long-board-name="boardNames[boardName]" class="board-name">/{{ boardName }}/</div>
+          <div :data-long-board-name="longBoardNames[boardName]" class="board-name">/{{ boardName }}/</div>
           <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
           <div class="is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
           <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
@@ -38,8 +38,7 @@
 import { mapState } from 'vuex'
 export default {
 	data: () => ({
-		boardNames : require('../js/config').boardNames,
-		isThreadlistReversed: false
+		longBoardNames : require('../js/config').boardNames
 	}),
 	computed: mapState([
 		"boardData",
@@ -56,6 +55,7 @@ export default {
 		}
 	},
 	mounted() {
+		console.log("this.boardData",this.boardData)
 		//let table = document.querySelector(".boards-wrapper>tbody")
 		//console.log(table)
 		this.$store.subscribe(mutation => {
@@ -99,7 +99,7 @@ export default {
 }
 
 // boardlist-header & boardlist-rows
-.board_row{
+.board-row{
   display: flex;
   &>div{
     flex: 2 1 0;
