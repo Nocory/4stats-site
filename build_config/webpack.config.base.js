@@ -109,12 +109,6 @@ module.exports = {
 
 		new webpack.EnvironmentPlugin(['NODE_ENV']),
 
-		new webpack.optimize.CommonsChunkPlugin({
-			minChunks: 99,
-			children: true,
-			async: true
-		}),
-
 		new HtmlWebpackPlugin({
 			//inlineSource: '\.(js|css)$',
 			//inlineSource: '.css$',

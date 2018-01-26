@@ -1,7 +1,8 @@
 const webpack = require("webpack")
 
 const PurifyCSSPlugin = require('purifycss-webpack')
-const MinifyPlugin = require("babel-minify-webpack-plugin")
+//const MinifyPlugin = require("babel-minify-webpack-plugin")
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const path = require('path')
@@ -24,7 +25,11 @@ module.exports = {
 			}
 		}),
 		new OptimizeCssAssetsPlugin(),
-		new MinifyPlugin(),
+		new UglifyJsPlugin({
+			cache: true,
+			parallel: 4
+		}),
+		//new MinifyPlugin(),
 		/*
 		new PrerenderSpaPlugin(
 			// Absolute path to compiled SPA

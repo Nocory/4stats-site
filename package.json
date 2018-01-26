@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "NODE_ENV=development webpack --config build_config/webpack.config.js --color --hide-modules",
 		"build": "NODE_ENV=production webpack --config build_config/webpack.config.js --color --hide-modules --display-optimization-bailout",
-		"dev-server": "NODE_ENV=development webpack-dev-server --compress --color",
+		"dev-server": "NODE_ENV=development webpack-dev-server --config build_config/webpack.config.js --compress --color",
 		"start": "node main.js"
 	},
 	"author": "",
@@ -49,6 +49,7 @@
 		"purifycss-webpack": "latest",
 		"sass-loader": "latest",
 		"style-loader": "latest",
+		"uglifyjs-webpack-plugin": "^1.1.6",
 		"url-loader": "latest",
 		"vue-loader": "latest",
 		"vue-template-compiler": "latest",
