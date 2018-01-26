@@ -22,8 +22,7 @@
 				not reccommended on mobile
 			</button>
 		</div>
-
-		<!--<component-feedback></component-feedback>-->
+		
 		<component-footer></component-footer>
 	</div>
 </template>
@@ -49,7 +48,6 @@ export default {
 		//componentChart: require("./chart.vue").default,
 		componentChart: () => import('./chart.vue'), // lazy loading for relevant screen-width
 		componentFooter: require("./footer.vue").default,
-		componentFeedback: require("./feedback.vue").default,
 		componentConfig: require("./config.vue").default
 	},
 	mounted(){
