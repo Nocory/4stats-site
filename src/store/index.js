@@ -96,12 +96,12 @@ const store = new Vuex.Store({
 		},
 		sortBoardList(state,payload){
 			if(!Object.keys(state.boardData).length) return
+			if(payload == state.sortThreadlistBy) return state.enabledBoards.reverse()
+
 			if(payload){
-				state.isThreadlistReversed = state.sortThreadlistBy == payload ? !state.isThreadlistReversed : false
 				state.sortThreadlistBy = payload
 				localStorage.setItem("sortThreadlistBy",payload)
 			}
-			
 			if(state.sortThreadlistBy == "name"){
 				state.enabledBoards.sort((a, b) => {
 					if (a < b) return -1
@@ -112,10 +112,6 @@ const store = new Vuex.Store({
 				state.enabledBoards.sort((a, b) => {
 					return state.boardData[b][state.sortThreadlistBy] - state.boardData[a][state.sortThreadlistBy] + (a>b?0.0001:-0.0001)
 				})
-			}
-
-			if(state.isThreadlistReversed){
-				state.enabledBoards.reverse()
 			}
 		}
 	},
