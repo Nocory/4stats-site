@@ -28,7 +28,7 @@ export default {
 		showFeedbackForm : false
 	}),
 	components: {
-		componentFeedback: require('./feedback.vue')
+		componentFeedback: require('./feedback.vue').default
 	}
 }
 </script>
