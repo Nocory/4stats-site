@@ -4,7 +4,7 @@
 		<component-config v-if="showConfig"></component-config>
 		<div class="main">
 			<h6 class="connected is-hidden-mobile">
-				just updated: /{{recentBoard}}/<br>
+				just updated: /{{recentlyUpdatedBoard}}/<br>
 				users on site: {{connectedUsers}}
 			</h6>
 			<div class="container is-fullhd">
@@ -36,7 +36,7 @@ export default {
 		showDebugInfo: localStorage.getItem("showDebugInfo") || "",
 		forceChart: false,
 		renderChart: window.innerWidth >= 1216, // the bulma breakpoint for desktops
-		recentBoard: "",
+		recentlyUpdatedBoard: "",
 		connectedUsers: 0
 	}),
 	computed: mapState([
@@ -60,7 +60,7 @@ export default {
 			this.connectedUsers = userCount
 		})
 		socket.on("boardUpdate",board => {
-			this.recentBoard = board
+			this.recentlyUpdatedBoard = board
 		})
 	}
 }
@@ -74,8 +74,6 @@ export default {
   position: relative;
   min-height: 100vh;
 	background: $nord0;
-	//background: $oc-gray-8;
-	//font-family: "Ubuntu Mono";
 	font-family: monospace;
 }
 
@@ -110,7 +108,6 @@ export default {
 		margin: 0;
 	}
 	@include desktop{
-		//padding-top: 2rem;
 		margin: 0 -0.5rem;
 	}
 }

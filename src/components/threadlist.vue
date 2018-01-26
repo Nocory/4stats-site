@@ -28,7 +28,7 @@ export default {
 	data(){
 		return{
 			listHeight: 0,
-			threadsToShow: 2,
+			threadsToShow: 8,
 		}
 	},
 	computed: {
