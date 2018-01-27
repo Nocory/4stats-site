@@ -21,7 +21,6 @@ const adjustPostcountIfNoDubs = (board,data)=>{
 const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	state: {
-		showConfig: false,
 		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || config.allBoards,
 		selectedBoard: localStorage.getItem("selectedBoard") || config.safeInitialBoard[Math.floor(Math.random() * config.safeInitialBoard.length)],
 		boardData: config.allBoards.reduce((obj,key) => ({...obj, [key]: {
@@ -54,9 +53,6 @@ const store = new Vuex.Store({
 		}
 	},
 	mutations: {
-		toggleShowConfig(state){
-			state.showConfig = !state.showConfig
-		},
 		setEnabledBoards(state, payload) {
 			state.enabledBoards = payload
 			localStorage.setItem("enabledBoards",JSON.stringify(payload))

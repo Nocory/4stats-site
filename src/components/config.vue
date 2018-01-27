@@ -6,8 +6,8 @@
         <div class="delete-button">x</div>
         <div class="container">
           <div class="toggle-all columns is-multiline is-mobile individual-boards">
-            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('standard')">
-              <div class="board" :class="{enabled : (availableBoards['standard'].every((el) => tempEnabledBoards.includes(el)))}">Standard</div>
+            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('main')">
+              <div class="board" :class="{enabled : (availableBoards['main'].every((el) => tempEnabledBoards.includes(el)))}">Main</div>
             </div>
             <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('imageGenerals')">
               <div class="board" :class="{enabled : (availableBoards['imageGenerals'].every((el) => tempEnabledBoards.includes(el)))}">Image Generals</div>
@@ -30,9 +30,9 @@
           <div class="board-buttons columns is-multiline">
 
             <div class="column is-6">
-              <div class="title is-6">Standard Boards</div>
+              <div class="title is-6">Main</div>
               <div class="columns is-multiline is-mobile individual-boards">
-                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.standard" :key="board" @click.stop="toggleBoard(board)">
+                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.main" :key="board" @click.stop="toggleBoard(board)">
                   <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
                     /{{ board }}/
                   </div>
@@ -109,7 +109,7 @@ export default {
 			}
 		},
 		toggleConfig(){
-			this.$store.commit("toggleShowConfig")
+			this.$emit('update:showConfig', false)
 			this.$store.commit("setEnabledBoards",this.tempEnabledBoards.slice())
 			this.$store.commit("sortBoardList")
 		},

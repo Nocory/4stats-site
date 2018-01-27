@@ -11,7 +11,7 @@ let config = {
 	url: "https://api.4stats.io",
 	safeInitialBoard : ["3","a","an","ck","diy","g","gd","his","lit","n","news","o","out","p","po","sci","tg","trv","vr","wg"],
 	availableBoards : {
-		standard: [
+		main: [
 			'3',
 			'a',
 			'adv',
@@ -166,6 +166,6 @@ let config = {
 		y: 'Yaoi' }
 }
 
-config.allBoards = [...config.availableBoards.standard,...config.availableBoards.imageGenerals,...config.availableBoards.misc,...config.availableBoards.nsfw].sort()
+config.allBoards = [...config.availableBoards.main,...config.availableBoards.imageGenerals,...config.availableBoards.misc,...config.availableBoards.nsfw].sort()
 
 module.exports = config

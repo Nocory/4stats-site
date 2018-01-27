@@ -1,7 +1,6 @@
 <template>
 	<div id="app">
 		<component-nav></component-nav>
-		<component-config v-if="showConfig"></component-config>
 		<div class="main">
 			<h6 class="connected is-hidden-mobile">
 				just updated: /{{recentlyUpdatedBoard}}/<br>
