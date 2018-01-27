@@ -166,6 +166,6 @@ let config = {
 		y: 'Yaoi' }
 }
 
-config.allBoards = [...config.availableBoards.main,...config.availableBoards.imageGenerals,...config.availableBoards.misc,...config.availableBoards.nsfw].sort()
+config.allBoards = Object.keys(config.availableBoards).reduce((acc,key) => [...acc,...config.availableBoards[key]],[])
 
 module.exports = config
