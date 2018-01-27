@@ -111,7 +111,6 @@ export default {
 		toggleConfig(){
 			this.$emit('update:showConfig', false)
 			this.$store.commit("setEnabledBoards",this.tempEnabledBoards.slice())
-			this.$store.commit("sortBoardList")
 		},
 		toggleBoard(board){
 			pino.debug("config.vue toggleBoard checking for",board)
