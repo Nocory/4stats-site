@@ -1,7 +1,6 @@
 <template>
 	<div id="app">
 		<component-nav></component-nav>
-		<component-config v-if="showConfig"></component-config>
 		<div class="main">
 			<h6 class="connected is-hidden-mobile">
 				just updated: /{{recentlyUpdatedBoard}}/<br>
@@ -68,6 +67,7 @@ export default {
 @import "~css/variables.scss";
 
 #app {
+	overflow: hidden;
   z-index: 0;
   position: relative;
   min-height: 100vh;

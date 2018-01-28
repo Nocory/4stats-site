@@ -1,12 +1,13 @@
 <template>
   <div class="component">
+    <component-config v-if="showConfig" :show-config.sync="showConfig"/>
     <div class="container">
       <div class="title-and-description">
         <div class="site-title">{{ url }}</div>
         <div class="site-description is-hidden-mobile">Currently {{ getTotalPPM.toFixed(2) }} posts/minute across all boards</div>
       </div>
       <div class="spacer"/>
-      <button v-show="!showConfig" class="config-button" @click="$store.commit('toggleShowConfig')">
+      <button class="config-button" @click="showConfig = true">
         <span class="icon">
           <i class="fa fa-cog"/>
         </span>
@@ -19,20 +20,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
-		url: location.hostname
+		url: location.hostname,
+		showConfig: false
 	}),
 	computed: {
-		...mapState([
-			'showConfig'
-		]),
 		...mapGetters([
 			'getTotalPPM'
 		])
 	},
+	components:{
+		componentConfig: require("./config.vue").default
+	}
 }
 </script>
 

@@ -21,7 +21,6 @@ const adjustPostcountIfNoDubs = (board,data)=>{
 const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	state: {
-		showConfig: false,
 		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || config.allBoards,
 		selectedBoard: localStorage.getItem("selectedBoard") || config.safeInitialBoard[Math.floor(Math.random() * config.safeInitialBoard.length)],
 		boardData: config.allBoards.reduce((obj,key) => ({...obj, [key]: {
@@ -32,9 +31,7 @@ const store = new Vuex.Store({
 			imagesPerReply: 0,
 			relativeActivity: 0
 		}}),{}), //technology
-		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{}), //technology
-		sortThreadlistBy: localStorage.getItem("sortThreadlistBy") || "avgPostsPerDay",
-		isThreadlistReversed: false,
+		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{})
 	},
 	getters: {
 		getThreadList: (state, getters) => len => {
@@ -54,9 +51,6 @@ const store = new Vuex.Store({
 		}
 	},
 	mutations: {
-		toggleShowConfig(state){
-			state.showConfig = !state.showConfig
-		},
 		setEnabledBoards(state, payload) {
 			state.enabledBoards = payload
 			localStorage.setItem("enabledBoards",JSON.stringify(payload))
@@ -93,28 +87,6 @@ const store = new Vuex.Store({
 		boardClicked(state, payload) {
 			state.selectedBoard = payload
 			localStorage.setItem("selectedBoard",payload)
-		},
-		sortBoardList(state,payload){
-			if(!Object.keys(state.boardData).length) return
-			
-			if(payload){
-				state.isThreadlistReversed = payload == state.sortThreadlistBy ? !state.isThreadlistReversed : false
-				state.sortThreadlistBy = payload
-				localStorage.setItem("sortThreadlistBy",payload)
-			}
-			if(state.sortThreadlistBy == "name"){
-				state.enabledBoards.sort((a, b) => {
-					if (a < b) return -1
-					if (a > b) return 1
-					return 0
-				})
-			}else{
-				state.enabledBoards.sort((a, b) => {
-					return state.boardData[b][state.sortThreadlistBy] - state.boardData[a][state.sortThreadlistBy] + (a>b?0.0001:-0.0001)
-				})
-			}
-			
-			if(state.isThreadlistReversed) state.enabledBoards.reverse()
 		}
 	},
 	actions: {
@@ -158,7 +130,6 @@ socket.on("reconnect",() => {
 socket.on("allBoardStats",allBoardStats => {
 	pino.info("Received allBoardStats from API")
 	store.commit("setInitialData",allBoardStats)
-	store.commit("sortBoardList")
 })
 
 socket.on("boardUpdate",(board,data) => {
@@ -166,10 +137,6 @@ socket.on("boardUpdate",(board,data) => {
 		board,
 		data
 	})
-
-	if(store.state.sortThreadlistBy != "name"){
-		store.commit("sortBoardList")
-	}
 
 	if(store.state.selectedBoard == board){
 		setTimeout(store.dispatch,Math.random() * 2000,"getActiveThreads",board) //stagger automatic thread requests coming from different clients
@@ -180,10 +147,5 @@ socket.on("boardUpdate",(board,data) => {
 		})
 	}
 })
-
-//socket.emit("initialDataRequest",store.state.selectedBoard)
-//console.log("socket: sending 'initialDataRequest'")
-//socket.emit("initialDataRequest")
-
 
 export default store

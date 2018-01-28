@@ -2,7 +2,4 @@
 - Change breakpoints so tablets can view more information
 - Boardlist update color should not overwrite gray color of lines
   -> make update color an overlay? extra elements
-- 404 threads modify the image of threads in the store, resulting in a mutation error (check on /adv/)
-- on reconnect fetch all boards again
-- add contact link (netlify form)
-- add links to github
+- 404 threads modify the image of threads in the store, resulting in a mutation error (check on /adv/) (removed 'strict' rule for now)

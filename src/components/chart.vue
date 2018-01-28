@@ -2,7 +2,7 @@
   <div class="component">
     <h4 class="title is-size-4 headline">Board Timeline</h4>
 
-    <div class="has-text-left property-title">{{ chartOptions.term === "day" ? "Charting posts/day" : "Charting posts/minute" }}</div>
+    <div class="has-text-left property-title">Charting {{ chartOptions.term === "day" ? "posts/day" : chartOptions.hourProperty === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
 
     <div class="property-button-wrapper">
       <div class="property-button-group">

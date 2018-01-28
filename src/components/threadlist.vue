@@ -1,5 +1,5 @@
 <template>
-  <div class="component">
+  <div class="threadlist-component">
     <div class="box-shadow-wrapper">
       <h4 class="title is-size-4 headline">Active threads on /{{ selectedBoard }}/</h4>
       <div class="threads-wrapper" v-if="selectedBoard">
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+const pino = require("../js/pino")
 import { mapState } from 'vuex'
 export default {
 	data(){
@@ -51,6 +52,24 @@ export default {
 					threadsWrapper.style.minHeight = this.listHeight + "px"
 				})
 			},500)
+		},
+		revealThreadSideBar(doScrollToTop){
+			pino.debug("revealThreadSideBar")
+			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
+			if(doScrollToTop){
+				document.querySelector("#app").scrollIntoView({
+					behavior: "smooth",
+					block: "start"
+				})
+			}
+		},
+		closeThreadSideBar(){
+			pino.debug("closeThreadSideBar")
+			document.querySelector(".threadlist-component").classList.remove("thread-sidebar-revealed")
+		},
+		handleSwipe(direction){
+			if(direction == "right") this.closeThreadSideBar()
+			if(direction == "left") this.revealThreadSideBar(false)
 		}
 	},
 	mounted(){
@@ -60,12 +79,68 @@ export default {
 				this.setListHeight()
 			}
 		})
+    
+		this.$store.subscribe(mutation => {
+			if(mutation.type == "boardClicked"){
+				this.revealThreadSideBar(true)
+			}
+		})
+		//document.addEventListener("touchstart", console.log, false)
+		//document.addEventListener("touchend", console.log, false)
+    
+		const detectSwipe = require("../js/detectSwipe")
+		detectSwipe(document,this.handleSwipe)
 	}
 }
 </script>
 
 <style scoped lang="scss">
 @import "~css/variables.scss";
+
+@include mobile{
+  .threadlist-component{
+    .title{
+      position: relative;
+      z-index: 4;
+      background: $nord0;
+    }
+    z-index: 200;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(calc(100% + 24px));
+    transition: transform 0.5s ease-in-out;
+    &.thread-sidebar-revealed{
+      transform: translateX(0%);
+      &::after{
+        border-radius: 4px;
+        padding: 0.25rem 1rem;
+        background: #333;
+        color: #f1f1f1;
+        opacity: 0;
+        content: "Swipe again to close";
+        margin: 0 auto;
+        position: absolute;
+        bottom: 16px;
+        left: 0px;
+        animation-duration: 3s;
+        animation-name: swipeHint;
+        animation-timing-function: ease-in-out;
+        z-index: 201;
+      }
+    }
+    .box-shadow-wrapper{
+      border-left: 12px solid transparent;
+    }
+    .threads-wrapper{
+      background: $oc-gray-0;
+      position :relative;
+      z-index: 5;
+      box-shadow: -8px 0px 20px -4px rgba(0, 0, 0, 0.75);
+    }
+  }
+}
 
 .box-shadow-wrapper{
   //box-shadow: 0px 8px 24px -4px rgba(0, 0, 0, 0.75);
@@ -138,5 +213,21 @@ img {
 .thread-comment {
   padding: 0.25rem;
   font-size: 0.75rem;
+}
+
+@keyframes swipeHint {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 </style>
