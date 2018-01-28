@@ -167,5 +167,6 @@ let config = {
 }
 
 config.allBoards = Object.keys(config.availableBoards).reduce((acc,key) => [...acc,...config.availableBoards[key]],[])
+config.allBoards.sort()
 
 module.exports = config
