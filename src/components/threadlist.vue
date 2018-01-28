@@ -104,9 +104,8 @@ export default {
     top: 0;
     right: 0;
     transform: translateX(calc(100% + 24px));
-    transition: transform 0.33s ease-in-out;
+    transition: transform 0.5s ease-in-out;
     &.thread-sidebar-revealed{
-    transition: transform 1s ease-in-out;
       transform: translateX(0%);
       &::after{
         border-radius: 4px;
@@ -132,7 +131,7 @@ export default {
       background: $oc-gray-0;
       position :relative;
       z-index: 5;
-      box-shadow: -4px 0px 24px 4px rgba(0, 0, 0, 0.75);
+      box-shadow: -8px 0px 20px -4px rgba(0, 0, 0, 0.75);
     }
   }
 }
