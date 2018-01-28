@@ -93,16 +93,46 @@ export default {
 
 @include mobile{
   .threadlist-component{
-    background: $nord0;
+    .title{
+      position: relative;
+      z-index: 4;
+      background: $nord0;
+    }
+    z-index: 200;
     width: 100%;
-    z-index: 9000;
     position: absolute;
     top: 0;
     right: 0;
-    transform: translateX(100%);
-    transition: transform 0.5s;
+    transform: translateX(calc(100% + 24px));
+    transition: transform 0.33s ease-in-out;
     &.thread-sidebar-revealed{
+    transition: transform 1s ease-in-out;
       transform: translateX(0%);
+      &::after{
+        border-radius: 4px;
+        padding: 0.25rem 1rem;
+        background: #333;
+        color: #f1f1f1;
+        opacity: 0;
+        content: "Swipe again to close";
+        margin: 0 auto;
+        position: absolute;
+        bottom: 16px;
+        left: 0px;
+        animation-duration: 3s;
+        animation-name: swipeHint;
+        animation-timing-function: ease-in-out;
+        z-index: 201;
+      }
+    }
+    .box-shadow-wrapper{
+      border-left: 12px solid transparent;
+    }
+    .threads-wrapper{
+      background: $oc-gray-0;
+      position :relative;
+      z-index: 5;
+      box-shadow: -4px 0px 24px 4px rgba(0, 0, 0, 0.75);
     }
   }
 }
@@ -178,5 +208,21 @@ img {
 .thread-comment {
   padding: 0.25rem;
   font-size: 0.75rem;
+}
+
+@keyframes swipeHint {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 </style>
