@@ -1,5 +1,5 @@
 <template>
-  <div class="component">
+  <div class="threadlist-component">
     <div class="box-shadow-wrapper">
       <h4 class="title is-size-4 headline">Active threads on /{{ selectedBoard }}/</h4>
       <div class="threads-wrapper" v-if="selectedBoard">
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+const pino = require("../js/pino")
 import { mapState } from 'vuex'
 export default {
 	data(){
@@ -51,6 +52,18 @@ export default {
 					threadsWrapper.style.minHeight = this.listHeight + "px"
 				})
 			},500)
+		},
+		revealThreadSideBar(){
+			pino.debug("revealThreadSideBar")
+			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
+		},
+		closeThreadSideBar(){
+			pino.debug("closeThreadSideBar")
+			document.querySelector(".threadlist-component").classList.remove("thread-sidebar-revealed")
+		},
+		handleSwipe(direction){
+			if(direction == "right") this.closeThreadSideBar()
+			if(direction == "left") this.revealThreadSideBar()
 		}
 	},
 	mounted(){
@@ -60,12 +73,39 @@ export default {
 				this.setListHeight()
 			}
 		})
+    
+		this.$store.subscribe(mutation => {
+			if(mutation.type == "boardClicked"){
+				this.revealThreadSideBar()
+			}
+		})
+		//document.addEventListener("touchstart", console.log, false)
+		//document.addEventListener("touchend", console.log, false)
+    
+		const detectSwipe = require("../js/detectSwipe")
+		detectSwipe(document,this.handleSwipe)
 	}
 }
 </script>
 
 <style scoped lang="scss">
 @import "~css/variables.scss";
+
+@include mobile{
+  .threadlist-component{
+    background: $nord0;
+    width: 100%;
+    z-index: 9000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    transition: transform 0.5s;
+    &.thread-sidebar-revealed{
+      transform: translateX(0%);
+    }
+  }
+}
 
 .box-shadow-wrapper{
   //box-shadow: 0px 8px 24px -4px rgba(0, 0, 0, 0.75);

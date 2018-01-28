@@ -67,6 +67,7 @@ export default {
 @import "~css/variables.scss";
 
 #app {
+	overflow: hidden;
   z-index: 0;
   position: relative;
   min-height: 100vh;
