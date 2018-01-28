@@ -53,13 +53,15 @@ export default {
 				})
 			},500)
 		},
-		revealThreadSideBar(){
+		revealThreadSideBar(doScrollToTop){
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
-			document.querySelector("#app").scrollIntoView({
-				behavior: "smooth",
-				block: "start"
-			})
+			if(doScrollToTop){
+				document.querySelector("#app").scrollIntoView({
+					behavior: "smooth",
+					block: "start"
+				})
+			}
 		},
 		closeThreadSideBar(){
 			pino.debug("closeThreadSideBar")
@@ -67,7 +69,7 @@ export default {
 		},
 		handleSwipe(direction){
 			if(direction == "right") this.closeThreadSideBar()
-			if(direction == "left") this.revealThreadSideBar()
+			if(direction == "left") this.revealThreadSideBar(false)
 		}
 	},
 	mounted(){
@@ -80,7 +82,7 @@ export default {
     
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "boardClicked"){
-				this.revealThreadSideBar()
+				this.revealThreadSideBar(true)
 			}
 		})
 		//document.addEventListener("touchstart", console.log, false)
