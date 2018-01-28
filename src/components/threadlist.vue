@@ -56,6 +56,10 @@ export default {
 		revealThreadSideBar(){
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
+			document.querySelector("#app").scrollIntoView({
+				behavior: "smooth",
+				block: "start"
+			})
 		},
 		closeThreadSideBar(){
 			pino.debug("closeThreadSideBar")
