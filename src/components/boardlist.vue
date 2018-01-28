@@ -5,30 +5,27 @@
     </h4>
     
     <div class="boardlist-wrapper">
-      <div class="boardlist-header board-row">
-        <div @click="categoryClicked('name')" class="board-name" :class="{'category-selected' : sortBoardListBy == 'name'}">
-          <span>Board</span>
-        </div>
-        <div @click="categoryClicked('postsPerMinute')" :class="{'category-selected' : sortBoardListBy == 'postsPerMinute'}"><abbr title="Over the last hour">Posts/min</abbr></div>
-        <div @click="categoryClicked('threadsPerHour')" class="is-hidden-touch" :class="{'category-selected' : sortBoardListBy == 'threadsPerHour'}"><abbr title="Over the last hour">Threads/hour</abbr></div>
-        <div @click="categoryClicked('avgPostsPerDay')" :class="{'category-selected' : sortBoardListBy == 'avgPostsPerDay'}"><abbr title="Over the last 4 weeks. Weighted towards more recent weeks.">Avg.Posts/day</abbr></div>
-        <div @click="categoryClicked('imagesPerReply')" class="is-hidden-touch" :class="{'category-selected' : sortBoardListBy == 'imagesPerReply'}"><abbr title="Posts with files attached" style="white-space: nowrap;">Images</abbr></div>
-        <div @click="categoryClicked('relativeActivity')" :class="{'category-selected' : sortBoardListBy == 'relativeActivity'}"><abbr title="Current posts-per-minute relative to the boards usual top ppm rate" style="white-space: nowrap;">Activity Now</abbr></div>
+      <div class="boardlist-header board-data-wrapper">
+        <div @click.stop="categoryClicked('name')" class="board-data board-name" :class="{'category-selected' : sortBoardListBy == 'name'}">Board</div>
+        <div @click.stop="categoryClicked('postsPerMinute')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'postsPerMinute'}"><abbr title="Over the last hour">Posts/min</abbr></div>
+        <div @click.stop="categoryClicked('threadsPerHour')" class="board-data is-hidden-touch" :class="{'category-selected' : sortBoardListBy == 'threadsPerHour'}"><abbr title="Over the last hour">Threads/hour</abbr></div>
+        <div @click.stop="categoryClicked('avgPostsPerDay')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'avgPostsPerDay'}"><abbr title="Over the last 4 weeks. Weighted towards more recent weeks.">Avg.Posts/day</abbr></div>
+        <div @click.stop="categoryClicked('imagesPerReply')" class="board-data is-hidden-touch" :class="{'category-selected' : sortBoardListBy == 'imagesPerReply'}"><abbr title="Posts with files attached" style="white-space: nowrap;">Images</abbr></div>
+        <div @click.stop="categoryClicked('relativeActivity')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'relativeActivity'}"><abbr title="Current posts-per-minute relative to the boards usual top ppm rate" style="white-space: nowrap;">Activity Now</abbr></div>
       </div>
-      <transition-group name="flip-list" class="boardlist-rows">
-        <div class="perf-div" v-for="boardName in enabledBoardsCopy" :key="boardName">
+      <transition-group name="flip-list" class="board-rows">
+        <div class="board-row" v-for="boardName in enabledBoardsCopy" :key="boardName" :ref="boardName">
           <div
-            :ref="boardName" 
-            @click="boardClicked(boardName)" class="board-row"
+            @click.stop="boardClicked(boardName)" class="board-data-wrapper"
             :class="{'board-selected' : (selectedBoard == boardName)}"
           >
           
-            <div :data-long-board-name="longBoardNames[boardName]" class="board-name">/{{ boardName }}/</div>
-            <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
-            <div class="is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
-            <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
-            <div class="is-hidden-touch">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
-            <div class="">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
+            <div :data-long-board-name="longBoardNames[boardName]" class="board-data board-name">/{{ boardName }}/</div>
+            <div class="board-data ">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
+            <div class="board-data is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
+            <div class="board-data ">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
+            <div class="board-data is-hidden-touch">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
+            <div class="board-data ">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
 
 
           </div>
@@ -81,6 +78,7 @@ export default {
 		}
 	},
 	created(){
+		this.enabledBoardsCopy = this.enabledBoards.slice()
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setEnabledBoards" || mutation.type == "setInitialData"){
 				this.enabledBoardsCopy = this.enabledBoards.slice()
@@ -131,15 +129,9 @@ export default {
   font-size: 0.8rem;
 }
 
-// boardlist-header & boardlist-rows
-.board-row{
-  position: absolute;
-  top: 0;
-  left:0;
-  width: 100%;
-  height: 100%;
+.board-data-wrapper{
   display: flex;
-  &>div{
+  &>.board-data{
     flex: 2 1 0;
     display: flex;
     align-items: center;
@@ -156,15 +148,12 @@ export default {
   }
 }
 
-// boardlist-header
-
 .boardlist-header{
-  position: relative;
   overflow: hidden;
-  &>div{
-    height: 2rem;
-    // underline when categry selected
-    &::after{
+  height: 2rem;
+  &>.board-data{ // categories
+    position: relative;
+    &::after{ // underline when category selected
       content: "";
       position: absolute;
       bottom: 0px;
@@ -184,38 +173,32 @@ export default {
   }
 }
 
-// boardlist-rows
-
-.boardlist-rows{
-  &>.perf-div{
+.board-rows{
+  &>.board-row{
     position: relative;
-    height: 1.25rem;
+    border-top: 1px solid rgba(0,0,0,0.25);
+    transition: background-color 0.5s, transform 0.5s;
     &:nth-of-type(2n){
       background-color: $oc-gray-2;
     }
-    &>.board-row{
-      border-top: 1px solid rgba(0,0,0,0.25);
-      transition: background-color 0.5s, transform 0.5s;
+    &>.board-data-wrapper{
+    height: 1.25rem;
       &.board-selected{
         background-color: $--colorSelected;
         color: $oc-gray-9;
       }
-      &>.board-name{
-        &:hover:after{
-          content: attr(data-long-board-name);
-          white-space: nowrap;
-          padding: 0 1em;
-          position: absolute;
-          left: 100%;
-          top: 0;
-          background-color: rgba(0,0,0,0.75);
-          color: #f1f1f1;
-        }
+      &>.board-name:hover:after{
+        content: attr(data-long-board-name);
+        white-space: nowrap;
+        padding: 0 1em;
+        position: absolute;
+        left: 100%;
+        background-color: rgba(0,0,0,0.75);
+        color: #f1f1f1;
       }
     }
   }
 }
-
 
 // animations
 
