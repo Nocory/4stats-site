@@ -1,12 +1,11 @@
-const pino = require("../js/pino")
-
 import Vue from "vue/dist/vue.runtime.esm.js"
 import Vuex from "vuex"
 Vue.use(Vuex)
 
+const config = require("../js/config")
+const pino = require("../js/pino")
 const axios = require("axios")
 const socket = require("../js/socket.js")
-const config = require("../js/config")
 
 const adjustPostcountIfNoDubs = (board,data)=>{
 	if(["v","vg","vr"].indexOf(board) != -1){
@@ -34,19 +33,11 @@ const store = new Vuex.Store({
 		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{})
 	},
 	getters: {
-		getThreadList: (state, getters) => len => {
-			if(typeof state.threadData[state.selectedBoard] == "object"){
-				return state.threadData[state.selectedBoard].slice(0,len)
-			}else{
-				return state.threadData[state.selectedBoard]
-			}
-		},
-		getTotalPPM : (state, getters) => {
+		getTotalPPM : state => {
 			let totalPPM = 0
-			for(let board in store.state.boardData){
-				totalPPM += store.state.boardData[board].postsPerMinute
+			for(let board in state.boardData){
+				totalPPM += state.boardData[board].postsPerMinute
 			}
-			//console.log("4chan total - ppm:",totalPPM.toFixed(2), "pps:", (totalPPM / 60).toFixed(2))
 			return totalPPM
 		}
 	},
@@ -114,16 +105,11 @@ const store = new Vuex.Store({
 	}
 })
 
-// Get all stats
-// The API server automatically sends the latest stats object to every newly connected client
-socket.on('disconnect', reason => {
-	pino.error("Lost connection to API. %s",reason)
-})
+// setting up handling of server communication
 
-// Get active threads initially and on every reconnect
 store.dispatch("getActiveThreads")
+
 socket.on("reconnect",() => {
-	pino.info("Reconnected to API. Requesting latest data.")
 	store.dispatch("getActiveThreads")
 })
 

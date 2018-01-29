@@ -17,4 +17,12 @@ socket.on("enforcedClientVersion", data => {
 	}
 })
 
+socket.on('disconnect', reason => {
+	pino.error("Lost connection to API. %s",reason)
+})
+
+socket.on("reconnect",() => {
+	pino.info("Reconnected to API.")
+})
+
 module.exports = socket
