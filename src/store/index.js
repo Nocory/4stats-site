@@ -17,6 +17,11 @@ const adjustPostcountIfNoDubs = (board,data)=>{
 	return data
 }
 
+const adjustActivityIfFewPosts = data =>{
+	if(data.avgPostsPerDay < 1000) data.relativeActivity -= 9999
+	return data
+}
+
 const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	state: {
@@ -49,13 +54,15 @@ const store = new Vuex.Store({
 		setInitialData(state,payload){
 			for(let key in payload){
 				adjustPostcountIfNoDubs(key,payload[key])
+				adjustActivityIfFewPosts(payload[key])
 			}
 			Vue.set(state, 'boardData', payload)
 			// enabledBoards is [] before this point. No boards should be enabled, since there is no data for them yet.
 			//state.enabledBoards = JSON.parse(localStorage.getItem("enabledBoards")) || config.availableBoards.default.concat(config.availableBoards.imageGenerals).concat(config.availableBoards.misc)
 		},
 		updateBoardData(state,payload){
-			payload.data = adjustPostcountIfNoDubs(payload.board,payload.data)
+			adjustPostcountIfNoDubs(payload.board,payload.data)
+			adjustActivityIfFewPosts(payload.data)
 			
 			if(store.state.boardData[payload.board]){
 				for(let key in payload.data){
