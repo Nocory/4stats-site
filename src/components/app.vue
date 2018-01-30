@@ -7,7 +7,7 @@
 				users on site: {{connectedUsers}}
 			</h6>
 			<div class="container is-fullhd">
-				<div class="columns has-text-centered">
+				<div class="columns">
 					<component-boardlist class="column is-12-mobile is-6-tablet is-narrow-desktop"></component-boardlist>
 					<component-threadlist class="column is-12-mobile is-6-tablet is-auto-desktop"></component-threadlist>
 				</div>
