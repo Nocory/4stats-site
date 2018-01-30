@@ -53,7 +53,6 @@
 const axios = require("axios")
 const pino = require("../js/pino")
 const config = require("../js/config")
-const socket = require("../js/socket")
 const chartFunctions = require("../js/chartFunctions")
 export default {
 	data: () => ({
@@ -103,7 +102,7 @@ export default {
 			pino.debug(`chart.vue toggleBoard: Data for /${board}/ valid for ${validMinutesLeft > 0 ? validMinutesLeft : 0} more minutes`)
 			
 			if (Date.now() > validUntil) {
-				pino.debug(`chart.vue toggleBoard: Requesting timeline for /${board}/ ${this.term}`)
+				pino.debug(`chart.vue toggleBoard: Requesting timeline for /${board}/ ${this.chartOptions.term}`)
 				this.requestTimeline(board, this.chartOptions.term)
 			} else {
 				chartFunctions.addBoard(board,timelineData.history,this.chartOptions)
@@ -166,21 +165,14 @@ export default {
 		chartFunctions.init("myChart")
 
 		this.$store.subscribe(mutation => {
-			if(mutation.type == "setEnabledBoards"){
-				this.graphedBoards.forEach(board => {
-					chartFunctions.removeBoard(board)
-				})
-				this.graphedBoards = []
-			}
-		})
-		
-		socket.on("boardUpdate",board => {
-			if (this.graphedBoards.includes(board)) {
-				const timelineData = this.history[this.chartOptions.term][board] || {}
-				timelineData.lastUpdate = Date.now()
-				if(Date.now() > timelineData.validUntil || 0){
-					pino.debug(`chart.vue on boardUpdate: Automatically requesting timeline for /${board}/ ${this.chartOptions.term}`)
-					this.requestTimeline(board, this.chartOptions.term)
+			if(mutation.type == "updateBoardData"){
+				if (this.graphedBoards.includes(mutation.payload.board)) {
+					const timelineData = this.history[this.chartOptions.term][mutation.payload.board] || {}
+					timelineData.lastUpdate = Date.now()
+					if(Date.now() > timelineData.validUntil || 0){
+						pino.debug(`chart.vue on boardUpdate: Automatically requesting timeline for /${mutation.payload.board}/ ${this.chartOptions.term}`)
+						this.requestTimeline(mutation.payload.board, this.chartOptions.term)
+					}
 				}
 			}
 		})

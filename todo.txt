@@ -3,3 +3,6 @@
 - Boardlist update color should not overwrite gray color of lines
   -> make update color an overlay? extra elements
 - 404 threads modify the image of threads in the store, resulting in a mutation error (check on /adv/) (removed 'strict' rule for now)
+- fix swipehint
+- use animejs?
+- ignore activity for boards with fewer than 1k posts per day

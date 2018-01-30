@@ -14,7 +14,7 @@
         </p>
         <hr>
         <p>
-          <button class="button" @click="showFeedbackForm = true">Contact</button>
+          <button class="button" @click="showFeedbackForm = true">Feedback / Contact</button>
         </p>
       </div>
       <component-feedback v-if="showFeedbackForm" :show-feedback-form.sync="showFeedbackForm"/>

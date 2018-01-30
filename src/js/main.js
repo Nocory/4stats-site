@@ -2,9 +2,7 @@ const pino = require("./pino")
 
 pino.info("NODE_ENV is:", process.env.NODE_ENV)
 
-//import "babel-polyfill"
-
-if(location.hostname === "4stats-test.netlify.com"){
+if(location.hostname === "dev.4stats.io"){
 	(function() {
 		var errorBoxElement = false
 		var showError = function(error) {
@@ -31,7 +29,6 @@ if(location.hostname === "4stats-test.netlify.com"){
 	})()
 }
 
-
 import "css/main.scss"
 
 import Vue from "vue/dist/vue.runtime.esm.js"
@@ -44,5 +41,3 @@ new Vue({
 	store,
 	render: h => h(app)
 })
-
-//import socket from "./native_socket.js"
