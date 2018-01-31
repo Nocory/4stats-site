@@ -54,9 +54,9 @@ export default {
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
 			if(doScrollToTop){
-				document.querySelector("#app").scrollIntoView({
+				document.querySelector(".threadlist-component>.box-shadow-wrapper>.headline").scrollIntoView({
 					behavior: "smooth",
-					block: "start"
+					block: "nearest"
 				})
 			}
 		},
