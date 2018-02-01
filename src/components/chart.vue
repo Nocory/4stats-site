@@ -51,9 +51,9 @@
 
 <script>
 const axios = require("axios")
-const pino = require("../js/pino")
-const config = require("../js/config")
-const chartFunctions = require("../js/chartFunctions")
+const pino = require("js/pino")
+const config = require("js/config")
+const chartFunctions = require("js/chartFunctions")
 export default {
 	data: () => ({
 		chartOptions : {

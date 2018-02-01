@@ -2,10 +2,10 @@ import Vue from "vue/dist/vue.runtime.esm.js"
 import Vuex from "vuex"
 Vue.use(Vuex)
 
-const config = require("../js/config")
-const pino = require("../js/pino")
+const config = require("js/config")
+const pino = require("js/pino")
 const axios = require("axios")
-const socket = require("../js/socket.js")
+const socket = require("js/socket.js")
 
 const adjustPostcountIfNoDubs = (board,data)=>{
 	if(["v","vg","vr"].indexOf(board) != -1){

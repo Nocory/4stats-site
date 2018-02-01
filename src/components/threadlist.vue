@@ -23,7 +23,7 @@
 </template>
 
 <script>
-const pino = require("../js/pino")
+const pino = require("js/pino")
 import { mapState } from 'vuex'
 export default {
 	data(){
@@ -82,7 +82,7 @@ export default {
 		//document.addEventListener("touchstart", console.log, false)
 		//document.addEventListener("touchend", console.log, false)
     
-		const detectSwipe = require("../js/detectSwipe")
+		const detectSwipe = require("js/detectSwipe")
 		detectSwipe(document,this.handleSwipe)
 	}
 }

@@ -75,9 +75,9 @@
 </template>
 
 <script>
-const pino = require("../js/pino")
+const pino = require("js/pino")
 import { mapState } from 'vuex'
-const config = require("../js/config")
+const config = require("js/config")
 export default {
 	computed: mapState([
 		"enabledBoards",
