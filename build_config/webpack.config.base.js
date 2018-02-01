@@ -117,9 +117,8 @@ module.exports = {
 		}),
 		//new HtmlWebpackInlineSourcePlugin(),
 		new CopyWebpackPlugin([
-			{ from: 'src/favicon_inverted.png', to: 'favicon.png' },
-			{ from: 'src/manifest.json', to: 'manifest.json' },
-			{ from: 'src/_headers', to: '_headers', toType: 'file'}
+			{ from: 'src/static/_headers', to: '_headers', toType: 'file'}, // hints for netlify http2 push
+			{ from: 'src/static', to: '' }
 		]),
 		new ExtractTextPlugin({
 			//filename: "[name]_[contenthash:8].css",
