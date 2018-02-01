@@ -8,8 +8,8 @@
       </div>
       <div class="spacer"/>
       <button class="config-button" @click="showConfig = true">
-        <span class="icon">
-          <i class="fa fa-cog"/>
+        <span class="icon is-medium">
+          <i class="fa-lg fa-cog"/>
         </span>
         <span class="config-button-text">
           Boards
@@ -76,7 +76,7 @@ export default {
 }
 
 .site-description{
-	color: $oc-gray-4;
+	color: $oc-gray-2;
 	padding: 0 1rem;
 }
 
@@ -85,6 +85,19 @@ export default {
 }
 
 .config-button{
+	position: relative;
+	align-self: stretch;
+	&::before{
+		z-index: 0;
+		content:"";
+		position: absolute;
+		background: $nord13;
+		top: 0;
+		right: 0;
+		height: 100%;
+		width: 100%;
+		transform: skew(-20deg);
+	}
 	@include touch{
 		margin-right: 1rem;
 	}
@@ -94,22 +107,23 @@ export default {
 	//font-family: monospace;
 	//font-family: "Ubuntu Mono";
 	//font-weight: bolder;
-	padding: 0.25em 0.5em;
-	margin: 0.25em 0;
-	font-size: 1rem;
+	padding: 0 1rem;
   border-radius: 999px;
 	//border: 2px solid #f5ff90;
-	border: 2px solid $oc-yellow-5;
+	border: none;
   //background: rgb(54, 54, 46);
 	background: transparent;
-	color: $oc-gray-0;
+	color: $oc-gray-9;
+	font-weight: bolder;
 }
 
 .config-button-text{
-	font-size: 1.125rem;
+	font-size: 1.25rem;
+	z-index: 1;
+	font-family: monospace
 }
 
 .icon{
-	margin-right: 0.5em;
+	z-index: 1;
 }
 </style>

@@ -62,7 +62,7 @@ p {
 }
 
 a {
-	color: $nord14;
+	color: $nord13;
 }
 
 hr{
@@ -75,6 +75,6 @@ hr{
 .button{
   background: $oc-gray-9;
   color: $oc-gray-0;
-  border: 2px solid $oc-gray-0;
+  border: 2px solid $nord13;
 }
 </style>

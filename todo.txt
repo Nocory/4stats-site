@@ -6,3 +6,4 @@
 - fix swipehint
 - use animejs?
 - better swipe for mobile thread view
+- clean up chart.vue CSS

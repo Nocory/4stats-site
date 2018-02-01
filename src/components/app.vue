@@ -92,6 +92,12 @@ export default {
   font-size: 10px;
   color: $oc-gray-6;
 	opacity: 1;
+	&:after{
+		position: absolute;
+		left: 0;
+		top: 200%;
+		content: "thanks";
+	}
 }
 
 .header{

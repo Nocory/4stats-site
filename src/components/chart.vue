@@ -208,14 +208,7 @@ abbr {
   //box-shadow: 0px 8px 24px -4px rgba(0, 0, 0, 0.75);
 }
 
-.board-button {
-	position: relative;
-  font-size: 0.75rem;
-  color: $oc-gray-7;
-	background-color: $oc-gray-0; //border-radius: 1px;
-	overflow: hidden;
-	z-index: 99;
-}
+
 
 .property-button-wrapper {
   display: flex;
@@ -261,7 +254,15 @@ abbr {
   padding: 0.5em 0.25em;
   flex: 1;
   width: 4rem;
-  //box-shadow: 0px 8px 24px -4px rgba(0, 0, 0, 0.75);
+  font-size: 0.75rem;
+  color: $oc-gray-7;
+	background-color: $oc-gray-0; //border-radius: 1px;
+	overflow: hidden;
+	z-index: 99;
+	transition: color 0.25s ease-out;
+	&.button-selected{
+		color: $oc-gray-0;
+	}
 }
 
 .property-button-group>*:after,
@@ -286,7 +287,6 @@ abbr {
 
 .button-selected{
 	font-weight: bolder;
-	color: $oc-gray-9;
 }
 
 .button-selected:after {
