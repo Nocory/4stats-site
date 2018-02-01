@@ -5,3 +5,4 @@
 - 404 threads modify the image of threads in the store, resulting in a mutation error (check on /adv/) (removed 'strict' rule for now)
 - fix swipehint
 - use animejs?
+- better swipe for mobile thread view
