@@ -185,7 +185,7 @@ export default {
     height: 1.25rem;
       &.board-selected{
         background-color: $--colorSelected;
-        color: $oc-gray-9;
+        color: $oc-gray-0;
       }
       &>.board-name:hover:after{
         content: attr(data-long-board-name);
