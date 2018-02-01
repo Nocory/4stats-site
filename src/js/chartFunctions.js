@@ -3,7 +3,7 @@ window.moment = require('moment/min/moment.min.js')
 const Chart = require('chart.js/dist/Chart.js')
 Chart.defaults.global.defaultFontFamily = 'monospace'
 Chart.defaults.global.defaultFontSize = 14
-const store = require("../store/index").default
+const store = require("store/index").default
 
 
 

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import socket from "../js/socket"
+import socket from "js/socket"
 import { mapState } from 'vuex'
 export default {
 	data: () => ({

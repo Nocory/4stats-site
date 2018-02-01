@@ -39,7 +39,7 @@
 import { mapState } from 'vuex'
 export default {
 	data: () => ({
-		longBoardNames : require('../js/config').boardNames,
+		longBoardNames : require('js/config').boardNames,
 		sortBoardListBy: localStorage.getItem("sortBoardListBy") || "avgPostsPerDay",
 		enabledBoardsCopy: [],
 		isThreadlistReversed: false

@@ -32,9 +32,9 @@ if(location.hostname === "dev.4stats.io"){
 import "css/main.scss"
 
 import Vue from "vue/dist/vue.runtime.esm.js"
-import app from "../components/app.vue"
+import app from "components/app.vue"
 
-import store from "../store/index.js"
+import store from "store/index.js"
 
 new Vue({
 	el: '#app',

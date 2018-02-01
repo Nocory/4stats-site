@@ -23,7 +23,7 @@
 </template>
 
 <script>
-const pino = require("../js/pino")
+const pino = require("js/pino")
 import { mapState } from 'vuex'
 export default {
 	data(){
@@ -35,28 +35,24 @@ export default {
 	computed: {
 		...mapState([
 			"threadData",
+			"enabledBoards",
 			"selectedBoard"
 		])
 	},
 	methods: {
 		setListHeight(){
 			pino.debug("setListHeight")
-			let boardsWrapper = document.querySelector(".boardlist-wrapper")
-			//console.log("ele1",boardsWrapper)
-			this.listHeight = boardsWrapper.clientHeight
-			this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 150),4)
-			//console.log(this.threadsToShow)
-			let threadsWrapper = document.querySelector(".threads-wrapper")
-			//console.log("ele2",threadsWrapper)
-			threadsWrapper.style.minHeight = this.listHeight + "px"
+			this.listHeight = 32 + this.enabledBoards.length * 21 // max 1544 (32 + 72 * 21) //FIXME: hardcoded pixel value, but at least it reacts immediately
+			this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 128),5)
+			document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"
 		},
 		revealThreadSideBar(doScrollToTop){
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
 			if(doScrollToTop){
-				document.querySelector("#app").scrollIntoView({
+				document.querySelector(".threadlist-component>.box-shadow-wrapper>.headline").scrollIntoView({
 					behavior: "smooth",
-					block: "start"
+					block: "nearest"
 				})
 			}
 		},
@@ -70,22 +66,23 @@ export default {
 		}
 	},
 	mounted(){
+    
 		this.setListHeight()
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setEnabledBoards" || mutation.type == "setInitialData"){
-				setTimeout(this.setListHeight,2000) //FIXME: not very elegant
+				this.setListHeight()
 			}
 		})
     
 		this.$store.subscribe(mutation => {
-			if(mutation.type == "boardClicked"){
+			if(mutation.type == "setSelectedBoard"){
 				this.revealThreadSideBar(true)
 			}
 		})
 		//document.addEventListener("touchstart", console.log, false)
 		//document.addEventListener("touchend", console.log, false)
     
-		const detectSwipe = require("../js/detectSwipe")
+		const detectSwipe = require("js/detectSwipe")
 		detectSwipe(document,this.handleSwipe)
 	}
 }
@@ -139,12 +136,7 @@ export default {
   }
 }
 
-.box-shadow-wrapper{
-  //box-shadow: 0px 8px 24px -4px rgba(0, 0, 0, 0.75);
-}
-
 .threads-wrapper{
-  //box-shadow: 0px 8px 24px -4px rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
 }
@@ -152,7 +144,6 @@ export default {
 a {
   position: relative;
   min-height: 125px;
-  max-height: 200px;
   flex: 1 1 0;
   display: flex;
   background: $oc-gray-0;
