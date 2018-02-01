@@ -41,14 +41,9 @@ export default {
 	methods: {
 		setListHeight(){
 			pino.debug("setListHeight")
-			let boardsWrapper = document.querySelector(".boardlist-wrapper")
-			//console.log("ele1",boardsWrapper)
-			this.listHeight = boardsWrapper.clientHeight
+			this.listHeight = document.querySelector(".boardlist-wrapper").clientHeight
 			this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 150),4)
-			//console.log(this.threadsToShow)
-			let threadsWrapper = document.querySelector(".threads-wrapper")
-			//console.log("ele2",threadsWrapper)
-			threadsWrapper.style.minHeight = this.listHeight + "px"
+			document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"
 		},
 		revealThreadSideBar(doScrollToTop){
 			pino.debug("revealThreadSideBar")
@@ -70,15 +65,17 @@ export default {
 		}
 	},
 	mounted(){
+		/*
 		this.setListHeight()
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setEnabledBoards" || mutation.type == "setInitialData"){
 				setTimeout(this.setListHeight,2000) //FIXME: not very elegant
 			}
-		})
+    })
+    */
     
 		this.$store.subscribe(mutation => {
-			if(mutation.type == "boardClicked"){
+			if(mutation.type == "setSelectedBoard"){
 				this.revealThreadSideBar(true)
 			}
 		})
@@ -139,12 +136,7 @@ export default {
   }
 }
 
-.box-shadow-wrapper{
-  //box-shadow: 0px 8px 24px -4px rgba(0, 0, 0, 0.75);
-}
-
 .threads-wrapper{
-  //box-shadow: 0px 8px 24px -4px rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
 }

@@ -82,7 +82,7 @@ const store = new Vuex.Store({
 			}
 			state.threadData[payload.board] = payload.threads
 		},
-		boardClicked(state, payload) {
+		setSelectedBoard(state, payload) {
 			state.selectedBoard = payload
 			localStorage.setItem("selectedBoard",payload)
 		}
@@ -103,7 +103,7 @@ const store = new Vuex.Store({
 				})
 		},
 		boardClicked(context,board = context.state.selectedBoard) {
-			context.commit("boardClicked",board)
+			context.commit("setSelectedBoard",board)
 			// dont request if threads are already current
 			if(context.state.threadData[board].length == 0){
 				context.dispatch("getActiveThreads",board)
