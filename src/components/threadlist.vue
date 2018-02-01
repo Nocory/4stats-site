@@ -35,14 +35,15 @@ export default {
 	computed: {
 		...mapState([
 			"threadData",
+			"enabledBoards",
 			"selectedBoard"
 		])
 	},
 	methods: {
 		setListHeight(){
 			pino.debug("setListHeight")
-			this.listHeight = document.querySelector(".boardlist-wrapper").clientHeight
-			this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 150),4)
+			this.listHeight = 32 + this.enabledBoards.length * 21 // max 1544 (32 + 72 * 21) //FIXME: hardcoded pixel value, but at least it reacts immediately
+			this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 128),5)
 			document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"
 		},
 		revealThreadSideBar(doScrollToTop){
@@ -65,14 +66,13 @@ export default {
 		}
 	},
 	mounted(){
-		/*
+    
 		this.setListHeight()
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setEnabledBoards" || mutation.type == "setInitialData"){
-				setTimeout(this.setListHeight,2000) //FIXME: not very elegant
+				this.setListHeight()
 			}
-    })
-    */
+		})
     
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setSelectedBoard"){
@@ -144,7 +144,6 @@ export default {
 a {
   position: relative;
   min-height: 125px;
-  max-height: 200px;
   flex: 1 1 0;
   display: flex;
   background: $oc-gray-0;
