@@ -49,7 +49,7 @@ export default {
 		revealThreadSideBar(doScrollToTop){
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
-			if(doScrollToTop){
+			if(doScrollToTop && false){ //FIXME: temporarily disabled. weird horizontal scrolling going on
 				document.querySelector(".threadlist-component>.box-shadow-wrapper>.headline").scrollIntoView({
 					behavior: "smooth",
 					block: "nearest"
@@ -66,7 +66,6 @@ export default {
 		}
 	},
 	mounted(){
-    
 		this.setListHeight()
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setEnabledBoards" || mutation.type == "setInitialData"){
@@ -202,8 +201,6 @@ img {
     background: linear-gradient(to bottom, transparent 0%, transparent 75%, $oc-gray-0 100%);
   }
 }
-
-
 
 @keyframes swipeHint {
   0% {
