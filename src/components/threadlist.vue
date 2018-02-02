@@ -4,7 +4,7 @@
       <h4 class="title is-size-4 headline">Active threads on /{{ selectedBoard }}/</h4>
       <div class="threads-wrapper" v-if="selectedBoard">
         <a v-for="thread in threadData[selectedBoard].slice(0,threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
-          <img :src="thread.image" referrerpolicy="same-origin" ref="img" alt="404 desu senpai" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
+          <img :src="thread.image" referrerpolicy="same-origin" ref="img" :alt="`${selectedBoard} thread image`" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
           <div class="text-wrapper">
             <div class="thread-ppm" v-if="thread.replies == 9001">
               {{ thread.postsPerMinute.toFixed(2) }} posts/min - <u>Sticky Thread</u> - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
@@ -146,14 +146,10 @@ a {
   flex: 1 1 0;
   display: flex;
   background: $oc-gray-0;
-}
-
-a:not(:last-of-type) {
-  border-bottom: 1px solid $nord0;
-}
-
-.img-wrapper {
-  max-width: 20%;
+  overflow: hidden;
+  &:not(:last-of-type) {
+    border-bottom: 1px solid $nord0;
+  }
 }
 
 img {
@@ -163,6 +159,7 @@ img {
   max-height: 100%;
   object-fit: cover;
   object-position: center center;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
 }
 
 .text-wrapper {
@@ -190,15 +187,6 @@ img {
   &>.thread-comment {
     padding: 0.25rem;
     font-size: 0.75rem;
-  }
-
-  &>.overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, transparent 0%, transparent 75%, $oc-gray-0 100%);
   }
 }
 

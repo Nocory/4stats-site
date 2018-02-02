@@ -8,7 +8,7 @@
       </div>
       <div class="spacer"/>
       <button class="config-button" @click="showConfig = true">
-        <span class="icon is-medium">
+        <span class="icon">
           <i class="fa-lg fa-cog"/>
         </span>
         <span class="config-button-text">
@@ -86,17 +86,16 @@ export default {
 
 .config-button{
 	position: relative;
-	align-self: stretch;
 	&::before{
 		z-index: 0;
 		content:"";
 		position: absolute;
 		background: $nord13;
-		top: 0;
+		top: 100%;
 		right: 0;
-		height: 100%;
+		height: 2px;
 		width: 100%;
-		transform: skew(-20deg);
+		transform: skew(-45deg);
 	}
 	@include touch{
 		margin-right: 1rem;
@@ -107,20 +106,22 @@ export default {
 	//font-family: monospace;
 	//font-family: "Ubuntu Mono";
 	//font-weight: bolder;
-	padding: 0 1rem;
+	padding: 0;
   border-radius: 999px;
 	//border: 2px solid #f5ff90;
 	border: none;
   //background: rgb(54, 54, 46);
 	background: transparent;
-	color: $oc-gray-9;
+	color: $oc-gray-0;
+	text-shadow: 0px 0px 4px #111;
 	font-weight: bolder;
 }
 
 .config-button-text{
 	font-size: 1.25rem;
 	z-index: 1;
-	font-family: monospace
+	font-family: monospace;
+	padding: 0 0 0 0.25rem;
 }
 
 .icon{
