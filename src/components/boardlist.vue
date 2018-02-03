@@ -14,20 +14,14 @@
         <div @click.stop="categoryClicked('relativeActivity')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'relativeActivity'}" data-hover-text="Current posts-per-minute relative to the boards usual top ppm rate">Activity Now</div>
       </div>
       <transition-group name="flip-list" class="board-rows">
-        <div class="board-row" v-for="boardName in enabledBoardsCopy" :key="boardName" :ref="boardName">
-          <div
-            @click.stop="boardClicked(boardName)" class="board-data-wrapper"
-            :class="{'board-selected' : (selectedBoard == boardName)}"
-          >
-          
+        <div class="board-row" v-for="boardName in enabledBoardsCopy" :key="boardName">
+          <div :ref="boardName" @click.stop="boardClicked(boardName)" class="board-data-wrapper" :class="{'board-selected' : (selectedBoard == boardName)}">
             <div :data-hover-text="longBoardNames[boardName]" class="board-data board-name">/{{ boardName }}/</div>
             <div class="board-data ">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
             <div class="board-data is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
             <div class="board-data ">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
             <div class="board-data is-hidden-touch">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
             <div class="board-data ">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
-
-
           </div>
         </div>
       </transition-group>

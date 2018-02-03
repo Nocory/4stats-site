@@ -90,7 +90,7 @@ export default {
 		z-index: 0;
 		content:"";
 		position: absolute;
-		background: $nord13;
+		background: $--colorLink;
 		top: 100%;
 		right: 0;
 		height: 2px;
