@@ -10,7 +10,7 @@
         <div @click.stop="categoryClicked('postsPerMinute')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'postsPerMinute'}" data-hover-text="Over the last hour">Posts/min</div>
         <div @click.stop="categoryClicked('threadsPerHour')" class="board-data is-hidden-touch" :class="{'category-selected' : sortBoardListBy == 'threadsPerHour'}" data-hover-text="Over the last hour">Threads/hour</div>
         <div @click.stop="categoryClicked('avgPostsPerDay')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'avgPostsPerDay'}" data-hover-text="Over the last 4 weeks. Weighted towards more recent weeks.">Avg.Posts/day</div>
-        <div @click.stop="categoryClicked('imagesPerReply')" class="board-data is-hidden-touch" :class="{'category-selected' : sortBoardListBy == 'imagesPerReply'}" data-hover-text="Posts with files attached">Images</div>
+        <div @click.stop="categoryClicked('imagesPerReply')" class="board-data is-hidden-touch is-hidden-desktop-only" :class="{'category-selected' : sortBoardListBy == 'imagesPerReply'}" data-hover-text="Posts with files attached">Images</div>
         <div @click.stop="categoryClicked('relativeActivity')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'relativeActivity'}" data-hover-text="Current posts-per-minute relative to the boards usual top ppm rate">Activity Now</div>
       </div>
       <transition-group name="flip-list" class="board-rows">
@@ -20,7 +20,7 @@
             <div class="board-data ">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
             <div class="board-data is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
             <div class="board-data ">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
-            <div class="board-data is-hidden-touch">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
+            <div class="board-data is-hidden-touch is-hidden-desktop-only">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
             <div class="board-data ">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
           </div>
         </div>
@@ -146,6 +146,7 @@ export default {
   //overflow: hidden;
   height: 2rem;
   &>.board-data{ // categories
+    white-space: nowrap;
     position: relative;
     &::after{ // underline when category selected
       z-index: 2;

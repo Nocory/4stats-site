@@ -2,14 +2,14 @@
 	<div id="app">
 		<component-nav></component-nav>
 		<div class="main">
-			<h6 class="connected is-hidden-mobile">
+			<h6 class="connected is-hidden-touch">
 				just updated: /{{recentlyUpdatedBoard}}/<br>
 				users on site: {{connectedUsers}}
 			</h6>
 			<div class="container is-fullhd">
 				<div class="columns">
-					<component-boardlist class="column is-12-mobile is-6-tablet is-narrow-desktop"></component-boardlist>
-					<component-threadlist class="column is-12-mobile is-6-tablet is-auto-desktop"></component-threadlist>
+					<component-boardlist class="column is-12-mobile is-6-tablet"></component-boardlist>
+					<component-threadlist class="column is-12-mobile is-6-tablet"></component-threadlist>
 				</div>
 			</div>
 		</div>
