@@ -4,14 +4,14 @@ const pino = require("./pino")
 
 pino.info("Initiating socket.io connection with hostURL: ", config.url)
 let socket = socketIO(config.url,{
-	transports: ['websocket'],
+	transports: window.WebSocket ? ['websocket'] : ['polling', 'websocket'],
 	reconnectionDelay: 5000
 })
 
 let enforcedClientVersion = null
 socket.on("enforcedClientVersion", data => {
 	enforcedClientVersion = enforcedClientVersion || data
-	pino.info("Enforced client version is %d", data)
+	//pino.info("Enforced client version is %d", data)
 	if (enforcedClientVersion != data) {
 		pino.info("reloading")
 		window.location.reload(true)
