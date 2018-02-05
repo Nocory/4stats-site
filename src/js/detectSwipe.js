@@ -22,7 +22,7 @@ module.exports =  (el, callback) =>{
 		let absX = Math.abs(distance[0])
 		let absy = Math.abs(distance[1])
 		if(absX < 64 && absy < 64)return
-		if(absX > absy * 2){
+		if(absX > absy * 2.5){
 			if(distance[0] > 0){
 				callback("right")
 			}else{

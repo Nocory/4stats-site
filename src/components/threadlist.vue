@@ -1,7 +1,7 @@
 <template>
   <div class="threadlist-component">
     <div class="box-shadow-wrapper">
-      <h4 class="title is-size-4 headline">Active threads on /{{ selectedBoard }}/</h4>
+      <h4 class="title is-size-5-mobile is-size-4 headline">Active threads on /{{ selectedBoard }}/</h4>
       <div class="threads-wrapper" v-if="selectedBoard">
         <a v-for="thread in threadData[selectedBoard].slice(0,threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
           <img :src="thread.image" referrerpolicy="same-origin" ref="img" :alt="`${selectedBoard} thread image`" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
@@ -47,10 +47,13 @@ export default {
 			document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"
 		},
 		revealThreadSideBar(doScrollToTop){
+			console.log(document.body.clientWidth)
+			if(document.body.clientWidth >= 768) return
+			console.log("meep")
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
-			if(doScrollToTop && false){ //FIXME: temporarily disabled. weird horizontal scrolling going on
-				document.querySelector(".threadlist-component>.box-shadow-wrapper>.headline").scrollIntoView({
+			if(doScrollToTop){ //FIXME: temporarily disabled. weird horizontal scrolling going on
+				document.querySelector(".boardlist-component>.headline").scrollIntoView({
 					behavior: "smooth",
 					block: "nearest"
 				})
@@ -106,6 +109,7 @@ export default {
     transition: transform 0.5s ease-in-out;
     &.thread-sidebar-revealed{
       transform: translateX(0%);
+      /*
       &::after{
         border-radius: 4px;
         padding: 0.25rem 1rem;
@@ -122,13 +126,14 @@ export default {
         animation-timing-function: ease-in-out;
         z-index: 201;
       }
+      */
     }
     .box-shadow-wrapper{
       border-left: 12px solid transparent;
     }
     .threads-wrapper{
       background: $oc-gray-0;
-      position :relative;
+      position: relative;
       z-index: 5;
       box-shadow: -8px 0px 20px -4px rgba(0, 0, 0, 0.75);
     }
