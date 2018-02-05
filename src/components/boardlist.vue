@@ -1,6 +1,6 @@
 <template>
-  <div class="component">
-    <h4 class="title is-size-4 headline">
+  <div class="boardlist-component">
+    <h4 class="title is-size-5-mobile is-size-4 headline">
       Live Board Statistics
     </h4>
     
