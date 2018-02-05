@@ -4,7 +4,8 @@ const pino = require("./pino")
 
 pino.info("Initiating socket.io connection with hostURL: ", config.url)
 let socket = socketIO(config.url,{
-	//transports: ['websocket']
+	transports: ['websocket'],
+	reconnectionDelay: 5000
 })
 
 let enforcedClientVersion = null
@@ -18,11 +19,21 @@ socket.on("enforcedClientVersion", data => {
 })
 
 socket.on('disconnect', reason => {
-	pino.error("Lost connection to API. %s",reason)
+	pino.warn("Disconnected from API. %s",reason)
 })
 
 socket.on("reconnect",() => {
 	pino.info("Reconnected to API.")
 })
+
+const handleVisibilityChange = () => {
+	if(document.hidden){
+		socket.close()
+	}else{
+		socket.open()
+	}
+}
+
+document.addEventListener("visibilitychange", handleVisibilityChange, false)
 
 module.exports = socket
