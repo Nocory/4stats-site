@@ -73,7 +73,7 @@ export default {
   min-height: 100vh;
 	background: $nord0;
 	font-family: monospace;
-	touch-action: pan-x;
+	touch-action: pan-y;
 }
 
 .main{
