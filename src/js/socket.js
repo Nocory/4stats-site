@@ -5,7 +5,7 @@ const pino = require("./pino")
 //pino.info("Initiating socket.io connection with hostURL: ", config.url)
 let socket = socketIO(config.url,{
 	transports: window.WebSocket ? ['websocket'] : ['polling', 'websocket'],
-	reconnectionDelay: 2500
+	reconnectionDelay: 4000
 })
 
 let enforcedClientVersion = null
@@ -38,7 +38,7 @@ const handleVisibilityChange = () => {
 		timerID = setTimeout(() => {
 			pino.info("Tab has been in background too long. Disconnecting socket.")
 			socket.close()
-		},1000)
+		},10000)
 	}else{
 		clearTimeout(timerID)
 		socket.open()
