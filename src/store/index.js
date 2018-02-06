@@ -128,7 +128,6 @@ socket.on("allBoardStats",allBoardStats => {
 	// imagesPerReply property is used here to check integrity
 	const boardData = store.state.boardData[store.state.selectedBoard]
 	if(boardData.imagesPerReply && boardData.imagesPerReply != allBoardStats[store.state.selectedBoard].imagesPerReply){
-		pino.info("fetching threads after socket connection")
 		store.dispatch("getActiveThreads")
 	}
 	

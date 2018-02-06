@@ -8,6 +8,8 @@ let socket = socketIO(config.url,{
 	reconnectionDelay: 4000
 })
 
+//window.soc = socket
+
 let enforcedClientVersion = null
 socket.on("enforcedClientVersion", data => {
 	enforcedClientVersion = enforcedClientVersion || data
@@ -30,18 +32,29 @@ socket.on("connect",() => {
 	pino.info("Socket connected")
 })
 
-let timerID = null
+let openTimerID = null
+let closeTimerID = null
+let isSocketOpen = true // maybe not needed, but lets be sure
 
 const handleVisibilityChange = () => {
 	if(document.hidden){
-		clearTimeout(timerID)
-		timerID = setTimeout(() => {
-			pino.info("Tab has been in background too long. Disconnecting socket.")
-			socket.close()
-		},10000)
+		clearTimeout(openTimerID)
+		clearTimeout(closeTimerID)
+		if(isSocketOpen){
+			closeTimerID = setTimeout(() => {
+				isSocketOpen = false
+				socket.close()
+			},30000)
+		}
 	}else{
-		clearTimeout(timerID)
-		socket.open()
+		clearTimeout(openTimerID)
+		clearTimeout(closeTimerID)
+		if(!isSocketOpen){
+			openTimerID = setTimeout(() => {
+				isSocketOpen = true
+				socket.open()
+			},500)
+		}
 	}
 }
 
