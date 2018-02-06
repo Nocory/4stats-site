@@ -122,6 +122,16 @@ socket.on("reconnect",() => {
 
 socket.on("allBoardStats",allBoardStats => {
 	pino.info("Received allBoardStats from API")
+	
+	// allBoardStats is received automatically after a socket connection has been established
+	// if the data for the selected board is different, it means that new threaddata should also be requested
+	// imagesPerReply property is used here to check integrity
+	const boardData = store.state.boardData[store.state.selectedBoard]
+	if(boardData.imagesPerReply && boardData.imagesPerReply != allBoardStats[store.state.selectedBoard].imagesPerReply){
+		pino.info("fetching threads after socket connection")
+		store.dispatch("getActiveThreads")
+	}
+	
 	store.commit("setInitialData",allBoardStats)
 })
 

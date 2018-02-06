@@ -41,7 +41,6 @@ export default {
 	},
 	methods: {
 		setListHeight(){
-			pino.debug("setListHeight")
 			this.listHeight = 32 + this.enabledBoards.length * 21 // max 1544 (32 + 72 * 21) //FIXME: hardcoded pixel value, but at least it reacts immediately
 			this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 128),5)
 			document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"

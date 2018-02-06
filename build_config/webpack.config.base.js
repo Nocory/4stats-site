@@ -99,6 +99,8 @@ module.exports = {
 	plugins: [
 		//new DashboardPlugin(),
 		//new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+		//new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+		
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new CleanWebpackPlugin(['dist'], {
 			root: __dirname,
