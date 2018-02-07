@@ -1,7 +1,13 @@
 <template>
   <div class="threadlist-component">
     <div class="box-shadow-wrapper">
-      <h4 class="title is-size-5-mobile is-size-4 headline">Active threads on /{{ selectedBoard }}/</h4>
+      <h4 class="is-size-4 headline is-hidden-mobile">Active threads on /{{ selectedBoard }}/</h4>
+
+      <div class="mobile-headline-wrapper is-hidden-tablet ">
+        <h4 class="headline">Swipe to close</h4>
+        <div class="back-button" @click="closeThreadSideBar">x</div>
+      </div>
+      
       <div class="threads-wrapper" v-if="selectedBoard">
         <a v-for="thread in threadData[selectedBoard].slice(0,threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
           <img :src="thread.image" referrerpolicy="same-origin" ref="img" :alt="`${selectedBoard} thread image`" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
@@ -41,7 +47,7 @@ export default {
 	},
 	methods: {
 		setListHeight(){
-			this.listHeight = 32 + this.enabledBoards.length * 21 // max 1544 (32 + 72 * 21) //FIXME: hardcoded pixel value, but at least it reacts immediately
+			this.listHeight = 36 + this.enabledBoards.length * 21 // max 1544 (32 + 72 * 21) //FIXME: hardcoded pixel value, but at least it reacts immediately
 			this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 128),5)
 			document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"
 		},
@@ -52,9 +58,9 @@ export default {
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
 			if(doScrollToTop){ //FIXME: temporarily disabled. weird horizontal scrolling going on
-				document.querySelector(".boardlist-component>.headline").scrollIntoView({
+				document.querySelector(".nav-component").scrollIntoView({
 					behavior: "smooth",
-					block: "nearest"
+					block: "start"
 				})
 			}
 		},
@@ -94,15 +100,33 @@ export default {
 
 @include mobile{
   .threadlist-component{
-    .title{
+
+    .mobile-headline-wrapper{
+      display: flex;
+      align-items: center;
+      background: $--colorNavBar;
       position: relative;
       z-index: 4;
-      background: $nord0;
+      width: 100%;
+      font-size: 1.25rem;
+      height: 3rem;
+      .headline{
+        flex-grow: 1;
+        white-space: nowrap;
+      }
+      .back-button{
+        background: $nord1;
+        color: $oc-gray-0;
+        padding: 0 1rem;
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+      }
     }
+
     z-index: 200;
-    width: 100%;
     position: absolute;
-    top: 0;
+    top: -3rem;
     right: 0;
     transform: translateX(calc(100% + 24px));
     transition: transform 0.5s ease-in-out;
@@ -118,8 +142,9 @@ export default {
         content: "Swipe again to close";
         margin: 0 auto;
         position: absolute;
-        bottom: 16px;
-        left: 0px;
+        top: 48px;
+        right: 16px;
+        margin: 0 auto;
         animation-duration: 3s;
         animation-name: swipeHint;
         animation-timing-function: ease-in-out;

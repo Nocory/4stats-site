@@ -1,6 +1,6 @@
 <template>
   <div class="boardlist-component">
-    <h4 class="title is-size-5-mobile is-size-4 headline">
+    <h4 class="is-size-5-mobile is-size-4 headline is-hidden-mobile">
       Live Board Statistics
     </h4>
     
@@ -144,7 +144,7 @@ export default {
 
 .boardlist-header{
   //overflow: hidden;
-  height: 2rem;
+  height: 2.25rem;
   &>.board-data{ // categories
     white-space: nowrap;
     position: relative;
