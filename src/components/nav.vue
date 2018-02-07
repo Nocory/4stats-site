@@ -1,5 +1,5 @@
 <template>
-  <div class="component">
+  <div class="nav-component">
     <component-config v-if="showConfig" :show-config.sync="showConfig"/>
     <div class="container">
       <div class="title-and-description">
@@ -23,7 +23,8 @@
 import { mapGetters } from 'vuex'
 export default {
 	data: () => ({
-		url: location.hostname,
+		//url: location.hostname,
+		url: "4stats.io",
 		showConfig: false
 	}),
 	computed: {
@@ -40,7 +41,7 @@ export default {
 <style scoped lang="scss">
 @import "~css/variables.scss";
 
-.component{
+.nav-component{
 	position: relative;
 	background: $--colorNavBar;
   //box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.5);
@@ -60,9 +61,9 @@ export default {
 
 .site-title{
 	position: relative;
+	line-height: 1.5;
 	@include touch{
 		margin-left: 1rem;
-		font-size: 1.5rem;
 	}
 	color: $--colorSiteTitle;
 	font-size: 2rem;
