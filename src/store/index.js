@@ -89,8 +89,7 @@ const store = new Vuex.Store({
 	},
 	actions: {
 		getActiveThreads(context,board = context.state.selectedBoard){
-			//console.log("requesting",payload)
-			pino.debug("Requesting /activeThreads /%s/ from API",board)
+			pino.trace("Requesting /activeThreads /%s/ from API",board)
 			axios.get(config.url + `/activeThreads/${board}`)
 				.then(function (response) {
 					context.commit("updateThreadData",{
@@ -121,7 +120,7 @@ socket.on("reconnect",() => {
 })
 
 socket.on("allBoardStats",allBoardStats => {
-	pino.info("Received allBoardStats from API")
+	pino.trace("Received allBoardStats from API")
 	
 	// allBoardStats is received automatically after a socket connection has been established
 	// if the data for the selected board is different, it means that new threaddata should also be requested

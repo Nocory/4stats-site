@@ -9,10 +9,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-
-//const DashboardPlugin = require('webpack-dashboard/plugin')
-
 //const front-matter = null;
 
 module.exports = {
@@ -20,24 +16,11 @@ module.exports = {
 		app: ['js/main.js']
 	},
 	output: {
-		//filename: '[name]_[chunkhash:8].js',
 		filename: '[name].js',
 		path: path.resolve('dist')
 	},
-	/*
-	watch: true,
-	watchOptions: {
-		ignored: path.resolve(__dirname, 'node_modules'),
-		aggregateTimeout: 300
-	},
-	*/
 	module: {
 		rules: [{
-			test: /\.md$/,
-			//use: ['json-loader', 'yaml-frontmatter-loader']
-			use: ['json-loader', 'front-matter']
-		},
-		{
 			test: /\.css$/,
 			use: ExtractTextPlugin.extract({
 				fallback: 'style-loader',
@@ -97,7 +80,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		//new DashboardPlugin(),
 		//new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 		//new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
 		

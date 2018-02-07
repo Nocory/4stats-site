@@ -99,10 +99,10 @@ export default {
 			let validUntil = timelineData.validUntil || 0
 
 			let validMinutesLeft = ((validUntil - Date.now()) / 60000).toFixed(2)
-			pino.debug(`chart.vue toggleBoard: Data for /${board}/ valid for ${validMinutesLeft > 0 ? validMinutesLeft : 0} more minutes`)
+			pino.trace(`chart.vue toggleBoard: Data for /${board}/ valid for ${validMinutesLeft > 0 ? validMinutesLeft : 0} more minutes`)
 			
 			if (Date.now() > validUntil) {
-				pino.debug(`chart.vue toggleBoard: Requesting timeline for /${board}/ ${this.chartOptions.term}`)
+				pino.trace(`chart.vue toggleBoard: Requesting timeline for /${board}/ ${this.chartOptions.term}`)
 				this.requestTimeline(board, this.chartOptions.term)
 			} else {
 				chartFunctions.addBoard(board,timelineData.history,this.chartOptions)
@@ -111,7 +111,7 @@ export default {
 		requestTimeline(board,term){
 			axios.get(config.url + `/history/${term}/${board}`)
 				.then(response => {
-					pino.debug("chart.vue requestTimeline %d",response.status, response.data)
+					pino.trace("chart.vue requestTimeline %d",response.status, response.data)
 					if(response.status == 200) this.processNewTimelineData(board,term,response.data)
 				})
 				.catch(error => {
@@ -170,7 +170,7 @@ export default {
 					const timelineData = this.history[this.chartOptions.term][mutation.payload.board] || {}
 					timelineData.lastUpdate = Date.now()
 					if(Date.now() > timelineData.validUntil || 0){
-						pino.debug(`chart.vue on boardUpdate: Automatically requesting timeline for /${mutation.payload.board}/ ${this.chartOptions.term}`)
+						pino.trace(`chart.vue on boardUpdate: Automatically requesting timeline for /${mutation.payload.board}/ ${this.chartOptions.term}`)
 						this.requestTimeline(mutation.payload.board, this.chartOptions.term)
 					}
 				}

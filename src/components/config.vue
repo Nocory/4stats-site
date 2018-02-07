@@ -113,14 +113,14 @@ export default {
 			this.$store.commit("setEnabledBoards",this.tempEnabledBoards.slice())
 		},
 		toggleBoard(board){
-			pino.debug("config.vue toggleBoard checking for",board)
+			pino.trace("config.vue toggleBoard checking for",board)
 			let index = this.tempEnabledBoards.indexOf(board)
 			if(index >= 0){
 				this.tempEnabledBoards.splice(index,1)
 			}else{
 				this.tempEnabledBoards.push(board)
 			}
-			pino.debug("config.vue toggleBoard new list",this.tempEnabledBoards)
+			pino.trace("config.vue toggleBoard new list",this.tempEnabledBoards)
 		},
 		savePreset(){
 			localStorage.setItem("config_boardPreset",JSON.stringify(this.tempEnabledBoards))

@@ -97,7 +97,7 @@ export default {
 		position: absolute;
 		left: 0;
 		top: 200%;
-		//content: "thanks";
+		content: "works now?";
 	}
 }
 
