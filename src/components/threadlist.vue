@@ -52,10 +52,8 @@ export default {
 			document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"
 		},
 		revealThreadSideBar(doScrollToTop){
-			console.log(document.body.clientWidth)
 			if(document.body.clientWidth >= 768) return
-			console.log("meep")
-			pino.trace("revealThreadSideBar")
+			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
 			if(doScrollToTop){ //FIXME: temporarily disabled. weird horizontal scrolling going on
 				document.querySelector(".nav-component").scrollIntoView({
@@ -65,7 +63,7 @@ export default {
 			}
 		},
 		closeThreadSideBar(){
-			pino.trace("closeThreadSideBar")
+			pino.debug("closeThreadSideBar")
 			document.querySelector(".threadlist-component").classList.remove("thread-sidebar-revealed")
 		},
 		handleSwipe(direction){
