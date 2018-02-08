@@ -32,6 +32,7 @@
 	</div>
 	
 	<form name="feedback" netlify hidden netlify-honeypot="dont">
+		<div netlify-recaptcha></div>
 		<input type="text" name="dont">
 		<input type="text" name="message" required minlength="10" maxlength="1000">
 		<input type="hidden" name="form-name" value="feedback">
