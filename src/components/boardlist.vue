@@ -83,13 +83,9 @@ export default {
 			if(
 				mutation.type == "updateBoardData"
         &&
-        !document.hidden
+        mutation.payload.board != this.selectedBoard
         &&
-        this.$refs[mutation.payload.board]
-        &&
-        this.$refs[mutation.payload.board].length != 0
-        &&
-        !this.$refs[mutation.payload.board][0].classList.contains("tableHighlight")
+        !this.$refs[mutation.payload.board][0].classList.contains("just-updated")
 			){
 				let element = this.$refs[mutation.payload.board][0]
 				element.classList.add("just-updated")
