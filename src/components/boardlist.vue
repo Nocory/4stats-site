@@ -83,6 +83,8 @@ export default {
 			if(
 				mutation.type == "updateBoardData"
         &&
+        this.$refs[mutation.payload.board]
+        &&
         mutation.payload.board != this.selectedBoard
         &&
         !this.$refs[mutation.payload.board][0].classList.contains("just-updated")
