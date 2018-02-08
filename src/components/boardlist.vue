@@ -79,6 +79,8 @@ export default {
 				this.sortBoardList()
 			}
 		})
+	},
+	mounted(){
 		this.$store.subscribe(mutation => {
 			if(
 				mutation.type == "updateBoardData"
@@ -104,9 +106,6 @@ export default {
 				this.sortBoardList()
 			}
 		})
-	},
-	mounted() {
-
 	}
 }
 </script>
