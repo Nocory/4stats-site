@@ -44,7 +44,8 @@ const store = new Vuex.Store({
 				totalPPM += state.boardData[board].postsPerMinute
 			}
 			return totalPPM
-		}
+		},
+		//sortedBoardlist: 
 	},
 	mutations: {
 		setEnabledBoards(state, payload) {
@@ -89,7 +90,6 @@ const store = new Vuex.Store({
 	},
 	actions: {
 		getActiveThreads(context,board = context.state.selectedBoard){
-			//console.log("requesting",payload)
 			pino.debug("Requesting /activeThreads /%s/ from API",board)
 			axios.get(config.url + `/activeThreads/${board}`)
 				.then(function (response) {
@@ -114,22 +114,24 @@ const store = new Vuex.Store({
 
 // setting up handling of server communication
 
-store.dispatch("getActiveThreads")
+//store.dispatch("getActiveThreads")
 
-socket.on("reconnect",() => {
+socket.on("connect",() => {
 	store.dispatch("getActiveThreads")
 })
 
 socket.on("allBoardStats",allBoardStats => {
-	pino.info("Received allBoardStats from API")
+	pino.debug("Received allBoardStats from API")
 	
 	// allBoardStats is received automatically after a socket connection has been established
 	// if the data for the selected board is different, it means that new threaddata should also be requested
 	// imagesPerReply property is used here to check integrity
+	/*
 	const boardData = store.state.boardData[store.state.selectedBoard]
 	if(boardData.imagesPerReply && boardData.imagesPerReply != allBoardStats[store.state.selectedBoard].imagesPerReply){
 		store.dispatch("getActiveThreads")
 	}
+	*/
 	
 	store.commit("setInitialData",allBoardStats)
 })

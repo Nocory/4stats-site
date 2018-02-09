@@ -1,19 +1,29 @@
 <template>
   <div class="component-feedback has-text-centered">
-    <form method="post" class="has-text-left" name="contact" autocomplete="off" netlify-honeypot="dont">
+    <form name="feedback" method="post" class="has-text-left" netlify autocomplete="off" netlify-honeypot="dont">
       <input type="hidden" name="form-name" value="feedback">
       <input type="text" name="dont" class="is-hidden">
       <textarea class="textarea" rows="10" name="message" required minlength="10" maxlength="1000" placeholder="type..."/>
       <div class="button-group">
-        <button class="button" @click="$emit('update:showFeedbackForm', false)">Cancel</button>
+        <button class="button" type="button" @click="$emit('update:showFeedbackForm', false)">Cancel</button>
         <button class="button" type="submit">Send</button>
+        <!--<button class="button" type="button" @click="send">Send</button>-->
       </div>
     </form>
   </div>
 </template>
 
 <script>
+const axios = require("axios")
 export default {
+	methods:{
+		send(){
+			var params = new URLSearchParams()
+			params.append('param1', 'value1')
+			params.append('param2', 'value2')
+			axios.post('/', params)
+		}
+	}
 }
 </script>
 

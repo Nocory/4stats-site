@@ -25,11 +25,11 @@ socket.on('disconnect', reason => {
 })
 
 socket.on("reconnect",() => {
-	pino.info("Socket re-connected")
+	pino.debug("Socket re-connected")
 })
 
 socket.on("connect",() => {
-	pino.info("Socket connected")
+	pino.debug("Socket connected")
 })
 
 let openTimerID = null
