@@ -15,7 +15,7 @@
       </div>
       <transition-group name="flip-list" class="board-rows">
         <div class="board-row" v-for="boardName in enabledBoardsCopy" :key="boardName">
-          <div :ref="boardName" @click.stop="boardClicked(boardName)" class="board-data-wrapper" :class="{'board-selected' : (selectedBoard == boardName)}">
+          <div :id="'board-'+boardName" @click.stop="boardClicked(boardName)" class="board-data-wrapper" :class="{'board-selected' : (selectedBoard == boardName)}">
             <div :data-hover-text="longBoardNames[boardName]" class="board-data board-name">/{{ boardName }}/</div>
             <div class="board-data ">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
             <div class="board-data is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
@@ -82,16 +82,11 @@ export default {
 	},
 	mounted(){
 		this.$store.subscribe(mutation => {
-			if(
-				mutation.type == "updateBoardData"
-        &&
-        this.$refs[mutation.payload.board]
-        &&
-        mutation.payload.board != this.selectedBoard
-        &&
-        !this.$refs[mutation.payload.board][0].classList.contains("just-updated")
-			){
-				let element = this.$refs[mutation.payload.board][0]
+      
+			if(mutation.type == "updateBoardData" && mutation.payload.board != this.selectedBoard){
+				let element = document.getElementById("board-" + mutation.payload.board)
+				if(!element || element.classList.contains("just-updated")) return
+        
 				element.classList.add("just-updated")
 				element.addEventListener(
 					"animationend",
