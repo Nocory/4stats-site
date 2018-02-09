@@ -4,7 +4,6 @@
       <input type="hidden" name="form-name" value="feedback">
       <input type="text" name="dont" class="is-hidden">
       <textarea class="textarea" rows="10" name="message" required minlength="10" maxlength="1000" placeholder="type..."/>
-      <div netlify-recaptcha/>
       <div class="button-group">
         <button class="button" type="button" @click="$emit('update:showFeedbackForm', false)">Cancel</button>
         <button class="button" type="submit">Send</button>
