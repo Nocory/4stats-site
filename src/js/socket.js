@@ -5,7 +5,10 @@ const pino = require("./pino")
 //pino.info("Initiating socket.io connection with hostURL: ", config.url)
 let socket = socketIO(config.url,{
 	transports: window.WebSocket ? ['websocket'] : ['polling', 'websocket'],
-	reconnectionDelay: 4000
+	reconnectionDelay: 4000,
+	query: {
+		connectionType: 'new'
+	}
 })
 
 //window.soc = socket
@@ -30,6 +33,9 @@ socket.on("reconnect",() => {
 
 socket.on("connect",() => {
 	pino.debug("Socket connected")
+	socket.io.opts.query = {
+		connectionType: 'subsequent'
+	}
 })
 
 let openTimerID = null
