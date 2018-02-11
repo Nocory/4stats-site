@@ -136,7 +136,7 @@ export default {
 			}))
 
 			//let noDubsBoardModifier = ["v","vg","vr"].indexOf(board) != -1 ? 0.901 : 1 //anon uses an old non ES6 browser
-			let noDubsBoardModifier = ["v","vg","vr"].includes(board) ? 0.901 : 1
+			//let noDubsBoardModifier = ["v","vg","vr"].includes(board) ? 0.901 : 1
 			
 			let historyData = {
 				latestTime: newData[newData.length - 1].time,
@@ -144,7 +144,8 @@ export default {
 				history : newData.map(el => (
 					{
 						x: term == "hour" ? el.time : new Date(el.time).setHours(0,0,1,0),
-						y: term == "hour" ? el.postsPerMinute * noDubsBoardModifier : Math.round(el.postCount * noDubsBoardModifier)
+						//y: term == "hour" ? el.postsPerMinute * noDubsBoardModifier : Math.round(el.postCount * noDubsBoardModifier)
+						y: term == "hour" ? el.postsPerMinute : Math.round(el.postCount)
 					}))
 			}
 			if(term == "day"){

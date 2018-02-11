@@ -7,6 +7,7 @@ const pino = require("js/pino")
 const axios = require("axios")
 const socket = require("js/socket.js")
 
+// TODO: remove... moved to API
 const adjustPostcountIfNoDubs = (board,data)=>{
 	if(["v","vg","vr"].indexOf(board) != -1){
 	//if(["v","vg","vr"].includes(board)){
@@ -101,7 +102,7 @@ const store = new Vuex.Store({
 		},
 		setInitialData(state,payload){
 			for(let key in payload){
-				adjustPostcountIfNoDubs(key,payload[key])
+				//adjustPostcountIfNoDubs(key,payload[key])
 				adjustActivityIfFewPosts(payload[key])
 			}
 			Vue.set(state, 'boardData', payload)
@@ -109,7 +110,7 @@ const store = new Vuex.Store({
 			//state.enabledBoards = JSON.parse(localStorage.getItem("enabledBoards")) || config.availableBoards.default.concat(config.availableBoards.imageGenerals).concat(config.availableBoards.misc)
 		},
 		updateBoardData(state,payload){
-			adjustPostcountIfNoDubs(payload.board,payload.data)
+			//adjustPostcountIfNoDubs(payload.board,payload.data)
 			adjustActivityIfFewPosts(payload.data)
 			
 			if(store.state.boardData[payload.board]){
