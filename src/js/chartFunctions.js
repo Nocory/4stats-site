@@ -99,6 +99,8 @@ let addBoard = (board, history, options, updateTime = 1000) => {
 	*/
 	let chartThis = history.slice(-options.maxEntries[options.term]) //TODO: replace slice with min value date
 	if(options.term == "hour" && options.hourProperty == "activity"){
+		//let topPPM = board == "combined" ? store.getters.combinedBoardStats.topPPM : store.state.boardData[board].topPPM
+		//chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / topPPM}))
 		chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / store.state.boardData[board].topPPM}))
 	}
 	

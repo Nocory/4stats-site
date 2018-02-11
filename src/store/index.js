@@ -22,6 +22,32 @@ const adjustActivityIfFewPosts = data =>{
 	return data
 }
 
+const calcCombinedStats = boardData => {
+	let combinedStats = {
+		postsPerMinute: 0,
+		threadsPerHour: 0,
+		avgPostsPerDay: 0,
+		topPPM: 0,
+		imagesPerReply: 0,
+		relativeActivity: 0
+	}
+	for(let board in boardData){
+		if(board != "combined"){
+			combinedStats.postsPerMinute += boardData[board].postsPerMinute
+			combinedStats.threadsPerHour += boardData[board].threadsPerHour
+			combinedStats.avgPostsPerDay += boardData[board].avgPostsPerDay
+			combinedStats.topPPM += boardData[board].topPPM
+			combinedStats.imagesPerReply += boardData[board].imagesPerReply
+			combinedStats.relativeActivity += boardData[board].relativeActivity
+		}
+
+	}
+	combinedStats.imagesPerReply /= config.allBoards.length
+	combinedStats.relativeActivity /= config.allBoards.length
+
+	return combinedStats
+}
+
 const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	state: {
@@ -38,6 +64,27 @@ const store = new Vuex.Store({
 		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{})
 	},
 	getters: {
+		combinedBoardStats : state => {
+			let combinedStats = {
+				postsPerMinute: 0,
+				threadsPerHour: 0,
+				avgPostsPerDay: 0,
+				topPPM: 0,
+				imagesPerReply: 0,
+				relativeActivity: 0
+			}
+			for(let board in state.boardData){
+				combinedStats.postsPerMinute += state.boardData[board].postsPerMinute
+				combinedStats.threadsPerHour += state.boardData[board].threadsPerHour
+				combinedStats.avgPostsPerDay += state.boardData[board].avgPostsPerDay
+				combinedStats.topPPM += state.boardData[board].topPPM
+				combinedStats.imagesPerReply += state.boardData[board].imagesPerReply
+				combinedStats.relativeActivity += state.boardData[board].relativeActivity
+			}
+			combinedStats.imagesPerReply /= config.allBoards.length
+			combinedStats.relativeActivity /= config.allBoards.length
+			return combinedStats
+		},
 		getTotalPPM : state => {
 			let totalPPM = 0
 			for(let board in state.boardData){

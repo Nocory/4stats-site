@@ -4,7 +4,7 @@
     <div class="container">
       <div class="title-and-description">
         <div class="site-title">{{ url }}</div>
-        <div class="site-description is-hidden-mobile">Currently {{ getTotalPPM.toFixed(2) }} posts/minute across all boards</div>
+        <div class="site-description is-hidden-mobile">Currently {{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/minute with ~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
       </div>
       <div class="spacer"/>
       <button class="config-button" @click="showConfig = true">
@@ -28,9 +28,7 @@ export default {
 		showConfig: false
 	}),
 	computed: {
-		...mapGetters([
-			'getTotalPPM'
-		])
+		...mapGetters(['combinedBoardStats'])
 	},
 	components:{
 		componentConfig: require("./config.vue").default

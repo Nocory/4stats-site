@@ -45,6 +45,11 @@
       <a class="board-button-wrapper" v-for="board in allBoards" :key="board" @click="toggleBoard(board)">
         <div class="board-button" :class="{'button-selected': graphedBoards.includes(board)}">/{{ board }}/</div>
       </a>
+      <!--
+      <a class="board-button-wrapper" @click="toggleBoard('combined')">
+        <div class="board-button" :class="{'button-selected': graphedBoards.includes('combined')}">[ALL]</div>
+      </a>
+			-->
     </div>
   </div>
 </template>
@@ -109,6 +114,8 @@ export default {
 			}
 		},
 		requestTimeline(board,term){
+			//let url = board != 'combined' ? config.url + `/history/${term}/${board}` : config.url + `/combinedHistory/${term}`
+			//axios.get(url)
 			axios.get(config.url + `/history/${term}/${board}`)
 				.then(response => {
 					pino.debug("chart.vue requestTimeline %d",response.status, response.data)
