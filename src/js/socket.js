@@ -7,7 +7,7 @@ let socket = socketIO(config.url,{
 	transports: window.WebSocket ? ['websocket'] : ['polling', 'websocket'],
 	reconnectionDelay: 4000,
 	query: {
-		connectionType: 'new'
+		connectionType: localStorage.getItem("selectedBoard") ? 'revisit' : "new"
 	}
 })
 
@@ -24,7 +24,7 @@ socket.on("enforcedClientVersion", data => {
 })
 
 socket.on('disconnect', reason => {
-	pino.warn("Socket disconnected. Reason: %s",reason)
+	pino.debug("Socket disconnected. Reason: %s",reason)
 })
 
 socket.on("reconnect",() => {
@@ -34,7 +34,7 @@ socket.on("reconnect",() => {
 socket.on("connect",() => {
 	pino.debug("Socket connected")
 	socket.io.opts.query = {
-		connectionType: 'subsequent'
+		connectionType: 'foreground'
 	}
 })
 

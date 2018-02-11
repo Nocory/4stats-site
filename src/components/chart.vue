@@ -45,6 +45,11 @@
       <a class="board-button-wrapper" v-for="board in allBoards" :key="board" @click="toggleBoard(board)">
         <div class="board-button" :class="{'button-selected': graphedBoards.includes(board)}">/{{ board }}/</div>
       </a>
+      <!--
+      <a class="board-button-wrapper" @click="toggleBoard('combined')">
+        <div class="board-button" :class="{'button-selected': graphedBoards.includes('combined')}">[ALL]</div>
+      </a>
+			-->
     </div>
   </div>
 </template>
@@ -109,6 +114,8 @@ export default {
 			}
 		},
 		requestTimeline(board,term){
+			//let url = board != 'combined' ? config.url + `/history/${term}/${board}` : config.url + `/combinedHistory/${term}`
+			//axios.get(url)
 			axios.get(config.url + `/history/${term}/${board}`)
 				.then(response => {
 					pino.debug("chart.vue requestTimeline %d",response.status, response.data)
@@ -129,7 +136,7 @@ export default {
 			}))
 
 			//let noDubsBoardModifier = ["v","vg","vr"].indexOf(board) != -1 ? 0.901 : 1 //anon uses an old non ES6 browser
-			let noDubsBoardModifier = ["v","vg","vr"].includes(board) ? 0.901 : 1
+			//let noDubsBoardModifier = ["v","vg","vr"].includes(board) ? 0.901 : 1
 			
 			let historyData = {
 				latestTime: newData[newData.length - 1].time,
@@ -137,7 +144,8 @@ export default {
 				history : newData.map(el => (
 					{
 						x: term == "hour" ? el.time : new Date(el.time).setHours(0,0,1,0),
-						y: term == "hour" ? el.postsPerMinute * noDubsBoardModifier : Math.round(el.postCount * noDubsBoardModifier)
+						//y: term == "hour" ? el.postsPerMinute * noDubsBoardModifier : Math.round(el.postCount * noDubsBoardModifier)
+						y: term == "hour" ? el.postsPerMinute : Math.round(el.postCount)
 					}))
 			}
 			if(term == "day"){

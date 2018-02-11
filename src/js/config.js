@@ -92,7 +92,8 @@ let config = {
 			'y'
 		]
 	},
-	boardNames: { '3': '3DCG',
+	boardNames: {
+		'3': '3DCG',
 		a: 'Anime & Manga',
 		aco: 'Adult Cartoons',
 		adv: 'Advice',
@@ -163,7 +164,8 @@ let config = {
 		wsg: 'Worksafe GIF',
 		wsr: 'Worksafe Requests',
 		x: 'Paranormal',
-		y: 'Yaoi' }
+		y: 'Yaoi',
+	}
 }
 
 config.allBoards = Object.keys(config.availableBoards).reduce((acc,key) => [...acc,...config.availableBoards[key]],[])
