@@ -82,7 +82,6 @@ export default {
 	},
 	mounted(){
 		this.$store.subscribe(mutation => {
-      
 			if(mutation.type == "updateBoardData" && mutation.payload.board != this.selectedBoard){
 				let element = document.getElementById("board-" + mutation.payload.board)
 				if(!element || element.classList.contains("just-updated")) return
