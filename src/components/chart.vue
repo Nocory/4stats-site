@@ -95,6 +95,7 @@ export default {
 				this.graphedBoards.splice(index,1)
 				chartFunctions.removeBoard(board)
 			}else{
+				if(this.graphedBoards.length >= 8) return
 				this.graphedBoards.push(board)
 				this.checkIfRequestOrAdd(board)
 			}
