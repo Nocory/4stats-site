@@ -12,10 +12,12 @@ let chart = null
 let availableColors = [
 	"#495057", //0 black
 	"#BF616A", //11 red
-	"#5E81AC", //10 blue
-	"#A3BE8C", //14 green
-	"#D08770", //12 orange
-	"#EBCB8B", //13 yellow
+	"#3f95bf", //steelblue
+	"#74b816", //lime7
+	"#f59f00", //yellow7
+	"#868e96", //gray6
+	"#ae3ec9", //grape7
+	"#f76707", //orange7
 ]
 
 const init = id => {
@@ -90,13 +92,7 @@ let addBoard = (board, history, options, updateTime = 1000) => {
 		[24*7]: "day",
 		[24*7*4]: "week"
 	}[options.maxEntries.hour]
-	/*
-	let latestTime = history[history.length - 1].x
-	let startFrom = Math.max(history[0].x,latestTime - options.maxEntries[options.term] * (options.term == "day" ? 86400000 : 3600000))
-
-	chart.options.scales.xAxes[0].time.min = startFrom
-	let chartThis = history
-	*/
+	
 	let chartThis = history.slice(-options.maxEntries[options.term]) //TODO: replace slice with min value date
 	if(options.term == "hour" && options.hourProperty == "activity"){
 		//let topPPM = board == "combined" ? store.getters.combinedBoardStats.topPPM : store.state.boardData[board].topPPM
@@ -106,10 +102,9 @@ let addBoard = (board, history, options, updateTime = 1000) => {
 	
 	if(options.term == "hour" && options.smoothingLevel){
 		// I don't even remember how this exactly works
+		// insanity
 		let maxVariance = chartThis.reduce((totalY, entry) => totalY + entry.y, 0) / chartThis.length
-		//console.log(maxVariance)
 		maxVariance *= 0.01 + 0.01 / options.smoothingLevel //TODO: find best values
-		//console.log(maxVariance)
 		for (let i = 0; i < options.smoothingLevel; i++) {
 			let smoothedHistory = []
 			for (let i = 0; i < chartThis.length; i++) {

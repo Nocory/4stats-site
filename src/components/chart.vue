@@ -95,6 +95,7 @@ export default {
 				this.graphedBoards.splice(index,1)
 				chartFunctions.removeBoard(board)
 			}else{
+				if(this.graphedBoards.length >= 8) return
 				this.graphedBoards.push(board)
 				this.checkIfRequestOrAdd(board)
 			}
@@ -134,9 +135,6 @@ export default {
 				postCount: el[2],
 				postsPerMinute: el[3]
 			}))
-
-			//let noDubsBoardModifier = ["v","vg","vr"].indexOf(board) != -1 ? 0.901 : 1 //anon uses an old non ES6 browser
-			//let noDubsBoardModifier = ["v","vg","vr"].includes(board) ? 0.901 : 1
 			
 			let historyData = {
 				latestTime: newData[newData.length - 1].time,
@@ -144,28 +142,18 @@ export default {
 				history : newData.map(el => (
 					{
 						x: term == "hour" ? el.time : new Date(el.time).setHours(0,0,1,0),
-						//y: term == "hour" ? el.postsPerMinute * noDubsBoardModifier : Math.round(el.postCount * noDubsBoardModifier)
 						y: term == "hour" ? el.postsPerMinute : Math.round(el.postCount)
 					}))
 			}
 			if(term == "day"){
 				const lastEntry = historyData.history[historyData.history.length - 1]
-				//console.log(historyData.history[historyData.history.length - 1])
 				historyData.history.push({
 					x: lastEntry.x + 1000 * 60 * 60 * 23.99,
 					y: lastEntry.y
 				})
 			}
 			this.history[term][board] = historyData
-			/*
-			let activityHistory = []
-			for (let entry of history) {
-				activityHistory.push({
-					x: entry.x,
-					y: entry.y ? entry.y / topPPM * 100 : entry.y
-				})
-			}
-			*/
+			
 			chartFunctions.addBoard(board,historyData.history,this.chartOptions)
 		}
 	},
@@ -222,14 +210,12 @@ abbr {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-	//justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #111;
 }
 
 .property-button-group{
 	display: flex;
-  //margin-right: 1rem;
 	border-right: 1px solid #333;
 }
 
@@ -239,7 +225,7 @@ abbr {
 	position: relative;
   font-size: 0.75rem;
   color: $oc-gray-7;
-	background-color: $oc-gray-0; //border-radius: 1px;
+	background-color: $oc-gray-0;
 	overflow: hidden;
 	z-index: 99;
 }
@@ -264,7 +250,7 @@ abbr {
   width: 4rem;
   font-size: 0.75rem;
   color: $oc-gray-7;
-	background-color: $oc-gray-0; //border-radius: 1px;
+	background-color: $oc-gray-0;
 	overflow: hidden;
 	z-index: 99;
 	transition: color 0.25s ease-out;

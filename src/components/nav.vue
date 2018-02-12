@@ -6,7 +6,6 @@
         <div class="site-title">{{ url }}</div>
         <div class="site-description is-hidden-mobile">Currently {{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/minute with ~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
       </div>
-      <div class="spacer"/>
       <button class="config-button" @click="showConfig = true">
         <span class="icon">
           <i class="fa-lg fa-cog"/>
@@ -42,7 +41,6 @@ export default {
 .nav-component{
 	position: relative;
 	background: $--colorNavBar;
-  //box-shadow: 0px 8px 16px -4px rgba(0, 0, 0, 0.5);
 }
 
 .container{
@@ -53,8 +51,9 @@ export default {
 
 .title-and-description{
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: baseline;
+	flex-grow: 1;
 }
 
 .site-title{
@@ -67,20 +66,9 @@ export default {
 	font-size: 2rem;
 }
 
-.title-hat{
-	position: absolute;
-	top: 7px;
-	right: -7px;
-	width: 22px;
-}
-
 .site-description{
 	color: $oc-gray-2;
 	padding: 0 1rem;
-}
-
-.spacer{
-	flex-grow: 1;
 }
 
 .config-button{
@@ -102,17 +90,10 @@ export default {
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-	//font-family: monospace;
-	//font-family: "Ubuntu Mono";
-	//font-weight: bolder;
 	padding: 0;
-  border-radius: 999px;
-	//border: 2px solid #f5ff90;
 	border: none;
-  //background: rgb(54, 54, 46);
 	background: transparent;
 	color: $oc-gray-0;
-	text-shadow: 0px 0px 4px #111;
 	font-weight: bolder;
 }
 
