@@ -12,8 +12,8 @@ let socket = socketIO(config.url,{
 
 let enforcedClientVersion = null
 socket.on("enforcedClientVersion", data => {
-	enforcedClientVersion = enforcedClientVersion || data
-	pino.info("Enforced client version is %d", data)
+	if (enforcedClientVersion != data) pino.info("enforcedClientVersion is: %d", data)
+	enforcedClientVersion = enforcedClientVersion || data	
 	if (enforcedClientVersion != data) {
 		pino.info("reloading")
 		window.location.reload(true)
