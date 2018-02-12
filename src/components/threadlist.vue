@@ -84,8 +84,6 @@ export default {
 				this.revealThreadSideBar(true)
 			}
 		})
-		//document.addEventListener("touchstart", console.log, false)
-		//document.addEventListener("touchend", console.log, false)
     
 		const detectSwipe = require("js/detectSwipe")
 		detectSwipe(document,this.handleSwipe)
@@ -130,25 +128,6 @@ export default {
     transition: transform 0.5s ease-in-out;
     &.thread-sidebar-revealed{
       transform: translateX(0%);
-      /*
-      &::after{
-        border-radius: 4px;
-        padding: 0.25rem 1rem;
-        background: #333;
-        color: #f1f1f1;
-        opacity: 0;
-        content: "Swipe again to close";
-        margin: 0 auto;
-        position: absolute;
-        top: 48px;
-        right: 16px;
-        margin: 0 auto;
-        animation-duration: 3s;
-        animation-name: swipeHint;
-        animation-timing-function: ease-in-out;
-        z-index: 201;
-      }
-      */
     }
     .box-shadow-wrapper{
       border-left: 12px solid transparent;

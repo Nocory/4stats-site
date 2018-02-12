@@ -31,7 +31,6 @@ import socket from "js/socket"
 import { mapState } from 'vuex'
 export default {
 	data: () => ({
-		showDebugInfo: localStorage.getItem("showDebugInfo") || "",
 		forceChart: false,
 		renderChart: window.innerWidth >= 1216, // the bulma breakpoint for desktops
 		recentlyUpdatedBoard: "",
@@ -44,7 +43,6 @@ export default {
 		componentNav: require("./nav.vue").default,
 		componentBoardlist: require("./boardlist.vue").default,
 		componentThreadlist: require("./threadlist.vue").default,
-		//componentChart: require("./chart.vue").default,
 		componentChart: () => import('./chart.vue'), // lazy loading for relevant screen-width
 		componentFooter: require("./footer.vue").default,
 		componentConfig: require("./config.vue").default
@@ -79,7 +77,7 @@ export default {
 .main{
 	position: relative;
 	@include desktop{
-		padding-top: 1.5rem;
+		padding-top: 1rem;
 	}
 	@include touch{
 		padding-top: 0rem;

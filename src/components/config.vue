@@ -5,7 +5,7 @@
       <div class="section">
         <div class="delete-button">x</div>
         <div class="container">
-          <div class="toggle-all columns is-multiline is-mobile individual-boards">
+          <div class="toggle-all columns is-multiline is-mobile">
             <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('main')">
               <div class="board" :class="{enabled : (availableBoards['main'].every((el) => tempEnabledBoards.includes(el)))}">Main</div>
             </div>
@@ -18,20 +18,18 @@
             <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('nsfw')">
               <div class="board" :class="{enabled : (availableBoards['nsfw'].every((el) => tempEnabledBoards.includes(el)))}">NSFW</div>
             </div>
-            <!--
-						<div class="column is-6-mobile is-6-tablet is-2-fullhd" @click.stop="savePreset">
-							<div class="board save-preset">Save preset</div>
-						</div>
-						<div class="column is-6-mobile is-6-tablet is-2-fullhd" @click.stop="loadPreset">
-							<div class="board load-preset">Load preset</div>
-						</div>
-						-->
+            <div class="column is-6-mobile is-6-tablet is-2-fullhd" @click.stop="savePreset">
+              <div class="board save-preset">Save as preset</div>
+            </div>
+            <div class="column is-6-mobile is-6-tablet is-2-fullhd" @click.stop="loadPreset">
+              <div class="board load-preset">Load preset</div>
+            </div>
           </div>
           <div class="board-buttons columns is-multiline">
 
             <div class="column is-6">
               <div class="title is-6">Main</div>
-              <div class="columns is-multiline is-mobile individual-boards">
+              <div class="columns is-multiline is-mobile">
                 <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.main" :key="board" @click.stop="toggleBoard(board)">
                   <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
                     /{{ board }}/
@@ -42,7 +40,7 @@
 
             <div class="column is-6">
               <div class="title is-6">Image Generals</div>
-              <div class="columns is-multiline is-mobile individual-boards">
+              <div class="columns is-multiline is-mobile">
                 <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.imageGenerals" :key="board" @click.stop="toggleBoard(board)">
                   <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
                     /{{ board }}/
@@ -50,7 +48,7 @@
                 </div>
               </div>
               <div class="title is-6">Misc</div>
-              <div class="columns is-multiline is-mobile individual-boards">
+              <div class="columns is-multiline is-mobile">
                 <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.misc" :key="board" @click.stop="toggleBoard(board)">
                   <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
                     /{{ board }}/
@@ -58,7 +56,7 @@
                 </div>
               </div>
               <div class="title is-6">NSFW</div>
-              <div class="columns is-multiline is-mobile individual-boards">
+              <div class="columns is-multiline is-mobile">
                 <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.nsfw" :key="board" @click.stop="toggleBoard(board)">
                   <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
                     /{{ board }}/
@@ -136,7 +134,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~nord/src/sass/nord.scss";
 @import "~css/variables.scss";
 
 .component{
@@ -191,12 +188,6 @@ export default {
 	color: $nord6;
 }
 
-.individual-boards{
-	.column{
-		cursor: pointer;
-	}
-}
-
 .config-modal-content{
   position: relative;
   z-index: 99;
@@ -206,6 +197,7 @@ export default {
 }
 
 .board{
+	cursor: pointer;
 	border-radius: 0;
   background: $oc-gray-7;
 	color:$oc-gray-4;
