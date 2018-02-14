@@ -69,7 +69,8 @@ export default {
   z-index: 0;
   position: relative;
   min-height: 100vh;
-	background: $nord0;
+	background: $nord1;
+	//background: #1d1f21;
 	font-family: monospace;
 	touch-action: pan-y;
 }

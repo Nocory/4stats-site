@@ -18,12 +18,14 @@
             <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('nsfw')">
               <div class="board" :class="{enabled : (availableBoards['nsfw'].every((el) => tempEnabledBoards.includes(el)))}">NSFW</div>
             </div>
+            <!--
             <div class="column is-6-mobile is-6-tablet is-2-fullhd" @click.stop="savePreset">
               <div class="board save-preset">Save as preset</div>
             </div>
             <div class="column is-6-mobile is-6-tablet is-2-fullhd" @click.stop="loadPreset">
               <div class="board load-preset">Load preset</div>
             </div>
+						-->
           </div>
           <div class="board-buttons columns is-multiline">
 
