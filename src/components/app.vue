@@ -1,29 +1,29 @@
 <template>
-	<div id="app">
-		<component-nav></component-nav>
-		<div class="main">
-			<h6 class="connected is-hidden-touch">
-				just updated: /{{recentlyUpdatedBoard}}/<br>
-				users on site: {{connectedUsers}}
-			</h6>
-			<div class="container is-fullhd">
-				<div class="columns">
-					<component-boardlist class="column is-12-mobile is-6-tablet"></component-boardlist>
-					<component-threadlist class="column is-12-mobile is-6-tablet"></component-threadlist>
-				</div>
-			</div>
-		</div>
+  <div id="app">
+    <component-nav/>
+    <div class="main">
+      <h6 class="connected is-hidden-touch">
+        just updated: /{{ recentlyUpdatedBoard }}/<br>
+        users on site: {{ connectedUsers }}
+      </h6>
+      <div class="container is-fullhd">
+        <div class="columns">
+          <component-boardlist class="column is-12-mobile is-6-tablet"/>
+          <component-threadlist class="column is-12-mobile is-6-tablet"/>
+        </div>
+      </div>
+    </div>
 
-		<div class="section has-text-centered is-hidden-mobile">
-			<component-chart class="container" v-if="renderChart || forceChart"></component-chart>
-			<button v-else @click="forceChart = true" class="button">
-				Force-Load Chart Module<br>
-				not reccommended on mobile
-			</button>
-		</div>
+    <div class="section has-text-centered is-hidden-mobile">
+      <component-chart class="container" v-if="renderChart || forceChart"/>
+      <button v-else @click="forceChart = true" class="button">
+        Force-Load Chart Module<br>
+        not reccommended on mobile
+      </button>
+    </div>
 		
-		<component-footer></component-footer>
-	</div>
+    <component-footer/>
+  </div>
 </template>
 
 <script>
@@ -48,7 +48,7 @@ export default {
 		componentConfig: require("./config.vue").default
 	},
 	mounted(){
-		window.addEventListener("resize",event => {
+		window.addEventListener("resize",() => {
 			this.renderChart = window.innerWidth >= 1216
 		})
 		socket.on("userCount",userCount => {
