@@ -55,7 +55,7 @@ export default {
 			if(document.body.clientWidth >= 768) return
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
-			if(doScrollToTop){ //FIXME: temporarily disabled. weird horizontal scrolling going on
+			if(doScrollToTop){
 				document.querySelector(".nav-component").scrollIntoView({
 					behavior: "smooth",
 					block: "start"
@@ -164,23 +164,31 @@ a {
   
   >.img-wrapper{
     z-index: 123;
-    min-width: 125px;
-    max-width: 20%;
     >img{
       pointer-events: none;
       position: absolute;
       top:0;
       left:0;
       height: 100%;
-      max-width: 125px;
-      width: 20%;
       object-fit: cover;
     }
+    @include touch{
+      min-width: 125px;
+      width: 20%;
+      >img{
+        width: 125px;
+        min-width: 20%;
+      }
+    }
     @include desktop{
+      min-width: 20%;
+      >img{
+        max-width: 20%;
+        min-width: 20%;
+      }
       &:hover>img{
-        min-width: 125px;
+        min-width: 20%;
         max-width: 100%;
-        width: auto;
       }
     }
   }
@@ -191,17 +199,15 @@ a {
     line-height: 1.5;
     position: relative;
     background: #282a2e;
+      font-size: 0.75rem;
 
     >.thread-ppm {
       padding: 0.25rem;
-      font-size: 0.75rem;
-      //color: $nord0;
       margin: 0;
     }
 
     >.thread-title {
       padding: 0.25rem;
-      font-size: 0.75rem;
       font-weight: bolder;
       margin: 0;
       white-space: nowrap;
@@ -209,7 +215,6 @@ a {
 
     >.thread-comment {
       padding: 0.25rem;
-      font-size: 0.75rem;
     }
   }
 }
