@@ -5,10 +5,9 @@ $tablet: 768px; // Bulma default is 769
 @import "~bulma/sass/utilities/_all.sass";
 
 $--color-navbar: #1f1f1f;
-$--color-background: #2a313f;
-$--color-background: #2d4e79;
+
 $--color-background: #567563;
-$--color-background: $nord1;
+$--color-background: linear-gradient(60deg, #29323c 0%, #567563 100%);
 
 $--color-title: $oc-gray-0;
 $--color-text: $oc-gray-2;

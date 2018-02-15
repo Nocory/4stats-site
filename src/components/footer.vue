@@ -37,6 +37,10 @@ export default {
 <style scoped lang="scss">
 @import "~css/variables.scss";
 
+.component-footer{
+  position: relative;
+}
+
 .section{
   padding: 1.5rem 0 3rem;
 }
@@ -59,9 +63,7 @@ textarea {
 
 p {
 	font-size: 0.875rem;
-	@include tablet{
-		@include float-shadow-text;
-	}
+	@include float-shadow-text;
 }
 
 a {
