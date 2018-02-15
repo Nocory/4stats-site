@@ -69,8 +69,7 @@ export default {
   z-index: 0;
   position: relative;
   min-height: 100vh;
-	background: $nord1;
-	//background: #1d1f21;
+	background: $--color-background;
 	font-family: monospace;
 	touch-action: pan-y;
 }
@@ -90,8 +89,11 @@ export default {
 	top: 4px;
 	left: 4px;
   font-size: 10px;
-  color: $oc-gray-6;
+  color: $oc-gray-4;
 	opacity: 1;
+	&:hover{
+		opacity: 1;
+	}
 	&:after{
 		position: absolute;
 		left: 0;

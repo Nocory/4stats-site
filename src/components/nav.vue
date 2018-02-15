@@ -40,7 +40,11 @@ export default {
 
 .nav-component{
 	position: relative;
-	background: $--colorNavBar;
+	background: $--color-navbar;
+	color: $--color-text;
+	@include tablet{
+		@include float-shadow-box;
+	}
 }
 
 .container{
@@ -62,28 +66,15 @@ export default {
 	@include touch{
 		margin-left: 1rem;
 	}
-	color: $--colorSiteTitle;
 	font-size: 2rem;
 }
 
 .site-description{
-	color: $oc-gray-2;
 	padding: 0 1rem;
 }
 
 .config-button{
 	position: relative;
-	&::before{
-		z-index: 0;
-		content:"";
-		position: absolute;
-		background: $--colorLink;
-		top: 100%;
-		right: 0;
-		height: 2px;
-		width: 100%;
-		transform: skew(-45deg);
-	}
 	@include touch{
 		margin-right: 1rem;
 	}
@@ -93,18 +84,33 @@ export default {
 	padding: 0;
 	border: none;
 	background: transparent;
-	color: $oc-gray-0;
+	color: $--color-text;
 	font-weight: bolder;
+
+	//underline
+	&::before{
+		z-index: 0;
+		content:"";
+		position: absolute;
+		background: $--color-link;
+		top: 100%;
+		right: 0;
+		height: 2px;
+		width: 100%;
+		transform: skew(-45deg);
+	}
+
+	>.icon{
+		z-index: 1;
+	}
+
+	>.config-button-text{
+		font-size: 1.25rem;
+		z-index: 1;
+		font-family: monospace;
+		padding: 0 0 0 0.25rem;
+	}
 }
 
-.config-button-text{
-	font-size: 1.25rem;
-	z-index: 1;
-	font-family: monospace;
-	padding: 0 0 0 0.25rem;
-}
 
-.icon{
-	z-index: 1;
-}
 </style>

@@ -110,7 +110,7 @@ export default {
     .mobile-headline-wrapper{
       display: flex;
       align-items: center;
-      background: $--colorNavBar;
+      background: $--color-navbar;
       position: relative;
       z-index: 4;
       width: 100%;
@@ -146,19 +146,21 @@ a {
   min-height: 125px;
   flex: 1 1 0;
   display: flex;
-  background: transparent;
-  color: $oc-gray-2;
+    background: $oc-gray-9;
+    color: $oc-gray-2;
 
   @include tablet{
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.5);
+    //box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.25);
+    @include float-shadow-box;
+    border-bottom: none;
     &:not(:last-of-type) {
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
   }
 
   @include mobile{
     &:not(:last-of-type) {
-      border-bottom: 2px solid #222;
+      border-bottom: 2px solid $--color-highlight-1;
     }
   }
   
@@ -185,6 +187,7 @@ a {
       >img{
         max-width: 20%;
         min-width: 20%;
+        //transition: all 0.2s ease-out;
       }
       &:hover>img{
         min-width: 20%;
@@ -198,8 +201,7 @@ a {
     overflow: hidden;
     line-height: 1.5;
     position: relative;
-    background: #282a2e;
-      font-size: 0.75rem;
+    font-size: 0.75rem;
 
     >.thread-ppm {
       padding: 0.25rem;

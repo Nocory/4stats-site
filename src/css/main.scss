@@ -16,8 +16,7 @@
 }
 
 .greentext {
-  color: #75a000;
-  color: #b5bd68;
+  color: $--color-greentext;
 }
 /*
 .whitelist-greentext {
@@ -27,7 +26,10 @@
 .headline {
   position: relative;
   z-index: 10;
-  color: $--colorTitle;
+  color: $--color-title;
+  
+  //text-shadow: 0px 4px 16px rgba(0,0,0,0.75);
+  @include float-shadow-text;
 	background: transparent;
 	//border-bottom: 4px solid $--colorHighlight;
   padding: 0.25rem;

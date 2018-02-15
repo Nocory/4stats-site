@@ -27,7 +27,7 @@
         </div>
         <div class="property-button-group">
           <a :class="{ 'button-selected': chartOptions.hourProperty == 'postsPerMinute' }" @click="setChartOption('hourProperty','postsPerMinute')">Posts/Minute</a>
-          <abbr title="The boards posts-per-minute relative to its usual top ppm rate" :class="{ 'button-selected': chartOptions.hourProperty == 'activity' }" @click="setChartOption('hourProperty','activity')">Activity</abbr>
+          <a :class="{ 'button-selected': chartOptions.hourProperty == 'activity' }" @click="setChartOption('hourProperty','activity')">Activity</a>
         </div>
         <div class="property-button-group">
           <a :class="{ 'button-selected': chartOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</a>
@@ -41,16 +41,16 @@
       <canvas id="myChart"/>
     </div>
 
-    <div class="board-button-group">
-      <a class="board-button-wrapper" v-for="board in allBoards" :key="board" @click="toggleBoard(board)">
+    <a class="board-buttons" >
+      <div class="button-padder" v-for="board in allBoards" :key="board" @click="toggleBoard(board)">
         <div class="board-button" :class="{'button-selected': graphedBoards.includes(board)}">/{{ board }}/</div>
-      </a>
-      <!--
-      <a class="board-button-wrapper" @click="toggleBoard('combined')">
+      </div>
+    </a>
+    <!--
+      <a class="board-buttons" @click="toggleBoard('combined')">
         <div class="board-button" :class="{'button-selected': graphedBoards.includes('combined')}">[ALL]</div>
       </a>
 			-->
-    </div>
   </div>
 </template>
 
@@ -179,10 +179,6 @@ export default {
 <style scoped lang="scss">
 @import "~css/variables.scss";
 
-.headline{
-	position: relative;
-}
-
 .headline:after{
 	content: "since july 2017";
 	font-size: 0.75rem;
@@ -197,69 +193,74 @@ abbr {
   cursor: pointer;
 }
 
-.chart-wrapper {
-  position: relative;
-  min-height: 400px;
-  background: $oc-gray-0;
-  //box-shadow: 0px 8px 24px -4px rgba(0, 0, 0, 0.75);
-}
-
-
-
 .property-button-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px solid #111;
+	border-bottom: 1px solid $--color-highlight-1;
+	>.property-button-group{
+		display: flex;
+		//border-right: 2px solid $oc-gray-6;
+		margin-right: 1rem;
+		user-select: none;
+		@include tablet{
+			@include float-shadow-box;
+		}
+		>a{
+			width: 8em;
+			padding: 0.5em 0em;
+			position: relative;
+			font-size: 0.75rem;
+			color: $--color-text;
+			background-color: $--color-highlight-1;
+			overflow: hidden;
+			z-index: 99;
+		}
+	}
 }
 
-.property-button-group{
-	display: flex;
-	border-right: 1px solid #333;
+.chart-wrapper {
+  position: relative;
+  min-height: 400px;
+	background: $--color-highlight-1;
+	background: $oc-gray-3;
+	user-select: none;
+	@include tablet{
+		@include float-shadow-box;
+	}
 }
 
-.property-button-group>*{
-  width: 8em;
-  padding: 0.5em 0em;
-	position: relative;
-  font-size: 0.75rem;
-  color: $oc-gray-7;
-	background-color: $oc-gray-0;
-	overflow: hidden;
-	z-index: 99;
-}
-
-.board-button-group {
-	margin: 0 0;
+.board-buttons {
 	position: relative;
   display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-}
-
-.board-button-wrapper {
-	position: relative;
-  padding: 0.625rem 0.3125rem 0;
-}
-
-.board-button {
-	position: relative;
-  padding: 0.5em 0.25em;
-  flex: 1;
-  width: 4rem;
-  font-size: 0.75rem;
-  color: $oc-gray-7;
-	background-color: $oc-gray-0;
-	overflow: hidden;
-	z-index: 99;
-	transition: color 0.25s ease-out;
-	&.button-selected{
-		color: $oc-gray-0;
+	user-select: none;
+	>.button-padder{
+		padding: 0.625rem 0.3125rem 0;
+		>.board-button {
+			position: relative;
+			padding: 0.5em 0.25em;
+			width: 4rem;
+			font-size: 0.75rem;
+			color: $--color-text;
+			background-color: $--color-highlight-1;
+			overflow: hidden;
+			z-index: 99;
+			transition: color 0.25s ease-out;
+			&.button-selected{
+				font-weight: bolder;
+				color: $oc-gray-7;
+			}
+			@include tablet{
+				@include float-shadow-box;
+			}
+		}
 	}
 }
 
-.property-button-group>*:after,
+.property-button-group>a:after,
 .board-button:after {
   content: "";
 	position: absolute;
@@ -268,7 +269,7 @@ abbr {
   left: 0px;
   min-height: 3px;
   width: 100%;
-  background: $--colorHighlight;
+  background: $--color-selected;
   transform: translateY(3px);
   transition: transform 0.25s ease-out;
 }
@@ -276,11 +277,6 @@ abbr {
 .board-button:after{
   min-height: 100%;
 	transform: translateY(100%);
-	background: $--colorSelected;
-}
-
-.button-selected{
-	font-weight: bolder;
 }
 
 .button-selected:after {
@@ -291,5 +287,8 @@ abbr {
 .property-title{
 	color: $oc-gray-0;
 	padding: 0 0.25rem;
+	@include tablet{
+		@include float-shadow-text;
+	}
 }
 </style>

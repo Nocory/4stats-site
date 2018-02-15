@@ -148,6 +148,7 @@ export default {
   display: flex;
   justify-content: center;
 	align-items: center;
+	user-select: none;
 }
 
 .section {
@@ -190,19 +191,11 @@ export default {
 	color: $nord6;
 }
 
-.config-modal-content{
-  position: relative;
-  z-index: 99;
-  background: #f1f1f1;
-  color: #222;
-  border-radius: 4px;
-}
-
 .board{
 	cursor: pointer;
 	border-radius: 0;
   background: $oc-gray-7;
-	color:$oc-gray-4;
+	color:$oc-gray-2;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -212,17 +205,17 @@ export default {
 
 .save-preset{
 	background: $oc-lime-3;
-	color: #222;
+	color: $oc-gray-2;
 }
 
 .load-preset{
 	background: $oc-blue-3;
-	color: #222;
+	color: $oc-gray-2;
 }
 
 .enabled{
-  background: $oc-gray-0;
-	color:$oc-gray-9;
+  background: $oc-gray-2;
+	color:$oc-gray-7;
 }
 
 </style>

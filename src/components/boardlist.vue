@@ -108,14 +108,21 @@ export default {
 @import "~css/variables.scss";
 
 .boardlist-wrapper{
-  background: $oc-gray-0;
   cursor: pointer;
   user-select: none;
   font-size: 0.8rem;
+  //box-shadow: 0px 0px 24px -4px rgba(0,0,0,0.5);
+  @include tablet{
+    @include float-shadow-box;
+  }
+  
+  background-color: $--color-boardlist-header;
 }
 
 .board-data-wrapper{
   display: flex;
+  color: $--color-text-minor;
+
   &>.board-data{
     flex: 2 1 0;
     display: flex;
@@ -134,79 +141,87 @@ export default {
 }
 
 .boardlist-header{
+  background-color: $--color-boardlist-header;
   //overflow: hidden;
   height: 2.25rem;
   &>.board-data{ // categories
     white-space: nowrap;
-    position: relative;
     &::after{ // underline when category selected
       z-index: 2;
       content: "";
       position: absolute;
       bottom: 0px;
-      left: 0%;
+      left: 0px;
       height: 3px;
       width: 100%;
-      background: $--colorHighlight !important;
-      transform: scaleY(0);
+      background: $nord6 !important;
+      //transform: scaleY(0);
+      opacity: 0;
       transform-origin: center bottom;
-      transition: all 0.5s ease-out;
-    }
-    @include desktop{
-      &:hover::before{
-        z-index: 100;
-        content: attr(data-hover-text);
-        left: 32px;
-        top: 150%;
-        position: absolute;
-        white-space: nowrap;
-        padding: 0 1em;
-        background-color: rgba(0,0,0,0.75);
-        color: #f1f1f1;
-        opacity: 0;
-        animation: 0.25s ease-in-out 0.25s forwards hoverTextAnim;
-      }
+      transition: all 1s ease;
     }
     &.category-selected{
       position: relative;
       &::after{
-        transform: scaleY(1);
+        //transform: scaleY(1);
+        opacity: 1;
       }
     }
   }
 }
 
-.board-rows{
-  &>.board-row{
-    position: relative;
-    border-top: 1px solid rgba(0,0,0,0.25);
-    transition: background-color 0.5s, transform 0.5s;
-    &:nth-of-type(2n){
-      background-color: $oc-gray-2;
-    }
-    &>.board-data-wrapper{
+.board-row{
+  position: relative;
+  border-top: 1px solid rgba(0,0,0,0.25);
+  transition: background-color 0.5s, transform 0.5s;
+  
+  background-color: $--color-highlight-2;
+  &:nth-of-type(2n){
+    background-color: $--color-highlight-1;
+  }
+
+  &>.board-data-wrapper{
     height: 1.25rem;
-      &.board-selected{
-        background-color: $--colorSelected;
-        color: $oc-gray-0;
-      }
-      @include desktop{
-        &>.board-name:hover::after{
-          content: attr(data-hover-text);
-          white-space: nowrap;
-          padding: 0 1em;
-          position: absolute;
-          left: 100%;
-          background-color: rgba(0,0,0,0.75);
-          color: #f1f1f1;
-        }
-      }
+    
+    &.board-selected{
+      background-color: $--color-selected;
+      color: $oc-gray-7;
     }
   }
 }
 
-// animations
+////////////////////
+// Hover elements //
+////////////////////
+@include desktop{
+  .board-name:hover::after{
+    content: attr(data-hover-text);
+    white-space: nowrap;
+    padding: 0 1em;
+    position: absolute;
+    left: 100%;
+    background-color: rgba(0,0,0,0.75);
+    color: $--color-text-minor;
+  }
 
+  .boardlist-header>.board-data:hover::before{
+    z-index: 900;
+    content: attr(data-hover-text);
+    left: 32px;
+    top: 150%;
+    position: absolute;
+    white-space: nowrap;
+    padding: 0 1em;
+    background-color: rgba(0,0,0,0.75);
+    color: $--color-text-minor;
+    opacity: 0;
+    animation: 0.25s ease-in-out 0.25s forwards hoverTextAnim;
+  }
+}
+
+////////////////
+// Animations //
+////////////////
 .flip-list-move {
   transition: transform 0.5s ease-out;
 }
@@ -223,12 +238,11 @@ export default {
     background-color: inherit;
   }
   10% {
-    background-color: $--colorEvent;
+    background-color: $--color-update;
   }
-  50% {
-    background-color: $--colorEvent;
+  55% {
+    background-color: $--color-update;
   }
-
   100% {
     background-color: inherit;
   }
