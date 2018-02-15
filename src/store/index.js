@@ -7,46 +7,9 @@ const pino = require("js/pino")
 const axios = require("axios")
 const socket = require("js/socket.js")
 
-// TODO: remove... moved to API
-const adjustPostcountIfNoDubs = (board,data)=>{
-	if(["v","vg","vr"].indexOf(board) != -1){
-	//if(["v","vg","vr"].includes(board)){
-		data.postsPerMinute *= 0.901
-		data.avgPostsPerDay *= 0.901
-		data.topPPM *= 0.901
-	}
-	return data
-}
-
 const adjustActivityIfFewPosts = data =>{
 	if(data.avgPostsPerDay < 1000) data.relativeActivity -= 9999
 	return data
-}
-
-const calcCombinedStats = boardData => {
-	let combinedStats = {
-		postsPerMinute: 0,
-		threadsPerHour: 0,
-		avgPostsPerDay: 0,
-		topPPM: 0,
-		imagesPerReply: 0,
-		relativeActivity: 0
-	}
-	for(let board in boardData){
-		if(board != "combined"){
-			combinedStats.postsPerMinute += boardData[board].postsPerMinute
-			combinedStats.threadsPerHour += boardData[board].threadsPerHour
-			combinedStats.avgPostsPerDay += boardData[board].avgPostsPerDay
-			combinedStats.topPPM += boardData[board].topPPM
-			combinedStats.imagesPerReply += boardData[board].imagesPerReply
-			combinedStats.relativeActivity += boardData[board].relativeActivity
-		}
-
-	}
-	combinedStats.imagesPerReply /= config.allBoards.length
-	combinedStats.relativeActivity /= config.allBoards.length
-
-	return combinedStats
 }
 
 const store = new Vuex.Store({
@@ -62,7 +25,8 @@ const store = new Vuex.Store({
 			imagesPerReply: 0,
 			relativeActivity: 0
 		}}),{}), //technology
-		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{})
+		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{}),
+		lightMode: JSON.parse(localStorage.getItem("lightMode")) || false
 	},
 	getters: {
 		combinedBoardStats : state => {
@@ -96,21 +60,21 @@ const store = new Vuex.Store({
 		//sortedBoardlist: 
 	},
 	mutations: {
+		toggleLightMode(state) {
+			state.lightMode = !state.lightMode
+			localStorage.setItem("lightMode",JSON.stringify(state.lightMode))
+		},
 		setEnabledBoards(state, payload) {
 			state.enabledBoards = payload
 			localStorage.setItem("enabledBoards",JSON.stringify(payload))
 		},
 		setInitialData(state,payload){
 			for(let key in payload){
-				//adjustPostcountIfNoDubs(key,payload[key])
 				adjustActivityIfFewPosts(payload[key])
 			}
 			Vue.set(state, 'boardData', payload)
-			// enabledBoards is [] before this point. No boards should be enabled, since there is no data for them yet.
-			//state.enabledBoards = JSON.parse(localStorage.getItem("enabledBoards")) || config.availableBoards.default.concat(config.availableBoards.imageGenerals).concat(config.availableBoards.misc)
 		},
 		updateBoardData(state,payload){
-			//adjustPostcountIfNoDubs(payload.board,payload.data)
 			adjustActivityIfFewPosts(payload.data)
 			
 			if(store.state.boardData[payload.board]){
@@ -160,27 +124,12 @@ const store = new Vuex.Store({
 	}
 })
 
-// setting up handling of server communication
-
-//store.dispatch("getActiveThreads")
-
 socket.on("connect",() => {
 	store.dispatch("getActiveThreads")
 })
 
 socket.on("allBoardStats",allBoardStats => {
 	pino.debug("Received allBoardStats from API")
-	
-	// allBoardStats is received automatically after a socket connection has been established
-	// if the data for the selected board is different, it means that new threaddata should also be requested
-	// imagesPerReply property is used here to check integrity
-	/*
-	const boardData = store.state.boardData[store.state.selectedBoard]
-	if(boardData.imagesPerReply && boardData.imagesPerReply != allBoardStats[store.state.selectedBoard].imagesPerReply){
-		store.dispatch("getActiveThreads")
-	}
-	*/
-	
 	store.commit("setInitialData",allBoardStats)
 })
 

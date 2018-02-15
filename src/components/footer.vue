@@ -37,6 +37,10 @@ export default {
 <style scoped lang="scss">
 @import "~css/variables.scss";
 
+.component-footer{
+  position: relative;
+}
+
 .section{
   padding: 1.5rem 0 3rem;
 }
@@ -54,15 +58,16 @@ textarea {
 }
 
 * {
-	color: #f1f1f1;
+	color: $--color-text;
 }
 
 p {
 	font-size: 0.875rem;
+	@include float-shadow-text;
 }
 
 a {
-	color: $--colorLink;
+	color: $--color-link;
 }
 
 hr{
@@ -75,6 +80,6 @@ hr{
 .button{
   background: $oc-gray-9;
   color: $oc-gray-0;
-  border: 2px solid $--colorLink;
+  border: 2px solid $--color-link;
 }
 </style>

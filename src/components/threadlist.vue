@@ -1,29 +1,29 @@
 <template>
   <div class="threadlist-component">
-    <div class="box-shadow-wrapper">
-      <h4 class="is-size-4 headline is-hidden-mobile">Active threads on /{{ selectedBoard }}/</h4>
+    <h4 class="is-size-4 headline is-hidden-mobile">Active threads on /{{ selectedBoard }}/</h4>
 
-      <div class="mobile-headline-wrapper is-hidden-tablet ">
-        <h4 class="headline">Swipe to close</h4>
-        <div class="back-button" @click="closeThreadSideBar">x</div>
-      </div>
-      
-      <div class="threads-wrapper" v-if="selectedBoard">
-        <a v-for="thread in threadData[selectedBoard].slice(0,threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
+    <div class="mobile-headline-wrapper is-hidden-tablet ">
+      <h4 class="headline">Swipe to close</h4>
+      <div class="back-button" @click="closeThreadSideBar">x</div>
+    </div>
+    
+    <div class="threads-wrapper" v-if="selectedBoard">
+      <a v-for="thread in threadData[selectedBoard].slice(0,threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
+        <div class="img-wrapper">
           <img :src="thread.image" referrerpolicy="same-origin" ref="img" :alt="`${selectedBoard} thread image`" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
-          <div class="text-wrapper">
-            <div class="thread-ppm" v-if="thread.replies == 9001">
-              {{ thread.postsPerMinute.toFixed(2) }} posts/min - <u>Sticky Thread</u> - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
-            </div>
-            <div class="thread-ppm" v-else>
-              {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
-            </div>
-            <div class="thread-title" v-html="thread.sub"/>
-            <div class="thread-comment" v-html="thread.com"/>
-            <div class="overlay"/>
+        </div>
+        
+        <div class="text-wrapper">
+          <div class="thread-ppm" v-if="thread.replies == 9001">
+            {{ thread.postsPerMinute.toFixed(2) }} posts/min - <u>Sticky Thread</u> - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
           </div>
-        </a>
-      </div>
+          <div class="thread-ppm" v-else>
+            {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
+          </div>
+          <div class="thread-title" v-if="thread.sub" v-html="thread.sub"/>
+          <div class="thread-comment" v-html="thread.com"/>
+        </div>
+      </a>
     </div>
   </div>
 </template>
@@ -55,7 +55,7 @@ export default {
 			if(document.body.clientWidth >= 768) return
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
-			if(doScrollToTop){ //FIXME: temporarily disabled. weird horizontal scrolling going on
+			if(doScrollToTop){
 				document.querySelector(".nav-component").scrollIntoView({
 					behavior: "smooth",
 					block: "start"
@@ -96,21 +96,31 @@ export default {
 
 @include mobile{
   .threadlist-component{
+    z-index: 200;
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    transition: transform 0.5s ease-in-out;
+
+    transform: translateX(calc(100% + 24px));
+    &.thread-sidebar-revealed{
+      transform: translateX(0%);
+    }
 
     .mobile-headline-wrapper{
       display: flex;
       align-items: center;
-      background: $--colorNavBar;
+      background: $--color-navbar;
       position: relative;
       z-index: 4;
       width: 100%;
       font-size: 1.25rem;
       height: 3rem;
-      .headline{
+      >.headline{
         flex-grow: 1;
         white-space: nowrap;
       }
-      .back-button{
+      >.back-button{
         background: $nord1;
         color: $oc-gray-0;
         padding: 0 1rem;
@@ -119,24 +129,9 @@ export default {
         align-items: center;
       }
     }
-
-    z-index: 200;
-    position: absolute;
-    top: -3rem;
-    right: 0;
-    transform: translateX(calc(100% + 24px));
-    transition: transform 0.5s ease-in-out;
-    &.thread-sidebar-revealed{
-      transform: translateX(0%);
-    }
-    .box-shadow-wrapper{
-      border-left: 12px solid transparent;
-    }
     .threads-wrapper{
-      background: $oc-gray-0;
-      position: relative;
-      z-index: 5;
       box-shadow: -8px 0px 20px -4px rgba(0, 0, 0, 0.75);
+      margin-left: 12px;
     }
   }
 }
@@ -151,64 +146,78 @@ a {
   min-height: 125px;
   flex: 1 1 0;
   display: flex;
-  background: $oc-gray-0;
-  overflow: hidden;
-  &:not(:last-of-type) {
-    border-bottom: 1px solid $nord0;
+    background: $oc-gray-9;
+    color: $oc-gray-2;
+
+  @include tablet{
+    //box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.25);
+    @include float-shadow-box;
+    border-bottom: none;
+    &:not(:last-of-type) {
+      margin-bottom: 1rem;
+    }
   }
-}
 
-img {
-  width: 20%;
-  min-width: 125px;
-  min-height: 125px;
-  max-height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
-}
+  @include mobile{
+    &:not(:last-of-type) {
+      border-bottom: 2px solid $--color-highlight-1;
+    }
+  }
+  
+  >.img-wrapper{
+    z-index: 123;
+    >img{
+      pointer-events: none;
+      position: absolute;
+      top:0;
+      left:0;
+      height: 100%;
+      object-fit: cover;
+    }
+    @include touch{
+      min-width: 125px;
+      width: 20%;
+      >img{
+        width: 125px;
+        min-width: 20%;
+      }
+    }
+    @include desktop{
+      min-width: 20%;
+      >img{
+        max-width: 20%;
+        min-width: 20%;
+        //transition: all 0.2s ease-out;
+      }
+      &:hover>img{
+        min-width: 20%;
+        max-width: 100%;
+      }
+    }
+  }
 
-.text-wrapper {
-  width: 100%;
-  overflow: hidden;
-  color: #333;
-  line-height: 1;
-  position: relative;
-
-  &>.thread-ppm {
-    padding: 0.25rem;
+  >.text-wrapper {
+    flex-grow: 1;
+    overflow: hidden;
+    line-height: 1.5;
+    position: relative;
     font-size: 0.75rem;
-    color: $nord0;
-    margin: 0;
-  }
 
-  &>.thread-title {
-    padding: 0.25rem;
-    font-size: 0.75rem;
-    font-weight: bolder;
-    margin: 0;
-    white-space: nowrap;
-  }
+    >.thread-ppm {
+      padding: 0.25rem;
+      margin: 0;
+    }
 
-  &>.thread-comment {
-    padding: 0.25rem;
-    font-size: 0.75rem;
-  }
-}
+    >.thread-title {
+      padding: 0.25rem;
+      font-weight: bolder;
+      margin: 0;
+      white-space: nowrap;
+    }
 
-@keyframes swipeHint {
-  0% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
+    >.thread-comment {
+      padding: 0.25rem;
+    }
   }
 }
 </style>
