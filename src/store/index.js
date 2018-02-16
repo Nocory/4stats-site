@@ -98,6 +98,13 @@ const store = new Vuex.Store({
 		setSelectedBoard(state, payload) {
 			state.selectedBoard = payload
 			localStorage.setItem("selectedBoard",payload)
+		},
+		clearThreads(state){
+			for(let board in state.threadData){
+				if(state.threadData[board].length){
+					state.threadData[board] = []
+				}
+			}
 		}
 	},
 	actions: {
@@ -125,6 +132,7 @@ const store = new Vuex.Store({
 })
 
 socket.on("connect",() => {
+	store.commit("clearThreads")
 	store.dispatch("getActiveThreads")
 })
 
@@ -141,7 +149,7 @@ socket.on("boardUpdate",(board,data) => {
 
 	if(store.state.selectedBoard == board){
 		setTimeout(store.dispatch,Math.random() * 2000,"getActiveThreads",board) //stagger automatic thread requests coming from different clients
-	}else{
+	}else if(store.state.threadData[board].length){
 		store.commit("updateThreadData",{
 			board,
 			threads: []
