@@ -20,7 +20,7 @@
           <div class="thread-ppm" v-else>
             {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
           </div>
-          <div class="thread-title" v-if="thread.sub" v-html="thread.sub"/>
+          <div class="thread-title" v-html="thread.sub || '(no title)'"/>
           <div class="thread-comment" v-html="thread.com"/>
         </div>
       </a>
@@ -139,6 +139,7 @@ export default {
 .threads-wrapper{
   display: flex;
   flex-direction: column;
+  @include float-shadow-box;
 }
 
 a {
@@ -146,15 +147,18 @@ a {
   min-height: 125px;
   flex: 1 1 0;
   display: flex;
-    background: $oc-gray-9;
-    color: $oc-gray-2;
+  background: $oc-gray-9;
+  color: $--color-text;
 
   @include tablet{
     //box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.25);
-    @include float-shadow-box;
+    
     border-bottom: none;
     &:not(:last-of-type) {
-      margin-bottom: 1rem;
+      //margin-bottom: 1rem;
+      >.text-wrapper {
+        border-bottom: 2px solid $oc-gray-8;
+      }
     }
   }
 
@@ -199,24 +203,27 @@ a {
   >.text-wrapper {
     flex-grow: 1;
     overflow: hidden;
-    line-height: 1.5;
     position: relative;
     font-size: 0.75rem;
+    line-height: 1.5;
 
     >.thread-ppm {
-      padding: 0.25rem;
-      margin: 0;
+      padding: 0rem;
+      margin: 0.5rem;
+      text-decoration: $oc-gray-4 underline;
     }
 
     >.thread-title {
-      padding: 0.25rem;
-      font-weight: bolder;
-      margin: 0;
+      padding: 0rem;
+      margin: 0.5rem;
+      font-weight: bold;
       white-space: nowrap;
     }
 
     >.thread-comment {
-      padding: 0.25rem;
+      padding: 0rem;
+      margin: 0.5rem;
+      color: $--color-text-minor;
     }
   }
 }
