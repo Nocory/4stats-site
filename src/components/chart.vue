@@ -223,8 +223,8 @@ abbr {
 .chart-wrapper {
   position: relative;
   min-height: 400px;
-	background: $--color-highlight-1;
-	background: $oc-gray-3;
+	background: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+	background: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
 	user-select: none;
 	@include tablet{
 		@include float-shadow-box;
