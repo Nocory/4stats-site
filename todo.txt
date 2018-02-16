@@ -1,5 +1,0 @@
-- Change breakpoints so tablets can view more information
-- 404 threads modify the image of threads in the store, resulting in a mutation error (check on /adv/) (removed 'strict' rule for now)
-- use animejs?
-- better swipe for mobile thread view
-- clean up chart.vue CSS
