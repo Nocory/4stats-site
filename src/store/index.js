@@ -101,7 +101,7 @@ const store = new Vuex.Store({
 		},
 		clearThreads(state){
 			for(let board in state.threadData){
-				if(state.threadData[board].length){
+				if(state.threadData[board].length && board != state.selectedBoard){
 					state.threadData[board] = []
 				}
 			}
