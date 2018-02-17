@@ -145,8 +145,9 @@ export default {
   //overflow: hidden;
   height: 2.25rem;
   &>.board-data{ // categories
+    position: relative;
     white-space: nowrap;
-    &::after{ // underline when category selected
+    &::before{ // underline when category selected
       z-index: 2;
       content: "";
       position: absolute;
@@ -155,16 +156,15 @@ export default {
       height: 3px;
       width: 100%;
       background: $nord6 !important;
-      //transform: scaleY(0);
-      opacity: 0;
+      transform: scaleY(0);
+      //opacity: 0;
       transform-origin: center bottom;
-      transition: all 1s ease;
+      transition: all 0.5s ease-out;
     }
     &.category-selected{
-      position: relative;
-      &::after{
-        //transform: scaleY(1);
-        opacity: 1;
+      &::before{
+        transform: scaleY(1);
+        //opacity: 1;
       }
     }
   }
@@ -200,11 +200,11 @@ export default {
     padding: 0 1em;
     position: absolute;
     left: 100%;
-    background-color: rgba(0,0,0,0.75);
+    background-color: rgba(0,0,0,0.85);
     color: $--color-text-minor;
   }
 
-  .boardlist-header>.board-data:hover::before{
+  .boardlist-header>.board-data:hover::after{
     z-index: 900;
     content: attr(data-hover-text);
     left: 32px;
@@ -212,7 +212,7 @@ export default {
     position: absolute;
     white-space: nowrap;
     padding: 0 1em;
-    background-color: rgba(0,0,0,0.75);
+    background-color: rgba(0,0,0,0.85);
     color: $--color-text-minor;
     opacity: 0;
     animation: 0.25s ease-in-out 0.25s forwards hoverTextAnim;
