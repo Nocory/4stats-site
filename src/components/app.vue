@@ -71,7 +71,9 @@ export default {
   min-height: 100vh;
 	background: $--color-background;
 	font-family: monospace;
-	touch-action: pan-y;
+	@include mobile{
+		touch-action: pan-y;
+	}
 }
 
 .main{
