@@ -56,8 +56,7 @@ const store = new Vuex.Store({
 				totalPPM += state.boardData[board].postsPerMinute
 			}
 			return totalPPM
-		},
-		//sortedBoardlist: 
+		}
 	},
 	mutations: {
 		toggleLightMode(state) {
