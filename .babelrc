@@ -4,8 +4,6 @@
 	"presets": [
 		["env", {
 			"targets": {
-				//"browsers": ["last 2 versions", "not ie < 11", "not android"]
-				
 				"browsers": [
 					"last 2 Chrome versions",
 					"last 2 ChromeAndroid versions",
@@ -14,12 +12,12 @@
 					"last 2 Safari versions",
 					"last 2 iOS versions",
 					"last 2 Edge versions",
-					"Chrome 41"
+					"Chrome 41" // Googlebot renderer
 				]
 				
 			},
-			"debug": true
-			//"modules": false
+			"debug": true,
+			"modules": false
 		}]
 	]
 }

@@ -84,7 +84,7 @@ module.exports = {
 		new webpack.optimize.ModuleConcatenationPlugin(),
 		new CleanWebpackPlugin(['dist'], {
 			root: __dirname,
-			verbose: false,
+			verbose: true,
 			dry: false,
 			watch: false
 		}),
@@ -110,5 +110,10 @@ module.exports = {
 		}),
 
 		//new BundleAnalyzerPlugin()
-	]
+	],
+	stats: {
+		maxModules: Infinity,
+		optimizationBailout: true
+	}
+	
 }
