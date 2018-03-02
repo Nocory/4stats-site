@@ -1,25 +1,11 @@
 <template>
   <div id="app">
     <component-nav/>
-    <div class="main">
-      <h6 class="connected is-hidden-touch">
-        just updated: /{{ recentlyUpdatedBoard }}/<br>
-        users on site: {{ connectedUsers }}
-      </h6>
-      <div class="container is-fullhd">
-        <div class="columns">
-          <component-boardlist class="column is-12-mobile is-6-tablet"/>
-          <component-threadlist class="column is-12-mobile is-6-tablet"/>
-        </div>
-      </div>
-    </div>
-
-    <div class="section has-text-centered is-hidden-mobile">
-      <component-chart class="container" v-if="renderChart || forceChart"/>
-      <button v-else @click="forceChart = true" class="button">
-        Force-Load Chart Module<br>
-        not reccommended on mobile
-      </button>
+    
+    <div class="router-view">
+      <keep-alive>
+        <router-view/>
+      </keep-alive>
     </div>
 		
     <component-footer/>
@@ -27,36 +13,10 @@
 </template>
 
 <script>
-import socket from "js/socket"
-import { mapState } from 'vuex'
 export default {
-	data: () => ({
-		forceChart: false,
-		renderChart: window.innerWidth >= 1216, // the bulma breakpoint for desktops
-		recentlyUpdatedBoard: "",
-		connectedUsers: 0
-	}),
-	computed: mapState([
-		'showConfig'
-	]),
 	components: {
 		componentNav: require("./nav.vue").default,
-		componentBoardlist: require("./boardlist.vue").default,
-		componentThreadlist: require("./threadlist.vue").default,
-		componentChart: () => import('./chart.vue'), // lazy loading for relevant screen-width
-		componentFooter: require("./footer.vue").default,
-		componentConfig: require("./config.vue").default
-	},
-	mounted(){
-		window.addEventListener("resize",() => {
-			this.renderChart = window.innerWidth >= 1216
-		})
-		socket.on("userCount",userCount => {
-			this.connectedUsers = userCount
-		})
-		socket.on("boardUpdate",board => {
-			this.recentlyUpdatedBoard = board
-		})
+		componentFooter: require("./footer.vue").default
 	}
 }
 </script>
@@ -65,67 +25,34 @@ export default {
 @import "~css/variables.scss";
 
 #app {
+	display: flex;
+	flex-direction: column;
 	overflow: hidden;
   z-index: 0;
   position: relative;
   min-height: 100vh;
-	background: $--color-background;
 	font-family: monospace;
 	@include mobile{
 		touch-action: pan-y;
 	}
 }
 
-.main{
+.router-view{
+	flex-grow: 1;
 	position: relative;
-	@include desktop{
-		padding-top: 1rem;
-	}
-	@include touch{
-		padding-top: 0rem;
-	}
 }
 
-.connected {
-	position: absolute;
-	top: 4px;
-	left: 4px;
-  font-size: 10px;
-  color: $oc-gray-4;
-	opacity: 1;
-	&:hover{
-		opacity: 1;
-	}
-	&:after{
-		position: absolute;
-		left: 0;
-		top: 200%;
-		//content: "works now?";
-	}
+.fade-enter-active, .fade-leave-active {
+  transition: transform .5s;
 }
-
-.header{
-	position: relative;
-	display: flex;
-	justify-content: space-between;
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  //opacity: 0;
+	transform: scaleY(0);
+	transform-origin: top;
 }
-
-.columns{
-	position: relative;
-	@include touch{
-		margin: 0;
-	}
-	@include desktop{
-		margin: 0 -0.5rem;
-	}
-}
-
-.column{
-	@include touch{
-		padding: 0rem;
-	}
-	@include desktop{
-		padding: 0 0.5rem;
-	}
+.fade-enter-to, .fade-leave /* .fade-leave-active below version 2.1.8 */ {
+	//opacity: 1;
+	transform: scaleY(1);
+	transform-origin: top;
 }
 </style>

@@ -1,11 +1,8 @@
 {
-	//"plugins": ["transform-runtime"],
 	"plugins": ["syntax-dynamic-import","transform-object-rest-spread"],
 	"presets": [
 		["env", {
 			"targets": {
-				//"browsers": ["last 2 versions", "not ie < 11", "not android"]
-				
 				"browsers": [
 					"last 2 Chrome versions",
 					"last 2 ChromeAndroid versions",
@@ -18,8 +15,8 @@
 				]
 				
 			},
-			"debug": true
-			//"modules": false
+			"debug": true,
+			"modules": false
 		}]
 	]
 }

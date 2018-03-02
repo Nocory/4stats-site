@@ -2,44 +2,23 @@
 
 //@import url('https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Open+Sans|Raleway|Roboto|Roboto+Mono|Source+Code+Pro|Ubuntu+Mono');
 
-//@import "~nord/src/sass/nord.scss";
-//@import "~open-color/open-color.scss";
 @import "fa_boiler.css";
 @import "icomoon_cogs.css";
 @import "variables.scss";
 @import "~bulma/bulma.sass";
 
-// Containers & Sections
-
-.section {
-	padding: 1.5rem 0;
-}
-
 .greentext {
   color: $--color-greentext;
 }
-/*
-.whitelist-greentext {
-	color: #75a000;
-}
-*/
+
 .headline {
   position: relative;
   z-index: 10;
   color: $--color-title;
-  
-  //text-shadow: 0px 4px 16px rgba(0,0,0,0.75);
   @include float-shadow-text;
 	background: transparent;
-	//border-bottom: 4px solid $--colorHighlight;
-  padding: 0.25rem;
+  padding: 1.25rem 1rem 0.5rem;
   font-weight: normal;
   margin: 0 !important;
   text-align: center;
-  /*
-  @include mobile{
-    text-align: left;
-		margin-left: 1rem !important;
-  }
-  */
 }

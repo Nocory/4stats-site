@@ -32,12 +32,27 @@ if(location.hostname === "dev.4stats.io"){
 import "css/main.scss"
 
 import Vue from "vue/dist/vue.runtime.esm.js"
-import app from "components/app.vue"
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
+import app from "components/app.vue"
 import store from "store/index.js"
+
+const routes = [
+	{ path: '/', component: require("../components/index.vue").default },
+	{ path: '/config', component: require("../components/config.vue").default },
+	{ path: '/feedback', component: require("../components/feedback.vue").default },
+	{ path: '*', component: require("../components/index.vue").default }
+]
+
+const router = new VueRouter({
+	routes,
+	mode: 'history',
+})
 
 new Vue({
 	el: '#app',
+	router,
 	store,
 	render: h => h(app)
 })

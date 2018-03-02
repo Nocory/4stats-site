@@ -1,5 +1,5 @@
 <template>
-  <div class="component">
+  <div class="component-chart">
     <h4 class="title is-size-4 headline">Board Timeline</h4>
 
     <div class="has-text-left property-title">Charting {{ chartOptions.term === "day" ? "posts/day" : chartOptions.hourProperty === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
@@ -178,6 +178,10 @@ export default {
 
 <style scoped lang="scss">
 @import "~css/variables.scss";
+
+.component-chart{
+	padding-bottom: 2rem;
+}
 
 .headline:after{
 	content: "since july 2017";

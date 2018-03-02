@@ -15,22 +15,18 @@
         </p>
         <hr>
         <p>
-          <button class="button" @click="showFeedbackForm = true">Feedback / Contact</button>
+          <router-link to="/feedback">
+            <button class="button">Feedback / Contact</button>
+          </router-link>
         </p>
       </div>
-      <component-feedback v-if="showFeedbackForm" :show-feedback-form.sync="showFeedbackForm"/>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-	data: () => ({
-		showFeedbackForm : false
-	}),
-	components: {
-		componentFeedback: require('./feedback.vue').default
-	}
+  
 }
 </script>
 
@@ -39,10 +35,14 @@ export default {
 
 .component-footer{
   position: relative;
+  background: $--color-navbar;
+	@include tablet{
+		//@include float-shadow-box;
+	}
 }
 
 .section{
-  padding: 1.5rem 0 3rem;
+  padding: 2rem 1rem;
 }
 
 .container{

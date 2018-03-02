@@ -1,24 +1,18 @@
 <template>
-  <div class="component">
-    <div class="config-wrapper" @click="toggleConfig">
+  <div class="component-config">
+    <router-link to="/" class="is-overlay"/>
 			
-      <div class="section">
-        <div class="delete-button">x</div>
-        <div class="container">
-          <div class="toggle-all columns is-multiline is-mobile">
-            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('main')">
-              <div class="board" :class="{enabled : (availableBoards['main'].every((el) => tempEnabledBoards.includes(el)))}">Main</div>
-            </div>
-            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('imageGenerals')">
-              <div class="board" :class="{enabled : (availableBoards['imageGenerals'].every((el) => tempEnabledBoards.includes(el)))}">Image Generals</div>
-            </div>
-            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('misc')">
-              <div class="board" :class="{enabled : (availableBoards['misc'].every((el) => tempEnabledBoards.includes(el)))}">Misc</div>
-            </div>
-            <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory('nsfw')">
-              <div class="board" :class="{enabled : (availableBoards['nsfw'].every((el) => tempEnabledBoards.includes(el)))}">NSFW</div>
-            </div>
-            <!--
+    <div class="section">
+      <div class="container">
+        <h4 class="is-size-5-mobile is-size-4 headline">
+          Settings
+        </h4>
+        <div class="category columns is-multiline is-mobile">
+						
+          <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory(cat[0])" v-for="cat in categories" :key="cat[0]">
+            <div class="board" :class="{enabled : (availableBoards[cat[0]].every((el) => tempEnabledBoards.includes(el)))}">{{ cat[1] }}</div>
+          </div>
+          <!--
             <div class="column is-6-mobile is-6-tablet is-2-fullhd" @click.stop="savePreset">
               <div class="board save-preset">Save as preset</div>
             </div>
@@ -26,48 +20,54 @@
               <div class="board load-preset">Load preset</div>
             </div>
 						-->
-          </div>
-          <div class="board-buttons columns is-multiline">
+        </div>
 
-            <div class="column is-6">
-              <div class="title is-6">Main</div>
-              <div class="columns is-multiline is-mobile">
-                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.main" :key="board" @click.stop="toggleBoard(board)">
-                  <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-                    /{{ board }}/
-                  </div>
+        <div class="columns is-multiline">
+
+          <div class="column is-6">
+
+            <div class="title is-6">Main</div>
+            <div class="columns is-multiline is-mobile">
+              <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.main" :key="board" @click.stop="toggleBoard(board)">
+                <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
+                  /{{ board }}/
                 </div>
               </div>
             </div>
+							
+          </div>
 
-            <div class="column is-6">
-              <div class="title is-6">Image Generals</div>
-              <div class="columns is-multiline is-mobile">
-                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.imageGenerals" :key="board" @click.stop="toggleBoard(board)">
-                  <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-                    /{{ board }}/
-                  </div>
-                </div>
-              </div>
-              <div class="title is-6">Misc</div>
-              <div class="columns is-multiline is-mobile">
-                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.misc" :key="board" @click.stop="toggleBoard(board)">
-                  <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-                    /{{ board }}/
-                  </div>
-                </div>
-              </div>
-              <div class="title is-6">NSFW</div>
-              <div class="columns is-multiline is-mobile">
-                <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.nsfw" :key="board" @click.stop="toggleBoard(board)">
-                  <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-                    /{{ board }}/
-                  </div>
+          <div class="column is-6">
+
+            <div class="title is-6">Image Generals</div>
+            <div class="columns is-multiline is-mobile">
+              <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.imageGenerals" :key="board" @click.stop="toggleBoard(board)">
+                <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
+                  /{{ board }}/
                 </div>
               </div>
             </div>
-
+							
+            <div class="title is-6">Misc</div>
+            <div class="columns is-multiline is-mobile">
+              <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.misc" :key="board" @click.stop="toggleBoard(board)">
+                <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
+                  /{{ board }}/
+                </div>
+              </div>
+            </div>
+							
+            <div class="title is-6">NSFW</div>
+            <div class="columns is-multiline is-mobile">
+              <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.nsfw" :key="board" @click.stop="toggleBoard(board)">
+                <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
+                  /{{ board }}/
+                </div>
+              </div>
+            </div>
+							
           </div>
+
         </div>
       </div>
     </div>
@@ -79,16 +79,22 @@ const pino = require("js/pino")
 import { mapState } from 'vuex'
 const config = require("js/config")
 export default {
+	data(){
+		return{
+			tempEnabledBoards : this.$store.state.enabledBoards.slice(),
+			availableBoards : config.availableBoards,
+			categories: [
+				["main","Main"],
+				["imageGenerals","Image Generals"],
+				["misc","Misc"],
+				["nsfw","NSFW"],
+			]
+		}
+	},
 	computed: mapState([
 		"enabledBoards",
 		"showConfig"
 	]),
-	data(){
-		return{
-			tempEnabledBoards : this.$store.state.enabledBoards.slice(),
-			availableBoards : JSON.parse(JSON.stringify(config.availableBoards))
-		}
-	},
 	methods:{
 		toggleCategory(category){
 			let allEnabled = this.availableBoards[category].every(el => this.tempEnabledBoards.includes(el))
@@ -108,10 +114,6 @@ export default {
 				}
 			}
 		},
-		toggleConfig(){
-			this.$emit('update:showConfig', false)
-			this.$store.commit("setEnabledBoards",this.tempEnabledBoards.slice())
-		},
 		toggleBoard(board){
 			pino.debug("config.vue toggleBoard checking for",board)
 			let index = this.tempEnabledBoards.indexOf(board)
@@ -129,8 +131,9 @@ export default {
 			this.tempEnabledBoards = JSON.parse(localStorage.getItem("config_boardPreset")) || ["g"]
 		}
 	},
-	mounted(){
-		console.log("opened board settings")
+	beforeRouteLeave (to, from, next) {
+		this.$store.commit("setEnabledBoards",this.tempEnabledBoards.slice())
+		next()
 	}
 }
 </script>
@@ -138,39 +141,26 @@ export default {
 <style scoped lang="scss">
 @import "~css/variables.scss";
 
-.component{
-  position: fixed;
-  width: 0;
-  height: 0;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-	align-items: center;
+.component-config{
+	position: relative;
 	user-select: none;
+	background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
 }
 
 .section {
-	padding: 1rem;
-}
-
-.config-wrapper{
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-	left: 0;
-	background: rgba(0,0,0,0.9);
 	overflow: auto;
+	position: relative;
+	padding: 0rem 1rem 2rem;
 }
 
 .delete-button{
 	@include mobile {
-		position: relative;
+		position: absolute;
+		top: 0;
+		right: 0;
 	}
 	@include desktop {
-		position: fixed;
+		position: absolute;
 		top: 0;
 		right: 0;
 	}
@@ -185,22 +175,25 @@ export default {
 	z-index: 999;
 	min-width: 64px;
 	min-height: 64px;
+  text-shadow: 0px 4px 12px rgba(0,0,0,0.5);
 }
 
 .title{
 	color: $nord6;
+  text-shadow: 0px 4px 12px rgba(0,0,0,0.5);
 }
 
 .board{
 	cursor: pointer;
 	border-radius: 0;
   background: $oc-gray-7;
-	color:$oc-gray-2;
+	color:$oc-gray-4;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 3rem;
 	//font-weight: bold;
+	box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
 }
 
 .save-preset{

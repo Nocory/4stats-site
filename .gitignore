@@ -48,6 +48,7 @@ jspm_packages
 
 # custom
 dist
+dist_*
 build
 db
 test*
