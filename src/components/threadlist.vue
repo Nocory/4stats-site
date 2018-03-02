@@ -7,8 +7,8 @@
       <div class="back-button" @click="closeThreadSideBar">x</div>
     </div>
     
-    <div class="threads-wrapper" v-if="selectedBoard" :style="{ minHeight: listHeight + 'px' }">
-      <a v-for="thread in threadData[selectedBoard].slice(0,threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
+    <div class="threads-wrapper" v-if="selectedBoard" :style="{ minHeight: elementProperties.listHeight + 'px' }">
+      <a v-for="thread in threadData[selectedBoard].slice(0,elementProperties.threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
         <div class="img-wrapper">
           <img :src="thread.image" referrerpolicy="same-origin" ref="img" :alt="`${selectedBoard} thread image`" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
         </div>
@@ -34,7 +34,7 @@ import { mapState } from 'vuex'
 export default {
 	data(){
 		return{
-			threadsToShow: 8,
+      
 		}
 	},
 	computed: {
@@ -43,16 +43,15 @@ export default {
 			"enabledBoards",
 			"selectedBoard"
 		]),
-		listHeight : function(){
-			return 36 + this.enabledBoards.length * 21
+		elementProperties : function(){
+			const newListHeight = 36 + this.enabledBoards.length * 21
+			return {
+				listHeight: newListHeight,
+				threadsToShow: localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(newListHeight / 128),5)
+			}
 		}
 	},
 	methods: {
-		setListHeight(){
-			this.listHeight = 36 + this.enabledBoards.length * 21 // max 1544 (32 + 72 * 21) //FIXME: hardcoded pixel value, but at least it reacts immediately
-			this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 128),5)
-			//document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"
-		},
 		revealThreadSideBar(doScrollToTop){
 			if(document.body.clientWidth >= 768) return
 			pino.debug("revealThreadSideBar")
@@ -77,15 +76,6 @@ export default {
     
 	},
 	mounted(){
-		/*
-		this.setListHeight()
-		this.$store.subscribe(mutation => {
-			if(mutation.type == "setEnabledBoards" || mutation.type == "setInitialData"){
-				this.setListHeight()
-			}
-    })
-    */
-    
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setSelectedBoard"){
 				this.revealThreadSideBar(true)
