@@ -14,7 +14,7 @@
         <div @click.stop="categoryClicked('relativeActivity')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'relativeActivity'}" data-hover-text="Current posts-per-minute relative to the boards usual top ppm rate">Activity Now</div>
       </div>
       <transition-group name="flip-list" class="board-rows" tag="div">
-        <div class="board-row" v-for="boardName in enabledBoardsCopy" :key="boardName">
+        <div class="board-row" v-for="boardName in sortedBoardlist" :key="boardName">
           <div :id="'board-'+boardName" @click.stop="boardClicked(boardName)" class="board-data-wrapper" :class="{'board-selected' : (selectedBoard == boardName)}">
             <div :data-hover-text="longBoardNames[boardName]" class="board-data board-name">/{{ boardName }}/</div>
             <div class="board-data ">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
@@ -35,7 +35,6 @@ export default {
 	data: () => ({
 		longBoardNames : require('js/config').boardNames,
 		sortBoardListBy: localStorage.getItem("sortBoardListBy") || "avgPostsPerDay",
-		enabledBoardsCopy: [],
 		isThreadlistReversed: false
 	}),
 	computed: {
@@ -44,46 +43,41 @@ export default {
 			"enabledBoards",
 			"selectedBoard"
 		]),
+		sortedBoardlist: function(){
+			const result = this.enabledBoards.slice()
+			if(this.sortBoardListBy == "name"){
+				result.sort((a, b) => {
+					if (a < b) return -1
+					if (a > b) return 1
+					return 0
+				})
+			}else{
+				result.sort((a, b) => {
+					return this.boardData[b][this.sortBoardListBy] - this.boardData[a][this.sortBoardListBy] + (a>b?0.0001:-0.0001)
+				})
+			}
+			
+			if(this.isThreadlistReversed) result.reverse()
+			return result
+		}
 	},
 	methods:{
 		categoryClicked(sortBy){
 			this.isThreadlistReversed = sortBy == this.sortBoardListBy ? !this.isThreadlistReversed : false
 			this.sortBoardListBy = sortBy
 			localStorage.setItem("sortBoardListBy",sortBy)
-			this.sortBoardList()
 		},
 		boardClicked(board){
 			this.$store.dispatch('boardClicked',board)
-		},
-		sortBoardList(){
-			if(this.sortBoardListBy == "name"){
-				this.enabledBoardsCopy.sort((a, b) => {
-					if (a < b) return -1
-					if (a > b) return 1
-					return 0
-				})
-			}else{
-				this.enabledBoardsCopy.sort((a, b) => {
-					return this.boardData[b][this.sortBoardListBy] - this.boardData[a][this.sortBoardListBy] + (a>b?0.0001:-0.0001)
-				})
-			}
-			
-			if(this.isThreadlistReversed) this.enabledBoardsCopy.reverse()
 		}
 	},
 	created(){
-		this.enabledBoardsCopy = this.enabledBoards.slice()
-		this.$store.subscribe(mutation => {
-			if(mutation.type == "setEnabledBoards" || mutation.type == "setInitialData"){
-				this.enabledBoardsCopy = this.enabledBoards.slice()
-				this.sortBoardList()
-			}
-		})
+    
 	},
 	mounted(){
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "updateBoardData" && mutation.payload.board != this.selectedBoard){
-				let element = document.getElementById("board-" + mutation.payload.board)
+				const element = document.getElementById("board-" + mutation.payload.board)
 				if(!element || element.classList.contains("just-updated")) return
         
 				element.classList.add("just-updated")
@@ -97,7 +91,6 @@ export default {
 						passive: true
 					}
 				)
-				this.sortBoardList()
 			}
 		})
 	}

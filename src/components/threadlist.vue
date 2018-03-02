@@ -7,7 +7,7 @@
       <div class="back-button" @click="closeThreadSideBar">x</div>
     </div>
     
-    <div class="threads-wrapper" v-if="selectedBoard">
+    <div class="threads-wrapper" v-if="selectedBoard" :style="{ minHeight: listHeight + 'px' }">
       <a v-for="thread in threadData[selectedBoard].slice(0,threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
         <div class="img-wrapper">
           <img :src="thread.image" referrerpolicy="same-origin" ref="img" :alt="`${selectedBoard} thread image`" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
@@ -34,7 +34,6 @@ import { mapState } from 'vuex'
 export default {
 	data(){
 		return{
-			listHeight: 0,
 			threadsToShow: 8,
 		}
 	},
@@ -43,20 +42,23 @@ export default {
 			"threadData",
 			"enabledBoards",
 			"selectedBoard"
-		])
+		]),
+		listHeight : function(){
+			return 36 + this.enabledBoards.length * 21
+		}
 	},
 	methods: {
 		setListHeight(){
 			this.listHeight = 36 + this.enabledBoards.length * 21 // max 1544 (32 + 72 * 21) //FIXME: hardcoded pixel value, but at least it reacts immediately
 			this.threadsToShow = localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(this.listHeight / 128),5)
-			document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"
+			//document.querySelector(".threads-wrapper").style.minHeight = this.listHeight + "px"
 		},
 		revealThreadSideBar(doScrollToTop){
 			if(document.body.clientWidth >= 768) return
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
 			if(doScrollToTop){
-				document.querySelector(".nav-component").scrollIntoView({
+				document.querySelector(".component-nav").scrollIntoView({
 					behavior: "smooth",
 					block: "start"
 				})
@@ -71,13 +73,18 @@ export default {
 			if(direction == "left") this.revealThreadSideBar(false)
 		}
 	},
+	created(){
+    
+	},
 	mounted(){
+		/*
 		this.setListHeight()
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setEnabledBoards" || mutation.type == "setInitialData"){
 				this.setListHeight()
 			}
-		})
+    })
+    */
     
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "setSelectedBoard"){
@@ -140,6 +147,7 @@ export default {
   display: flex;
   flex-direction: column;
   @include float-shadow-box;
+  background: $oc-gray-9;
 }
 
 a {
@@ -147,8 +155,11 @@ a {
   min-height: 125px;
   flex: 1 1 0;
   display: flex;
-  background: $oc-gray-9;
   color: $--color-text;
+  background: $oc-gray-9;
+  &:nth-child(2n){
+    background: $oc-gray-8;
+  }
 
   @include tablet{
     //box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.25);
@@ -157,7 +168,7 @@ a {
     &:not(:last-of-type) {
       //margin-bottom: 1rem;
       >.text-wrapper {
-        border-bottom: 2px solid $oc-gray-8;
+        border-bottom: 2px solid $oc-gray-7;
       }
     }
   }

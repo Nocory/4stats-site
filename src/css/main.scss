@@ -7,10 +7,6 @@
 @import "variables.scss";
 @import "~bulma/bulma.sass";
 
-.section {
-	padding: 1.5rem 0;
-}
-
 .greentext {
   color: $--color-greentext;
 }
@@ -21,7 +17,7 @@
   color: $--color-title;
   @include float-shadow-text;
 	background: transparent;
-  padding: 0.25rem;
+  padding: 1.25rem 1rem 0.5rem;
   font-weight: normal;
   margin: 0 !important;
   text-align: center;

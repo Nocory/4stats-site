@@ -1,19 +1,30 @@
 <template>
-  <div class="nav-component">
-    <component-config v-if="showConfig" :show-config.sync="showConfig"/>
+  <div class="component-nav">
     <div class="container">
       <div class="title-and-description">
-        <div class="site-title">{{ url }}</div>
+        <router-link to="/">
+          <div class="site-title">4stats.io</div>
+        </router-link>
         <div class="site-description is-hidden-mobile">Currently {{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/minute with ~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
       </div>
-      <button class="config-button" @click="showConfig = true">
-        <span class="icon">
-          <i class="fa-lg fa-cog"/>
-        </span>
-        <span class="config-button-text">
-          Boards
-        </span>
-      </button>
+      <router-link :to="this.$route.path != '/config' ? '/config' : '/'">
+        <button class="config-button" @click="showConfig = true">
+          <template v-if="this.$route.path != '/config'">
+            <span class="icon">
+              <i class="fa-lg fa-cog"/>
+            </span>
+            <span class="config-button-text">
+              Boards
+            </span>
+          </template>
+          <template v-else>
+            <span class="config-button-text">
+              Save ✔
+            </span>
+          </template>
+        </button>
+      </router-link>
+
     </div>
   </div>
 </template>
@@ -21,16 +32,8 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-	data: () => ({
-		//url: location.hostname,
-		url: "4stats.io",
-		showConfig: false
-	}),
 	computed: {
 		...mapGetters(['combinedBoardStats'])
-	},
-	components:{
-		componentConfig: require("./config.vue").default
 	}
 }
 </script>
@@ -38,7 +41,7 @@ export default {
 <style scoped lang="scss">
 @import "~css/variables.scss";
 
-.nav-component{
+.component-nav{
 	position: relative;
 	background: $--color-navbar;
 	color: $--color-text;
@@ -53,6 +56,11 @@ export default {
 	align-items: center;
 }
 
+a:active, a:focus, button:active, button:focus {
+  outline: 0;
+  border: none;
+}
+
 .title-and-description{
 	display: flex;
 	justify-content: flex-start;
@@ -61,6 +69,7 @@ export default {
 }
 
 .site-title{
+	color: $--color-text;
 	position: relative;
 	line-height: 1.5;
 	@include touch{

@@ -25,8 +25,7 @@ const store = new Vuex.Store({
 			imagesPerReply: 0,
 			relativeActivity: 0
 		}}),{}), //technology
-		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{}),
-		lightMode: JSON.parse(localStorage.getItem("lightMode")) || false
+		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{})
 	},
 	getters: {
 		combinedBoardStats : state => {
@@ -59,10 +58,6 @@ const store = new Vuex.Store({
 		}
 	},
 	mutations: {
-		toggleLightMode(state) {
-			state.lightMode = !state.lightMode
-			localStorage.setItem("lightMode",JSON.stringify(state.lightMode))
-		},
 		setEnabledBoards(state, payload) {
 			state.enabledBoards = payload
 			localStorage.setItem("enabledBoards",JSON.stringify(payload))
@@ -76,7 +71,7 @@ const store = new Vuex.Store({
 		updateBoardData(state,payload){
 			adjustActivityIfFewPosts(payload.data)
 			
-			if(store.state.boardData[payload.board]){
+			if(state.boardData[payload.board]){
 				for(let key in payload.data){
 					state.boardData[payload.board][key] = payload.data[key]
 				}
