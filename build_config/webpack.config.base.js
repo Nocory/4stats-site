@@ -4,7 +4,7 @@ const path = require('path')
 //const glob = require('glob')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
+//const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
@@ -78,10 +78,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		//new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-		//new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-		
-		new webpack.optimize.ModuleConcatenationPlugin(),
 		new CleanWebpackPlugin(['dist'], {
 			root: __dirname,
 			verbose: true,

@@ -1,13 +1,15 @@
-const webpack = require("webpack")
-
 const PurifyCSSPlugin = require('purifycss-webpack')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 const path = require('path')
 const glob = require('glob')
 
 module.exports = {
+	mode: "production",
+	optimization: {
+		namedModules: false,
+		namedChunks: false
+	},
 	plugins: [
 		new PurifyCSSPlugin({
 			styleExtensions: [".css", ".sass", ".scss"],
@@ -18,10 +20,6 @@ module.exports = {
 				whitelist: ["*:not*","greentext"] //
 			}
 		}),
-		new OptimizeCssAssetsPlugin(),
-		new UglifyJsPlugin({
-			cache: true,
-			parallel: 4
-		})
+		new OptimizeCssAssetsPlugin()
 	]
 }
