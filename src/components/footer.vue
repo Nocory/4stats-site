@@ -3,6 +3,12 @@
     <div class="section">
       <div class="container">
         <p>
+          Recent changes:<br>
+          Changed the site colors around.<br>
+          Should look a bit better now.
+        </p>
+        <hr>
+        <p>
           The information above is gathered from the 4chan API.
           <br> Visit
           <a href="https://4chan.org" target="_blank" rel="noopener">4chan.org</a> to view all boards & threads or check out the
@@ -36,8 +42,9 @@ export default {
 .component-footer{
   position: relative;
   background: $--color-navbar;
+	z-index: 10;
 	@include tablet{
-		//@include float-shadow-box;
+    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.5);
 	}
 }
 

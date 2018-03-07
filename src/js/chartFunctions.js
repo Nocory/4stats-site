@@ -10,14 +10,14 @@ const store = require("store/index").default
 let chart = null
 
 let availableColors = [
-	"#495057", //0 black
-	"#BF616A", //11 red
-	"#3f95bf", //steelblue
-	"#74b816", //lime7
-	"#f59f00", //yellow7
-	"#868e96", //gray6
-	"#ae3ec9", //grape7
-	"#f76707", //orange7
+	"#212529", // gray 9
+	"#ff6b6b", //RED 5
+	"#3bc9db", //CYAN 4
+	"#a9e34b", //lime 4
+	"#ffd43b", //yellow 4
+	"#dee2e6", // gray 3
+	"#38d9a9", //teal 4
+	"#ffa94d", //orange 4
 ]
 
 const init = id => {
@@ -33,6 +33,11 @@ const init = id => {
 				animationDuration: 500,
 				mode: "nearest",
 				axis: "xy"
+			},
+			legend: {
+				labels: {
+					fontColor: '#f8f9fa'
+				}
 			},
 			tooltips: {
 				caretPadding: 8,
@@ -72,12 +77,22 @@ const init = id => {
 							week: 'MMMD',
 						},
 						isoWeekday: true
-					}
+					},
+					ticks: {
+						fontColor: "rgba(255,255,255,0.75)"
+					},
+					gridLines: {
+						color: "rgba(0,0,0,0.25)"
+					},
 				}],
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
-					}
+						beginAtZero: true,
+						fontColor: "rgba(255,255,255,0.75)"
+					},
+					gridLines: {
+						color: "rgba(0,0,0,0.25)"
+					},
 				}]
 			}
 		}

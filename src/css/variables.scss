@@ -7,26 +7,39 @@ $tablet: 768px; // Bulma default is 769
 $--color-navbar: #1f1f1f;
 
 $--color-background: #567563;
-$--color-background: linear-gradient(60deg, #29323c 0%, #567563 100%);
+$--color-background: linear-gradient(60deg, #29323c 0%, #485563 100%);
+$--color-background: linear-gradient(to right, #243949 0%, #517fa4 100%);
+$--color-background: linear-gradient(135deg, #243949 0%, #517fa4 100%);
 
 $--color-title: $oc-gray-0;
 $--color-text: $oc-gray-2;
 $--color-text-minor: $oc-gray-4;
 
-$--color-boardlist-header: $oc-gray-9;
-$--color-highlight-1: $oc-gray-9;
-$--color-highlight-2: $oc-gray-8;
-$--color-selected: $oc-gray-2;
-$--color-link: $nord14;
+$--color-boardlist-header: hsl(210, 11%, 20%);
+$--color-boardlist-header: rgba(0,0,0,0.4);
+
+$--color-highlight-1: hsl(210, 11%, 85%);
+$--color-highlight-2: hsl(210, 11%, 90%);
+$--color-highlight-1: rgba(255,255,255,0.1);
+$--color-highlight-2: rgba(255,255,255,0.2);
+$--color-highlight-1: rgba(0,0,0,0.4);
+$--color-highlight-2: rgba(0,0,0,0.5);
+
+$--color-background-selected: rgba(255,255,255,0.85);
+$--color-text-selected: $oc-gray-8;
+
+$--color-link: $nord9;
 $--color-update: $nord3;
 $--color-greentext: #b5bd68;
 
 @mixin float-shadow-box {
 	//filter: drop-shadow(0px 0px 8px rgba(0,0,0,0.5));
 	box-shadow: 0px 0px 32px 0px rgba(0,0,0,0.5);
+	box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.5);
 }
 
 @mixin float-shadow-text {
 	//filter: drop-shadow(0px 0px 8px rgba(0,0,0,0.5));
 	text-shadow: 0px 2px 16px rgba(0,0,0,0.5);
+	text-shadow: 0px 4px 12px rgba(0,0,0,0.5);
 }

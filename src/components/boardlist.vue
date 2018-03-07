@@ -101,6 +101,8 @@ export default {
 @import "~css/variables.scss";
 
 .boardlist-wrapper{
+  //border-top: 4px solid rgba(255,255,255,0.8);
+  //border-top: 4px solid rgba(255,255,255,0.25);
   cursor: pointer;
   user-select: none;
   font-size: 0.8rem;
@@ -109,7 +111,7 @@ export default {
     @include float-shadow-box;
   }
   
-  background-color: $--color-boardlist-header;
+  //background-color: $--color-boardlist-header;
 }
 
 .board-data-wrapper{
@@ -166,7 +168,7 @@ export default {
 .board-row{
   position: relative;
   border-top: 1px solid rgba(0,0,0,0.25);
-  transition: background-color 0.5s, transform 0.5s;
+  transition: background-color 0.5s ease-out, transform 0.5s;
   
   background-color: $--color-highlight-2;
   &:nth-of-type(2n){
@@ -177,8 +179,8 @@ export default {
     height: 1.25rem;
     
     &.board-selected{
-      background-color: $--color-selected;
-      color: $oc-gray-7;
+      background-color: $--color-background-selected;
+      color: $--color-text-selected;
     }
   }
 }
@@ -216,7 +218,13 @@ export default {
 // Animations //
 ////////////////
 .flip-list-move {
-  transition: transform 0.5s ease-out;
+  //transition: transform 0.5s ease-out, background-color 0.1s ease;
+  transition: transform 1s ease-out, background-color 0.1s ease;
+  &.board-row{
+    position: relative;
+    //transform: translateX(-12px);
+    //background-color: rgba(0,0,0,0.0);
+  }
 }
 
 .just-updated {

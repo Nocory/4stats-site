@@ -202,7 +202,6 @@ abbr {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-	border-bottom: 1px solid $--color-highlight-1;
 	>.property-button-group{
 		display: flex;
 		//border-right: 2px solid $oc-gray-6;
@@ -210,6 +209,7 @@ abbr {
 		user-select: none;
 		@include tablet{
 			@include float-shadow-box;
+			//margin: 0.3125rem 0.3125rem;
 		}
 		>a{
 			width: 8em;
@@ -227,12 +227,15 @@ abbr {
 .chart-wrapper {
   position: relative;
   min-height: 400px;
-	background: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
-	background: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+	//background: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
+	//background: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+	//background: rgba(255,255,255,0.1);
 	user-select: none;
 	@include tablet{
-		@include float-shadow-box;
+		//@include float-shadow-box;
+		filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.25));
 	}
+	padding: 0.5rem 0 0.5rem;
 }
 
 .board-buttons {
@@ -242,7 +245,7 @@ abbr {
 	justify-content: center;
 	user-select: none;
 	>.button-padder{
-		padding: 0.625rem 0.3125rem 0;
+		padding: 0.3125rem 0.3125rem;
 		>.board-button {
 			position: relative;
 			padding: 0.5em 0.25em;
@@ -273,7 +276,7 @@ abbr {
   left: 0px;
   min-height: 3px;
   width: 100%;
-  background: $--color-selected;
+  background: $--color-background-selected;
   transform: translateY(3px);
   transition: transform 0.25s ease-out;
 }
