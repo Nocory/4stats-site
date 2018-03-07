@@ -134,10 +134,14 @@ export default {
 }
 
 .threads-wrapper{
+  //border-top: 4px solid rgba(255,255,255,0.8);
   display: flex;
   flex-direction: column;
   @include float-shadow-box;
-  background: $oc-gray-9;
+  //background: $oc-gray-9;
+  @include mobile{
+    background: $oc-gray-9;
+  }
 }
 
 a {
@@ -146,9 +150,9 @@ a {
   flex: 1 1 0;
   display: flex;
   color: $--color-text;
-  background: $oc-gray-9;
+  background: $--color-highlight-1;
   &:nth-child(2n){
-    background: $oc-gray-8;
+    background: $--color-highlight-2;
   }
 
   @include tablet{
@@ -158,7 +162,7 @@ a {
     &:not(:last-of-type) {
       //margin-bottom: 1rem;
       >.text-wrapper {
-        border-bottom: 2px solid $oc-gray-7;
+        border-bottom: 4px solid rgba(0,0,0,0.25);
       }
     }
   }

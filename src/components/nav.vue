@@ -1,31 +1,30 @@
 <template>
   <div class="component-nav">
-    <div class="container">
-      <div class="title-and-description">
-        <router-link to="/">
-          <div class="site-title">4stats.io</div>
-        </router-link>
-        <div class="site-description is-hidden-mobile">Currently {{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/minute with ~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
-      </div>
-      <router-link :to="this.$route.path != '/config' ? '/config' : '/'">
-        <button class="config-button" @click="showConfig = true">
-          <template v-if="this.$route.path != '/config'">
-            <span class="icon">
-              <i class="fa-lg fa-cog"/>
-            </span>
-            <span class="config-button-text">
-              Boards
-            </span>
-          </template>
-          <template v-else>
-            <span class="config-button-text">
-              Save ✔
-            </span>
-          </template>
-        </button>
+		
+    <div class="title-and-description">
+      <router-link to="/">
+        <div class="site-title">4stats.io</div>
       </router-link>
-
+      <div class="site-description is-hidden-mobile">Currently {{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/minute with ~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
     </div>
+    <router-link :to="this.$route.path != '/config' ? '/config' : '/'">
+      <button class="config-button" @click="showConfig = true">
+        <template v-if="this.$route.path != '/config'">
+          <span class="icon">
+            <i class="fa-lg fa-cog"/>
+          </span>
+          <span class="config-button-text">
+            Boards
+          </span>
+        </template>
+        <template v-else>
+          <span class="config-button-text">
+            Save ✔
+          </span>
+        </template>
+      </button>
+    </router-link>
+			
   </div>
 </template>
 
@@ -42,15 +41,14 @@ export default {
 @import "~css/variables.scss";
 
 .component-nav{
+	z-index: 10;
 	position: relative;
 	background: $--color-navbar;
 	color: $--color-text;
 	@include tablet{
-		@include float-shadow-box;
+		box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.5);
 	}
-}
-
-.container{
+	padding: 0 1rem;
 	position: relative;
 	display: flex;
 	align-items: center;
