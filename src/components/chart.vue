@@ -236,6 +236,16 @@ abbr {
 		filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.25));
 	}
 	padding: 0.5rem 0 0.5rem;
+	&:after{
+		z-index: -10;
+		position: absolute;
+		top: -40%;
+		left: -50%;
+		width: 200%;
+		height: 170%;
+		background: radial-gradient(closest-side, rgba(255, 255, 255, 0.05) 50%, rgba(255,255,255,0) 75%);
+		content: "";
+	}
 }
 
 .board-buttons {
