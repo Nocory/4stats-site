@@ -100,6 +100,11 @@ export default {
 <style scoped lang="scss">
 @import "~css/variables.scss";
 
+.boardlist-component{
+  position: relative;
+  z-index: 10;
+}
+
 .boardlist-wrapper{
   //border-top: 4px solid rgba(255,255,255,0.8);
   //border-top: 4px solid rgba(255,255,255,0.25);
@@ -219,7 +224,7 @@ export default {
 ////////////////
 .flip-list-move {
   //transition: transform 0.5s ease-out, background-color 0.1s ease;
-  transition: transform 1s ease-out, background-color 0.1s ease;
+  transition: transform 0.5s ease-out, background-color 0.1s ease;
   &.board-row{
     position: relative;
     //transform: translateX(-12px);

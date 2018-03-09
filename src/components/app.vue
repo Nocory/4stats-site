@@ -28,7 +28,6 @@ export default {
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-  z-index: 0;
   position: relative;
   min-height: 100vh;
 	font-family: monospace;

@@ -12,7 +12,7 @@
 		"last 2 Edge versions",
 		"Chrome 41"
 	],
-	"main": "index.js",
+	"main": "",
 	"scripts": {
 		"build": "NODE_ENV=production webpack --config build_config/webpack.config.js --color --hide-modules --display-optimization-bailout --display-reasons",
 		"dev": "NODE_ENV=development webpack-dev-server --config build_config/webpack.config.js --color"
