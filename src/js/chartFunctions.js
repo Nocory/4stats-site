@@ -20,15 +20,16 @@ let availableColors = [
 	"#38d9a9", //teal 4
 	"#ffa94d", //orange 4
 ]
+//ced4da
 */
 let availableColors = [
-	"#ced4da", // white
+	"#212529", // black
 	"#5e81ac", // blue
 	"#bf616a", //red
-	"#a3be8c", //green
-	"#ebcb8b", //yellow
-	"#d08770", //orange
-	"#b48ead", //frosty
+	"#2f9e44", //green
+	"#f59f00", //yellow
+	"#666", //orange
+	"#5f3dc4", //frosty
 	"#38d9a9", //teal 4
 ]
 
@@ -74,8 +75,8 @@ const init = id => {
 			responsive: true,
 			chartArea: {
 				//backgroundColor: 'rgba(222, 222, 222, 1)',
-				//backgroundColor: '#e9ecef'
-				backgroundColor: '#2e3440'
+				backgroundColor: '#e9ecef'
+				//backgroundColor: '#2e3440'
 			},
 			maintainAspectRatio: false,
 			hover:{
@@ -104,7 +105,7 @@ const init = id => {
 			},
 			elements: {
 				line: {
-					borderWidth: 1.5,
+					borderWidth: 1.75,
 					fill: false,
 					borderCapStyle: "round"
 				},
@@ -131,7 +132,7 @@ const init = id => {
 						fontColor: "rgba(255,255,255,0.75)"
 					},
 					gridLines: {
-						color: "rgba(0,0,0,0.25)"
+						color: "rgba(0,0,0,0.15)"
 					},
 				}],
 				yAxes: [{
@@ -140,7 +141,7 @@ const init = id => {
 						fontColor: "rgba(255,255,255,0.75)"
 					},
 					gridLines: {
-						color: "rgba(0,0,0,0.25)"
+						color: "rgba(0,0,0,0.15)"
 					},
 				}]
 			}

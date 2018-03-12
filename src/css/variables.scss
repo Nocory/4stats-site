@@ -5,13 +5,17 @@ $tablet: 768px; // Bulma default is 769
 @import "~bulma/sass/utilities/_all.sass";
 
 $--color-navbar: #1f1f1f;
+//$--color-navbar: $nord0;
 
 $--color-background: #567563;
 $--color-background: linear-gradient(60deg, #29323c 0%, #485563 100%);
 $--color-background: linear-gradient(to right, #243949 0%, #517fa4 100%);
 $--color-background: linear-gradient(160deg, #243949 0%, $nord1 100%);
+$--color-background: linear-gradient(135deg, #243949 0%, #517fa4 100%);
+//$--color-background: linear-gradient(to top, #243949 0%, #537895 100%);
+//$--color-background: linear-gradient(60deg, #29323c 0%, #485563 100%);
 //$--color-background: linear-gradient(160deg, #243949 0%, #3a5a75 100%);
-//$--color-background: linear-gradient(158deg, #3a5a72 0%, #9bbfdd 100%);
+$--color-background: linear-gradient(160deg, #243949 0%, #485563 100%);
 
 $--color-title: $oc-gray-0;
 $--color-text: $oc-gray-2;

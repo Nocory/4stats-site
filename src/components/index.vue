@@ -16,8 +16,7 @@
     <div class="has-text-centered is-hidden-mobile chart-wrapper section">
       <component-chart class="container" v-if="renderChart || forceChart"/>
       <button v-else @click="forceChart = true" class="button">
-        Force-Load Chart Module<br>
-        not reccommended on mobile
+        Force-Load Chart Module
       </button>
     </div>
   </div>
@@ -72,11 +71,19 @@ export default {
 	z-index: 10;
 	//margin-bottom: 4rem;
 	//background: $--color-background;
+	@include touch{
+		padding: 1rem 0;
+	}
+	@include mobile{
+		padding: 0;
+	}
+	
 }
 
 .chart-wrapper{
 	//background-image: linear-gradient(45deg, #8baaaa 0%, #ae8b9c 100%);
 	//background: $nord1;
+	//background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 
 .connected {
