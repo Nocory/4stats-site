@@ -1,11 +1,16 @@
 {
+  "lang": "en-US",
+
   "name": "4stats.io",
   "short_name": "4stats.io",
-  "start_url": ".",
+  "description": "Live statistics and timeline of 4chan boards.",
+
+  "scope": "/",
+  "start_url": "/",
+  
   "display": "standalone",
   "background_color": "#333333",
   "theme_color": "#2e3440",
-  "description": "Live statistics and timeline of 4chan boards.",
   "icons": [{
     "src": "favicon.png",
     "sizes": "32x32",

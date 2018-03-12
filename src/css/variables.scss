@@ -9,7 +9,9 @@ $--color-navbar: #1f1f1f;
 $--color-background: #567563;
 $--color-background: linear-gradient(60deg, #29323c 0%, #485563 100%);
 $--color-background: linear-gradient(to right, #243949 0%, #517fa4 100%);
-$--color-background: linear-gradient(135deg, #243949 0%, #517fa4 100%);
+$--color-background: linear-gradient(160deg, #243949 0%, $nord1 100%);
+//$--color-background: linear-gradient(160deg, #243949 0%, #3a5a75 100%);
+//$--color-background: linear-gradient(158deg, #3a5a72 0%, #9bbfdd 100%);
 
 $--color-title: $oc-gray-0;
 $--color-text: $oc-gray-2;
@@ -34,12 +36,12 @@ $--color-greentext: #b5bd68;
 
 @mixin float-shadow-box {
 	//filter: drop-shadow(0px 0px 8px rgba(0,0,0,0.5));
-	box-shadow: 0px 0px 32px 0px rgba(0,0,0,0.5);
-	box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.5);
+	//box-shadow: 0px 0px 32px 0px rgba(0,0,0,0.5);
+	//box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.5);
 }
 
 @mixin float-shadow-text {
 	//filter: drop-shadow(0px 0px 8px rgba(0,0,0,0.5));
-	text-shadow: 0px 2px 16px rgba(0,0,0,0.5);
-	text-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+	//text-shadow: 0px 2px 16px rgba(0,0,0,0.5);
+	//text-shadow: 0px 4px 12px rgba(0,0,0,0.5);
 }

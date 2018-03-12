@@ -39,6 +39,7 @@
 
     <div class="chart-wrapper">
       <canvas id="myChart"/>
+			<div class="chart-background"/>
     </div>
 
     <a class="board-buttons" >
@@ -158,7 +159,23 @@ export default {
 		}
 	},
 	mounted() {
-		chartFunctions.init("myChart")
+		const chart = chartFunctions.init("myChart")
+
+		const ctx = chart.chart.ctx
+		const chartArea = chart.chartArea
+		/*
+		const bgEl = document.querySelector(".chart-background")
+		bgEl.style.left = chartArea.left + "px"
+		bgEl.style.top = chartArea.top + "px"
+		bgEl.style.width = chartArea.right - chartArea.left + "px"
+		bgEl.style.height = chartArea.bottom - chartArea.top + "px"
+		*/
+		/*
+			const ctx = chart.chart.ctx
+			const chartArea = chart.chartArea
+			ctx.fillStyle = backgroundColor
+			ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top)
+		*/
 
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "updateBoardData"){
@@ -178,10 +195,11 @@ export default {
 
 <style scoped lang="scss">
 @import "~css/variables.scss";
-
+/*
 .component-chart{
 	padding-bottom: 2rem;
 }
+*/
 
 .headline:after{
 	content: "since july 2017";
@@ -204,8 +222,10 @@ abbr {
   align-items: center;
 	>.property-button-group{
 		display: flex;
+		background-color: $--color-highlight-1;
 		//border-right: 2px solid $oc-gray-6;
 		margin-right: 1rem;
+		//border-right: 8px solid rgba(200,200,255,0.25);
 		user-select: none;
 		@include tablet{
 			@include float-shadow-box;
@@ -217,7 +237,6 @@ abbr {
 			position: relative;
 			font-size: 0.75rem;
 			color: $--color-text;
-			background-color: $--color-highlight-1;
 			overflow: hidden;
 			z-index: 99;
 		}
@@ -233,7 +252,7 @@ abbr {
 	user-select: none;
 	@include tablet{
 		//@include float-shadow-box;
-		filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.25));
+		//filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.5));
 	}
 	padding: 0.5rem 0 0.5rem;
 	&:after{
@@ -243,8 +262,23 @@ abbr {
 		left: -50%;
 		width: 200%;
 		height: 170%;
-		background: radial-gradient(closest-side, rgba(255, 255, 255, 0.05) 50%, rgba(255,255,255,0) 75%);
+		//background: radial-gradient(closest-side, rgba(255, 255, 255, 0.05) 50%, rgba(255,255,255,0) 75%);
 		content: "";
+	}
+	>canvas{
+		position: relative;
+		z-index: 20;
+	}
+	>.chart-background{
+		position: absolute;
+		z-index: 10;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		//background: rgba(255,255,255,0.25);
+		filter: blur(128px);
+		//box-shadow: 0px 0px 128px 16px rgba(255,255,255,0.5);
 	}
 }
 
