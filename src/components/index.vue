@@ -1,6 +1,6 @@
 <template>
   <div class="component-index">
-    <div class="main">
+    <div class="main section">
       <h6 class="connected is-hidden-touch">
         just updated: /{{ recentlyUpdatedBoard }}/<br>
         users on site: {{ connectedUsers }}
@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="has-text-centered is-hidden-mobile chart-wrapper">
+    <div class="has-text-centered is-hidden-mobile chart-wrapper section">
       <component-chart class="container" v-if="renderChart || forceChart"/>
       <button v-else @click="forceChart = true" class="button">
         Force-Load Chart Module<br>
@@ -60,17 +60,23 @@ export default {
 .component-index {
 	position: relative;
 	z-index: 10;
-	background: $--color-background;
 	//background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 	//background: linear-gradient(60deg, #29323c 0%, #567563 100%);
 	//background-image: linear-gradient(160deg, #2b5876 0%, #567563 100%);
 	//background-image: linear-gradient(135deg, #234861 0%, #3f5548 100%);
+	background: $--color-background;
 }
 
 .main{
 	position: relative;
 	z-index: 10;
 	//margin-bottom: 4rem;
+	//background: $--color-background;
+}
+
+.chart-wrapper{
+	//background-image: linear-gradient(45deg, #8baaaa 0%, #ae8b9c 100%);
+	//background: $nord1;
 }
 
 .connected {

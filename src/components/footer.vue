@@ -1,6 +1,5 @@
 <template>
-  <div class="component-footer">
-    <div class="section">
+  <div class="component-footer section">
       <div class="container">
         <p>
           Recent changes:<br>
@@ -26,7 +25,6 @@
           </router-link>
         </p>
       </div>
-    </div>
   </div>
 </template>
 
@@ -44,12 +42,8 @@ export default {
   background: $--color-navbar;
 	z-index: 10;
 	@include tablet{
-    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.5);
+    //box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.5);
 	}
-}
-
-.section{
-  padding: 2rem 1rem;
 }
 
 .container{

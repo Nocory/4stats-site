@@ -162,7 +162,7 @@ a {
     &:not(:last-of-type) {
       //margin-bottom: 1rem;
       >.text-wrapper {
-        border-bottom: 4px solid rgba(0,0,0,0.25);
+        border-bottom: 4px solid transparent;
       }
     }
   }

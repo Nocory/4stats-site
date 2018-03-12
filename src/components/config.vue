@@ -150,37 +150,11 @@ export default {
 .section {
 	overflow: auto;
 	position: relative;
-	padding: 0rem 1rem 2rem;
-}
-
-.delete-button{
-	@include mobile {
-		position: absolute;
-		top: 0;
-		right: 0;
-	}
-	@include desktop {
-		position: absolute;
-		top: 0;
-		right: 0;
-	}
-	cursor: pointer;
-	font-size: 2rem;
-	border-radius: 50%;
-	//background: rgba(255,255,255,0.8);
-	color: $nord6;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 999;
-	min-width: 64px;
-	min-height: 64px;
-  text-shadow: 0px 4px 12px rgba(0,0,0,0.5);
 }
 
 .title{
 	color: $nord6;
-  text-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+  //text-shadow: 0px 4px 12px rgba(0,0,0,0.5);
 }
 
 .board{
@@ -193,7 +167,7 @@ export default {
 	justify-content: center;
 	height: 3rem;
 	//font-weight: bold;
-	box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+	//box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
 }
 
 .save-preset{

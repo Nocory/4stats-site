@@ -8,17 +8,61 @@ const store = require("store/index").default
 
 
 let chart = null
-
+/*
 let availableColors = [
-	"#212529", // gray 9
+	//"#212529", // gray 9
+	"#ced4da", // gray 3
 	"#ff6b6b", //RED 5
 	"#3bc9db", //CYAN 4
 	"#a9e34b", //lime 4
 	"#ffd43b", //yellow 4
-	"#dee2e6", // gray 3
+	"#212529", // gray 9
 	"#38d9a9", //teal 4
 	"#ffa94d", //orange 4
 ]
+*/
+let availableColors = [
+	"#ced4da", // white
+	"#5e81ac", // blue
+	"#bf616a", //red
+	"#a3be8c", //green
+	"#ebcb8b", //yellow
+	"#d08770", //orange
+	"#b48ead", //frosty
+	"#38d9a9", //teal 4
+]
+
+// see https://jsfiddle.net/a9hmnd9L/4/
+Chart.pluginService.register({
+	beforeDraw: function (chart, easing) {
+		const backgroundColor = chart.config.options.chartArea.backgroundColor
+		if (backgroundColor) {
+			const ctx = chart.chart.ctx
+			const chartArea = chart.chartArea
+			ctx.fillStyle = backgroundColor
+			ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top)
+			/*
+			const bgEl = document.querySelector(".chart-background")
+			bgEl.style.left = chartArea.left - 32 + "px"
+			bgEl.style.top = chartArea.top - 32 + "px"
+			bgEl.style.width = chartArea.right - chartArea.left + 64 + "px"
+			bgEl.style.height = chartArea.bottom - chartArea.top + 64 + "px"
+			*/
+		}
+		/*
+		if (chart.config.options.chartArea && chart.config.options.chartArea.backgroundColor) {
+			var helpers = Chart.helpers
+			var ctx = chart.chart.ctx
+			var chartArea = chart.chartArea
+
+			ctx.save()
+			ctx.fillStyle = chart.config.options.chartArea.backgroundColor
+			ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top)
+			ctx.restore()
+		}
+		*/
+	}
+})
 
 const init = id => {
 	chart = new Chart(id, {
@@ -28,6 +72,11 @@ const init = id => {
 		},
 		options: {
 			responsive: true,
+			chartArea: {
+				//backgroundColor: 'rgba(222, 222, 222, 1)',
+				//backgroundColor: '#e9ecef'
+				backgroundColor: '#2e3440'
+			},
 			maintainAspectRatio: false,
 			hover:{
 				animationDuration: 500,

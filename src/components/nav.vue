@@ -41,12 +41,12 @@ export default {
 @import "~css/variables.scss";
 
 .component-nav{
-	z-index: 10;
+	z-index: 999;
 	position: relative;
 	background: $--color-navbar;
 	color: $--color-text;
 	@include tablet{
-		box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.5);
+		//box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.5);
 	}
 	padding: 0 1rem;
 	position: relative;
