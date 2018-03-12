@@ -5,7 +5,7 @@
       <router-link to="/">
         <div class="site-title">4stats.io</div>
       </router-link>
-      <div class="site-description is-hidden-mobile">Currently {{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/minute with ~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
+      <div class="site-description is-hidden-touch">Currently {{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/minute with ~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
     </div>
     <router-link :to="this.$route.path != '/config' ? '/config' : '/'">
       <button class="config-button" @click="showConfig = true">
@@ -41,7 +41,7 @@ export default {
 @import "~css/variables.scss";
 
 .component-nav{
-	z-index: 999;
+	//z-index: 999;
 	position: relative;
 	background: $--color-navbar;
 	color: $--color-text;

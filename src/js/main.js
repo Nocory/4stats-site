@@ -2,6 +2,9 @@ const pino = require("./pino")
 
 pino.info("NODE_ENV is:", process.env.NODE_ENV)
 
+
+console.log(chrome.tabs)
+
 if(location.hostname === "dev.4stats.io"){
 	(function() {
 		var errorBoxElement = false
