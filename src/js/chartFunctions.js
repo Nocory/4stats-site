@@ -104,7 +104,7 @@ const init = id => {
 			},
 			elements: {
 				line: {
-					borderWidth: 2,
+					borderWidth: 1.5,
 					fill: false,
 					borderCapStyle: "round"
 				},
@@ -158,6 +158,7 @@ let addBoard = (board, history, options, updateTime = 1000) => {
 	}[options.maxEntries.hour]
 	
 	let chartThis = history.slice(-options.maxEntries[options.term]) //TODO: replace slice with min value date
+	//chart.options.elements.line.borderWidth = chartThis.length > 24*7 ? 1.5 : 2
 	if(options.term == "hour" && options.hourProperty == "activity"){
 		//let topPPM = board == "combined" ? store.getters.combinedBoardStats.topPPM : store.state.boardData[board].topPPM
 		//chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / topPPM}))
