@@ -106,17 +106,9 @@ export default {
 }
 
 .boardlist-wrapper{
-  //border-top: 4px solid rgba(255,255,255,0.8);
-  //border-top: 4px solid rgba(255,255,255,0.25);
   cursor: pointer;
   user-select: none;
   font-size: 0.8rem;
-  //box-shadow: 0px 0px 24px -4px rgba(0,0,0,0.5);
-  @include tablet{
-    @include float-shadow-box;
-  }
-  
-  //background-color: $--color-boardlist-header;
 }
 
 .board-data-wrapper{
@@ -164,7 +156,6 @@ export default {
     &.category-selected{
       &::before{
         transform: scaleY(1);
-        //opacity: 1;
       }
     }
   }

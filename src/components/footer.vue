@@ -41,9 +41,6 @@ export default {
   position: relative;
   background: $--color-navbar;
 	z-index: 10;
-	@include tablet{
-    //box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.5);
-	}
 }
 
 .container{
@@ -64,7 +61,6 @@ textarea {
 
 p {
 	font-size: 0.875rem;
-	@include float-shadow-text;
 }
 
 a {

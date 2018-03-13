@@ -36,9 +36,6 @@ export default {
 		componentThreadlist: require("./threadlist.vue").default,
 		componentChart: () => import('./chart.vue')
 	},
-	created(){
-
-	},
 	mounted(){
 		window.addEventListener("resize",() => {
 			this.renderChart = window.innerWidth >= 1216
@@ -59,18 +56,12 @@ export default {
 .component-index {
 	position: relative;
 	z-index: 10;
-	//background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
-	//background: linear-gradient(60deg, #29323c 0%, #567563 100%);
-	//background-image: linear-gradient(160deg, #2b5876 0%, #567563 100%);
-	//background-image: linear-gradient(135deg, #234861 0%, #3f5548 100%);
 	background: $--color-background;
 }
 
 .main{
 	position: relative;
 	z-index: 10;
-	//margin-bottom: 4rem;
-	//background: $--color-background;
 	@include touch{
 		padding: 1rem 0;
 	}

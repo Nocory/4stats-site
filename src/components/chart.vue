@@ -160,9 +160,10 @@ export default {
 	},
 	mounted() {
 		const chart = chartFunctions.init("myChart")
-
+		/*
 		const ctx = chart.chart.ctx
 		const chartArea = chart.chartArea
+		*/
 		/*
 		const bgEl = document.querySelector(".chart-background")
 		bgEl.style.left = chartArea.left + "px"
@@ -226,10 +227,6 @@ abbr {
 		margin-right: 1rem;
 		//border-right: 8px solid rgba(200,200,255,0.25);
 		user-select: none;
-		@include tablet{
-			@include float-shadow-box;
-			//margin: 0.3125rem 0.3125rem;
-		}
 		>a{
 			width: 8em;
 			padding: 0.5em 0em;
@@ -249,10 +246,6 @@ abbr {
 	//background: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
 	//background: #e9ecef;
 	user-select: none;
-	@include tablet{
-		//@include float-shadow-box;
-		//filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.25));
-	}
 	padding: 0.5rem 0 0.5rem;
 	&:after{
 		z-index: -10;
@@ -303,9 +296,6 @@ abbr {
 				font-weight: bolder;
 				color: $oc-gray-7;
 			}
-			@include tablet{
-				@include float-shadow-box;
-			}
 		}
 	}
 }
@@ -337,8 +327,5 @@ abbr {
 .property-title{
 	color: $oc-gray-0;
 	padding: 0 0.25rem;
-	@include tablet{
-		@include float-shadow-text;
-	}
 }
 </style>

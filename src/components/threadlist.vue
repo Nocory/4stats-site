@@ -137,10 +137,8 @@ export default {
   //border-top: 4px solid rgba(255,255,255,0.8);
   display: flex;
   flex-direction: column;
-  @include float-shadow-box;
-  //background: $oc-gray-9;
   @include mobile{
-    background: $oc-gray-9;
+    background: $--color-background;
   }
 }
 
@@ -153,18 +151,6 @@ a {
   background: $--color-highlight-1;
   &:nth-child(2n){
     background: $--color-highlight-2;
-  }
-
-  @include tablet{
-    //box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.25);
-    
-    border-bottom: none;
-    &:not(:last-of-type) {
-      //margin-bottom: 1rem;
-      >.text-wrapper {
-        border-bottom: 4px solid transparent;
-      }
-    }
   }
 
   @include mobile{
@@ -211,6 +197,8 @@ a {
     position: relative;
     font-size: 0.75rem;
     line-height: 1.5;
+    
+    border-bottom: 4px solid transparent;
 
     >.thread-ppm {
       padding: 0rem;
