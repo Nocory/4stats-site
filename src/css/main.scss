@@ -19,7 +19,7 @@
   position: relative;
   z-index: 10;
   color: $--color-title;
-  @include float-shadow-text;
+  //@include float-shadow-text;
 	background: transparent;
   padding: 0 1rem 0.5rem;
   font-weight: normal;

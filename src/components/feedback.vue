@@ -48,9 +48,6 @@ form{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  >textarea{
-    @include float-shadow-box;
-  }
 }
 
 .button-group{
@@ -62,6 +59,5 @@ form{
 button{
   margin: 1rem 0 0;
   width: 128px;
-    @include float-shadow-box;
 }
 </style>

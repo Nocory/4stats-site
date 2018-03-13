@@ -8,34 +8,21 @@ const store = require("store/index").default
 
 
 let chart = null
-/*
-let availableColors = [
-	//"#212529", // gray 9
-	"#ced4da", // gray 3
-	"#ff6b6b", //RED 5
-	"#3bc9db", //CYAN 4
-	"#a9e34b", //lime 4
-	"#ffd43b", //yellow 4
-	"#212529", // gray 9
-	"#38d9a9", //teal 4
-	"#ffa94d", //orange 4
-]
-//ced4da
-*/
+
 let availableColors = [
 	"#212529", // black
 	"#5e81ac", // blue
 	"#bf616a", //red
 	"#2f9e44", //green
 	"#f59f00", //yellow
-	"#666", //orange
-	"#5f3dc4", //frosty
-	"#38d9a9", //teal 4
+	"#666", //gray
+	"#5f3dc4",
+	"#38d9a9",
 ]
 
 // see https://jsfiddle.net/a9hmnd9L/4/
 Chart.pluginService.register({
-	beforeDraw: function (chart, easing) {
+	beforeDraw: function (chart) {
 		const backgroundColor = chart.config.options.chartArea.backgroundColor
 		if (backgroundColor) {
 			const ctx = chart.chart.ctx
@@ -50,18 +37,6 @@ Chart.pluginService.register({
 			bgEl.style.height = chartArea.bottom - chartArea.top + 64 + "px"
 			*/
 		}
-		/*
-		if (chart.config.options.chartArea && chart.config.options.chartArea.backgroundColor) {
-			var helpers = Chart.helpers
-			var ctx = chart.chart.ctx
-			var chartArea = chart.chartArea
-
-			ctx.save()
-			ctx.fillStyle = chart.config.options.chartArea.backgroundColor
-			ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top)
-			ctx.restore()
-		}
-		*/
 	}
 })
 
@@ -74,9 +49,7 @@ const init = id => {
 		options: {
 			responsive: true,
 			chartArea: {
-				//backgroundColor: 'rgba(222, 222, 222, 1)',
 				backgroundColor: '#e9ecef'
-				//backgroundColor: '#2e3440'
 			},
 			maintainAspectRatio: false,
 			hover:{
@@ -159,7 +132,6 @@ let addBoard = (board, history, options, updateTime = 1000) => {
 	}[options.maxEntries.hour]
 	
 	let chartThis = history.slice(-options.maxEntries[options.term]) //TODO: replace slice with min value date
-	//chart.options.elements.line.borderWidth = chartThis.length > 24*7 ? 1.5 : 2
 	if(options.term == "hour" && options.hourProperty == "activity"){
 		//let topPPM = board == "combined" ? store.getters.combinedBoardStats.topPPM : store.state.boardData[board].topPPM
 		//chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / topPPM}))
@@ -167,8 +139,6 @@ let addBoard = (board, history, options, updateTime = 1000) => {
 	}
 	
 	if(options.term == "hour" && options.smoothingLevel){
-		// I don't even remember how this exactly works
-		// insanity
 		let maxVariance = chartThis.reduce((totalY, entry) => totalY + entry.y, 0) / chartThis.length
 		maxVariance *= 0.01 + 0.01 / options.smoothingLevel //TODO: find best values
 		for (let i = 0; i < options.smoothingLevel; i++) {

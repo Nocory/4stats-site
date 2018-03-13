@@ -45,9 +45,6 @@ export default {
 	position: relative;
 	background: $--color-navbar;
 	color: $--color-text;
-	@include tablet{
-		//box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.5);
-	}
 	padding: 0 1rem;
 	position: relative;
 	display: flex;
@@ -118,6 +115,4 @@ a:active, a:focus, button:active, button:focus {
 		padding: 0 0 0 0.25rem;
 	}
 }
-
-
 </style>
