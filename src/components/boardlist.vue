@@ -140,7 +140,6 @@ export default {
     position: relative;
     white-space: nowrap;
     &::before{ // underline when category selected
-      z-index: 2;
       content: "";
       position: absolute;
       bottom: 0px;
@@ -196,7 +195,7 @@ export default {
   }
 
   .boardlist-header>.board-data:hover::after{
-    z-index: 900;
+    z-index: 1;
     content: attr(data-hover-text);
     left: 32px;
     top: 150%;

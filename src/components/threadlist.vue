@@ -93,7 +93,7 @@ export default {
 
 @include mobile{
   .threadlist-component{
-    z-index: 200;
+    z-index: 20;
     position: absolute;
     top: -3rem;
     right: 0;
@@ -160,7 +160,7 @@ a {
   }
   
   >.img-wrapper{
-    z-index: 123;
+    z-index: 1;
     >img{
       pointer-events: none;
       position: absolute;
