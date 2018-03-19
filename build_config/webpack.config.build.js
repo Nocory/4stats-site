@@ -1,6 +1,6 @@
 const PurifyCSSPlugin = require('purifycss-webpack')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-//const Visualizer = require('webpack-visualizer-plugin')
+const Visualizer = require('webpack-visualizer-plugin')
 
 const path = require('path')
 const glob = require('glob')
@@ -22,6 +22,6 @@ module.exports = {
 			}
 		}),
 		new OptimizeCssAssetsPlugin(),
-		//new Visualizer()
+		new Visualizer()
 	]
 }
