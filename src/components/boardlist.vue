@@ -13,7 +13,7 @@
         <div @click.stop="categoryClicked('imagesPerReply')" class="board-data is-hidden-touch is-hidden-desktop-only" :class="{'category-selected' : sortBoardListBy == 'imagesPerReply'}" data-hover-text="Posts with files attached">Images</div>
         <div @click.stop="categoryClicked('relativeActivity')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'relativeActivity'}" data-hover-text="Current posts-per-minute relative to the boards usual top ppm rate">Activity Now</div>
       </div>
-      <transition-group name="flip-list" class="board-rows" tag="div">
+      <transition-group name="flip-list" class="board-rows" tag="div" v-if="combinedBoardStats.postsPerMinute">
         <div class="board-row" v-for="boardName in sortedBoardlist" :key="boardName">
           <div :id="'board-'+boardName" @click.stop="boardClicked(boardName)" class="board-data-wrapper" :class="{'board-selected' : (selectedBoard == boardName)}">
             <div :data-hover-text="longBoardNames[boardName]" class="board-data board-name">/{{ boardName }}/</div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
 	data: () => ({
 		longBoardNames : require('js/config').boardNames,
@@ -43,14 +43,13 @@ export default {
 			"enabledBoards",
 			"selectedBoard"
 		]),
+		...mapGetters([
+			'combinedBoardStats'
+		]),
 		sortedBoardlist: function(){
 			const result = this.enabledBoards.slice()
 			if(this.sortBoardListBy == "name"){
-				result.sort((a, b) => {
-					if (a < b) return -1
-					if (a > b) return 1
-					return 0
-				})
+				result.sort()
 			}else{
 				result.sort((a, b) => {
 					return this.boardData[b][this.sortBoardListBy] - this.boardData[a][this.sortBoardListBy] + (a>b?0.0001:-0.0001)
