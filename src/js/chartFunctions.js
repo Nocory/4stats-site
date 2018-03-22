@@ -20,7 +20,6 @@ let availableColors = [
 	"#38d9a9",
 ]
 
-// see https://jsfiddle.net/a9hmnd9L/4/
 Chart.pluginService.register({
 	beforeDraw: function (chart) {
 		const backgroundColor = chart.config.options.chartArea.backgroundColor
@@ -29,13 +28,6 @@ Chart.pluginService.register({
 			const chartArea = chart.chartArea
 			ctx.fillStyle = backgroundColor
 			ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top)
-			/*
-			const bgEl = document.querySelector(".chart-background")
-			bgEl.style.left = chartArea.left - 32 + "px"
-			bgEl.style.top = chartArea.top - 32 + "px"
-			bgEl.style.width = chartArea.right - chartArea.left + 64 + "px"
-			bgEl.style.height = chartArea.bottom - chartArea.top + 64 + "px"
-			*/
 		}
 	}
 })

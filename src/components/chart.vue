@@ -1,5 +1,5 @@
 <template>
-  <div class="component-chart">
+  <div class="component-chart has-text-centered">
     <h4 class="title is-size-4 headline">Board Timeline</h4>
 
     <div class="has-text-left property-title">Charting {{ chartOptions.term === "day" ? "posts/day" : chartOptions.hourProperty === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
@@ -159,24 +159,7 @@ export default {
 		}
 	},
 	mounted() {
-		const chart = chartFunctions.init("myChart")
-		/*
-		const ctx = chart.chart.ctx
-		const chartArea = chart.chartArea
-		*/
-		/*
-		const bgEl = document.querySelector(".chart-background")
-		bgEl.style.left = chartArea.left + "px"
-		bgEl.style.top = chartArea.top + "px"
-		bgEl.style.width = chartArea.right - chartArea.left + "px"
-		bgEl.style.height = chartArea.bottom - chartArea.top + "px"
-		*/
-		/*
-			const ctx = chart.chart.ctx
-			const chartArea = chart.chartArea
-			ctx.fillStyle = backgroundColor
-			ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top)
-		*/
+		chartFunctions.init("myChart")
 
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "updateBoardData"){
@@ -198,7 +181,7 @@ export default {
 @import "~css/variables.scss";
 
 .component-chart{
-	//background: #e9ecef;
+	//background: #222;
 }
 
 .headline:after{
@@ -245,6 +228,7 @@ abbr {
 	//background: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
 	//background: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
 	//background: #e9ecef;
+	//background: $--color-highlight-1;
 	user-select: none;
 	padding: 0.5rem 0 0.5rem;
 	&:after{

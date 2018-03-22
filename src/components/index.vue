@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="has-text-centered is-hidden-mobile chart-wrapper section">
+    <div class="is-hidden-mobile section">
       <component-chart class="container" v-if="renderChart || forceChart"/>
       <button v-else @click="forceChart = true" class="button">
         Force-Load Chart Module
@@ -69,12 +69,6 @@ export default {
 		padding: 0;
 	}
 	
-}
-
-.chart-wrapper{
-	//background-image: linear-gradient(45deg, #8baaaa 0%, #ae8b9c 100%);
-	//background: $nord1;
-	//background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 
 .connected {
