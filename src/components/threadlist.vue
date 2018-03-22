@@ -53,7 +53,7 @@ export default {
 	},
 	methods: {
 		revealThreadSideBar(doScrollToTop){
-			if(document.body.clientWidth >= 768) return
+			if(Math.max(document.documentElement.clientWidth, window.innerWidth || 0) >= 768) return
 			pino.debug("revealThreadSideBar")
 			document.querySelector(".threadlist-component").classList.add("thread-sidebar-revealed")
 			if(doScrollToTop){
