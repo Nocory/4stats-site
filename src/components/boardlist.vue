@@ -6,16 +6,16 @@
     
     <div class="boardlist-wrapper">
       <div class="boardlist-header board-data-wrapper">
-        <div @click.stop="categoryClicked('name')" class="board-data board-name" :class="{'category-selected' : sortBoardListBy == 'name'}">Board</div>
-        <div @click.stop="categoryClicked('postsPerMinute')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'postsPerMinute'}" data-hover-text="Over the last hour">Posts/min</div>
-        <div @click.stop="categoryClicked('threadsPerHour')" class="board-data is-hidden-touch" :class="{'category-selected' : sortBoardListBy == 'threadsPerHour'}" data-hover-text="Over the last hour">Threads/hour</div>
-        <div @click.stop="categoryClicked('avgPostsPerDay')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'avgPostsPerDay'}" data-hover-text="Over the last 4 weeks. Weighted towards more recent weeks.">Avg.Posts/day</div>
-        <div @click.stop="categoryClicked('imagesPerReply')" class="board-data is-hidden-touch is-hidden-desktop-only" :class="{'category-selected' : sortBoardListBy == 'imagesPerReply'}" data-hover-text="Posts with files attached">Images</div>
-        <div @click.stop="categoryClicked('relativeActivity')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'relativeActivity'}" data-hover-text="Current posts-per-minute relative to the boards usual top ppm rate">Activity Now</div>
+        <div :class="{'category-selected' : sortBoardListBy == 'name'}" class="board-data board-name" @click.stop="categoryClicked('name')">Board</div>
+        <div :class="{'category-selected' : sortBoardListBy == 'postsPerMinute'}" class="board-data" data-hover-text="Over the last hour" @click.stop="categoryClicked('postsPerMinute')">Posts/min</div>
+        <div :class="{'category-selected' : sortBoardListBy == 'threadsPerHour'}" class="board-data is-hidden-touch" data-hover-text="Over the last hour" @click.stop="categoryClicked('threadsPerHour')">Threads/hour</div>
+        <div :class="{'category-selected' : sortBoardListBy == 'avgPostsPerDay'}" class="board-data" data-hover-text="Over the last 4 weeks. Weighted towards more recent weeks." @click.stop="categoryClicked('avgPostsPerDay')">Avg.Posts/day</div>
+        <div :class="{'category-selected' : sortBoardListBy == 'imagesPerReply'}" class="board-data is-hidden-touch is-hidden-desktop-only" data-hover-text="Posts with files attached" @click.stop="categoryClicked('imagesPerReply')">Images</div>
+        <div :class="{'category-selected' : sortBoardListBy == 'relativeActivity'}" class="board-data" data-hover-text="Current posts-per-minute relative to the boards usual top ppm rate" @click.stop="categoryClicked('relativeActivity')">Activity Now</div>
       </div>
-      <transition-group name="flip-list" class="board-rows" tag="div" v-if="combinedBoardStats.postsPerMinute">
-        <div class="board-row" v-for="boardName in sortedBoardlist" :key="boardName">
-          <div :id="'board-'+boardName" @click.stop="boardClicked(boardName)" class="board-data-wrapper" :class="{'board-selected' : (selectedBoard == boardName)}">
+      <transition-group v-if="combinedBoardStats.postsPerMinute" name="flip-list" tag="div" class="board-rows">
+        <div v-for="boardName in sortedBoardlist" :key="boardName" class="board-row">
+          <div :id="'board-'+boardName" :class="{'board-selected' : (selectedBoard == boardName)}" class="board-data-wrapper" @click.stop="boardClicked(boardName)">
             <div :data-hover-text="longBoardNames[boardName]" class="board-data board-name">/{{ boardName }}/</div>
             <div class="board-data ">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
             <div class="board-data is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>

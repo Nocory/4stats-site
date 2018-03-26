@@ -7,17 +7,17 @@
       <div class="back-button" @click="closeThreadSideBar">x</div>
     </div>
     
-    <div class="threads-wrapper" v-if="selectedBoard" :style="{ minHeight: elementProperties.listHeight + 'px' }">
+    <div v-if="selectedBoard" :style="{ minHeight: elementProperties.listHeight + 'px' }" class="threads-wrapper">
       <a v-for="thread in threadData[selectedBoard].slice(0,elementProperties.threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
         <div class="img-wrapper">
-          <img :src="thread.image" referrerpolicy="same-origin" ref="img" :alt="`${selectedBoard} thread image`" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
+          <img ref="img" :src="thread.image" :alt="`${selectedBoard} thread image`" referrerpolicy="same-origin" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
         </div>
         
         <div class="text-wrapper">
-          <div class="thread-ppm" v-if="thread.replies == 9001">
+          <div v-if="thread.replies == 9001" class="thread-ppm">
             {{ thread.postsPerMinute.toFixed(2) }} posts/min - <u>Sticky Thread</u> - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
           </div>
-          <div class="thread-ppm" v-else>
+          <div v-else class="thread-ppm">
             {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
           </div>
           <div class="thread-title" v-html="thread.sub || '(no title)'"/>
