@@ -21,6 +21,11 @@
             "src": "/android-chrome-512x512.png?v=lkdX274RNx",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+          "src": "favicon.png?v=lkdX274RNx",
+          "sizes": "32x32",
+          "type": "image/png"
         }
     ]
 }
