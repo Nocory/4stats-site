@@ -1,5 +1,5 @@
 <template>
-  <div class="component-index">
+  <div class="component">
     <div class="main section">
       <h6 class="connected is-hidden-touch">
         just updated: /{{ recentlyUpdatedBoard }}/<br>
@@ -14,8 +14,8 @@
     </div>
 
     <div class="is-hidden-mobile section">
-      <component-chart class="container" v-if="renderChart || forceChart"/>
-      <button v-else @click="forceChart = true" class="button">
+      <component-chart v-if="renderChart || forceChart" class="container"/>
+      <button v-else class="button" @click="forceChart = true">
         Force-Load Chart Module
       </button>
     </div>
@@ -53,7 +53,7 @@ export default {
 <style lang="scss" scoped>
 @import "~css/variables.scss";
 
-.component-index {
+.component {
 	position: relative;
 	z-index: 10;
 	background: $--color-background;

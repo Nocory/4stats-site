@@ -1,30 +1,30 @@
 <template>
   <div class="component-footer section">
-      <div class="container">
-        <p>
-          Recent changes:<br>
-          Changed the site colors around.<br>
-          Should look a bit better now.
-        </p>
-        <hr>
-        <p>
-          The information above is gathered from the 4chan API.
-          <br> Visit
-          <a href="https://4chan.org" target="_blank" rel="noopener">4chan.org</a> to view all boards & threads or check out the
-          <a href="https://github.com/4chan/4chan-API" target="_blank" rel="noopener">API documentation</a>
-        </p>
-        <hr>
-        <p>
-          This project on Github:<br>
-          <a href="https://github.com/Nocory/4stats-gatherer" target="_blank" rel="noopener">Stats-Gatherer</a> / <a href="https://github.com/Nocory/4stats-api" target="_blank" rel="noopener">API-Server</a> / <a href="https://github.com/Nocory/4stats-site" target="_blank" rel="noopener">Website</a>
-        </p>
-        <hr>
-        <p>
-          <router-link to="/feedback">
-            <button class="button">Feedback / Contact</button>
-          </router-link>
-        </p>
-      </div>
+    <div class="container">
+      <p>
+        Recent changes:<br>
+        Changed the site colors around.<br>
+        Should look a bit better now.
+      </p>
+      <hr>
+      <p>
+        The information above is gathered from the 4chan API.
+        <br> Visit
+        <a href="https://4chan.org" target="_blank" rel="noopener">4chan.org</a> to view all boards & threads or check out the
+        <a href="https://github.com/4chan/4chan-API" target="_blank" rel="noopener">API documentation</a>
+      </p>
+      <hr>
+      <p>
+        This project on Github:<br>
+        <a href="https://github.com/Nocory/4stats-gatherer" target="_blank" rel="noopener">Stats-Gatherer</a> / <a href="https://github.com/Nocory/4stats-api" target="_blank" rel="noopener">API-Server</a> / <a href="https://github.com/Nocory/4stats-site" target="_blank" rel="noopener">Website</a>
+      </p>
+      <hr>
+      <p>
+        <router-link to="/feedback">
+          <button class="button">Feedback / Contact</button>
+        </router-link>
+      </p>
+    </div>
   </div>
 </template>
 
