@@ -3,11 +3,11 @@
     <h4 class="is-size-4 headline is-hidden-mobile">Active threads on /{{ selectedBoard }}/</h4>
 
     <div class="mobile-headline-wrapper is-hidden-tablet ">
-      <h4 class="headline">Swipe to close</h4>
+      <h4 class="headline">Active threads on /{{ selectedBoard }}/</h4>
       <div class="back-button" @click="closeThreadSideBar">x</div>
     </div>
     
-    <div v-if="selectedBoard" :style="{ minHeight: elementProperties.listHeight + 'px' }" class="threads-wrapper">
+    <div v-if="selectedBoard" class="threads-wrapper">
       <a v-for="thread in threadData[selectedBoard].slice(0,elementProperties.threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
         <div class="img-wrapper">
           <img ref="img" :src="thread.image" :alt="`${selectedBoard} thread image`" referrerpolicy="same-origin" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
@@ -18,13 +18,14 @@
             {{ thread.postsPerMinute.toFixed(2) }} posts/min - <u>Sticky Thread</u> - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
           </div>
           <div v-else class="thread-ppm">
-            {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
+            {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours
           </div>
           <div class="thread-title" v-html="thread.sub || '(no title)'"/>
           <div class="thread-comment" v-html="thread.com"/>
         </div>
       </a>
     </div>
+    <div class="swipe-hint"/>
   </div>
 </template>
 
@@ -95,8 +96,10 @@ export default {
   .threadlist-component{
     z-index: 20;
     position: absolute;
-    top: -3rem;
+    top: 0;
     right: 0;
+    width: 100%;
+    height: 100%;
     transition: transform 0.5s ease-in-out;
 
     transform: translateX(calc(100% + 24px));
@@ -105,17 +108,21 @@ export default {
     }
 
     .mobile-headline-wrapper{
+      position: fixed;
+      bottom: 100%;
+      left: 0;
       display: flex;
       align-items: center;
       background: $--color-navbar;
-      position: relative;
       z-index: 4;
       width: 100%;
-      font-size: 1.25rem;
       height: 3rem;
+      font-size: 1.25rem;
       >.headline{
         flex-grow: 1;
         white-space: nowrap;
+        line-height: 100%;
+        padding: 0;
       }
       >.back-button{
         background: $nord1;
@@ -133,8 +140,13 @@ export default {
   }
 }
 
+.threadlist-component{
+  display: flex;
+  flex-direction: column;
+}
+
 .threads-wrapper{
-  //border-top: 4px solid rgba(255,255,255,0.8);
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   @include mobile{
@@ -144,7 +156,7 @@ export default {
 
 a {
   position: relative;
-  min-height: 125px;
+  min-height: 120px;
   flex: 1 1 0;
   display: flex;
   color: $--color-text;
@@ -218,6 +230,47 @@ a {
       margin: 0.5rem;
       color: $--color-text-minor;
     }
+  }
+}
+
+.swipe-hint{
+  z-index: 999;
+  position: fixed;
+  display: flex;
+  top: 80vh;
+  width: 100%;
+  justify-content: center;
+  color: yellow;
+  opacity: 0;
+  &::after{
+    content: "Swipe to close";
+    color: white;
+    background: rgba(0,0,0,0.85);
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+  }
+  .thread-sidebar-revealed>&{
+    animation-duration: 5s;
+    animation-name: swipeHintAnim;
+    animation-timing-function: ease;
+  }
+}
+
+@keyframes swipeHintAnim {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 </style>

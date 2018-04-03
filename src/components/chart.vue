@@ -39,14 +39,24 @@
 
     <div class="chart-wrapper">
       <canvas id="myChart"/>
-			<div class="chart-background"/>
+      <div class="chart-background"/>
     </div>
 
-    <a class="board-buttons" >
-      <div class="button-padder" v-for="board in allBoards" :key="board" @click="toggleBoard(board)">
-        <div class="board-button" :class="{'button-selected': graphedBoards.includes(board)}">/{{ board }}/</div>
+    <div class="board-buttons" >
+      <!--
+      <div
+        v-for="board in allBoards"
+        :key="board"
+        :class="{'button-selected': graphedBoards.includes(board)}"
+        class="board-buttons__button"
+        @click="toggleBoard(board)">
+        /{{ board }}/
       </div>
-    </a>
+			-->
+      <div v-for="board in allBoards" :key="board" class="button-padder" @click="toggleBoard(board)">
+        <div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">/{{ board }}/</div>
+      </div>
+    </div>
     <!--
       <a class="board-buttons" @click="toggleBoard('combined')">
         <div class="board-button" :class="{'button-selected': graphedBoards.includes('combined')}">[ALL]</div>
@@ -266,6 +276,7 @@ abbr {
 	user-select: none;
 	>.button-padder{
 		padding: 0.3125rem 0.3125rem;
+		cursor: pointer;
 		>.board-button {
 			position: relative;
 			padding: 0.5em 0.25em;
