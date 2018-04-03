@@ -43,6 +43,7 @@ form{
   z-index: 2;
   width: 512px;
   max-width: 95%;
+  max-height: 80%;
   display: flex;
   position: relative;
   flex-direction: column;

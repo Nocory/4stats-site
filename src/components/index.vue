@@ -1,5 +1,10 @@
 <template>
-  <div class="component">
+  <div class="index-component">
+    <h6 class="connected is-hidden-touch">
+      just updated: /{{ recentlyUpdatedBoard }}/<br>
+      users on site: {{ connectedUsers }}
+    </h6>
+    <!--
     <div class="main section">
       <h6 class="connected is-hidden-touch">
         just updated: /{{ recentlyUpdatedBoard }}/<br>
@@ -18,6 +23,13 @@
       <button v-else class="button" @click="forceChart = true">
         Force-Load Chart Module
       </button>
+    </div>
+  </div>
+	-->
+    <div class="container">
+      <component-boardlist class="component-boardlist"/>
+      <component-threadlist class="component-threadlist"/>
+      <component-chart v-if="renderChart || forceChart" class="component-chart"/>
     </div>
   </div>
 </template>
@@ -53,22 +65,51 @@ export default {
 <style lang="scss" scoped>
 @import "~css/variables.scss";
 
-.component {
+.index-component {
 	position: relative;
 	z-index: 10;
 	background: $--color-background;
+
 }
 
-.main{
+.container{
+	display: grid;
 	position: relative;
-	z-index: 10;
-	@include touch{
-		padding: 1rem 0;
-	}
+	//justify-items: center;
+
 	@include mobile{
-		padding: 0;
+		grid-template: 	"boards" auto
+										"chart" auto /
+										1fr;
+		//grid-gap: 0rem;
 	}
-	
+
+	@include tablet{
+		grid-template: 	"boards threads" max-content
+										"chart chart" auto /
+										1fr 1fr;
+		//grid-gap: 0rem;
+		//margin: 0 auto;
+	}
+
+	@include desktop{
+		padding: 0;
+		grid-gap: 1rem;
+	}
+}
+
+.component-boardlist{
+	grid-area: boards;
+	min-width: 0;
+}
+
+.component-threadlist{
+	grid-area: threads;
+	min-width: 0;
+}
+
+.component-chart{
+	grid-area: chart;
 }
 
 .connected {
@@ -86,31 +127,6 @@ export default {
 		left: 0;
 		top: 200%;
 		//content: "works now?";
-	}
-}
-
-.header{
-	position: relative;
-	display: flex;
-	justify-content: space-between;
-}
-
-.columns{
-	position: relative;
-	@include touch{
-		margin: 0;
-	}
-	@include desktop{
-		margin: 0 -0.5rem;
-	}
-}
-
-.column{
-	@include touch{
-		padding: 0rem;
-	}
-	@include desktop{
-		padding: 0 0.5rem;
 	}
 }
 </style>

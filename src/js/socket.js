@@ -40,9 +40,9 @@ let closeTimerID = null
 let isSocketOpen = true // maybe not needed, but lets be sure
 
 const handleVisibilityChange = () => {
+	clearTimeout(openTimerID)
+	clearTimeout(closeTimerID)
 	if(document.hidden){
-		clearTimeout(openTimerID)
-		clearTimeout(closeTimerID)
 		if(isSocketOpen){
 			closeTimerID = setTimeout(() => {
 				isSocketOpen = false
@@ -50,8 +50,6 @@ const handleVisibilityChange = () => {
 			},30000)
 		}
 	}else{
-		clearTimeout(openTimerID)
-		clearTimeout(closeTimerID)
 		if(!isSocketOpen){
 			openTimerID = setTimeout(() => {
 				isSocketOpen = true

@@ -1,36 +1,34 @@
 <template>
   <div class="boardlist-component">
-    <h4 class="is-size-5-mobile is-size-4 headline is-hidden-mobile">
+    <h4 class="is-size-4 headline is-hidden-mobile">
       Live Board Statistics
     </h4>
-    
-    <div class="boardlist-wrapper">
-      <div class="boardlist-header board-data-wrapper">
-        <div @click.stop="categoryClicked('name')" class="board-data board-name" :class="{'category-selected' : sortBoardListBy == 'name'}">Board</div>
-        <div @click.stop="categoryClicked('postsPerMinute')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'postsPerMinute'}" data-hover-text="Over the last hour">Posts/min</div>
-        <div @click.stop="categoryClicked('threadsPerHour')" class="board-data is-hidden-touch" :class="{'category-selected' : sortBoardListBy == 'threadsPerHour'}" data-hover-text="Over the last hour">Threads/hour</div>
-        <div @click.stop="categoryClicked('avgPostsPerDay')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'avgPostsPerDay'}" data-hover-text="Over the last 4 weeks. Weighted towards more recent weeks.">Avg.Posts/day</div>
-        <div @click.stop="categoryClicked('imagesPerReply')" class="board-data is-hidden-touch is-hidden-desktop-only" :class="{'category-selected' : sortBoardListBy == 'imagesPerReply'}" data-hover-text="Posts with files attached">Images</div>
-        <div @click.stop="categoryClicked('relativeActivity')" class="board-data" :class="{'category-selected' : sortBoardListBy == 'relativeActivity'}" data-hover-text="Current posts-per-minute relative to the boards usual top ppm rate">Activity Now</div>
-      </div>
-      <transition-group name="flip-list" class="board-rows" tag="div" v-if="combinedBoardStats.postsPerMinute">
-        <div class="board-row" v-for="boardName in sortedBoardlist" :key="boardName">
-          <div :id="'board-'+boardName" @click.stop="boardClicked(boardName)" class="board-data-wrapper" :class="{'board-selected' : (selectedBoard == boardName)}">
-            <div :data-hover-text="longBoardNames[boardName]" class="board-data board-name">/{{ boardName }}/</div>
-            <div class="board-data ">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
-            <div class="board-data is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
-            <div class="board-data ">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
-            <div class="board-data is-hidden-touch is-hidden-desktop-only">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
-            <div class="board-data ">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
-          </div>
-        </div>
-      </transition-group>
+    <div class="board-row board-row--header">
+      <div v-for="item in [
+        {category: 'name', text: 'Board', tooltip: ''},
+        {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last hour'},
+        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-touch']},
+        {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
+        {category: 'imagesPerReply', text: 'Images', tooltip: 'Posts with files attached', classes: ['is-hidden-touch','is-hidden-desktop-only']},
+        {category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current posts-per-minute relative to the boards usual top ppm rate'},
+      ]" :key="item.name" :class="[sortBoardListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
+    <transition-group v-if="combinedBoardStats.postsPerMinute" tag="div" class="">
+      <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'board-selected' : (selectedBoard == boardName)}" class="board-row" @click.stop="boardClicked(boardName)">
+        <div :data-hover-text="longBoardNames[boardName]" class="">/{{ boardName }}/</div>
+        <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
+        <div class="is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
+        <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
+        <div class="is-hidden-touch is-hidden-desktop-only">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
+        <div class="">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
+      </div>
+    </transition-group>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+const pino = require("js/pino")
 export default {
 	data: () => ({
 		longBoardNames : require('js/config').boardNames,
@@ -83,13 +81,12 @@ export default {
 				element.addEventListener(
 					"animationend",
 					event => {
-						event.target.classList.remove("just-updated")
-					},
-					{
+						element.classList.remove("just-updated")
+						pino.debug(event.target, mutation.payload.board, "removed 'just-updated'")
+					},{
 						once: true,
 						passive: true
-					}
-				)
+					})
 			}
 		})
 	}
@@ -104,41 +101,57 @@ export default {
   z-index: 10;
 }
 
-.boardlist-wrapper{
+.board-row{
+  position: relative;
+  display: flex;
   cursor: pointer;
   user-select: none;
   font-size: 0.8rem;
-}
-
-.board-data-wrapper{
-  display: flex;
+  line-height: 1.25rem;
   color: $--color-text-minor;
-
-  &>.board-data{
+  &:not(&--header){
+    border-top: 1px solid rgba(0,0,0,0.5);
+    /*
+    &:nth-child(10n+1):not(:first-child){
+      border-top: 2px solid rgba(0,0,0,0.85);
+    }
+    */
+  }
+  transition: color 0.5s ease, background-color 0.5s ease, transform 0.5s ease;
+  
+  background-color: $--color-highlight-2;
+  &:nth-of-type(2n){
+    background-color: $--color-highlight-1;
+  }
+  &.board-selected{
+    background-color: $--color-background-selected;
+    color: $--color-text-selected;
+    transition: color 0s, background-color 0s;
+  }
+  
+  >div{
+    position: relative;
     flex: 2 1 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    text-align: right;
     padding: 0 1em 0 0;
-    &.board-name{
-      justify-content: flex-start;
-      padding: 0 0 0 1em;
+    &:first-child{
       flex: 1 1 0;
       text-align: left;
+      padding: 0 0 0 1em;
       font-weight: bold;
-      position: relative;
     }
   }
 }
 
-.boardlist-header{
-  background-color: $--color-boardlist-header;
-  //overflow: hidden;
-  height: 2.25rem;
-  &>.board-data{ // categories
+.board-row--header{
+  background-color: $--color-highlight-1;
+  line-height: 2.25rem;
+  >div{
     position: relative;
     white-space: nowrap;
-    &::before{ // underline when category selected
+
+    // underline when category selected
+    &::before{
       content: "";
       position: absolute;
       bottom: 0px;
@@ -149,32 +162,10 @@ export default {
       transform: scaleY(0);
       //opacity: 0;
       transform-origin: center bottom;
-      transition: all 0.5s ease-out;
+      transition: transform 0.25s ease;
     }
-    &.category-selected{
-      &::before{
-        transform: scaleY(1);
-      }
-    }
-  }
-}
-
-.board-row{
-  position: relative;
-  border-top: 1px solid rgba(0,0,0,0.25);
-  transition: background-color 0.5s ease-out, transform 0.5s;
-  
-  background-color: $--color-highlight-2;
-  &:nth-of-type(2n){
-    background-color: $--color-highlight-1;
-  }
-
-  &>.board-data-wrapper{
-    height: 1.25rem;
-    
-    &.board-selected{
-      background-color: $--color-background-selected;
-      color: $--color-text-selected;
+    &.category-selected::before{
+      transform: scaleY(1);
     }
   }
 }
@@ -183,7 +174,8 @@ export default {
 // Hover elements //
 ////////////////////
 @include desktop{
-  .board-name:hover::after{
+  .board-row>div:first-child:hover::after{ //FIXME: hover div sometimes behind posts/min after board row update anim
+    z-index: 999;
     content: attr(data-hover-text);
     white-space: nowrap;
     padding: 0 1em;
@@ -193,35 +185,26 @@ export default {
     color: $--color-text-minor;
   }
 
-  .boardlist-header>.board-data:hover::after{
-    z-index: 1;
+  .board-row--header>div:hover::after{
+    line-height: 1.4em;
+    z-index: 999;
     content: attr(data-hover-text);
-    left: 32px;
-    top: 150%;
+    left: 0px;
+    top: 125%;
     position: absolute;
     white-space: nowrap;
-    padding: 0 1em;
     background-color: rgba(0,0,0,0.85);
     color: $--color-text-minor;
-    opacity: 0;
-    animation: 0.25s ease-in-out 0.25s forwards hoverTextAnim;
+    //opacity: 0;
+    //animation: 0.25s ease-in-out 0s forwards hoverTextAnim;
   }
 }
 
 ////////////////
 // Animations //
 ////////////////
-.flip-list-move {
-  //transition: transform 0.5s ease-out, background-color 0.1s ease;
-  transition: transform 0.5s ease-out, background-color 0.1s ease;
-  &.board-row{
-    position: relative;
-    //transform: translateX(-12px);
-    //background-color: rgba(0,0,0,0.0);
-  }
-}
 
-.just-updated {
+.just-updated>div {
   animation-duration: 3s;
   animation-name: updateAnim;
   animation-timing-function: ease-out;
@@ -230,7 +213,7 @@ export default {
 
 @keyframes updateAnim {
   0% {
-    background-color: inherit;
+    background-color: transparent;
   }
   10% {
     background-color: $--color-update;
@@ -239,7 +222,7 @@ export default {
     background-color: $--color-update;
   }
   100% {
-    background-color: inherit;
+    background-color: transparent;
   }
 }
 

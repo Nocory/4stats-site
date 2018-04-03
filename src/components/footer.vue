@@ -3,8 +3,7 @@
     <div class="container">
       <p>
         Recent changes:<br>
-        Changed the site colors around.<br>
-        Should look a bit better now.
+        -
       </p>
       <hr>
       <p>
