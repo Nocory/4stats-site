@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-//@import url('https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Open+Sans|Raleway|Roboto|Roboto+Mono|Source+Code+Pro|Ubuntu+Mono');
-
 @import "fa_boiler.css";
 @import "icomoon_cogs.css";
 @import "variables.scss";
@@ -21,8 +19,11 @@
   color: $--color-title;
   //@include float-shadow-text;
 	background: transparent;
-  padding: 0 1rem 0.5rem;
+  padding: 0 !important;
   font-weight: normal;
   margin: 0 !important;
   text-align: center;
+  @include desktop{
+    padding: 0.5rem 0;
+  }
 }
