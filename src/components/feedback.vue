@@ -14,13 +14,17 @@
             <!--<button class="button" type="button" @click="send">Send</button>-->
           </div>
         </form>
+        <div class="description">
+          In case you include some personal contact information like an email address or such, then your submission won't be added to the list below of course.
+        </div>
         <div class="qa-card">
           <div class="q">
             suggestion: filter threads by average post length, longest post in thread, # of links in thread/on board
           </div>
           <div class="a">
-            The current data is taken from each boards catalog.<br>
-            Filtering by average post-length or # of links would require fetching each individual thread, which is possible, but not practical due to 4chan API limits. (And would also use much more bandwidth)
+            The thread-data I use is taken from the boards catalog.
+            Filtering by average post-length or # of links would require fetching each thread individually, which is possible, but not practical due to 4chan API limits.
+            (And would also use much more bandwidth)
           </div>
         </div>
         <div class="qa-card">
@@ -48,7 +52,7 @@
             hey is it possible to not calculate replies but only calculate posts by posters so that we can get rid of samefag 1 man spams?
           </div>
           <div class="a">
-            The thread-data is taken from the catalog. For that kind of info you would need to query each individual thread, which isn't feasable to do for all 72 boards, due to 4chan API limits.<br>
+            All the data I process is taken from a boards catalog. For that kind of info you would need to query each individual thread, which isn't feasable to do for all 72 boards, due to 4chan API limits.<br>
             But the thread-list is really just to show pure activity, whether samefags or genuine replies.
           </div>
         </div>
@@ -110,7 +114,6 @@ form{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2rem;
 }
 
 .button-group{
@@ -122,6 +125,34 @@ form{
 button{
   margin: 1rem 0 0;
   width: 128px;
+}
+
+.description{
+  width: 80%;
+  max-width: 512px;
+  position: relative;
+  color: $oc-gray-0;
+  text-align: center;
+  padding: 0.5rem 0;
+  margin: 2rem;
+  &::before{
+    position: absolute;
+    content: "";
+    top: 0px;
+    left: 25%;
+    width: 50%;
+    height: 1px;
+    background: $oc-gray-0;
+  }
+  &::after{
+    position: absolute;
+    content: "";
+    bottom: 0px;
+    left: 25%;
+    width: 50%;
+    height: 1px;
+    background: $oc-gray-0;
+  }
 }
 
 .qa-card{
@@ -146,9 +177,6 @@ button{
     color: $oc-gray-7;
     font-weight: bolder;
     margin-bottom: 1rem;
-    &::before{
-      content: "Q:";
-    }
     &::after{
       content: "";
       position: absolute;
