@@ -3,7 +3,10 @@
     <div class="container">
       <p>
         Recent changes:<br>
-        -
+        <ul>
+          <li>Some CSS cleanup.</li>
+          <li>Added submissions and responses to the Feedback/Contact page.</li>
+        </ul>
       </p>
       <hr>
       <p>

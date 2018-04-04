@@ -39,5 +39,7 @@ export default {
 .router-view{
 	flex-grow: 1;
 	position: relative;
+	display: flex;
+	flex-direction: column;
 }
 </style>
