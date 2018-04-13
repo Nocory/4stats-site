@@ -8,7 +8,7 @@ module.exports = {
 		//contentBase: path.join("dist"),
 		//publicPath: path.join("dist"),
 		compress: true,
-		host: "0.0.0.0",
+		host: "localhost",
 		port: 3000,
 		overlay: true
 	},
