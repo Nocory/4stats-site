@@ -51,6 +51,8 @@ export default {
 	mounted(){
 		window.addEventListener("resize",() => {
 			this.renderChart = window.innerWidth >= 1216
+		},{
+			passive: true
 		})
 		socket.on("userCount",userCount => {
 			this.connectedUsers = userCount
