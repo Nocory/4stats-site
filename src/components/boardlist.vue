@@ -13,7 +13,7 @@
         {category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current posts-per-minute relative to the boards usual top ppm rate'},
       ]" :key="item.name" :class="[sortBoardListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
-    <transition-group v-if="combinedBoardStats.postsPerMinute" tag="div" class="">
+    <transition-group v-if="combinedBoardStats.imagesPerReply" tag="div" class="">
       <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'board-selected' : (selectedBoard == boardName)}" class="board-row" @click.stop="boardClicked(boardName)">
         <div :data-hover-text="longBoardNames[boardName]" class="">/{{ boardName }}/</div>
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
