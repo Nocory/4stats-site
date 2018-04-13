@@ -4,8 +4,8 @@
       <p>
         Recent changes:<br>
         <ul>
-          <li>Some CSS cleanup.</li>
-          <li>Added submissions and responses to the Feedback/Contact page.</li>
+          <li>Boardlist will now always render, even on 4chan outages</li>
+          <li>Reenabled Chart for tablet widths</li>
         </ul>
       </p>
       <hr>

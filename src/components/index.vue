@@ -4,28 +4,6 @@
       just updated: /{{ recentlyUpdatedBoard }}/<br>
       users on site: {{ connectedUsers }}
     </h6>
-    <!--
-    <div class="main section">
-      <h6 class="connected is-hidden-touch">
-        just updated: /{{ recentlyUpdatedBoard }}/<br>
-        users on site: {{ connectedUsers }}
-      </h6>
-      <div class="container is-fullhd">
-        <div class="columns">
-          <component-boardlist class="column is-12-mobile is-6-tablet"/>
-          <component-threadlist class="column is-12-mobile is-6-tablet"/>
-        </div>
-      </div>
-    </div>
-
-    <div class="is-hidden-mobile section">
-      <component-chart v-if="renderChart || forceChart" class="container"/>
-      <button v-else class="button" @click="forceChart = true">
-        Force-Load Chart Module
-      </button>
-    </div>
-  </div>
-	-->
     <div class="container">
       <component-boardlist class="component-boardlist"/>
       <component-threadlist class="component-threadlist"/>
@@ -39,7 +17,7 @@ const socket = require("js/socket")
 export default {
 	data: () => ({
 		forceChart: false,
-		renderChart: window.innerWidth >= 1216, // the bulma breakpoint for desktops
+		renderChart: window.innerWidth >= 768, // the bulma breakpoint for tablets
 		recentlyUpdatedBoard: "",
 		connectedUsers: 0
 	}),
@@ -50,7 +28,7 @@ export default {
 	},
 	mounted(){
 		window.addEventListener("resize",() => {
-			this.renderChart = window.innerWidth >= 1216
+			this.renderChart = window.innerWidth >= 768
 		},{
 			passive: true
 		})
@@ -71,27 +49,23 @@ export default {
 	position: relative;
 	z-index: 10;
 	background: $--color-background;
-
+	padding-bottom: 2rem;
 }
 
 .container{
 	display: grid;
 	position: relative;
-	//justify-items: center;
 
 	@include mobile{
 		grid-template: 	"boards" auto
 										"chart" auto /
 										1fr;
-		//grid-gap: 0rem;
 	}
 
 	@include tablet{
 		grid-template: 	"boards threads" max-content
 										"chart chart" auto /
 										1fr 1fr;
-		//grid-gap: 0rem;
-		//margin: 0 auto;
 	}
 
 	@include desktop{
