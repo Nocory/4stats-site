@@ -19,6 +19,15 @@
         </div>
         <div class="qa-card">
           <div class="q">
+            What happened to the history graph? It used to be reachable via "force whatever", but now that's gone.
+          </div>
+          <div class="a">
+            Oh yeah, was experimenting with using CSS grid and forgot to add the button to force-show the chart.<br>
+            Just going to make it show on everything larger than mobile-widths now, so it should be back.
+          </div>
+        </div>
+        <div class="qa-card">
+          <div class="q">
             suggestion: filter threads by average post length, longest post in thread, # of links in thread/on board
           </div>
           <div class="a">
