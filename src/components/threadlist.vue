@@ -82,9 +82,53 @@ export default {
 				this.revealThreadSideBar(true)
 			}
 		})
+		/*
+		const threadlistTouch = require("js/threadlistTouch")
+    threadlistTouch(document,this.handleSwipe)
+    */
+
+		const componentEl = document.querySelector(".threadlist-component")
+		let start = [0,0]
+
+		document.addEventListener('touchstart', function(e){
+			start = [e.touches[0].clientX,e.touches[0].clientY]
+			componentEl.classList.add("is-touching")
+		},{
+			passive: true
+		}, false)
     
-		const detectSwipe = require("js/detectSwipe")
-		detectSwipe(document,this.handleSwipe)
+		document.addEventListener('touchmove', function(e){
+			const delta = [e.touches[0].clientX - start[0],e.touches[0].clientY - start[1]]
+			let extraTranslateX = delta[0] / window.innerWidth * 100
+      
+			extraTranslateX = Math.max(-100,extraTranslateX)
+			if(componentEl.classList.contains("thread-sidebar-revealed")){
+				extraTranslateX = Math.max(0,extraTranslateX)
+			}
+			componentEl.style.setProperty("--extraTranslateX",extraTranslateX + "%")
+		},{
+			passive: true
+		},false)
+    
+		document.addEventListener('touchend', e => {
+			componentEl.classList.remove("is-touching")
+			componentEl.style.setProperty("--extraTranslateX",0 + "%")
+			const delta = [e.changedTouches[0].clientX - start[0],e.changedTouches[0].clientY - start[1]]
+      
+			const absX = Math.abs(delta[0])
+			const absy = Math.abs(delta[1])
+
+			if(absX < 64 && absy < 64)return
+			if(absX > absy * 2.5){
+				if(delta[0] > 0){
+					this.handleSwipe("right")
+				}else{
+					this.handleSwipe("left")
+				}
+			}
+		},{
+			passive: true
+		},false)
 	}
 }
 </script>
@@ -92,19 +136,26 @@ export default {
 <style scoped lang="scss">
 @import "~css/variables.scss";
 
+
+
 @include mobile{
   .threadlist-component{
+    --extraTranslateX: 0%;
+
     z-index: 20;
     position: absolute;
     top: 0;
     right: 0;
     width: 100%;
     height: 100%;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease-out;
+    &.is-touching{
+      transition: none;
+    }
 
-    transform: translateX(calc(100% + 24px));
+    transform: translateX(calc(100% + 24px + var(--extraTranslateX)));
     &.thread-sidebar-revealed{
-      transform: translateX(0%);
+      transform: translateX(calc(0%  + var(--extraTranslateX)));
     }
 
     .mobile-headline-wrapper{

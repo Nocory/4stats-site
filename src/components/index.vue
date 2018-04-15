@@ -49,7 +49,9 @@ export default {
 	position: relative;
 	z-index: 10;
 	background: $--color-background;
-	padding-bottom: 2rem;
+	@include desktop{
+		padding-bottom: 2rem;
+	}
 }
 
 .container{
