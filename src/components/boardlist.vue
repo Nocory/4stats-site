@@ -174,7 +174,8 @@ export default {
 // Hover elements //
 ////////////////////
 @include desktop{
-  .board-row>div:first-child:hover::after{ //FIXME: hover div sometimes behind posts/min after board row update anim
+  .board-row>div:first-child:hover::after{
+    line-height: 2;
     z-index: 999;
     position: absolute;
     content: attr(data-hover-text);
@@ -187,6 +188,7 @@ export default {
   }
 
   .board-row--header>div:hover::after{
+    line-height: 2;
     z-index: 999;
     position: absolute;
     content: attr(data-hover-text);
