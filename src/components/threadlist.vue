@@ -25,7 +25,7 @@
         </div>
       </a>
     </div>
-    <div class="swipe-hint"/>
+    <!--<div class="swipe-hint"/>-->
   </div>
 </template>
 
