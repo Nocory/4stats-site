@@ -174,24 +174,28 @@ export default {
 // Hover elements //
 ////////////////////
 @include desktop{
-  .board-row>div:first-child:hover::after{ //FIXME: hover div sometimes behind posts/min after board row update anim
+  .board-row>div:first-child:hover::after{
+    line-height: 2;
     z-index: 999;
+    position: absolute;
     content: attr(data-hover-text);
     white-space: nowrap;
     padding: 0 1em;
-    position: absolute;
     left: 100%;
+    white-space: nowrap;
     background-color: rgba(0,0,0,0.85);
     color: $--color-text-minor;
   }
 
   .board-row--header>div:hover::after{
-    line-height: 1.4em;
+    line-height: 2;
     z-index: 999;
+    position: absolute;
     content: attr(data-hover-text);
+    white-space: nowrap;
+    padding: 0 1em;
     left: 0px;
     top: 125%;
-    position: absolute;
     white-space: nowrap;
     background-color: rgba(0,0,0,0.85);
     color: $--color-text-minor;
