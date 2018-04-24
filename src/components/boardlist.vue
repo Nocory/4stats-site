@@ -3,7 +3,7 @@
     <h4 class="is-size-4 headline is-hidden-mobile">
       Live Board Statistics
     </h4>
-    <div class="board-row board-row--header">
+    <div class="boardlist__header">
       <div v-for="item in [
         {category: 'name', text: 'Board', tooltip: ''},
         {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last hour'},
@@ -11,11 +11,11 @@
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
         {category: 'imagesPerReply', text: 'Images', tooltip: 'Posts with files attached', classes: ['is-hidden-touch','is-hidden-desktop-only']},
         {category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current posts-per-minute relative to the boards usual top ppm rate'},
-      ]" :key="item.name" :class="[sortBoardListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
+      ]" :key="item.name" :class="[sortBoardListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
     <transition-group v-if="combinedBoardStats.imagesPerReply" tag="div" class="">
-      <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'board-selected' : (selectedBoard == boardName)}" class="board-row" @click.stop="boardClicked(boardName)">
-        <div :data-hover-text="longBoardNames[boardName]" class="">/{{ boardName }}/</div>
+      <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'board-selected' : (selectedBoard == boardName)}" class="boardlist__row" @click.stop="boardClicked(boardName)">
+        <div :data-hover-text="longBoardNames[boardName]" class="tooltip-right">/{{ boardName }}/</div>
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
         <div class="is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
         <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
@@ -68,9 +68,6 @@ export default {
 			this.$store.dispatch('boardClicked',board)
 		}
 	},
-	created(){
-    
-	},
 	mounted(){
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "updateBoardData" && mutation.payload.board != this.selectedBoard){
@@ -101,34 +98,14 @@ export default {
   z-index: 10;
 }
 
-.board-row{
+.boardlist__header, .boardlist__row{
   position: relative;
   display: flex;
   cursor: pointer;
   user-select: none;
   font-size: 0.8rem;
-  line-height: 1.25rem;
   color: $--color-text-minor;
-  &:not(&--header){
-    border-top: 1px solid rgba(0,0,0,0.5);
-    /*
-    &:nth-child(10n+1):not(:first-child){
-      border-top: 2px solid rgba(0,0,0,0.85);
-    }
-    */
-  }
   transition: color 0.5s ease, background-color 0.5s ease, transform 0.5s ease;
-  
-  background-color: $--color-highlight-2;
-  &:nth-of-type(2n){
-    background-color: $--color-highlight-1;
-  }
-  &.board-selected{
-    background-color: $--color-background-selected;
-    color: $--color-text-selected;
-    transition: color 0s, background-color 0s;
-  }
-  
   >div{
     position: relative;
     flex: 2 1 0;
@@ -143,14 +120,10 @@ export default {
   }
 }
 
-.board-row--header{
-  background-color: $--color-highlight-1;
+.boardlist__header{
   line-height: 2.25rem;
+  background-color: $--color-highlight-1;
   >div{
-    position: relative;
-    white-space: nowrap;
-
-    // underline when category selected
     &::before{
       content: "";
       position: absolute;
@@ -158,9 +131,8 @@ export default {
       left: 0px;
       height: 3px;
       width: 100%;
-      background: $nord6 !important;
+      background: $nord6;
       transform: scaleY(0);
-      //opacity: 0;
       transform-origin: center bottom;
       transition: transform 0.25s ease;
     }
@@ -170,38 +142,43 @@ export default {
   }
 }
 
-////////////////////
-// Hover elements //
-////////////////////
-@include desktop{
-  .board-row>div:first-child:hover::after{
-    line-height: 2;
-    z-index: 999;
-    position: absolute;
-    content: attr(data-hover-text);
-    white-space: nowrap;
-    padding: 0 1em;
-    left: 100%;
-    white-space: nowrap;
-    background-color: rgba(0,0,0,0.85);
-    color: $--color-text-minor;
+.boardlist__row{
+  line-height: 1.25rem;
+  background-color: $--color-highlight-2;
+  &:nth-of-type(2n){
+    background-color: $--color-highlight-1;
   }
+  border-top: 1px solid rgba(0,0,0,0.5);
+  &.board-selected>div{
+    background-color: $--color-background-selected;
+    color: $--color-text-selected;
+    //transition: color 0s, background-color 0s;
+  }
+}
 
-  .board-row--header>div:hover::after{
-    line-height: 2;
-    z-index: 999;
-    position: absolute;
-    content: attr(data-hover-text);
-    white-space: nowrap;
-    padding: 0 1em;
-    left: 0px;
-    top: 125%;
-    white-space: nowrap;
-    background-color: rgba(0,0,0,0.85);
-    color: $--color-text-minor;
-    //opacity: 0;
-    //animation: 0.25s ease-in-out 0s forwards hoverTextAnim;
-  }
+///////////
+// Hover //
+///////////
+
+[data-hover-text]:hover::after{
+  line-height: 2;
+  z-index: 999;
+  position: absolute;
+  content: attr(data-hover-text);
+  white-space: nowrap;
+  padding: 0 1em;
+  white-space: nowrap;
+  background-color: rgba(0,0,0,0.85);
+  color: $--color-text-minor;
+}
+
+[data-hover-text].tooltip-bottom:hover::after{
+  left: 0px;
+  top: 125%;
+}
+
+[data-hover-text].tooltip-right:hover::after{
+    left: 100%;
 }
 
 ////////////////
@@ -227,15 +204,6 @@ export default {
   }
   100% {
     background-color: transparent;
-  }
-}
-
-@keyframes hoverTextAnim {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 </style>
