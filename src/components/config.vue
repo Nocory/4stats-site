@@ -5,62 +5,20 @@
     <div class="section">
       <div class="container">
         <h4 class="is-size-5-mobile is-size-4 headline">
-          Settings
+          Boards
         </h4>
-        <div class="category columns is-multiline is-mobile">
-						
-          <div class="column is-6-mobile is-6-tablet is-3-fullhd" @click.stop="toggleCategory(cat[0])" v-for="cat in categories" :key="cat[0]">
-            <div class="board" :class="{enabled : (availableBoards[cat[0]].every((el) => tempEnabledBoards.includes(el)))}">{{ cat[1] }}</div>
+
+        <div v-for="category in categories" :key="category[0]">
+          <div :class="{enabled : (availableBoards[category[0]].every((el) => tempEnabledBoards.includes(el)))}" class="category" @click.stop="toggleCategory(category[0])">
+            Toggle {{ category[1] }} Boards
+          </div>
+          <div class="boards">
+            <div v-for="board in availableBoards[category[0]]" :key="board" :class="{enabled : (tempEnabledBoards.includes(board))}" class="board" @click.stop="toggleBoard(board)">
+              /{{ board }}/
+            </div>
           </div>
         </div>
-
-        <div class="columns is-multiline">
-
-          <div class="column is-6">
-
-            <div class="title is-6">Main</div>
-            <div class="columns is-multiline is-mobile">
-              <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.main" :key="board" @click.stop="toggleBoard(board)">
-                <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-                  /{{ board }}/
-                </div>
-              </div>
-            </div>
-							
-          </div>
-
-          <div class="column is-6">
-
-            <div class="title is-6">Image Generals</div>
-            <div class="columns is-multiline is-mobile">
-              <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.imageGenerals" :key="board" @click.stop="toggleBoard(board)">
-                <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-                  /{{ board }}/
-                </div>
-              </div>
-            </div>
-							
-            <div class="title is-6">Misc</div>
-            <div class="columns is-multiline is-mobile">
-              <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.misc" :key="board" @click.stop="toggleBoard(board)">
-                <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-                  /{{ board }}/
-                </div>
-              </div>
-            </div>
-							
-            <div class="title is-6">NSFW</div>
-            <div class="columns is-multiline is-mobile">
-              <div class="column is-3-mobile is-3-tablet is-2-fullhd" v-for="board in availableBoards.nsfw" :key="board" @click.stop="toggleBoard(board)">
-                <div class="board" :class="{enabled : (tempEnabledBoards.includes(board))}">
-                  /{{ board }}/
-                </div>
-              </div>
-            </div>
-							
-          </div>
-
-        </div>
+				
       </div>
     </div>
   </div>
@@ -77,8 +35,6 @@ export default {
 			availableBoards : config.availableBoards,
 			categories: [
 				["main","Main"],
-				["imageGenerals","Image Generals"],
-				["misc","Misc"],
 				["nsfw","NSFW"],
 			]
 		}
@@ -137,6 +93,7 @@ export default {
 	position: relative;
 	user-select: none;
 	background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+	flex-grow: 1;
 }
 
 .section {
@@ -148,6 +105,26 @@ export default {
 	color: $nord6;
 }
 
+.category{
+	cursor: pointer;
+	border-radius: 0;
+  background: $oc-gray-7;
+	color:$oc-gray-4;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 14rem;
+	height: 3rem;
+	margin: 0.5rem;
+}
+
+.boards{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	margin-bottom: 2rem;
+}
+
 .board{
 	cursor: pointer;
 	border-radius: 0;
@@ -156,7 +133,10 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	width: 5rem;
 	height: 3rem;
+	margin: 0.5rem;
+	//border: 1px solid $oc-gray-9;
 }
 
 .enabled{

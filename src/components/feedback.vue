@@ -15,7 +15,7 @@
           </div>
         </form>
         <div class="description">
-          In case you include some personal contact information like an email address or such, then your submission won't be added to the list below of course.
+          In case you include some personal contact info or don't even want/need a reply, then I won't add your submission to the list below of course.
         </div>
         <div class="qa-card">
           <div class="q">

@@ -1,6 +1,8 @@
 <template>
   <div class="threadlist-component">
-    <h4 class="is-size-4 headline is-hidden-mobile">Active threads on /{{ selectedBoard }}/</h4>
+    <div class="component__header is-hidden-mobile">
+      Active threads on /{{ selectedBoard }}/
+    </div>
 
     <div class="mobile-headline-wrapper is-hidden-tablet ">
       <h4 class="headline">Active threads on /{{ selectedBoard }}/</h4>
@@ -194,6 +196,18 @@ export default {
 .threadlist-component{
   display: flex;
   flex-direction: column;
+  @include float-shadow-box;
+  
+  margin: 1rem 0;
+}
+
+.component__header{
+  background: rgba(0,0,0,0.8);
+  color: $oc-gray-4;
+  padding: 0rem 0.5rem;
+  line-height: 2.25rem;
+  text-align: left;
+  font-weight: bold;
 }
 
 .threads-wrapper{
@@ -211,9 +225,9 @@ a {
   flex: 1 1 0;
   display: flex;
   color: $--color-text;
-  background: $--color-highlight-1;
+  background: $--color-highlight-2;
   &:nth-child(2n){
-    background: $--color-highlight-2;
+    background: $--color-highlight-1;
   }
 
   @include mobile{

@@ -1,49 +1,51 @@
 <template>
-  <div class="component-chart has-text-centered">
-    <h4 class="title is-size-4 headline">Board Timeline</h4>
+  <div class="chart-component">
+    <div class="component__header is-hidden-mobile">
+      Board Timeline (since july 2017)
+    </div>
+    <div class="has-text-centered main">
 
-    <div class="has-text-left property-title">Charting {{ chartOptions.term === "day" ? "posts/day" : chartOptions.hourProperty === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
+      <div class="has-text-left property-title">Charting {{ chartOptions.term === "day" ? "posts/day" : chartOptions.hourProperty === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
 
-    <div class="property-button-wrapper">
-      <div class="property-button-group">
-        <a :class="{ 'button-selected': chartOptions.term == 'day'}" @click="setChartOption('term','day')">Daily</a>
-        <a :class="{ 'button-selected': chartOptions.term == 'hour' }" @click="setChartOption('term','hour')"> Hourly</a>
+      <div class="property-button-wrapper">
+        <div class="property-button-group">
+          <a :class="{ 'button-selected': chartOptions.term == 'day'}" @click="setChartOption('term','day')">Daily</a>
+          <a :class="{ 'button-selected': chartOptions.term == 'hour' }" @click="setChartOption('term','hour')"> Hourly</a>
+        </div>
+
+        <template v-if="chartOptions.term == 'day'">
+          <div class="property-button-group">
+            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 9999 }" @click="setChartOption(['maxEntries','day'],9999)">All</a>
+            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 365 }" @click="setChartOption(['maxEntries','day'],365)">1 year</a>
+            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 183 }" @click="setChartOption(['maxEntries','day'],183)">6 months</a>
+            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 91 }" @click="setChartOption(['maxEntries','day'],91)">3 months</a>
+          </div>
+        </template>
+
+        <template v-if="chartOptions.term == 'hour'">
+          <div class="property-button-group">
+            <a :class="{ 'button-selected': chartOptions.maxEntries.hour == 24 * 7 * 4 }" @click="setChartOption(['maxEntries','hour'],24 * 7 * 4)">4 weeks</a>
+            <a :class="{ 'button-selected': chartOptions.maxEntries.hour == 24*7 }" @click="setChartOption(['maxEntries','hour'],24 * 7)">1 week</a>
+            <a :class="{ 'button-selected': chartOptions.maxEntries.hour == 24 }" @click="setChartOption(['maxEntries','hour'],24)">1 day</a>
+          </div>
+          <div class="property-button-group">
+            <a :class="{ 'button-selected': chartOptions.hourProperty == 'postsPerMinute' }" @click="setChartOption('hourProperty','postsPerMinute')">Posts/Minute</a>
+            <a :class="{ 'button-selected': chartOptions.hourProperty == 'activity' }" @click="setChartOption('hourProperty','activity')">Activity</a>
+          </div>
+          <div class="property-button-group">
+            <a :class="{ 'button-selected': chartOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</a>
+            <a :class="{ 'button-selected': chartOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel',3)">Smooth</a>
+            <a :class="{ 'button-selected': chartOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</a>
+          </div>
+        </template>
       </div>
 
-      <template v-if="chartOptions.term == 'day'">
-        <div class="property-button-group">
-          <a :class="{ 'button-selected': chartOptions.maxEntries.day == 9999 }" @click="setChartOption(['maxEntries','day'],9999)">All</a>
-          <a :class="{ 'button-selected': chartOptions.maxEntries.day == 365 }" @click="setChartOption(['maxEntries','day'],365)">1 year</a>
-          <a :class="{ 'button-selected': chartOptions.maxEntries.day == 183 }" @click="setChartOption(['maxEntries','day'],183)">6 months</a>
-          <a :class="{ 'button-selected': chartOptions.maxEntries.day == 91 }" @click="setChartOption(['maxEntries','day'],91)">3 months</a>
-        </div>
-      </template>
+      <div class="chart-wrapper">
+        <canvas id="myChart"/>
+      </div>
 
-      <template v-if="chartOptions.term == 'hour'">
-        <div class="property-button-group">
-          <a :class="{ 'button-selected': chartOptions.maxEntries.hour == 24 * 7 * 4 }" @click="setChartOption(['maxEntries','hour'],24 * 7 * 4)">4 weeks</a>
-          <a :class="{ 'button-selected': chartOptions.maxEntries.hour == 24*7 }" @click="setChartOption(['maxEntries','hour'],24 * 7)">1 week</a>
-          <a :class="{ 'button-selected': chartOptions.maxEntries.hour == 24 }" @click="setChartOption(['maxEntries','hour'],24)">1 day</a>
-        </div>
-        <div class="property-button-group">
-          <a :class="{ 'button-selected': chartOptions.hourProperty == 'postsPerMinute' }" @click="setChartOption('hourProperty','postsPerMinute')">Posts/Minute</a>
-          <a :class="{ 'button-selected': chartOptions.hourProperty == 'activity' }" @click="setChartOption('hourProperty','activity')">Activity</a>
-        </div>
-        <div class="property-button-group">
-          <a :class="{ 'button-selected': chartOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</a>
-          <a :class="{ 'button-selected': chartOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel',3)">Smooth</a>
-          <a :class="{ 'button-selected': chartOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</a>
-        </div>
-      </template>
-    </div>
-
-    <div class="chart-wrapper">
-      <canvas id="myChart"/>
-      <div class="chart-background"/>
-    </div>
-
-    <div class="board-buttons" >
-      <!--
+      <div class="board-buttons" >
+        <!--
       <div
         v-for="board in allBoards"
         :key="board"
@@ -53,15 +55,17 @@
         /{{ board }}/
       </div>
 			-->
-      <div v-for="board in allBoards" :key="board" class="button-padder" @click="toggleBoard(board)">
-        <div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">/{{ board }}/</div>
+        <div v-for="board in allBoards" :key="board" class="button-padder" @click="toggleBoard(board)">
+          <div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">/{{ board }}/</div>
+        </div>
       </div>
-    </div>
     <!--
       <a class="board-buttons" @click="toggleBoard('combined')">
         <div class="board-button" :class="{'button-selected': graphedBoards.includes('combined')}">[ALL]</div>
       </a>
 			-->
+    </div>
+
   </div>
 </template>
 
@@ -190,18 +194,23 @@ export default {
 <style scoped lang="scss">
 @import "~css/variables.scss";
 
-.component-chart{
+.chart-component{
 	//background: #222;
+	@include float-shadow-box;
 }
 
-.headline:after{
-	content: "since july 2017";
-	font-size: 0.75rem;
-	font-weight: normal;
-	position: absolute;
-	width: 100%;
-	left: 0;
-	top: calc(100% - 0.25rem);
+.component__header{
+  background: rgba(0,0,0,0.8);
+  color: $oc-gray-4;
+  padding: 0rem 0.5rem;
+  line-height: 2.25rem;
+  text-align: left;
+  font-weight: bold;
+}
+
+.main{
+  background: $--color-highlight-2;
+  //background: rgba(0,0,0,0.3);
 }
 
 abbr {
@@ -212,10 +221,22 @@ abbr {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  align-items: center;
+	align-items: center;
+	padding-left: 3rem;
+	//margin-bottom: -1rem;
 	>.property-button-group{
 		display: flex;
+		//background-color: $--color-highlight-2;
+		//background-color: transparent;
+		//background-color: rgba(255,255,255,0.05);
+		//background-color: rgba(0,0,0,0.2);
 		background-color: $--color-highlight-1;
+		border: 1px solid $oc-gray-7;
+		//@include float-shadow-box;
+		//box-shadow: 0px 0px 8px rgba(255,255,255,0.1);
+
+		
+		//background-color: $oc-gray-6;
 		//border-right: 2px solid $oc-gray-6;
 		margin-right: 1rem;
 		//border-right: 8px solid rgba(200,200,255,0.25);
@@ -255,17 +276,6 @@ abbr {
 		position: relative;
 		z-index: 20;
 	}
-	>.chart-background{
-		position: absolute;
-		z-index: 10;
-		top: 0;
-		left: 0;
-		height: 100%;
-		width: 100%;
-		//background: rgba(255,255,255,0.25);
-		filter: blur(128px);
-		//box-shadow: 0px 0px 128px 16px rgba(255,255,255,0.5);
-	}
 }
 
 .board-buttons {
@@ -274,6 +284,7 @@ abbr {
 	flex-wrap: wrap;
 	justify-content: center;
 	user-select: none;
+	padding: 0 0 0.5rem;
 	>.button-padder{
 		padding: 0.3125rem 0.3125rem;
 		cursor: pointer;
@@ -287,6 +298,8 @@ abbr {
 			overflow: hidden;
 			z-index: 99;
 			transition: color 0.25s ease-out;
+			border: 1px solid $oc-gray-7;
+			//@include float-shadow-box;
 			&.button-selected{
 				font-weight: bolder;
 				color: $oc-gray-7;
@@ -321,6 +334,8 @@ abbr {
 
 .property-title{
 	color: $oc-gray-0;
-	padding: 0 0.25rem;
+	padding: 0.5rem;
+	
+	padding-left: 3rem;
 }
 </style>

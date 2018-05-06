@@ -1,12 +1,21 @@
 <template>
   <div class="component-nav">
-		
-    <div class="title-and-description">
+    <div class="container is-fluid">
       <router-link to="/">
-        <div class="site-title">4stats.io</div>
+        <div class="nav-link site-title">4stats.io</div>
       </router-link>
-      <div class="site-description is-hidden-touch">Currently {{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/minute with ~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
+      <div class="spacer"/>
+      <router-link to="/feedback">
+        <div class="nav-link">Feedback/Contact</div>
+      </router-link>
+
+      <router-link to="/config">
+        <div class="nav-link">Config</div>
+      </router-link>
     </div>
+		
+
+    <!--
     <router-link :to="this.$route.path != '/config' ? '/config' : '/'">
       <button class="config-button" @click="showConfig = true">
         <template v-if="this.$route.path != '/config'">
@@ -24,7 +33,7 @@
         </template>
       </button>
     </router-link>
-			
+		-->			
   </div>
 </template>
 
@@ -41,78 +50,61 @@ export default {
 @import "~css/variables.scss";
 
 .component-nav{
-	//z-index: 999;
+	z-index: 999;
 	position: relative;
 	background: $--color-navbar;
 	color: $--color-text;
 	padding: 0 1rem;
-	position: relative;
-	display: flex;
-	align-items: center;
+	height: 3rem;
 }
 
-a:active, a:focus, button:active, button:focus {
-  outline: 0;
-  border: none;
+.container{
+	display: flex;
+	align-items: stretch;
+	height: 100%;
 }
 
-.title-and-description{
-	display: flex;
-	justify-content: flex-start;
-	align-items: baseline;
+.spacer{
 	flex-grow: 1;
 }
 
-.site-title{
-	color: $--color-text;
+a{
 	position: relative;
-	line-height: 1.5;
-	@include touch{
-		margin-left: 1rem;
-	}
-	font-size: 2rem;
-}
-
-.site-description{
-	padding: 0 1rem;
-}
-
-.config-button{
-	position: relative;
-	@include touch{
-		margin-right: 1rem;
-	}
 	display: flex;
 	align-items: center;
-	cursor: pointer;
-	padding: 0;
-	border: none;
-	background: transparent;
-	color: $--color-text;
-	font-weight: bolder;
-
-	//underline
-	&::before{
-		z-index: 0;
-		content:"";
-		position: absolute;
-		background: $--color-link;
-		top: 100%;
-		right: 0;
-		height: 2px;
-		width: 100%;
-		transform: skew(-45deg);
-	}
-
-	>.icon{
-		z-index: 1;
-	}
-
-	>.config-button-text{
+	padding: 0 1rem;
+	>.nav-link{
+		position: relative;
 		font-size: 1.25rem;
-		z-index: 1;
-		font-family: monospace;
-		padding: 0 0 0 0.25rem;
+		color: $--color-text;
+		font-weight: bolder;
+
+		//underline
+		&::before{
+			z-index: 0;
+			content:"";
+			position: absolute;
+			background: transparent;
+			bottom: 0%;
+			right: 0;
+			height: 4px;
+			width: 100%;
+			transform: skew(-45deg);
+		}
+	}
+	>.site-title{
+		color: $--color-text;
+		font-weight: lighter;
+		@include touch{
+			margin-left: 1rem;
+		}
+		font-size: 1.5rem;
+	}
+}
+
+.router-link-exact-active>.nav-link{
+	&::before{
+		background: $--color-link;
 	}
 }
 </style>
