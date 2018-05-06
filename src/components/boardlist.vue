@@ -99,13 +99,6 @@ export default {
   }
 }
 
-.component__header{
-  background: $oc-gray-8;
-  background: $oc-gray-9;
-  color: $oc-gray-2;
-  padding: 0rem 0.5rem;
-}
-
 .boardlist__header, .boardlist__row{
   white-space: nowrap;
   position: relative;
@@ -132,6 +125,7 @@ export default {
 .boardlist__header{
   line-height: 2.25rem;
   background-color: $--color-highlight-1;
+  background: rgba(0,0,0,0.8);
   >div{
     &::before{
       content: "";
