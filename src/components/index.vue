@@ -31,8 +31,9 @@ export default {
 	},
 	methods:{
 		setRightElRelative(){
-			console.log("rel")
+			//console.log("rel")
 			const rightComponent = document.querySelector(".right")
+			if(!rightComponent) return
 			rightComponent.style.position = "relative"
 			rightComponent.style.top = "inherit"
 			rightComponent.style.left = "inherit"
@@ -40,9 +41,10 @@ export default {
 			this.rightIsFixed = false
 		},
 		setRightElFixed(){
-			console.log("fixing")
+			//console.log("fixing")
 			if(window.scrollY < 48) return
 			const rightComponent = document.querySelector(".right")
+			if(!rightComponent) return
 			const boundingRect = rightComponent.getBoundingClientRect()
 			rightComponent.style.position = "fixed"
 			rightComponent.style.top = 0+"px"
