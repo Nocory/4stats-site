@@ -40,21 +40,6 @@ export default {
 		socket.on("boardUpdate",board => {
 			this.recentlyUpdatedBoard = board
 		})
-	},
-	mounted(){
-		//const rightComponent = document.querySelector(".meta-component")
-		/*
-		const metaComponent = document.querySelector(".meta-component")
-		window.addEventListener("scroll",e => {
-			const boundingRect = metaComponent.getBoundingClientRect()
-			console.log(window.scrollTop + "px")
-			metaComponent.style.setProperty("--meta-y-offset",window.scrollY + "px")
-			console.log(metaComponent.getBoundingClientRect())
-			console.log(metaComponent.clientTop)
-		},{
-			passive: true
-    })
-    */
 	}
 }
 </script>
