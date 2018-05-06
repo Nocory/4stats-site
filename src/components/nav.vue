@@ -5,7 +5,7 @@
         <div class="nav-link site-title">4stats.io</div>
       </router-link>
       <div class="spacer"/>
-      <router-link to="/feedback">
+      <router-link to="/feedback" class="is-hidden-mobile">
         <div class="nav-link">Feedback/Contact</div>
       </router-link>
 
@@ -50,7 +50,7 @@ export default {
 @import "~css/variables.scss";
 
 .component-nav{
-	z-index: 999;
+	z-index: 1;
 	position: relative;
 	background: $--color-navbar;
 	color: $--color-text;
@@ -72,7 +72,9 @@ a{
 	position: relative;
 	display: flex;
 	align-items: center;
-	padding: 0 1rem;
+	@include tablet{
+		padding: 0 1rem;
+	}
 	>.nav-link{
 		position: relative;
 		font-size: 1.25rem;
@@ -95,9 +97,6 @@ a{
 	>.site-title{
 		color: $--color-text;
 		font-weight: lighter;
-		@include touch{
-			margin-left: 1rem;
-		}
 		font-size: 1.5rem;
 	}
 }

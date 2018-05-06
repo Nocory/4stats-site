@@ -93,7 +93,9 @@ export default {
 .boardlist-component{
   position: relative;
   z-index: 10;
-  margin: 1rem 0;
+  @include tablet{
+    margin: 1rem 0;
+  }
   @include float-shadow-box;
   //background: $oc-gray-0;
 }

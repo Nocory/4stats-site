@@ -144,7 +144,7 @@ export default {
   .threadlist-component{
     --extraTranslateX: 0%;
 
-    z-index: 20;
+    z-index: 9999;
     position: absolute;
     top: 0;
     right: 0;
@@ -167,7 +167,7 @@ export default {
       display: flex;
       align-items: center;
       background: $--color-navbar;
-      z-index: 4;
+      z-index: 9999;
       width: 100%;
       height: 3rem;
       font-size: 1.25rem;
@@ -197,8 +197,9 @@ export default {
   display: flex;
   flex-direction: column;
   @include float-shadow-box;
-  
-  margin: 1rem 0;
+  @include tablet{
+    margin: 1rem 0;
+  }
 }
 
 .component__header{

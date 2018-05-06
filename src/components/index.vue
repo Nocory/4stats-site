@@ -112,7 +112,7 @@ export default {
 
 .index-component {
 	position: relative;
-	z-index: 10;
+	z-index: 2;
 	background: $--color-background;
 	@include desktop{
 		padding-bottom: 2rem;
