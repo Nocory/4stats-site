@@ -196,9 +196,9 @@ export default {
 .threadlist-component{
   display: flex;
   flex-direction: column;
-  @include float-shadow-box;
-  @include tablet{
+  @include desktop{
     margin: 1rem 0;
+    @include float-shadow-box;
   }
 }
 

@@ -93,11 +93,10 @@ export default {
 .boardlist-component{
   position: relative;
   z-index: 10;
-  @include tablet{
+  @include desktop{
     margin: 1rem 0;
+    @include float-shadow-box;
   }
-  @include float-shadow-box;
-  //background: $oc-gray-0;
 }
 
 .component__header{
@@ -108,6 +107,7 @@ export default {
 }
 
 .boardlist__header, .boardlist__row{
+  white-space: nowrap;
   position: relative;
   display: flex;
   cursor: pointer;
