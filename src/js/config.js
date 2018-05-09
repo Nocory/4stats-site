@@ -1,4 +1,4 @@
-const VERSION = 10
+const VERSION = 11
 if(localStorage.getItem("VERSION") != VERSION){
 	localStorage.clear()
 	localStorage.setItem("VERSION",VERSION)

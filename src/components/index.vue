@@ -3,7 +3,7 @@
     <div class="container is-fluid">
       <component-boardlist/>
       <component-threadlist/>
-      <component-chart v-if="renderChart || forceChart"/>
+      <component-chart v-if="this.$route.path == '/' && chartPreference != -1 && (renderChart || chartPreference == 1)"/>
       <div class="right is-hidden-touch">
         <component-meta/>
         <component-info/>
@@ -14,14 +14,19 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
 	data: () => ({
-		forceChart: false,
 		renderChart: window.innerWidth >= 768, // the bulma breakpoint for tablets
 		recentlyUpdatedBoard: "",
 		connectedUsers: 0,
 		rightIsFixed: false
 	}),
+	computed: {
+		...mapState([
+			"chartPreference"
+		])
+	},
 	components: {
 		componentBoardlist: require("./boardlist.vue").default,
 		componentThreadlist: require("./threadlist.vue").default,
