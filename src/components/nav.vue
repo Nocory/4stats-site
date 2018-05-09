@@ -79,31 +79,38 @@ a{
 		position: relative;
 		font-size: 1.25rem;
 		color: $--color-text;
-		font-weight: bolder;
 
 		//underline
-		&::before{
+		&::after{
 			z-index: 0;
 			content:"";
 			position: absolute;
-			background: transparent;
-			bottom: 0%;
+			//background: transparent;
+			background: $--color-link;
+			bottom: 5%;
 			right: 0;
-			height: 4px;
+			height: 2px;
 			width: 100%;
-			transform: skew(-45deg);
+			//transform: skew(-45deg);
+			transform: scaleX(0);
+			transition: all 0.25s ease-out;
 		}
 	}
 	>.site-title{
 		color: $--color-text;
-		font-weight: lighter;
 		font-size: 1.5rem;
 	}
 }
 
-.router-link-exact-active>.nav-link{
-	&::before{
-		background: $--color-link;
+	.nav-link:hover::after{
+		//background: $--color-link;
+			transform: scaleX(1);
+		//transform: skew(-45deg);
 	}
-}
+
+.router-link-exact-active>.nav-link::after{
+		//background: $--color-link;
+			transform: scaleX(1);
+		//transform: skew(-45deg);
+	}
 </style>
