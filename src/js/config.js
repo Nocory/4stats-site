@@ -1,4 +1,4 @@
-const VERSION = 9
+const VERSION = 11
 if(localStorage.getItem("VERSION") != VERSION){
 	localStorage.clear()
 	localStorage.setItem("VERSION",VERSION)
@@ -58,16 +58,14 @@ let config = {
 			'vr',
 			'wsr',
 			'x',
-		],
-		imageGenerals:[
+			// image generals
 			'c',
 			'cm',
 			'i',
 			'w',
 			'wg',
 			'wsg',
-		],
-		misc:[
+			//misc
 			'f',
 			'qa',
 			'vip',

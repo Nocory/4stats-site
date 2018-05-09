@@ -1,30 +1,13 @@
 <template>
-  <div class="component-footer section">
-    <div class="container">
+  <div class="component-footer">
+    <div class="container is-fluid">
       <p>
-        Recent changes:<br>
-        <ul>
-          <li>Boardlist will now always render, even on 4chan outages</li>
-          <li>Reenabled Chart for tablet widths</li>
-        </ul>
+        Data source: <a href="https://4chan.org" target="_blank" rel="noopener">https://4chan.org</a>.<br>
+        The information above is gathered via the <a href="https://github.com/4chan/4chan-API" target="_blank" rel="noopener">4chan API</a>.
       </p>
-      <hr>
       <p>
-        The information above is gathered from the 4chan API.
-        <br> Visit
-        <a href="https://4chan.org" target="_blank" rel="noopener">4chan.org</a> to view all boards & threads or check out the
-        <a href="https://github.com/4chan/4chan-API" target="_blank" rel="noopener">API documentation</a>
-      </p>
-      <hr>
-      <p>
-        This project on Github:<br>
+        This project on Github:
         <a href="https://github.com/Nocory/4stats-gatherer" target="_blank" rel="noopener">Stats-Gatherer</a> / <a href="https://github.com/Nocory/4stats-api" target="_blank" rel="noopener">API-Server</a> / <a href="https://github.com/Nocory/4stats-site" target="_blank" rel="noopener">Website</a>
-      </p>
-      <hr>
-      <p>
-        <router-link to="/feedback">
-          <button class="button">Feedback / Contact</button>
-        </router-link>
       </p>
     </div>
   </div>
@@ -41,28 +24,21 @@ export default {
 
 .component-footer{
   position: relative;
-  background: $--color-navbar;
-	z-index: 10;
+  background: #111;
+  z-index: 10;
+  padding: 1rem;
 }
 
 .container{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  justify-content: flex-start;
   position: relative;
 }
 
-textarea {
-	color: black;
-}
-
-* {
-	color: $--color-text;
-}
-
 p {
-	font-size: 0.875rem;
+  font-size: 0.875rem;
+  color: $oc-gray-5;
 }
 
 a {
@@ -71,7 +47,6 @@ a {
 
 hr{
   position: relative;
-  margin: 1rem auto;
   width:256px;
   max-width: 90%;
 }

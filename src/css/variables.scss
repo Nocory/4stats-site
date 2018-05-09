@@ -5,31 +5,17 @@ $tablet: 768px; // Bulma default is 769
 @import "~bulma/sass/utilities/_all.sass";
 
 $--color-navbar: #1f1f1f;
-//$--color-navbar: $nord0;
 
-$--color-background: #567563;
-$--color-background: linear-gradient(60deg, #29323c 0%, #485563 100%);
-$--color-background: linear-gradient(to right, #243949 0%, #517fa4 100%);
-$--color-background: linear-gradient(160deg, #243949 0%, $nord1 100%);
-$--color-background: linear-gradient(135deg, #243949 0%, #517fa4 100%);
-//$--color-background: linear-gradient(to top, #243949 0%, #537895 100%);
-//$--color-background: linear-gradient(60deg, #29323c 0%, #485563 100%);
-//$--color-background: linear-gradient(160deg, #243949 0%, #3a5a75 100%);
-$--color-background: linear-gradient(160deg, #243949 0%, #485563 100%);
+$--color-background: linear-gradient(to top, #122b4d 0%, #537895 100%);
 
 $--color-title: $oc-gray-0;
-$--color-text: $oc-gray-2;
-$--color-text-minor: $oc-gray-4;
+$--color-text: $oc-gray-0;
+$--color-text-minor: $oc-gray-2;
 
-$--color-boardlist-header: hsl(210, 11%, 20%);
 $--color-boardlist-header: rgba(0,0,0,0.4);
 
-$--color-highlight-1: hsl(210, 11%, 85%);
-$--color-highlight-2: hsl(210, 11%, 90%);
-$--color-highlight-1: rgba(255,255,255,0.1);
-$--color-highlight-2: rgba(255,255,255,0.2);
-$--color-highlight-1: rgba(0,0,0,0.4);
-$--color-highlight-2: rgba(0,0,0,0.5);
+$--color-highlight-1: rgba(0,0,0,0.7);
+$--color-highlight-2: rgba(0,0,0,0.6);
 
 $--color-background-selected: rgba(255,255,255,0.85);
 $--color-text-selected: $oc-gray-8;
@@ -39,7 +25,7 @@ $--color-update: $nord3;
 $--color-greentext: #b5bd68;
 
 @mixin float-shadow-box {
-	//box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.5);
+	box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.5);
 }
 
 @mixin float-shadow-text {

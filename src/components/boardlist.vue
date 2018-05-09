@@ -1,8 +1,5 @@
 <template>
   <div class="boardlist-component">
-    <h4 class="is-size-4 headline is-hidden-mobile">
-      Live Board Statistics
-    </h4>
     <div class="boardlist__header">
       <div v-for="item in [
         {category: 'name', text: 'Board', tooltip: ''},
@@ -96,9 +93,14 @@ export default {
 .boardlist-component{
   position: relative;
   z-index: 10;
+  @include desktop{
+    margin: 1rem 0;
+    @include float-shadow-box;
+  }
 }
 
 .boardlist__header, .boardlist__row{
+  white-space: nowrap;
   position: relative;
   display: flex;
   cursor: pointer;
@@ -123,6 +125,7 @@ export default {
 .boardlist__header{
   line-height: 2.25rem;
   background-color: $--color-highlight-1;
+  background: rgba(0,0,0,0.8);
   >div{
     &::before{
       content: "";
