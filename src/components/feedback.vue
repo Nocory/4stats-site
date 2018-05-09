@@ -15,16 +15,7 @@
           </div>
         </form>
         <div class="description">
-          In case you include some personal contact info or don't even want/need a reply, then I won't add your submission to the list below of course.
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            What happened to the history graph? It used to be reachable via "force whatever", but now that's gone.
-          </div>
-          <div class="a">
-            Oh yeah, was experimenting with using CSS grid and forgot to add the button to force-show the chart.<br>
-            Just going to make it show on everything larger than mobile-widths now, so it should be back.
-          </div>
+          If you have a question and submit it anonymously, then I will add a reply to the list below for a few days.
         </div>
         <div class="qa-card">
           <div class="q">
@@ -38,39 +29,11 @@
         </div>
         <div class="qa-card">
           <div class="q">
-            yuo already use JS, let me hit ESC to close the board preview my man
-          </div>
-          <div class="q">
-            i don't want to learn webpack just so I could commit ``` document.addEventListener('keyup', e=>{if(e.keyCode === 27){document.querySelector('.back-button').click();} }); ``` to your repo, do it for me :^) :^) :^)
-          </div>
-          <div class="a">
-            You are using a keyboard together with the mobile view?<br>
-            For special cases like this it's much better, if you used some browser-extension to inject the extra JS you need, than for me to add that code to the site itself.
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            Bro, not working on Safari after your recent updates/changes? Thanks for your work.
-          </div>
-          <div class="a">
-            <a href="https://rbt.asia/g/thread/65076366/#q65077239">https://rbt.asia/g/thread/65076366/#q65077239</a>
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
             hey is it possible to not calculate replies but only calculate posts by posters so that we can get rid of samefag 1 man spams?
           </div>
           <div class="a">
             All the data I process is taken from a boards catalog. For that kind of info you would need to query each individual thread, which isn't feasable to do for all 72 boards, due to 4chan API limits.<br>
             But the thread-list is really just to show pure activity, whether samefags or genuine replies.
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            hey can you make space between threads disappear like it was before? it would be more simpler
-          </div>
-          <div class="a">
-            yeah did that
           </div>
         </div>
       </div>
