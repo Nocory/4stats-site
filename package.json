@@ -14,6 +14,7 @@
 		"bulma": "latest",
 		"chart.js": "^2.7.2",
 		"moment": "^2.22.0",
+		"node-sass": "^4.9.0",
 		"nord": "latest",
 		"open-color": "^1.6.3",
 		"pino": "^4.16.0",
