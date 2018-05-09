@@ -5,12 +5,8 @@
     </div>
     <div class="info-wrapper">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate lacus ut sem commodo, vel viverra dolor imperdiet.<br>
-        In venenatis, neque at egestas elementum, felis nisi pretium ante, eget pellentesque justo felis et enim.
-      </p>
-      <hr>
-      <p>
-        Suspendisse scelerisque elit venenatis, semper est luctus, interdum est.
+        New layout and new config page.<br>
+        Will probably continue doing some tweaks over the next few days.
       </p>
     </div>
 
