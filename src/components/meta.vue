@@ -6,7 +6,7 @@
     <div class="stats-wrapper">
       <div class="cat">4chan now:</div>
       <div>{{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/min.</div>
-      <div>{{ Math.round((combinedBoardStats.postsPerMinute / combinedBoardStats.topPPM) * 100) }}% activity</div>
+      <!--<div>{{ Math.round((combinedBoardStats.postsPerMinute / combinedBoardStats.topPPM) * 100) }}% activity</div>-->
       <hr>
       <div class="cat">4chan average:</div>
       <div>~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
@@ -61,8 +61,8 @@ export default {
 }
 
 hr{
-  background: rgba(255,255,255,0.8);
-  margin: 1rem 0;
+  background: rgba(255,255,255,0.5);
+  margin: 0.5rem 0;
   width: 10%;
 }
 
@@ -82,6 +82,9 @@ hr{
   color: $--color-text;
   padding: 1rem;
   color: $oc-gray-0;
+  >div{
+    line-height: 1.2;
+  }
 }
 
 .cat{
