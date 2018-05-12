@@ -16,8 +16,8 @@
         </div>
         
         <div class="text-wrapper">
-          <div v-if="thread.replies == 9001" class="thread-ppm">
-            {{ thread.postsPerMinute.toFixed(2) }} posts/min - <u>Sticky Thread</u> - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
+          <div v-if="thread.sticky" class="thread-ppm">
+            <u>Sticky Thread</u> - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
           </div>
           <div v-else class="thread-ppm">
             {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours

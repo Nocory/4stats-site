@@ -62,7 +62,8 @@ const init = id => {
 					},
 					labelColor: function(tooltipItem) {
 						return {
-							borderColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor,
+							//borderColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor,
+							borderColor: "#fafafa",
 							backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor,
 						}
 					}
