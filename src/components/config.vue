@@ -29,9 +29,9 @@
         <div class="setting-category">Show Chart</div>
 
         <div class="buttons has-addons chart-buttons">
-          <span :class="[chartPreference == 1 ? 'is-selected is-info' : '']" class="button" @click="setChartPreference(1)">Always</span>
-          <span :class="[chartPreference == 0 ? 'is-selected is-info' : '']" class="button" @click="setChartPreference(0)">Auto</span>
           <span :class="[chartPreference == -1 ? 'is-selected is-info' : '']" class="button" @click="setChartPreference(-1)">Never</span>
+          <span :class="[chartPreference == 0 ? 'is-selected is-info' : '']" class="button" @click="setChartPreference(0)">Auto</span>
+          <span :class="[chartPreference == 1 ? 'is-selected is-info' : '']" class="button" @click="setChartPreference(1)">Always</span>
         </div>
         <p>'Auto': Enabled from tablet-width onwards</p>
 				
