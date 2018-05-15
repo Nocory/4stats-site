@@ -4,9 +4,9 @@
       <div v-for="item in [
         {category: 'name', text: 'Board', tooltip: ''},
         {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last hour'},
-        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-touch']},
+        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-touch', 'is-hidden-desktop-only']},
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
-        {category: 'imagesPerReply', text: 'Images', tooltip: 'Posts with files attached', classes: ['is-hidden-touch','is-hidden-desktop-only']},
+        {category: 'imagesPerReply', text: 'Images', tooltip: 'Posts with files attached', classes: ['is-hidden-touch','is-hidden-desktop-only', 'is-hidden-widescreen-only']},
         {category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current posts-per-minute relative to the boards usual top ppm rate'},
       ]" :key="item.name" :class="[sortBoardListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
@@ -14,9 +14,9 @@
       <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'board-selected' : (selectedBoard == boardName)}" class="boardlist__row" @click.stop="boardClicked(boardName)">
         <div :data-hover-text="longBoardNames[boardName]" class="tooltip-right">/{{ boardName }}/</div>
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
-        <div class="is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
+        <div class="is-hidden-touch is-hidden-desktop-only">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
         <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
-        <div class="is-hidden-touch is-hidden-desktop-only">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
+        <div class="is-hidden-touch is-hidden-desktop-only is-hidden-widescreen-only">{{ Math.round(boardData[boardName].imagesPerReply * 100) }}%</div>
         <div class="">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
       </div>
     </transition-group>
