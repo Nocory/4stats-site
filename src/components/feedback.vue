@@ -19,6 +19,15 @@
         </div>
         <div class="qa-card">
           <div class="q">
+            some of the fonts are misaligned when being displayed on a vertical monitor, by the way. specifically the "activity now" on my end. great website otherwise, many thanks
+          </div>
+          <div class="a">
+            Thanks, yeah it's not quite right on certain sizes. I tweaked the layout on different widths now, but on FF it still goes past the column sometimes, with that much text in the header.
+            <br>If it still doesn't look right for you, then maybe link me a screenshot and the res of your screen if you want.
+          </div>
+        </div>
+        <div class="qa-card">
+          <div class="q">
             suggestion: filter threads by average post length, longest post in thread, # of links in thread/on board
           </div>
           <div class="a">
