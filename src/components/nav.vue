@@ -54,7 +54,6 @@ export default {
 	position: relative;
 	background: $--color-navbar;
 	color: $--color-text;
-	padding: 0 1rem;
 	height: 3rem;
 }
 
@@ -62,6 +61,17 @@ export default {
 	display: flex;
 	align-items: stretch;
 	height: 100%;
+	&.is-fluid{
+		@include touch{
+			margin: 0 1rem;
+		}
+		@include desktop{
+			margin: 0 1rem;
+		}
+		@include widescreen{
+			margin: 0 4rem;
+		}
+	}
 }
 
 .spacer{

@@ -4,7 +4,7 @@
       <component-boardlist/>
       <component-threadlist/>
       <component-chart v-if="this.$route.path == '/' && chartPreference != -1 && (renderChart || chartPreference == 1)"/>
-      <div class="right is-hidden-touch">
+      <div class="right is-hidden-touch is-hidden-desktop-only">
         <component-meta/>
         <component-info/>
       </div>
@@ -146,14 +146,22 @@ export default {
 	}
 
 	@include desktop{
+		grid-template: 	"boards threads" 512px
+										"boards threads" max-content
+										"chart chart" auto /
+										1fr 1fr;
+		padding: 0;
+		margin: 0 1rem;
+		grid-gap: 1rem;
+	}
+
+	@include widescreen{
 		grid-template: 	"boards threads right" 512px
 										"boards threads right" max-content
 										"chart chart right" auto /
 										1fr 1fr 0.618fr;
-	}
-
-	@include desktop{
 		padding: 0;
+		margin: 0 4rem;
 		grid-gap: 1rem;
 	}
 }
