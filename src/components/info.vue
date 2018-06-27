@@ -9,7 +9,7 @@
         <br>
         Normally activity is measured relative to the boards 90th percentile of posts-per-minute during the last month.<br>
         <br>
-        Since this is a longer event, I manually fixed /sp/'s top-activity at 40.00 posts/minute (pre world cup levels), so that the displayed activity % represesnts current posting levels more accurately.<br>
+        Since this is a longer event, I manually fixed /sp/'s top-activity at 40.00 posts/minute (pre world cup levels), so that the displayed activity % represents current posting levels more accurately.<br>
         <br>
       </p>
       <hr>
