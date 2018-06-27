@@ -7,7 +7,10 @@ const pino = require("js/pino")
 const axios = require("axios")
 const socket = require("js/socket.js")
 
-const adjustActivityIfFewPosts = data =>{
+const adjustActivityIfFewPosts = (data,board) =>{
+	if(board == "sp"){
+		data.relativeActivity = data.postsPerMinute / 40
+	}
 	if(data.avgPostsPerDay < 1000) data.relativeActivity -= 9999
 	return data
 }
@@ -29,6 +32,21 @@ const store = new Vuex.Store({
 		chartPreference: localStorage.getItem("chartPreference") || 0
 	},
 	getters: {
+		mostActiveBoard : state => {
+			let activeBoard = ""
+			let activity = 0
+			for(let board in state.boardData){
+				if(state.boardData[board].relativeActivity > activity){
+					activeBoard = board
+					activity = state.boardData[board].relativeActivity
+				}
+			}
+			if(activity > 1.5){
+				return activeBoard
+			}else{
+				return ""
+			}
+		},
 		combinedBoardStats : state => {
 			let combinedStats = {
 				postsPerMinute: 0,
@@ -65,12 +83,12 @@ const store = new Vuex.Store({
 		},
 		setInitialData(state,payload){
 			for(let key in payload){
-				adjustActivityIfFewPosts(payload[key])
+				adjustActivityIfFewPosts(payload[key],key)
 			}
 			Vue.set(state, 'boardData', payload)
 		},
 		updateBoardData(state,payload){
-			adjustActivityIfFewPosts(payload.data)
+			adjustActivityIfFewPosts(payload.data,payload.board)
 			
 			if(state.boardData[payload.board]){
 				for(let key in payload.data){

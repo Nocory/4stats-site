@@ -5,8 +5,16 @@
     </div>
     <div class="info-wrapper">
       <p>
-        New layout and new config page.<br>
-        Will probably continue doing some tweaks over the next few days.
+        /v/ and /sp/ are currently receiving much more traffic than normal, due to the aftermath of E3 and the ongoing World Cup.<br>
+        <br>
+        Normally activity is measured relative to the boards 90th percentile of posts-per-minute during the last month.<br>
+        <br>
+        Since this is a longer event, I manually fixed /sp/'s top-activity at 40.00 posts/minute (pre world cup levels), so that the displayed activity % represesnts current posting levels more accurately.<br>
+        <br>
+      </p>
+      <hr>
+      <p>
+        Also added a short message at the top, if any board is over 150% activity, which usually indicates some kind of happening.
       </p>
     </div>
 

@@ -116,6 +116,12 @@ export default {
 	flex-grow: 1;
 }
 
+.container{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
 .section {
 	overflow: auto;
 	position: relative;
@@ -210,6 +216,10 @@ export default {
 
 .chart-buttons{
 	margin: 1rem 0;
+	box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+	>.button{
+		margin: 0;
+	}
 }
 
 </style>

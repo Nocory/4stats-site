@@ -4,6 +4,12 @@
       <router-link to="/">
         <div class="nav-link site-title">4stats.io</div>
       </router-link>
+			
+      <div v-if="mostActiveBoard" class="mostActiveBoard">
+        /<b>{{ mostActiveBoard }}</b>/ is at {{ Math.round(boardData[mostActiveBoard].relativeActivity * 100) }}% activity. Something going on.
+      </div>
+      
+
       <div class="spacer"/>
       <router-link to="/feedback" class="is-hidden-mobile">
         <div class="nav-link">Feedback/Contact</div>
@@ -38,10 +44,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
 	computed: {
-		...mapGetters(['combinedBoardStats'])
+		...mapState([
+			"boardData"
+		]),
+		...mapGetters(['combinedBoardStats','mostActiveBoard'])
 	}
 }
 </script>
@@ -72,6 +81,13 @@ export default {
 			margin: 0 4rem;
 		}
 	}
+}
+
+.mostActiveBoard{
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 0 1rem;
 }
 
 .spacer{
