@@ -5,7 +5,7 @@
         <div class="nav-link site-title">4stats.io</div>
       </router-link>
 			
-      <div v-if="mostActiveBoard" class="mostActiveBoard is-hidden-touch">
+      <div v-if="mostActiveBoard" class="mostActiveBoard is-hidden">
         /<b>{{ mostActiveBoard }}</b>/ is at {{ Math.round(boardData[mostActiveBoard].relativeActivity * 100) }}% activity. Something going on.
       </div>
       
