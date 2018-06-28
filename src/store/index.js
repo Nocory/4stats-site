@@ -9,7 +9,8 @@ const socket = require("js/socket.js")
 
 const adjustActivityIfFewPosts = (data,board) =>{
 	if(board == "sp"){
-		data.relativeActivity = data.postsPerMinute / 40
+		data.topPPM = 35
+		data.relativeActivity = data.postsPerMinute / data.topPPM
 	}
 	if(data.avgPostsPerDay < 1000) data.relativeActivity -= 9999
 	return data

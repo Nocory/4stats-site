@@ -5,11 +5,11 @@
     </div>
     <div class="info-wrapper">
       <p>
-        /sp/ is currently receiving more traffic than usual, due to the World Cup.<br>
+        /sp/ is currently receiving more traffic than usual due to the world cup.<br>
         <br>
         Activity is normally measured relative to a boards 90th percentile of posts/minute during the last month.<br>
         <br>
-        For now I manually fixed /sp/'s top-activity at pre world cup levels<br>
+        For now I manually fixed /sp/'s top-activity at pre world cup levels.<br>
         This way the displayed activity % represents current posting levels more accurately.
       </p>
     </div>
