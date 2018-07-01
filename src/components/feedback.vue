@@ -19,11 +19,12 @@
         </div>
         <div class="qa-card">
           <div class="q">
-            some of the fonts are misaligned when being displayed on a vertical monitor, by the way. specifically the "activity now" on my end. great website otherwise, many thanks
+            Can't see the entirety of the Info sidebar because it scrolls with the page. Also do you think you can implement a posts/minute count for stickied threads?
           </div>
           <div class="a">
-            Thanks, yeah it's not quite right on certain sizes. I tweaked the layout on different widths now, but on FF it still goes past the column sometimes, with that much text in the header.
-            <br>If it still doesn't look right for you, then maybe link me a screenshot and the res of your screen if you want.
+            Is your page zoomed in by any chance or are you using a very narrow vertical resolution?<br>
+            Since rolling stickies are fixed at 1000 replies, it would be necessary to load the whole thread itself and check the reply timestamps instead of just using the catalog data.<br>
+            Will give it a try. Should be interesting to see how fast those /sp/ stickies are actually going.
           </div>
         </div>
         <div class="qa-card">
