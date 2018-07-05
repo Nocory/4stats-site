@@ -19,6 +19,15 @@
         </div>
         <div class="qa-card">
           <div class="q">
+            Ability to see graph over longer time periods, such as months and quarters?
+          </div>
+          <div class="a">
+            If you mean the hourly stats, I don't think there is much of a point to store more than 4 weeks of data. 4 weeks looks a bit chaotic already.<br>
+            The daily stats are usually what you would want to check if you go back for more than a month. There is a record of almost a full year by now.
+          </div>
+        </div>
+        <div class="qa-card">
+          <div class="q">
             Can't see the entirety of the Info sidebar because it scrolls with the page. Also do you think you can implement a posts/minute count for stickied threads?
           </div>
           <div class="a">
@@ -35,15 +44,6 @@
             The thread-data I use is taken from the boards catalog.
             Filtering by average post-length or # of links would require fetching each thread individually, which is possible, but not practical due to 4chan API limits.
             (And would also use much more bandwidth)
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            hey is it possible to not calculate replies but only calculate posts by posters so that we can get rid of samefag 1 man spams?
-          </div>
-          <div class="a">
-            All the data I process is taken from a boards catalog. For that kind of info you would need to query each individual thread, which isn't feasable to do for all 72 boards, due to 4chan API limits.<br>
-            But the thread-list is really just to show pure activity, whether samefags or genuine replies.
           </div>
         </div>
       </div>
