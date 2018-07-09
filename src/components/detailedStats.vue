@@ -2,59 +2,39 @@
   <div class="component-detail has-text-centered">
     <div class="data-wrapper">
       <div class="chartOptions">
-        chart options go here
+        <div class="axisTitle">X</div>
+        <div class="optionButtons">
+          <button :class="{'selected' : chartOptions.xLinLog == 'linear'}" class="button" @click="setChartOptions('xLinLog','linear')">Linear</button>
+          <button :class="{'selected' : chartOptions.xLinLog == 'logarithmic'}" class="button" @click="setChartOptions('xLinLog','logarithmic')">Log</button>
+        </div>
+        <div class="axisTitle">Y</div>
+        <div class="optionButtons">
+          <button :class="{'selected' : chartOptions.yLinLog == 'linear'}" class="button" @click="setChartOptions('yLinLog','linear')">Linear</button>
+          <button :class="{'selected' : chartOptions.yLinLog == 'logarithmic'}" class="button" @click="setChartOptions('yLinLog','logarithmic')">Log</button>
+        </div>
       </div>
       <div class="chart-wrapper">
         <canvas id="detailChart"/>
-        <div class="options"/>
       </div>
       <div class="dataSources">
         <div class="sourceCategory">Meta Analysis:</div>
         <div class="sourceItems">
           <div v-for="(item,key) in metaAnalysisLastDay" :key="key+'meta'" class="sourceItem">
+            <div :class="{'selected' : xData.name == key}" class="sourceButton" @click="xData={name: key,data: item};createChartData()">x</div>
+            <div :class="{'selected' : yData.name == key}" class="sourceButton" @click="yData={name: key,data: item};createChartData()">y</div>
             <div class="sourceText">{{ key }}</div>
-            <div :class="{'selected' : xData.name == key}" class="sourceButton" @click="xData={name: key,data: item};createChartData()"/>
-            <div :class="{'selected' : yData.name == key}" class="sourceButton" @click="yData={name: key,data: item};createChartData()"/>
           </div>
         </div>
-        <div class="sourceCategory">Text Analysis:</div>
+        <div class="sourceCategory">Text Analysis (placeholder words):</div>
         <div class="sourceItems">
           <div v-for="(item,key) in textAnalysisLastDay" :key="key+'text'" class="sourceItem">
+            <div :class="{'selected' : xData.name == key}" class="sourceButton" @click="xData={name: key,data: item};createChartData()">x</div>
+            <div :class="{'selected' : yData.name == key}" class="sourceButton" @click="yData={name: key,data: item};createChartData()">y</div>
             <div class="sourceText">{{ key }}</div>
-            <div :class="{'selected' : xData.name == key}" class="sourceButton" @click="xData={name: key,data: item};createChartData()"/>
-            <div :class="{'selected' : yData.name == key}" class="sourceButton" @click="yData={name: key,data: item};createChartData()"/>
           </div>
         </div>
       </div>
-      <!--
-      <div class="rankedData">
-        <div>X: {{ xData.name }}</div>
-        <div v-for="(value,index) in xRankData" :key="value[0]" class="dataEntry">{{ index+1 }} /{{ value[0] }}/ {{ value[1] }}</div>
-      </div>
-      <div class="rankedData">
-        <div>Y: {{ yData.name }}</div>
-        <div v-for="(value,index) in yRankData" :key="value[0]" class="dataEntry">{{ index+1 }} /{{ value[0] }}/ {{ value[1] }}</div>
-      </div>
-			-->
     </div>
-    <!--
-    <div class="options">
-      <div class="xOptions">
-        <div>X property:</div>
-        <div>Text Analysis:</div>
-        <div v-for="(item,key) in textAnalysisLastDay" :key="key+'text'" @click="xData={name: key,data: item};createChartData()">{{ key }}</div>
-        <div>Meta Analysis:</div>
-        <div v-for="(item,key) in metaAnalysisLastDay" :key="key+'meta'" @click="xData={name: key,data: item};createChartData()">{{ key }}</div>
-      </div>
-      <div class="yOptions">
-        <div>Y property:</div>
-        <div>Text Analysis:</div>
-        <div v-for="(item,key) in textAnalysisLastDay" :key="key+'text'" @click="yData={name: key,data: item};createChartData()">{{ key }}</div>
-        <div>Meta Analysis:</div>
-        <div v-for="(item,key) in metaAnalysisLastDay" :key="key+'meta'" @click="yData={name: key,data: item};createChartData()">{{ key }}</div>
-      </div>
-    </div>
-		-->
   </div>
 </template>
 
@@ -69,7 +49,11 @@ export default {
 			metaAnalysisLastDay: {},
 			xData: {name: "", data: {}},
 			yData: {name: "", data: {}},
-			chart: null
+			chart: null,
+			chartOptions: {
+				xLinLog: "linear",
+				yLinLog: "linear",
+			}
 		}
 	},
 	computed:{
@@ -83,26 +67,36 @@ export default {
 		},
 	},
 	methods: {
+		setChartOptions(option,value){
+			this.chartOptions[option] = value
+			this.chart.options.scales.xAxes[0].type = this.chartOptions.xLinLog
+			this.chart.options.scales.yAxes[0].type = this.chartOptions.yLinLog
+			this.chart.update()
+		},
 		createChartData(){
 			if(!this.xData.name || !this.yData.name) return
 			this.chart.options.scales.xAxes[0].scaleLabel.labelString = this.xData.name
 			this.chart.options.scales.yAxes[0].scaleLabel.labelString = this.yData.name
-			const newData = {
-				labels: [],
-				datasets: [{
-					label: `${this.xData.name} : ${this.yData.name}`,
+			
+			const currDatasets = this.chart.data.datasets
+			if(!currDatasets.length){
+				currDatasets[0] = {
+					label: "`${this.xData.name} : ${this.yData.name}`",
 					data: []
-				}]
+				}
+				this.chart.data.datasets = currDatasets
 			}
+			
+			currDatasets[0].label = `${this.xData.name} : ${this.yData.name}`
+			let index = 0
 			for(let board in this.xData.data){
-				newData.labels.push(board)
-				newData.datasets[0].data.push({
+				currDatasets[0].data[index] = {
 					x: this.xData.data[board],
 					y: this.yData.data[board],
 					label: board
-				})
+				}
+				index++
 			}
-			this.chart.data =	newData
 			this.chart.update()
 		}
 	},
@@ -181,19 +175,12 @@ export default {
 						scaleLabel:{
 							display: true,
 							fontSize: 16
-						},
-						ticks: {
-							//beginAtZero:true
 						}
 					}],
 					xAxes: [{
 						scaleLabel:{
 							display: true,
 							fontSize: 16
-						},
-						ticks: {
-							//fontColor: "rgba(32,32,32,0.75)",
-							//beginAtZero:true
 						}
 					}]
 				},
@@ -239,6 +226,15 @@ export default {
 	margin: 1rem;
 }
 
+.optionButtons{
+	>button{
+		&.selected{
+			background: #333;
+			color: white;	
+		}
+	}
+}
+
 .chart-wrapper{
   position: relative;
 	width: 800px;
@@ -266,35 +262,27 @@ export default {
 	position: relative;
 	border: 1px solid black;
 	border-top: 0;
+	display:flex;
 	&:first-child{
 		border-top: 1px solid black;
 	}
 
 	>.sourceText{
-		/*
-		position: absolute;
-		top:0;
-		left: 0;
-		*/
 		font-size: 12px;
 		line-height: 20px;
+		padding: 0 0.5rem;
 	}
 	>.sourceButton{
-		z-index: 99;
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 100%;
-		width: 50%;
+		border-right: 1px solid black;
+		//height: 100%;
+		font-size: 12px;
+		line-height: 20px;
+		width: 24px;
 		cursor: pointer;
+		
 		&.selected{
-			background: linear-gradient(to right, rgba(64,64,255,0.5), rgba(64,64,255,0) 25% )
-		}
-	}
-	>.sourceButton+.sourceButton{
-		left: 50%;
-		&.selected{
-			background: linear-gradient(to left, rgba(255,64,64,0.5), rgba(255,64,64,0) 25% )
+			background: #333;
+			color: white;
 		}
 	}
 }
