@@ -40,7 +40,7 @@ import store from "store/index.js"
 
 const routes = [
 	{ path: '/', component: require("../components/index.vue").default },
-	{ path: '/detailedStats', component: require("../components/detailedStats.vue").default },
+	{ path: '/snapshotAnalysisWorkInProgress', component: require("../components/detailedStats.vue").default },
 	{ path: '/config', component: require("../components/config.vue").default },
 	{ path: '/feedback', component: require("../components/feedback.vue").default },
 	{ path: '*', component: require("../components/index.vue").default }
