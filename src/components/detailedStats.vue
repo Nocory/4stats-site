@@ -12,6 +12,11 @@
           <button :class="{'selected' : chartOptions.yLinLog == 'linear'}" class="button" @click="setChartOptions('yLinLog','linear')">Linear</button>
           <button :class="{'selected' : chartOptions.yLinLog == 'logarithmic'}" class="button" @click="setChartOptions('yLinLog','logarithmic')">Log</button>
         </div>
+        <div class="axisTitle">Dot</div>
+        <div class="optionButtons">
+          <button :class="{'selected' : chartOptions.dot}" class="button" @click="setChartOptions('dot',true)">Yes</button>
+          <button :class="{'selected' : !chartOptions.dot}" class="button" @click="setChartOptions('dot',false)">No</button>
+        </div>
       </div>
       <div class="chart-wrapper">
         <canvas id="detailChart"/>
@@ -53,6 +58,7 @@ export default {
 			chartOptions: {
 				xLinLog: "linear",
 				yLinLog: "linear",
+				dot: true
 			}
 		}
 	},
@@ -71,6 +77,15 @@ export default {
 			this.chartOptions[option] = value
 			this.chart.options.scales.xAxes[0].type = this.chartOptions.xLinLog
 			this.chart.options.scales.yAxes[0].type = this.chartOptions.yLinLog
+			if(this.chartOptions.dot){
+				this.chart.options.plugins.datalabels.align = "end"
+				this.chart.options.elements.point.radius = 2.5
+				this.chart.options.elements.point.borderWidth = 1
+			}else{
+				this.chart.options.plugins.datalabels.align = "center"
+				this.chart.options.elements.point.radius = 0
+				this.chart.options.elements.point.borderWidth = 0
+			}
 			this.chart.update()
 		},
 		createChartData(){
@@ -162,12 +177,12 @@ export default {
 				maintainAspectRatio: false,
 				elements: {
 					point: {
-						radius: 2,
+						radius: 2.5,
 						hoverRadius: 4,
 						hitRadius: 32,
 						//backgroundColor: "#bbbbbb"
-						backgroundColor: "rgba(0,0,0,0.25)",
-						borderColor: "rgba(0,0,0,0.75)"
+						backgroundColor: "rgba(94,129,172,1)",
+						borderColor: "rgba(0,0,0,0.25)"
 					}
 				},
 				scales: {
@@ -196,7 +211,7 @@ export default {
 						font: {
 							family: "monospace",
 							weight: "bold",
-							size: 14
+							size: 12
 						}
 					}
 				},
