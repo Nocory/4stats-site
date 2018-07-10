@@ -22,14 +22,11 @@
           <button :class="{'is-selected' : chartOptions.dot}" class="button" @click="setChartOptions('dot',true)">Yes</button>
           <button :class="{'is-selected' : !chartOptions.dot}" class="button" @click="setChartOptions('dot',false)">No</button>
         </div>
-        <!--
-        <div class="optionTitle">Board filter</div>
-        <div class="optionTitle">whitelist</div>
-        <input v-model="boardWhitelist" placeholder="example: 'b,wg,cm'">
-        <div class="optionTitle">blacklist</div>
-        <input v-model="boardBlacklist" placeholder="example: 'a,g,co,x'">
+        <div class="sourceCategory">whitelist</div>
+        <input v-model="boardWhitelist" placeholder="a,g,co,x,po . . .">
+        <div class="sourceCategory">blacklist</div>
+        <input v-model="boardBlacklist" placeholder="b,wg,cm,fit,trash . . .">
         <button class="button" @click="createChartData">Filter</button>
-				-->
       </div>
 
       <div class="sectionDataSources column is-narrow">
@@ -111,16 +108,6 @@ export default {
 		yRankData(){
 			if(!this.yData) return
 			return Object.entries(this.yData.data).sort((x,y) => y[1] - x[1])
-		},
-	},
-	watch:{
-		boardWhitelist: function () {
-			debounce(function(){
-				this.createChartData()
-			},500)
-		},
-		boardBlacklist: function () {
-			debounce(this.createChartData,500)
 		},
 	},
 	methods: {
@@ -314,6 +301,8 @@ export default {
 .chartOptions{
 	flex-shrink: 1;
 	padding: 1rem;
+	display: flex;
+	flex-direction: column;
 }
 
 .chart-wrapper{
