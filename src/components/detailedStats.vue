@@ -149,7 +149,7 @@ export default {
 			if(!currData.datasets.length) currData.datasets[0] = {}
 
 			currData.labels = []
-			currData.datasets[0].label = `${this.xData.name} : ${this.yData.name}`
+			currData.datasets[0].label = `${this.xData.name} : ${this.yData.name} (${(new Date).toLocaleString("en-GB", { timeZone: 'UTC' })}UTC)`
 			currData.datasets[0].data = []
 			
 			let index = 0
@@ -182,7 +182,10 @@ export default {
 
 								let keyToUse = key
 								if(keyToUse == "text_ratio_") keyToUse = "text "
-								if(keyToUse == "posts_ratio_") keyToUse = "posts mentioning "
+								if(keyToUse == "posts_ratio_"){
+									keyToUse = "% posts mention "
+									response.data[board][key][subkey] *= 100
+								}
 
 								if(!newObj[`${keyToUse}'${subkey}'`]) newObj[`${keyToUse}'${subkey}'`] = {}
 								newObj[`${keyToUse}'${subkey}'`][board] = response.data[board][key][subkey]
