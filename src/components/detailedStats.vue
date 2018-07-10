@@ -1,44 +1,83 @@
 <template>
   <div class="component-detail has-text-centered">
-    <div class="data-wrapper">
-      <div class="chartOptions">
-        <div class="axisTitle">X</div>
-        <div class="optionButtons">
-          <button :class="{'selected' : chartOptions.xLinLog == 'linear'}" class="button" @click="setChartOptions('xLinLog','linear')">Linear</button>
-          <button :class="{'selected' : chartOptions.xLinLog == 'logarithmic'}" class="button" @click="setChartOptions('xLinLog','logarithmic')">Log</button>
+    <div class="about">
+      A work-in-progress to visualize analysis of 4chan board snapshots from the last day. (<a href="https://boards.4chan.org/sci/thread/9837467">https://boards.4chan.org/sci/thread/9837467</a>)<br>
+      Meta analysis results are averaged snapshots from the last day. Text analysis covers currently visible text + anything else posted during the last day.
+    </div>
+    <div class="data-wrapper columns is-marginless">
+
+      <div class="chartOptions column is-narrow">
+        <div class="sourceCategory">x-Axis</div>
+        <div class="optionButtons buttons has-addons">
+          <button :class="{'is-selected' : chartOptions.xLinLog == 'linear'}" class="button" @click="setChartOptions('xLinLog','linear')">Linear</button>
+          <button :class="{'is-selected' : chartOptions.xLinLog == 'logarithmic'}" class="button" @click="setChartOptions('xLinLog','logarithmic')">Log</button>
         </div>
-        <div class="axisTitle">Y</div>
-        <div class="optionButtons">
-          <button :class="{'selected' : chartOptions.yLinLog == 'linear'}" class="button" @click="setChartOptions('yLinLog','linear')">Linear</button>
-          <button :class="{'selected' : chartOptions.yLinLog == 'logarithmic'}" class="button" @click="setChartOptions('yLinLog','logarithmic')">Log</button>
+        <div class="sourceCategory">y-Axis</div>
+        <div class="optionButtons buttons has-addons">
+          <button :class="{'is-selected' : chartOptions.yLinLog == 'linear'}" class="button" @click="setChartOptions('yLinLog','linear')">Linear</button>
+          <button :class="{'is-selected' : chartOptions.yLinLog == 'logarithmic'}" class="button" @click="setChartOptions('yLinLog','logarithmic')">Log</button>
         </div>
-        <div class="axisTitle">Dot</div>
-        <div class="optionButtons">
-          <button :class="{'selected' : chartOptions.dot}" class="button" @click="setChartOptions('dot',true)">Yes</button>
-          <button :class="{'selected' : !chartOptions.dot}" class="button" @click="setChartOptions('dot',false)">No</button>
+        <div class="sourceCategory">Display Dot</div>
+        <div class="optionButtons buttons has-addons">
+          <button :class="{'is-selected' : chartOptions.dot}" class="button" @click="setChartOptions('dot',true)">Yes</button>
+          <button :class="{'is-selected' : !chartOptions.dot}" class="button" @click="setChartOptions('dot',false)">No</button>
         </div>
+        <!--
+        <div class="optionTitle">Board filter</div>
+        <div class="optionTitle">whitelist</div>
+        <input v-model="boardWhitelist" placeholder="example: 'b,wg,cm'">
+        <div class="optionTitle">blacklist</div>
+        <input v-model="boardBlacklist" placeholder="example: 'a,g,co,x'">
+        <button class="button" @click="createChartData">Filter</button>
+				-->
       </div>
-      <div class="chart-wrapper">
-        <canvas id="detailChart"/>
-      </div>
-      <div class="dataSources">
+
+      <div class="sectionDataSources column is-narrow">
         <div class="sourceCategory">Meta Analysis:</div>
         <div class="sourceItems">
           <div v-for="(item,key) in metaAnalysisLastDay" :key="key+'meta'" class="sourceItem">
-            <div :class="{'selected' : xData.name == key}" class="sourceButton" @click="xData={name: key,data: item};createChartData()">x</div>
-            <div :class="{'selected' : yData.name == key}" class="sourceButton" @click="yData={name: key,data: item};createChartData()">y</div>
+            <div :class="{'is-selected' : xData.name == key}" class="sourceButton" @click="xData={name: key,data: item};createChartData()">x</div>
+            <div :class="{'is-selected' : yData.name == key}" class="sourceButton" @click="yData={name: key,data: item};createChartData()">y</div>
             <div class="sourceText">{{ key }}</div>
           </div>
         </div>
-        <div class="sourceCategory">Text Analysis (placeholder words):</div>
+        <div class="sourceCategory">Text Analysis:</div>
         <div class="sourceItems">
           <div v-for="(item,key) in textAnalysisLastDay" :key="key+'text'" class="sourceItem">
-            <div :class="{'selected' : xData.name == key}" class="sourceButton" @click="xData={name: key,data: item};createChartData()">x</div>
-            <div :class="{'selected' : yData.name == key}" class="sourceButton" @click="yData={name: key,data: item};createChartData()">y</div>
+            <div :class="{'is-selected' : xData.name == key}" class="sourceButton" @click="xData={name: key,data: item};createChartData()">x</div>
+            <div :class="{'is-selected' : yData.name == key}" class="sourceButton" @click="yData={name: key,data: item};createChartData()">y</div>
             <div class="sourceText">{{ key }}</div>
           </div>
         </div>
       </div>
+
+      <div class="chart-wrapper column is-narrow">
+        <canvas id="detailChart"/>
+      </div>
+
+      <div class="sectionRanking column is-narrow columns is-hidden-touch is-hidden-desktop-only is-hidden-widescreen-only">
+        <div class="rankingColumn column is-6">
+          <div class="rankingTitle">x->{{ xData.name }}</div>
+          <div class="rankEntries">
+            <div v-for="(item,index) in xRankData" :key="item[0]" class="rankEntry">
+              <div class="rankIndex">{{ String(index + 1).padStart(2,"0") }}</div>
+              <div class="rankBoard">/{{ item[0] }}/</div>
+              <div class="rankValue">{{ item[1] >= 1 ? item[1].toFixed(2) : item[1].toFixed(5) }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="rankingColumn column is-6">
+          <div class="rankingTitle">y->{{ yData.name }}</div>
+          <div class="rankEntries">
+            <div v-for="(item,index) in yRankData" :key="item[0]" class="rankEntry">
+              <div class="rankIndex">{{ String(index + 1).padStart(2,"0") }}</div>
+              <div class="rankBoard">/{{ item[0] }}/</div>
+              <div class="rankValue">{{ item[1] >= 1 ? item[1].toFixed(2) : item[1].toFixed(5) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -46,7 +85,7 @@
 <script>
 const axios = require("axios")
 const config = require("js/config")
-
+const debounce = require("debounce")
 export default {
 	data(){
 		return{
@@ -58,18 +97,30 @@ export default {
 			chartOptions: {
 				xLinLog: "linear",
 				yLinLog: "linear",
-				dot: true
-			}
+				dot: true,
+			},
+			boardWhitelist: "",
+			boardBlacklist: ""
 		}
 	},
 	computed:{
 		xRankData(){
 			if(!this.xData) return
-			return Object.entries(this.xData.data).sort((x,y) => y[1] - x[1]).slice(0,20)
+			return Object.entries(this.xData.data).sort((x,y) => y[1] - x[1])
 		},
 		yRankData(){
 			if(!this.yData) return
-			return Object.entries(this.yData.data).sort((x,y) => y[1] - x[1]).slice(0,20)
+			return Object.entries(this.yData.data).sort((x,y) => y[1] - x[1])
+		},
+	},
+	watch:{
+		boardWhitelist: function () {
+			debounce(function(){
+				this.createChartData()
+			},500)
+		},
+		boardBlacklist: function () {
+			debounce(this.createChartData,500)
 		},
 	},
 	methods: {
@@ -89,23 +140,24 @@ export default {
 			this.chart.update()
 		},
 		createChartData(){
+			console.log("create")
 			if(!this.xData.name || !this.yData.name) return
 			this.chart.options.scales.xAxes[0].scaleLabel.labelString = this.xData.name
 			this.chart.options.scales.yAxes[0].scaleLabel.labelString = this.yData.name
 			
-			const currDatasets = this.chart.data.datasets
-			if(!currDatasets.length){
-				currDatasets[0] = {
-					label: "`${this.xData.name} : ${this.yData.name}`",
-					data: []
-				}
-				this.chart.data.datasets = currDatasets
-			}
+			const currData = this.chart.data
+			if(!currData.datasets.length) currData.datasets[0] = {}
+
+			currData.labels = []
+			currData.datasets[0].label = `${this.xData.name} : ${this.yData.name}`
+			currData.datasets[0].data = []
 			
-			currDatasets[0].label = `${this.xData.name} : ${this.yData.name}`
 			let index = 0
 			for(let board in this.xData.data){
-				currDatasets[0].data[index] = {
+				if(this.boardWhitelist && !this.boardWhitelist.split(",").includes(board)) continue
+				if(this.boardBlacklist.split(",").includes(board)) continue
+				currData.labels[index] = board
+				currData.datasets[0].data[index] = {
 					x: this.xData.data[board],
 					y: this.yData.data[board],
 					label: board
@@ -123,12 +175,17 @@ export default {
 				for(let board in response.data){
 					for(let key in response.data[board]){
 						if(key.includes("created")) continue
-						if(key.includes("nigger")) continue
-						if(key.includes("_coefficientOfVariation")) continue
+						if(key.includes("text_ratio_")) continue
 						if(typeof response.data[board][key] == "object"){
 							for(let subkey in response.data[board][key]){
-								if(!newObj[key+subkey]) newObj[key+subkey] = {}
-								newObj[key+subkey][board] = response.data[board][key][subkey]
+								//if(subkey.includes("nigger") || subkey.includes("jew")) continue
+
+								let keyToUse = key
+								if(keyToUse == "text_ratio_") keyToUse = "text "
+								if(keyToUse == "posts_ratio_") keyToUse = "posts mentioning "
+
+								if(!newObj[`${keyToUse}'${subkey}'`]) newObj[`${keyToUse}'${subkey}'`] = {}
+								newObj[`${keyToUse}'${subkey}'`][board] = response.data[board][key][subkey]
 								i++
 							}
 						}else{
@@ -151,6 +208,7 @@ export default {
 						if(key.includes("_coefficientOfVariation")) continue
 						if(!newObj[key]) newObj[key] = {}
 						i++
+						if(typeof response.data[board][key] == "object") response.data[board][key] = 0 //TODO: temporary workaround while /vip/ results regenerate
 						newObj[key][board] = response.data[board][key]
 					}
 				}
@@ -223,6 +281,11 @@ export default {
 
 <style scoped lang="scss">
 @import "~css/variables.scss";
+.is-selected{
+	background: #444;
+	color: #f1f1f1;
+}
+
 .component-detail{
   position: relative;
   flex-grow: 1;
@@ -231,23 +294,23 @@ export default {
   justify-content: center;
   align-items: center;
   background: #f1f1f1;
+	padding: 2rem;
   //background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 	
 }
 
-.data-wrapper{
-	display: flex;
-	@include float-shadow-box;
-	margin: 1rem;
+.about{
+	font-size: 12px;
+	margin-bottom: 1rem;
 }
 
-.optionButtons{
-	>button{
-		&.selected{
-			background: #333;
-			color: white;	
-		}
-	}
+.data-wrapper{
+	@include float-shadow-box;
+}
+
+.chartOptions{
+	flex-shrink: 1;
+	padding: 1rem;
 }
 
 .chart-wrapper{
@@ -264,8 +327,8 @@ export default {
 	}
 }
 
-.dataSources{
-	padding: 0 1rem;
+.sectionDataSources{
+	padding: 1rem;
 }
 
 .sourceCategory{
@@ -294,22 +357,54 @@ export default {
 		line-height: 20px;
 		width: 24px;
 		cursor: pointer;
-		
-		&.selected{
-			background: #333;
-			color: white;
-		}
-	}
-}
-
-.rankedData{
-	>div{
-		font-size: 12px;
-		text-align: left;
 	}
 }
 
 .options{
 	display: flex;
+}
+
+.sectionRanking{
+	position: relative;
+	height: 100%;
+}
+
+.rankingTitle{
+	font-weight: bold;
+	margin: 0.5rem;
+	text-align: left;
+	font-size: 12px;
+	letter-spacing: -1px;
+}
+
+.rankEntries{
+	width: 160px;
+	min-height: 100%;
+	border: 1px solid black;
+}
+
+.rankEntry{
+	display: flex;
+	font-size: 12px;
+	line-height: 12px;
+	background: white;
+	&:nth-child(2n){
+		background: #eee;
+	}
+	>.rankIndex{
+		width: 24px;
+		text-align: left;
+		padding: 0.25rem;
+	}
+	>.rankBoard{
+		width: 48px;
+		text-align: left;
+		padding: 0.25rem;
+	}
+	>.rankValue{
+		flex: 1 1 0;
+		text-align: right;
+		padding: 0.25rem;
+	}
 }
 </style>
