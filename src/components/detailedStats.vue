@@ -82,7 +82,6 @@
 <script>
 const axios = require("axios")
 const config = require("js/config")
-const debounce = require("debounce")
 export default {
 	data(){
 		return{
@@ -162,13 +161,13 @@ export default {
 				for(let board in response.data){
 					for(let key in response.data[board]){
 						if(key.includes("created")) continue
-						if(key.includes("text_ratio_")) continue
+						//if(key.includes("text_ratio_")) continue
 						if(typeof response.data[board][key] == "object"){
 							for(let subkey in response.data[board][key]){
 								//if(subkey.includes("nigger") || subkey.includes("jew")) continue
 
 								let keyToUse = key
-								if(keyToUse == "text_ratio_") keyToUse = "text "
+								if(keyToUse == "text_ratio_") keyToUse = "text ratio "
 								if(keyToUse == "posts_ratio_"){
 									keyToUse = "% posts mention "
 									response.data[board][key][subkey] *= 100
