@@ -154,7 +154,8 @@ export default {
 		}
 	},
 	created(){
-		axios.get(config.url + `/textAnalysisLastDay`)
+		/*
+		axios.get(config.url + `/textAnalysis`)
 			.then(response => {
 				const newObj = {}
 				let i = 0
@@ -186,7 +187,8 @@ export default {
 				console.log("i",i)
 				this.textAnalysisLastDay = newObj
 			})
-		axios.get(config.url + `/metaAnalysisLastDay`)
+			*/
+		axios.get(config.url + `/metaAnalysis`)
 			.then(response => {
 				const newObj = {}
 				let i = 0
