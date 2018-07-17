@@ -2,31 +2,40 @@
   <div class="component-detail has-text-centered">
     <div class="about">
       A work-in-progress to visualize analysis of 4chan board snapshots from the last day. (<a href="https://boards.4chan.org/sci/thread/9837467">https://boards.4chan.org/sci/thread/9837467</a>)<br>
-      Meta analysis results are averaged snapshots from the last day. Text analysis covers currently visible text + anything else posted during the last day.
+      Meta analysis results are averaged snapshots from the last day. Text analysis results are taken from currently visible posts.
     </div>
     <div class="data-wrapper columns is-marginless">
 
       <div class="chartOptions column is-narrow">
+
         <div class="sourceCategory">x-Axis</div>
         <div class="optionButtons buttons has-addons">
           <button :class="{'is-selected' : chartOptions.xLinLog == 'linear'}" class="button" @click="setChartOptions('xLinLog','linear')">Linear</button>
           <button :class="{'is-selected' : chartOptions.xLinLog == 'logarithmic'}" class="button" @click="setChartOptions('xLinLog','logarithmic')">Log</button>
         </div>
+
         <div class="sourceCategory">y-Axis</div>
         <div class="optionButtons buttons has-addons">
           <button :class="{'is-selected' : chartOptions.yLinLog == 'linear'}" class="button" @click="setChartOptions('yLinLog','linear')">Linear</button>
           <button :class="{'is-selected' : chartOptions.yLinLog == 'logarithmic'}" class="button" @click="setChartOptions('yLinLog','logarithmic')">Log</button>
         </div>
+
         <div class="sourceCategory">Display Dot</div>
         <div class="optionButtons buttons has-addons">
           <button :class="{'is-selected' : chartOptions.dot}" class="button" @click="setChartOptions('dot',true)">Yes</button>
           <button :class="{'is-selected' : !chartOptions.dot}" class="button" @click="setChartOptions('dot',false)">No</button>
         </div>
+
         <div class="sourceCategory">whitelist</div>
         <input v-model="boardWhitelist" placeholder="a,g,co,x,po . . .">
         <div class="sourceCategory">blacklist</div>
         <input v-model="boardBlacklist" placeholder="b,wg,cm,fit,trash . . .">
         <button class="button" @click="createChartData">Filter</button>
+
+        <div class="sourceCategory">Analyze Text</div>
+        <input v-model="analyzeWord" placeholder="3-20 characters">
+        <button class="button" @click="requestTextAnalysis(analyzeWord)">Analyze</button>
+        <p>{{ errorMessage }}</p>
       </div>
 
       <div class="sectionDataSources column is-narrow">
@@ -96,7 +105,9 @@ export default {
 				dot: true,
 			},
 			boardWhitelist: "",
-			boardBlacklist: ""
+			boardBlacklist: "",
+			analyzeWord: "",
+			errorMessage: ""
 		}
 	},
 	computed:{
@@ -151,6 +162,34 @@ export default {
 				index++
 			}
 			this.chart.update()
+		},
+		requestTextAnalysis(word){
+			this.errorMessage = "fetching..."
+			axios.get(config.url + `/textAnalysisVisible/${word}`)
+				.then(response => {
+					this.errorMessage = "all good"
+					let i = 0
+					for(let board in response.data){
+						i++
+
+						let remoteKey,localKey
+						remoteKey = "text_ratio"
+						localKey = remoteKey + "_" + word
+						if(!this.textAnalysisLastDay[localKey]) this.textAnalysisLastDay[localKey] = {}
+						this.textAnalysisLastDay[localKey][board] = response.data[board][remoteKey]
+					
+						remoteKey = "posts_ratio"
+						localKey = remoteKey + "_" + word
+						if(!this.textAnalysisLastDay[localKey]) this.textAnalysisLastDay[localKey] = {}
+						this.textAnalysisLastDay[localKey][board] = response.data[board][remoteKey]
+					}
+					console.log("text i",i)
+					this.textAnalysisLastDay = Object.assign({}, this.textAnalysisLastDay)
+				})
+				.catch(err => {
+					console.error(err.message)
+					this.errorMessage = "Response: " + err.response.status
+				})
 		}
 	},
 	created(){
@@ -188,24 +227,39 @@ export default {
 				this.textAnalysisLastDay = newObj
 			})
 			*/
+		axios.get(config.url + `/allBoardStats`)
+			.then(response => {
+				//const newObj = {}
+				let i = 0
+				for(let board in response.data){
+					for(let key of ["avgPostsPerDay","topPPM"]){
+						if(!this.metaAnalysisLastDay[key]) this.metaAnalysisLastDay[key] = {}
+						this.metaAnalysisLastDay[key][board] = response.data[board][key]
+						i++
+					}
+				}
+				console.log("allBoardStats i",i)
+				this.metaAnalysisLastDay = Object.assign({}, this.metaAnalysisLastDay)
+			})
+
 		axios.get(config.url + `/metaAnalysis`)
 			.then(response => {
-				const newObj = {}
+				//const newObj = {}
 				let i = 0
 				for(let board in response.data){
 					for(let key in response.data[board]){
 						if(key.includes("created")) continue
 						if(key.includes("_standardDeviation")) continue
 						if(key.includes("_coefficientOfVariation")) continue
-						if(!newObj[key]) newObj[key] = {}
+						if(!this.metaAnalysisLastDay[key]) this.metaAnalysisLastDay[key] = {}
+						this.metaAnalysisLastDay[key][board] = response.data[board][key]
 						i++
-						if(typeof response.data[board][key] == "object") response.data[board][key] = 0 //TODO: temporary workaround while /vip/ results regenerate
-						newObj[key][board] = response.data[board][key]
 					}
 				}
-				console.log("i",i)
-				this.metaAnalysisLastDay = newObj
+				console.log("meta i",i)
+				this.metaAnalysisLastDay = Object.assign({}, this.metaAnalysisLastDay)
 			})
+		//this.requestTextAnalysis("boomer")
 	},
 	mounted(){
 		const Chart = require('chart.js')
@@ -368,6 +422,8 @@ export default {
 	text-align: left;
 	font-size: 12px;
 	letter-spacing: -1px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .rankEntries{
