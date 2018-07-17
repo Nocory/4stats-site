@@ -19,6 +19,15 @@
         </div>
         <div class="qa-card">
           <div class="q">
+            Why doesn't /adv/ preview OP images?
+          </div>
+          <div class="a">
+            Adblockers prevent them from loading because of the ".org/adv/" in "https://i.4cdn.org/adv/1531810755359s.jpg".<br>
+            Not sure what to do about it really.
+          </div>
+        </div>
+        <div class="qa-card">
+          <div class="q">
             Ability to see graph over longer time periods, such as months and quarters?
           </div>
           <div class="a">
