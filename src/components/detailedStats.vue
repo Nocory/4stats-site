@@ -232,9 +232,12 @@ export default {
 				//const newObj = {}
 				let i = 0
 				for(let board in response.data){
-					for(let key of ["avgPostsPerDay","topPPM"]){
-						if(!this.metaAnalysisLastDay[key]) this.metaAnalysisLastDay[key] = {}
-						this.metaAnalysisLastDay[key][board] = response.data[board][key]
+					for(let remoteKey of ["avgPostsPerDay","topPPM"]){
+						let localKey = remoteKey
+						if(localKey == "topPPM") localKey = "dailyPeakPostsPerMinute"
+						if(localKey == "avgPostsPerDay") localKey = "postsPerDay"
+						if(!this.metaAnalysisLastDay[localKey]) this.metaAnalysisLastDay[localKey] = {}
+						this.metaAnalysisLastDay[localKey][board] = response.data[board][remoteKey]
 						i++
 					}
 				}
@@ -247,12 +250,16 @@ export default {
 				//const newObj = {}
 				let i = 0
 				for(let board in response.data){
-					for(let key in response.data[board]){
-						if(key.includes("created")) continue
-						if(key.includes("_standardDeviation")) continue
-						if(key.includes("_coefficientOfVariation")) continue
-						if(!this.metaAnalysisLastDay[key]) this.metaAnalysisLastDay[key] = {}
-						this.metaAnalysisLastDay[key][board] = response.data[board][key]
+					for(let remoteKey in response.data[board]){
+						let localKey = remoteKey
+						if(remoteKey.includes("created")) continue
+						if(remoteKey.includes("_standardDeviation")) continue
+						if(remoteKey.includes("_coefficientOfVariation")) continue
+						if(localKey == "postersPerThread_mean") localKey = "IPsPerThread_mean"
+						if(localKey == "postsPerPoster_mean") localKey = "postsPerIP_mean"
+						if(!this.metaAnalysisLastDay[localKey]) this.metaAnalysisLastDay[localKey] = {}
+						if(typeof response.data[board][remoteKey] == "object") response.data[board][remoteKey] = 0
+						this.metaAnalysisLastDay[localKey][board] = response.data[board][remoteKey]
 						i++
 					}
 				}
