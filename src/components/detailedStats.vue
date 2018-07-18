@@ -255,8 +255,8 @@ export default {
 						if(remoteKey.includes("created")) continue
 						if(remoteKey.includes("_standardDeviation")) continue
 						if(remoteKey.includes("_coefficientOfVariation")) continue
-						if(localKey == "postersPerThread_mean") localKey = "IPsPerThread_mean"
-						if(localKey == "postsPerPoster_mean") localKey = "postsPerIP_mean"
+						//if(localKey == "postersPerThread_mean") localKey = "IPsPerThread_mean"
+						//if(localKey == "postsPerPoster_mean") localKey = "postsPerIP_mean"
 						if(!this.metaAnalysisLastDay[localKey]) this.metaAnalysisLastDay[localKey] = {}
 						if(typeof response.data[board][remoteKey] == "object") response.data[board][remoteKey] = 0
 						this.metaAnalysisLastDay[localKey][board] = response.data[board][remoteKey]
