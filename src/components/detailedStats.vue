@@ -2,7 +2,7 @@
   <div class="component-detail has-text-centered">
     <div class="about">
       A work-in-progress to visualize analysis of 4chan board snapshots from the last day. (<a href="https://boards.4chan.org/sci/thread/9837467">https://boards.4chan.org/sci/thread/9837467</a>)<br>
-      Meta analysis results are averaged snapshots from the last day. Text analysis results are taken from currently visible posts.
+      Meta analysis results are averaged snapshots from the last day. Text analysis results are taken from posts during the last day and also currently visible content.
     </div>
     <div class="data-wrapper columns is-marginless">
 
@@ -35,7 +35,7 @@
         <div class="sourceCategory">Analyze Text</div>
         <input v-model="analyzeWord" placeholder="3-20 characters">
         <button class="button" @click="requestTextAnalysis(analyzeWord)">Analyze</button>
-        <p>{{ errorMessage }}</p>
+        <p v-html="textAnalysisStatus"/>
       </div>
 
       <div class="sectionDataSources column is-narrow">
@@ -107,7 +107,7 @@ export default {
 			boardWhitelist: "",
 			boardBlacklist: "",
 			analyzeWord: "",
-			errorMessage: ""
+			textAnalysisStatus: ""
 		}
 	},
 	computed:{
@@ -164,31 +164,43 @@ export default {
 			this.chart.update()
 		},
 		requestTextAnalysis(word){
-			this.errorMessage = "fetching..."
-			axios.get(config.url + `/textAnalysisVisible/${word}`)
+			this.textAnalysisStatus = "fetching..."
+			axios.get(config.url + `/textAnalysis?word=${word}`)
 				.then(response => {
-					this.errorMessage = "all good"
+					this.textAnalysisStatus = `Analyzed:<br>${Math.round(response.data.commentsAnalyzed/1000)}k posts<br>${Math.round(response.data.charactersAnalyzed/100000)/10}M chars`
 					let i = 0
-					for(let board in response.data){
+					const analysis = response.data.analysis
+					for(let board in analysis){
 						i++
 
 						let remoteKey,localKey
-						remoteKey = "text_ratio"
-						localKey = remoteKey + "_" + word
+					
+						remoteKey = "commentsAnalyzed"
+						localKey = "posts analyzed"
 						if(!this.textAnalysisLastDay[localKey]) this.textAnalysisLastDay[localKey] = {}
-						this.textAnalysisLastDay[localKey][board] = response.data[board][remoteKey]
+						this.textAnalysisLastDay[localKey][board] = analysis[board][remoteKey]
+					
+						remoteKey = "totalCharacters"
+						localKey = "characters analyzed"
+						if(!this.textAnalysisLastDay[localKey]) this.textAnalysisLastDay[localKey] = {}
+						this.textAnalysisLastDay[localKey][board] = analysis[board][remoteKey]
 					
 						remoteKey = "posts_ratio"
 						localKey = remoteKey + "_" + word
 						if(!this.textAnalysisLastDay[localKey]) this.textAnalysisLastDay[localKey] = {}
-						this.textAnalysisLastDay[localKey][board] = response.data[board][remoteKey]
+						this.textAnalysisLastDay[localKey][board] = analysis[board][remoteKey]
+
+						remoteKey = "text_ratio"
+						localKey = "char_ratio" + "_" + word
+						if(!this.textAnalysisLastDay[localKey]) this.textAnalysisLastDay[localKey] = {}
+						this.textAnalysisLastDay[localKey][board] = analysis[board][remoteKey]
 					}
 					console.log("text i",i)
 					this.textAnalysisLastDay = Object.assign({}, this.textAnalysisLastDay)
 				})
 				.catch(err => {
 					console.error(err.message)
-					this.errorMessage = "Response: " + err.response.status
+					this.textAnalysisStatus = "Response: " + err.response.status
 				})
 		}
 	},
