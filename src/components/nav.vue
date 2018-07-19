@@ -8,9 +8,18 @@
       <div v-if="mostActiveBoard" class="mostActiveBoard is-hidden">
         /<b>{{ mostActiveBoard }}</b>/ is at {{ Math.round(boardData[mostActiveBoard].relativeActivity * 100) }}% activity. Something going on.
       </div>
-      
-
+      <!--
+      <router-link to="/" class="is-hidden-touch is-hidden-desktop-only">
+        <div class="nav-link">Live</div>
+      </router-link>
+			-->
+			
       <div class="spacer"/>
+
+      <router-link to="/snapshotAnalysisWorkInProgress" class="is-hidden-touch is-hidden-desktop-only">
+        <div class="nav-link">Snapshot WIP</div>
+      </router-link>
+
       <router-link to="/feedback" class="is-hidden-mobile">
         <div class="nav-link">Feedback/Contact</div>
       </router-link>
@@ -134,7 +143,7 @@ a{
 		//transform: skew(-45deg);
 	}
 
-.router-link-exact-active>.nav-link::after{
+	.router-link-exact-active>.nav-link::after{
 		//background: $--color-link;
 			transform: scaleX(1);
 		//transform: skew(-45deg);

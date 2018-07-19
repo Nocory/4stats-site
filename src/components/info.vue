@@ -5,12 +5,13 @@
     </div>
     <div class="info-wrapper">
       <p>
-        /sp/ is currently receiving more traffic than usual due to the world cup.<br>
-        <br>
-        Activity is normally measured relative to a boards 90th percentile of posts/minute during the last month.<br>
-        <br>
-        For now I manually fixed /sp/'s top-activity at pre world cup levels.<br>
-        This way the displayed activity % represents current posting levels more accurately.
+        Added work-in-progress snapshot-analyzer link to the nav bar on desktops.<br>
+        A tool to visualize information generated from recent board snapshots.<br>
+        There are still some issues though and it's not polished at all.<br>
+      </p>
+      <hr>
+      <p>
+        I will leave /sp/'s daily peak posts/minute fixed at pre world-cup levels until the history looks normal again.
       </p>
     </div>
 
