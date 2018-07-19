@@ -1,44 +1,43 @@
 <template>
   <div class="component-detail has-text-centered">
     <div class="about">
-      A work-in-progress to visualize analysis of 4chan board snapshots from the last day. (<a href="https://boards.4chan.org/sci/thread/9837467">https://boards.4chan.org/sci/thread/9837467</a>)<br>
-      Meta analysis results are averaged snapshots from the last day. Text analysis results are taken from posts during the last day and also currently visible content.
+      A work-in-progress to visualize analysis of 4chan board snapshots.<br>
+      Meta analysis results are averaged snapshots from the last day. Text analysis results are taken from currently visible content and posts during the last day.
     </div>
-    <div class="data-wrapper columns is-marginless">
+    <div class="data-wrapper">
 
-      <div class="chartOptions column is-narrow">
-
-        <div class="sourceCategory">x-Axis</div>
-        <div class="optionButtons buttons has-addons">
-          <button :class="{'is-selected' : chartOptions.xLinLog == 'linear'}" class="button" @click="setChartOptions('xLinLog','linear')">Linear</button>
-          <button :class="{'is-selected' : chartOptions.xLinLog == 'logarithmic'}" class="button" @click="setChartOptions('xLinLog','logarithmic')">Log</button>
+      
+      <div class="sectionInteractions">
+        <div v-for="entry in [
+          ['X','xLinLog','linear','logarithmic','Linear','Log'],
+          ['Y','yLinLog','linear','logarithmic','Linear','Log'],
+          ['Dot','dot',true,false,'Yes','No'],
+        ]" :key="entry[0]" class="chart-options-wrapper">
+          <div class="optionTitle">{{ entry[0] }}</div>
+          <div class="optionButtons buttons has-addons">
+            <button :class="{'is-selected' : chartOptions[entry[1]] == entry[2]}" class="button" @click="setChartOptions(entry[1],entry[2])">{{ entry[4] }}</button>
+            <button :class="{'is-selected' : chartOptions[entry[1]] == entry[3]}" class="button" @click="setChartOptions(entry[1],entry[3])">{{ entry[5] }}</button>
+          </div>
         </div>
 
-        <div class="sourceCategory">y-Axis</div>
-        <div class="optionButtons buttons has-addons">
-          <button :class="{'is-selected' : chartOptions.yLinLog == 'linear'}" class="button" @click="setChartOptions('yLinLog','linear')">Linear</button>
-          <button :class="{'is-selected' : chartOptions.yLinLog == 'logarithmic'}" class="button" @click="setChartOptions('yLinLog','logarithmic')">Log</button>
+        <hr>
+				
+        <div class="optionTitle">Whitelist</div>
+        <input v-model="boardWhitelist" class="input" placeholder="a,g,co,x,po..." @input="createChartData">
+        <div class="optionTitle">Blacklist</div>
+        <input v-model="boardBlacklist" class="input" placeholder="b,wg,cm,fit,trash..." @input="createChartData">
+        
+        <hr>
+
+        <div class="optionTitle">Analyze Text</div>
+        <div class="searchWrapper">
+          <input v-model="analyzeWord" type="text" class="input" placeholder="3-20 characters" @keyup.enter="requestTextAnalysis(analyzeWord)">
+          <button class="searchButton button" @click="requestTextAnalysis(analyzeWord)">🔎</button>
         </div>
-
-        <div class="sourceCategory">Display Dot</div>
-        <div class="optionButtons buttons has-addons">
-          <button :class="{'is-selected' : chartOptions.dot}" class="button" @click="setChartOptions('dot',true)">Yes</button>
-          <button :class="{'is-selected' : !chartOptions.dot}" class="button" @click="setChartOptions('dot',false)">No</button>
-        </div>
-
-        <div class="sourceCategory">whitelist</div>
-        <input v-model="boardWhitelist" placeholder="a,g,co,x,po . . .">
-        <div class="sourceCategory">blacklist</div>
-        <input v-model="boardBlacklist" placeholder="b,wg,cm,fit,trash . . .">
-        <button class="button" @click="createChartData">Filter</button>
-
-        <div class="sourceCategory">Analyze Text</div>
-        <input v-model="analyzeWord" placeholder="3-20 characters">
-        <button class="button" @click="requestTextAnalysis(analyzeWord)">Analyze</button>
         <p v-html="textAnalysisStatus"/>
       </div>
-
-      <div class="sectionDataSources column is-narrow">
+			
+      <div class="sectionDataSources">
         <div class="sourceCategory">Meta Analysis:</div>
         <div class="sourceItems">
           <div v-for="(item,key) in metaAnalysisLastDay" :key="key+'meta'" class="sourceItem">
@@ -57,13 +56,13 @@
         </div>
       </div>
 
-      <div class="chart-wrapper column is-narrow">
+      <div class="sectionChart">
         <canvas id="detailChart"/>
       </div>
 
-      <div class="sectionRanking column is-narrow columns is-hidden-touch is-hidden-desktop-only is-hidden-widescreen-only">
-        <div class="rankingColumn column is-6">
-          <div class="rankingTitle">x->{{ xData.name }}</div>
+      <div class="sectionRanking is-hidden-touch is-hidden-desktop-only is-hidden-widescreen-only">
+        <div class="rankingColumn">
+          <div class="rankingTitle">x: {{ xData.name }}</div>
           <div class="rankEntries">
             <div v-for="(item,index) in xRankData" :key="item[0]" class="rankEntry">
               <div class="rankIndex">{{ String(index + 1).padStart(2,"0") }}</div>
@@ -72,8 +71,8 @@
             </div>
           </div>
         </div>
-        <div class="rankingColumn column is-6">
-          <div class="rankingTitle">y->{{ yData.name }}</div>
+        <div class="rankingColumn">
+          <div class="rankingTitle">y: {{ yData.name }}</div>
           <div class="rankEntries">
             <div v-for="(item,index) in yRankData" :key="item[0]" class="rankEntry">
               <div class="rankIndex">{{ String(index + 1).padStart(2,"0") }}</div>
@@ -163,16 +162,22 @@ export default {
 			}
 			this.chart.update()
 		},
-		requestTextAnalysis(word){
+		requestTextAnalysis(word = ""){
+			if(word.length < 3 || word.length > 20){
+				this.textAnalysisStatus = "word too short/long"
+				return
+			}
+			this.analyzeWord = ""
+			word = word.toLowerCase()
+			word = word.replace(/>+\//g,"/")
+			document.querySelector(".searchButton").classList.add("is-loading")
 			this.textAnalysisStatus = "fetching..."
 			axios.get(config.url + `/textAnalysis?word=${word}`)
 				.then(response => {
-					this.textAnalysisStatus = `Analyzed:<br>${Math.round(response.data.commentsAnalyzed/1000)}k posts<br>${Math.round(response.data.charactersAnalyzed/100000)/10}M chars`
-					let i = 0
+					this.textAnalysisStatus = `Analyzed:<br>${response.data.commentsAnalyzed} posts<br>${response.data.charactersAnalyzed} chars`
+
 					const analysis = response.data.analysis
 					for(let board in analysis){
-						i++
-
 						let remoteKey,localKey
 					
 						remoteKey = "commentsAnalyzed"
@@ -195,50 +200,18 @@ export default {
 						if(!this.textAnalysisLastDay[localKey]) this.textAnalysisLastDay[localKey] = {}
 						this.textAnalysisLastDay[localKey][board] = analysis[board][remoteKey]
 					}
-					console.log("text i",i)
 					this.textAnalysisLastDay = Object.assign({}, this.textAnalysisLastDay)
 				})
 				.catch(err => {
 					console.error(err.message)
 					this.textAnalysisStatus = "Response: " + err.response.status
 				})
+				.finally(()=>{
+					document.querySelector(".searchButton").classList.remove("is-loading")
+				})
 		}
 	},
 	created(){
-		/*
-		axios.get(config.url + `/textAnalysis`)
-			.then(response => {
-				const newObj = {}
-				let i = 0
-				for(let board in response.data){
-					for(let key in response.data[board]){
-						if(key.includes("created")) continue
-						//if(key.includes("text_ratio_")) continue
-						if(typeof response.data[board][key] == "object"){
-							for(let subkey in response.data[board][key]){
-								//if(subkey.includes("nigger") || subkey.includes("jew")) continue
-
-								let keyToUse = key
-								if(keyToUse == "text_ratio_") keyToUse = "text ratio "
-								if(keyToUse == "posts_ratio_"){
-									keyToUse = "% posts mention "
-									response.data[board][key][subkey] *= 100
-								}
-
-								if(!newObj[`${keyToUse}'${subkey}'`]) newObj[`${keyToUse}'${subkey}'`] = {}
-								newObj[`${keyToUse}'${subkey}'`][board] = response.data[board][key][subkey]
-								i++
-							}
-						}else{
-							if(!newObj[key]) newObj[key] = {}
-							newObj[key][board] = response.data[board][key]
-						}
-					}
-				}
-				console.log("i",i)
-				this.textAnalysisLastDay = newObj
-			})
-			*/
 		axios.get(config.url + `/allBoardStats`)
 			.then(response => {
 				//const newObj = {}
@@ -277,6 +250,9 @@ export default {
 				}
 				console.log("meta i",i)
 				this.metaAnalysisLastDay = Object.assign({}, this.metaAnalysisLastDay)
+				this.yData={name: "OPLength_mean",data: this.metaAnalysisLastDay["OPLength_mean"]}
+				this.xData={name: "postLength_mean",data: this.metaAnalysisLastDay["postLength_mean"]}
+				this.createChartData()
 			})
 		//this.requestTextAnalysis("boomer")
 	},
@@ -285,11 +261,11 @@ export default {
 		Chart.defaults.global.defaultFontFamily = 'monospace'
 		//Chart.defaults.global.defaultFontSize = 16
 		var ctx = document.getElementById("detailChart").getContext('2d')
-		const dataLabels = require("chartjs-plugin-datalabels")
+		//const dataLabels = 
 
 		this.chart = new Chart(ctx, {
 			type: 'scatter',
-			plugins: [dataLabels],
+			plugins: [require("chartjs-plugin-datalabels")],
 			data: {
 				labels: [],
 				datasets: []
@@ -370,16 +346,88 @@ export default {
 
 .data-wrapper{
 	@include float-shadow-box;
+	display: flex;
+	position: relative;
+	width: 100%;
+	max-width: 1600px;
 }
 
-.chartOptions{
-	flex-shrink: 1;
-	padding: 1rem;
+.sectionInteractions{
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
+	padding: 1rem;
+	flex: none;
+	width: 200px;
+
+	.optionTitle{
+		text-align: left;
+		font-weight: bold;
+		width: 32px;
+		margin-left: 0.5rem;
+		white-space: nowrap;
+	}
+
+	>hr{
+		position: relative;
+		background: rgba(0,0,0,0.67);
+		width: 80%;
+		height: 0px;
+		margin: 2rem 0;
+	}
+
+	>.chart-options-wrapper{
+		position: relative;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		margin: 0.5rem 0;
+		>.optionTitle{
+			margin: 0;
+		}
+		>.optionButtons{
+			position: relative;
+			width: 128px;
+			margin: 0;
+			>.button{
+				width: 64px;
+				margin: 0;
+				height: 100%;
+			}
+		}
+	}
+
+	>.searchWrapper{
+		display: flex;
+		width: 100%;
+		>input{
+			flex-grow: 1;
+		}
+		>button{
+			flex: none;
+			width: 40px
+		}
+	}
 }
 
-.chart-wrapper{
+.sectionDataSources{
+	padding: 1rem;
+	flex-shrink: 1;
+	>.sourceItems{
+		>.sourceItem{
+			display: flex;
+			>.sourceButton{
+				flex: none;
+				width: 20px;
+			}
+			>.sourceText{
+
+			}
+		}
+	}
+}
+
+.sectionChart{
   position: relative;
 	width: 800px;
 	height: 800px;
@@ -393,11 +441,62 @@ export default {
 	}
 }
 
-.sectionDataSources{
+.sectionRanking{
+	position: relative;
 	padding: 1rem;
+	height: 100%;
+	flex: auto;
+	display: flex;
+	>.rankingColumn{
+		position: relative;
+		flex: none;
+		width: 50%;
+		>.rankingTitle{
+			font-weight: bold;
+			margin: 0.5rem;
+			text-align: left;
+			font-size: 12px;
+			letter-spacing: -1px;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		>.rankEntries{
+			width: 100%;
+			min-height: 0px;
+			border-left: 1px solid black;
+			>.rankEntry{
+				display: flex;
+				font-size: 12px;
+				line-height: 12px;
+				background: white;
+				&:nth-child(2n){
+					background: #eee;
+				}
+				>.rankIndex{
+					width: 24px;
+					text-align: left;
+					padding: 0.25rem;
+				}
+				>.rankBoard{
+					width: 48px;
+					text-align: left;
+					padding: 0.25rem;
+				}
+				>.rankValue{
+					flex: 1 1 0;
+					text-align: right;
+					padding: 0.25rem;
+				}
+			}
+		}
+
+
+	}
 }
 
 .sourceCategory{
+	text-align: left;
 	font-weight: bold;
 	margin: 0.5rem;
 }
@@ -428,51 +527,5 @@ export default {
 
 .options{
 	display: flex;
-}
-
-.sectionRanking{
-	position: relative;
-	height: 100%;
-}
-
-.rankingTitle{
-	font-weight: bold;
-	margin: 0.5rem;
-	text-align: left;
-	font-size: 12px;
-	letter-spacing: -1px;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-.rankEntries{
-	width: 160px;
-	min-height: 100%;
-	border: 1px solid black;
-}
-
-.rankEntry{
-	display: flex;
-	font-size: 12px;
-	line-height: 12px;
-	background: white;
-	&:nth-child(2n){
-		background: #eee;
-	}
-	>.rankIndex{
-		width: 24px;
-		text-align: left;
-		padding: 0.25rem;
-	}
-	>.rankBoard{
-		width: 48px;
-		text-align: left;
-		padding: 0.25rem;
-	}
-	>.rankValue{
-		flex: 1 1 0;
-		text-align: right;
-		padding: 0.25rem;
-	}
 }
 </style>
