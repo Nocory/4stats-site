@@ -185,7 +185,7 @@ export default {
 						if(!this.textAnalysisLastDay[localKey]) this.textAnalysisLastDay[localKey] = {}
 						this.textAnalysisLastDay[localKey][board] = analysis[board][remoteKey]
 					
-						remoteKey = "totalCharacters"
+						remoteKey = "charactersAnalyzed"
 						localKey = "characters analyzed"
 						if(!this.textAnalysisLastDay[localKey]) this.textAnalysisLastDay[localKey] = {}
 						this.textAnalysisLastDay[localKey][board] = analysis[board][remoteKey]
