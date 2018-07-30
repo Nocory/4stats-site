@@ -34,6 +34,14 @@
           <input v-model="analyzeWord" type="text" class="input" placeholder="3-20 characters" @keyup.enter="requestTextAnalysis(analyzeWord)">
           <button class="searchButton button" @click="requestTextAnalysis(analyzeWord)">🔎</button>
         </div>
+        <label class="radio">
+          <input type="radio" name="answer">
+          Yes
+        </label>
+        <label class="radio">
+          <input type="radio" name="answer">
+          No
+        </label>
         <p v-html="textAnalysisStatus"/>
       </div>
 			
@@ -106,7 +114,8 @@ export default {
 			boardWhitelist: "",
 			boardBlacklist: "",
 			analyzeWord: "",
-			textAnalysisStatus: ""
+			textAnalysisStatus: "",
+			analyzeExactOnly: "true"
 		}
 	},
 	computed:{
@@ -163,6 +172,7 @@ export default {
 			this.chart.update()
 		},
 		requestTextAnalysis(word = ""){
+			word = word.trim()
 			if(word.length < 3 || word.length > 20){
 				this.textAnalysisStatus = "word too short/long"
 				return

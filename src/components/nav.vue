@@ -15,11 +15,11 @@
 			-->
 			
       <div class="spacer"/>
-
+      <!--
       <router-link to="/snapshotAnalysisWorkInProgress" class="is-hidden-touch is-hidden-desktop-only">
         <div class="nav-link">Snapshot WIP</div>
       </router-link>
-
+			-->
       <router-link to="/feedback" class="is-hidden-mobile">
         <div class="nav-link">Feedback/Contact</div>
       </router-link>

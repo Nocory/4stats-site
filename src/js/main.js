@@ -25,7 +25,7 @@ if(location.hostname === "dev.4stats.io"){
 		}
 		window.onerror = function(errorMsg, url, lineNumber) {
 			showError('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber)
-		}
+		} 
 	})()
 }
 

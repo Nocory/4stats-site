@@ -5,9 +5,7 @@
     </div>
     <div class="info-wrapper">
       <p>
-        Added work-in-progress snapshot-analyzer link to the nav bar on desktops.<br>
-        A tool to visualize information generated from recent board snapshots.<br>
-        There are still some issues though and it's not polished at all.<br>
+        <s>&#160;96&#160;</s> 0 days without dead boards
       </p>
       <hr>
       <p>
