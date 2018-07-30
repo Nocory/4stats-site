@@ -5,7 +5,7 @@
     </div>
     <div class="info-wrapper">
       <p>
-        <span class="strike-text">96</span> <span class="strike-replace">0</span> days without dead boards
+        <span class="strike-text">92</span> <span class="strike-replace">0</span> days without dead boards
       </p>
       <hr>
       <p>
