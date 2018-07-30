@@ -5,7 +5,7 @@
     </div>
     <div class="info-wrapper">
       <p>
-        <s>&#160;96&#160;</s> 0 days without dead boards
+        <span class="strike-text">96</span> <span class="strike-replace">0</span> days without dead boards
       </p>
       <hr>
       <p>
@@ -79,5 +79,40 @@ hr{
   background: rgba(255,255,255,0.8);
   margin: 1rem 0;
   width: 10%;
+}
+
+.strike-text{
+  position: relative;
+  background: white;
+  color: black;
+  padding: 0 1rem;
+  font-weight: bold;
+  &::after{
+    content: "";
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,0,0,0.5);
+    transform: rotate(-45deg)
+  }
+  &::before{
+    content: "";
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,0,0,0.5);
+    transform: rotate(45deg)
+  }
+}
+
+.strike-replace{
+  background: white;
+  color: black;
+  padding: 0 1rem;
+  font-weight: bold;
 }
 </style>
