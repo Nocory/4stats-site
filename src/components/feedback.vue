@@ -19,6 +19,18 @@
         </div>
         <div class="qa-card">
           <div class="q">
+            What is the highest threads/hour count a board has ever had?
+          </div>
+          <div class="a">
+            Don't know about "ever", as I only started the site a little over a year ago.<br>
+            I think the highest since then was ~880 on /sp/ during the world cup, when England got eliminated. 
+            <a href="https://desu-usergeneratedcontent.xyz/qa/image/1531/34/1531343001586.png">*pic here*</a><br>
+            Though I am sure this wasn't the highest in 4chan history.<br>
+            /v/ during E3 2018 was also very active. I am not 100% sure, but I think it wasn't more threads than /sp/.
+          </div>
+        </div>
+        <div class="qa-card">
+          <div class="q">
             Why doesn't /adv/ preview OP images?
           </div>
           <div class="a">
