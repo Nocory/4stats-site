@@ -19,6 +19,17 @@
         </div>
         <div class="qa-card">
           <div class="q">
+            Do you have any data on which countries the 4chan visitors come from?
+          </div>
+          <div class="a">
+            No I don't have that.<br>
+            The site analyzes data from the catalogs only.<br>
+            This way boards can be updated more frequently, compared to looking at individual threads and posts.<br>
+            Some archive sites keep track of that though.
+          </div>
+        </div>
+        <div class="qa-card">
+          <div class="q">
             What is the highest threads/hour count a board has ever had?
           </div>
           <div class="a">
@@ -45,26 +56,6 @@
           <div class="a">
             If you mean the hourly stats, I don't think there is much of a point to store more than 4 weeks of data. 4 weeks looks a bit chaotic already.<br>
             The daily stats are usually what you would want to check if you go back for more than a month. There is a record of almost a full year by now.
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            Can't see the entirety of the Info sidebar because it scrolls with the page. Also do you think you can implement a posts/minute count for stickied threads?
-          </div>
-          <div class="a">
-            Is your page zoomed in by any chance or are you using a very narrow vertical resolution?<br>
-            Since rolling stickies are fixed at 1000 replies, it would be necessary to load the whole thread itself and check the reply timestamps instead of just using the catalog data.<br>
-            Will give it a try. Should be interesting to see how fast those /sp/ stickies are actually going.
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            suggestion: filter threads by average post length, longest post in thread, # of links in thread/on board
-          </div>
-          <div class="a">
-            The thread-data I use is taken from the boards catalog.
-            Filtering by average post-length or # of links would require fetching each thread individually, which is possible, but not practical due to 4chan API limits.
-            (And would also use much more bandwidth)
           </div>
         </div>
       </div>
