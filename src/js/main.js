@@ -38,11 +38,13 @@ Vue.use(VueRouter)
 import app from "components/app.vue"
 import store from "store/index.js"
 
-const detailedStats = () => import('../components/detailedStats.vue')
+//const detailedStats = () => import('../components/detailedStats.vue')
+//const thumbnailStream = () => import('../components/thumbnailStream.vue')
 
 const routes = [
 	{ path: '/', component: require("../components/index.vue").default },
-	{ path: '/snapshotAnalysisWorkInProgress', component: detailedStats },
+	//{ path: '/snapshotAnalysisWorkInProgress', component: detailedStats },
+	//{ path: '/thumbnailStreamTest', component: thumbnailStream },
 	{ path: '/config', component: require("../components/config.vue").default },
 	{ path: '/feedback', component: require("../components/feedback.vue").default },
 	{ path: '*', component: require("../components/index.vue").default }
