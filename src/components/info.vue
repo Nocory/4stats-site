@@ -5,11 +5,7 @@
     </div>
     <div class="info-wrapper">
       <p>
-        <span class="strike-text">92</span> <span class="strike-replace">0</span> days without dead boards
-      </p>
-      <hr>
-      <p>
-        I will leave /sp/'s daily peak posts/minute fixed at pre world-cup levels until the history looks normal again.
+        All good.
       </p>
     </div>
 
