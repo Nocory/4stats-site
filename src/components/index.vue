@@ -6,7 +6,7 @@
       <component-chart v-if="this.$route.path == '/' && chartPreference != -1 && (renderChart || chartPreference == 1)"/>
       <div class="right is-hidden-touch is-hidden-desktop-only">
         <component-meta/>
-        <component-info/>
+        <!--<component-info/>-->
       </div>
     </div>
     <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">

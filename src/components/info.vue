@@ -1,10 +1,10 @@
 <template>
   <div class="meta-component">
     <div class="component__header is-hidden-mobile">
-      ‌‌ 
+      ‌‌
     </div>
     <div class="info-wrapper">
-      <img src="../static/tad4.jpg">
+      <!--<img src="../static/tad4.jpg">-->
     </div>
 
   </div>
