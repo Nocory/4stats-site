@@ -1,12 +1,10 @@
 <template>
   <div class="meta-component">
     <div class="component__header is-hidden-mobile">
-      Info
+      ‌‌ 
     </div>
     <div class="info-wrapper">
-      <p>
-        All good.
-      </p>
+      <img src="../static/tad4.jpg">
     </div>
 
   </div>
@@ -67,7 +65,7 @@ export default {
   flex-direction: column;
   background: $--color-highlight-2;
   color: $--color-text;
-  padding: 1rem;
+  padding: 0;
   color: $oc-gray-0;
 }
 
