@@ -4,7 +4,7 @@
       Info
     </div>
     <div class="info-wrapper">
-      /v/ has now overtaken /pol/ as the most popular board for the first time since making this site.<br>
+      /v/ has now surpassed /pol/ as the most popular board for the first time since making this site.<br>
       (not counting special events such as E3)
     </div>
 
