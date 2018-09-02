@@ -1,10 +1,11 @@
 <template>
   <div class="meta-component">
     <div class="component__header is-hidden-mobile">
-      ‌‌
+      Info
     </div>
     <div class="info-wrapper">
-      <!--<img src="../static/tad4.jpg">-->
+      /v/ has now overtaken /pol/ as the most popular board for the first time since making this site.<br>
+      (not counting special events such as E3)
     </div>
 
   </div>
@@ -65,7 +66,7 @@ export default {
   flex-direction: column;
   background: $--color-highlight-2;
   color: $--color-text;
-  padding: 0;
+  padding: 1em;
   color: $oc-gray-0;
 }
 
