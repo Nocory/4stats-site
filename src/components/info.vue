@@ -4,8 +4,7 @@
       Info
     </div>
     <div class="info-wrapper">
-      /v/ has now surpassed /pol/ as the most popular board for the first time since making this site.<br>
-      (not counting special events such as E3)
+      Nothing interesting is ever happening.
     </div>
 
   </div>
