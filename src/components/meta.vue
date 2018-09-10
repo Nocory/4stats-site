@@ -12,7 +12,7 @@
       <div>~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
       <hr>
       <div class="cat">4stats.io:</div>
-      <div>{{ connectedUsers }} users on site</div>
+      <div>{{ connectedUsers }} user{{connectedUsers == 1 ? '' : 's'}} on site</div>
       <div>Just updated /{{ recentlyUpdatedBoard }}/</div>
     </div>
 
