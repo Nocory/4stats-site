@@ -20,7 +20,7 @@
             <u>Sticky Thread</u> - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours ago
           </div>
           <div v-else class="thread-ppm">
-            {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ (thread.age / (1000 * 60 * 60)).toFixed(1) }} hours
+            {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ Math.floor(thread.age / (1000 * 60 * 60)) }}h {{ Math.floor(thread.age % (1000 * 60 * 60) / (1000 * 60)) }}m
           </div>
           <div class="thread-title" v-html="thread.sub || '(no title)'"/>
           <div class="thread-comment" v-html="thread.com"/>
