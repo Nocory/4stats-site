@@ -19,6 +19,16 @@
         </div>
         <div class="qa-card">
           <div class="q">
+            Can you not go back and find data from before you started this site? Going on the archives and searching all posts in a board from the start of a week to the end should work right? You could do this with the bigger boards, maybe not check every week in every month but having some data and some approximations would be nice
+          </div>
+          <div class="a">
+            Yeah that should be possible. It got mentioned before, but I never had the impulse to attempt it so far.<br>
+            It shouldn't even be very complicated, just time consuming, since the data is scattered across different archives and I don't know if they have different APIs or handle post timezones differently.<br>
+            If I find the time during the next week, I can try it with one board at first and see how it goes.<br>
+          </div>
+        </div>
+        <div class="qa-card">
+          <div class="q">
             What time zone is used in the board timeline graphs?
           </div>
           <div class="a">
