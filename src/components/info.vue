@@ -4,7 +4,8 @@
       Info
     </div>
     <div class="info-wrapper">
-      Nothing interesting is ever happening.
+      /v/ has taken the #1 spot again, likely due to Bowsette or DMC threads.<br>
+      Also currently working on re-creating a board timeline from the times before this site was live by checking post numbers as recorded in the various archives.
     </div>
 
   </div>
