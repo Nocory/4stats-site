@@ -4,8 +4,9 @@
       Info
     </div>
     <div class="info-wrapper">
-      Currently working on re-creating a board timeline from the times before this site was live by checking post numbers as recorded in the various archives.<br>
-      Might take a few days though.
+      Currently re-creating board timelines from the times before this site was live.<br>
+      <br>
+      Just added an extended /pol/ timeline as a test. Have a look if you want.
     </div>
 
   </div>

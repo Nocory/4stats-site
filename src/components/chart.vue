@@ -1,7 +1,7 @@
 <template>
   <div class="chart-component">
     <div class="component__header is-hidden-mobile">
-      Board Timeline (since july 2017)
+      Board Timeline (since july 2017 - all times are UTC)
     </div>
     <div class="has-text-centered main">
 
@@ -156,7 +156,8 @@ export default {
 				validUntil: Math.max(Date.now() + 1000*60*5,newData[newData.length - 1].time + (term == "hour" ? 1000*60*90 : 1000*60*60*48)) - 10000,
 				history : newData.map(el => (
 					{
-						x: term == "hour" ? el.time : new Date(el.time).setHours(0,0,1,0),
+						//x: term == "hour" ? el.time : new Date(el.time).setHours(0,0,1,0),
+						x: el.time,
 						y: term == "hour" ? el.postsPerMinute : Math.round(el.postCount)
 					}))
 			}

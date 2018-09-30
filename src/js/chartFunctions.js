@@ -1,4 +1,8 @@
-window.moment = require('moment/min/moment.min.js')
+//window.moment = require('moment/min/moment.min.js')
+
+// THE REQUIRED JS HAS BEEN MANUALLY CHANGED TO INSTEAD REQUIRE moment.min IN TURN !!!!!! 
+window.moment = require('moment-timezone/builds/moment-timezone-with-data-2012-2022.js')
+window.moment.tz.setDefault("UTC");
 
 const Chart = require('chart.js/dist/Chart.js')
 Chart.defaults.global.defaultFontFamily = 'monospace'
@@ -118,7 +122,7 @@ const init = id => {
 
 let addBoard = (board, history, options, updateTime = 1000) => {
 	chart.options.elements.line.stepped = options.term == "day"
-	chart.options.scales.xAxes[0].time.unit = options.term == "day" ? "week" : {
+	chart.options.scales.xAxes[0].time.unit = options.term == "day" ? options.maxEntries.day == 9999 ? "month" : "week" : {
 		24: "hour",
 		[24*7]: "day",
 		[24*7*4]: "week"
