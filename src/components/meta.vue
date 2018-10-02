@@ -14,6 +14,7 @@
       <div class="cat">4stats.io:</div>
       <div>{{ connectedUsers }} user{{connectedUsers == 1 ? '' : 's'}} on site</div>
       <div>Just updated /{{ recentlyUpdatedBoard }}/</div>
+      <div class="cat" v-if="error">Error -> {{ error }}</div>
     </div>
 
   </div>
@@ -26,7 +27,8 @@ export default {
 	data(){
 		return{
 			recentlyUpdatedBoard: "",
-			connectedUsers: 0
+      connectedUsers: 0,
+      error: ""
 		}
 	},
 	computed: {
@@ -41,7 +43,13 @@ export default {
 		})
 		socket.on("boardUpdate",board => {
 			this.recentlyUpdatedBoard = board
-		})
+    })
+    let timeoutID = null
+    socket.on("error",error => {
+      this.error = error
+      clearTimeout(timeoutID)
+      timeoutID = setTimeout(() => {this.error = ""},30000)
+    })
 	}
 }
 </script>
