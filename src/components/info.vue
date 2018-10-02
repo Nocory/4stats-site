@@ -4,8 +4,6 @@
       Info
     </div>
     <div class="info-wrapper">
-      Currently re-creating board timelines from the times before this site was live.<br>
-      <br>
       Just added extended /pol/,/tv/,/sp/ and /x/ timelines with data taken from the 4plebs archive.<br>
       Other archives unfortunately don't seem to have a similar API.<br>
       (if anyone has a good idea on how to get the data for other boards, let me know please via the contact form)
@@ -48,6 +46,7 @@ export default {
   display: flex;
   flex-direction: column;
   @include float-shadow-box;
+  position: relative;
   
   margin: 1rem 0;
   //--meta-y-offset: 0px;
