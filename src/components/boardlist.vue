@@ -1,5 +1,6 @@
 <template>
   <div class="boardlist-component">
+    <img src="../static/partyhat.gif" class="partyhat">
     <div class="boardlist__header">
       <div v-for="item in [
         {category: 'name', text: 'Board', tooltip: ''},
@@ -96,6 +97,16 @@ export default {
   @include desktop{
     margin: 1rem 0;
     @include float-shadow-box;
+  }
+  >.partyhat{
+    z-index: 9999;
+    object-fit: contain;
+		position: absolute;
+		top: -56px;
+		left: -36px;
+		width: 80px;
+    transform: rotate(-22deg);
+    pointer-events: none;
   }
 }
 
