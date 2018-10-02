@@ -1,6 +1,6 @@
 <template>
   <div class="boardlist-component">
-    <img src="../static/partyhat.gif" class="partyhat">
+    <img src="../static/partyhat.gif" class="partyhat is-hidden-touch">
     <div class="boardlist__header">
       <div v-for="item in [
         {category: 'name', text: 'Board', tooltip: ''},
