@@ -77,6 +77,7 @@ const init = id => {
 				line: {
 					borderWidth: 1.75,
 					fill: false,
+					spanGaps: false,
 					borderCapStyle: "round"
 				},
 				point: {
@@ -132,7 +133,7 @@ let addBoard = (board, history, options, updateTime = 1000) => {
 	if(options.term == "hour" && options.hourProperty == "activity"){
 		//let topPPM = board == "combined" ? store.getters.combinedBoardStats.topPPM : store.state.boardData[board].topPPM
 		//chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / topPPM}))
-		chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / store.state.boardData[board].topPPM}))
+		chartThis = chartThis.map(el => ({x: el.x, y: el.y ? el.y * 100 / store.state.boardData[board].topPPM : el.y}))
 	}
 	
 	if(options.term == "hour" && options.smoothingLevel){
@@ -141,7 +142,7 @@ let addBoard = (board, history, options, updateTime = 1000) => {
 		for (let i = 0; i < options.smoothingLevel; i++) {
 			let smoothedHistory = []
 			for (let i = 0; i < chartThis.length; i++) {
-				if (i == 0 || i == chartThis.length - 1) {
+				if (i == 0 || i == chartThis.length - 1 || !chartThis[i].y) {
 					smoothedHistory.push({
 						x: chartThis[i].x,
 						y: chartThis[i].y
@@ -149,7 +150,8 @@ let addBoard = (board, history, options, updateTime = 1000) => {
 				} else {
 				//let maxVariance = Math.min(history[i - 1].y, history[i].y, history[i + 1].y) * ((0.04 / smoothingLevel) + 0.02)
 					let oldY = chartThis[i].y
-					let newY = chartThis[i - 1].y * 0.25 + chartThis[i].y * 0.5 + chartThis[i + 1].y * 0.25
+					//let newY = chartThis[i - 1].y * 0.25 + chartThis[i].y * 0.5 + chartThis[i + 1].y * 0.25
+					let newY = (chartThis[i - 1].y || chartThis[i].y ) * 0.25 + chartThis[i].y * 0.5 + (chartThis[i + 1].y || chartThis[i].y ) * 0.25
 					smoothedHistory.push({
 						x: chartThis[i].x,
 						y: Math.max(Math.min(oldY + maxVariance, newY), oldY - maxVariance)
