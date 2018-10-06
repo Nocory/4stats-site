@@ -45,7 +45,7 @@ export default {
 			this.recentlyUpdatedBoard = board
     })
     let timeoutID = null
-    socket.on("error",error => {
+    socket.on("serverError",error => {
       this.error = error
       clearTimeout(timeoutID)
       timeoutID = setTimeout(() => {this.error = ""},30000)
