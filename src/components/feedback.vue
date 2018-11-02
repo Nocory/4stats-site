@@ -19,12 +19,13 @@
         </div>
         <div class="qa-card">
           <div class="q">
-            Can you not go back and find data from before you started this site? Going on the archives and searching all posts in a board from the start of a week to the end should work right? You could do this with the bigger boards, maybe not check every week in every month but having some data and some approximations would be nice
+            can you post the code for the website on github in case you can't fund it
           </div>
           <div class="a">
-            Yeah that should be possible. It got mentioned before, but I never had the impulse to attempt it so far.<br>
-            It shouldn't even be very complicated, just time consuming, since the data is scattered across different archives and I don't know if they have different APIs or handle post timezones differently.<br>
-            If I find the time during the next week, I can try it with one board at first and see how it goes.<br>
+            Scroll all the way down.<br>
+            On the bottom of each page are links to the relevant repositories.<br>
+            <br>
+            Current yearly cost is ~200$, though if I wanted I could cut the cost down by half, by combining the Gatherer and API server and using a cheaper TLD.
           </div>
         </div>
         <div class="qa-card">
@@ -39,43 +40,11 @@
         </div>
         <div class="qa-card">
           <div class="q">
-            Do you have any data on which countries the 4chan visitors come from?
-          </div>
-          <div class="a">
-            No I don't have that.<br>
-            The site analyzes data from the catalogs only.<br>
-            This way boards can be updated more frequently, compared to looking at individual threads and posts.<br>
-            Some archive sites keep track of that though.
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            What is the highest threads/hour count a board has ever had?
-          </div>
-          <div class="a">
-            Don't know about "ever", as I only started the site a little over a year ago.<br>
-            I think the highest since then was ~880 on /sp/ during the world cup, when England got eliminated. 
-            <a href="https://desu-usergeneratedcontent.xyz/qa/image/1531/34/1531343001586.png">*pic here*</a><br>
-            Though I am sure this wasn't the highest in 4chan history.<br>
-            /v/ during E3 2018 was also very active. I am not 100% sure, but I think it wasn't more threads than /sp/.
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
             Why doesn't /adv/ preview OP images?
           </div>
           <div class="a">
             Adblockers prevent them from loading because of the ".org/adv/" in "https://i.4cdn.org/adv/1531810755359s.jpg".<br>
             Not sure what to do about it really.
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            Ability to see graph over longer time periods, such as months and quarters?
-          </div>
-          <div class="a">
-            If you mean the hourly stats, I don't think there is much of a point to store more than 4 weeks of data. 4 weeks looks a bit chaotic already.<br>
-            The daily stats are usually what you would want to check if you go back for more than a month. There is a record of almost a full year by now.
           </div>
         </div>
       </div>
