@@ -30,16 +30,6 @@
         </div>
         <div class="qa-card">
           <div class="q">
-            What time zone is used in the board timeline graphs?
-          </div>
-          <div class="a">
-            Unless something is not working correctly, the hourly graph should use your local timezone and the daily stats show days starting at 9AM UTC (the graph says 12am, but that's just for proper alignment with the axis).<br>
-            I think there could be an issue though where the daily stats have the date offset by one day if viewed in certain timezones.<br>
-            Something I can look at again in the future, but dealing with dates and timezones isn't really a fun activity.
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
             Why doesn't /adv/ preview OP images?
           </div>
           <div class="a">
