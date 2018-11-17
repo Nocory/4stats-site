@@ -4,7 +4,7 @@
       Info
     </div>
     <div class="info-wrapper">
-      .
+      <img src="../static/hiroooo.png">
     </div>
 
   </div>
@@ -66,7 +66,7 @@ export default {
   flex-direction: column;
   background: $--color-highlight-2;
   color: $--color-text;
-  padding: 1em;
+  padding: 0em;
   color: $oc-gray-0;
 }
 
