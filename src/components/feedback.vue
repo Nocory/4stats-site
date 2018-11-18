@@ -15,7 +15,21 @@
           </div>
         </form>
         <div class="description">
-          If you have a question and submit it anonymously, then I will add a reply to the list below for a few days.
+          If you have a question and submit it anonymously, then I will add a reply to the list below for a few days.<br>
+          (Or mention 4stats.io somwhere on 4chan and I will usually see it after a few hours during late euro times)
+        </div>
+        <div class="qa-card">
+          <div class="q">
+            Hey, would it be possible to add some kind of time series analysis for the hourly timeline? What I mean is a graph that shows the activity by each hour/minute (00:00-23:59), but takes an average/median over a longer time (like the last month) In the same vein, would it be possible to add a normalized view of the board timeline? Like divide each board (if showing multiple at the same time) by their averages. Then you could see if, for instance, /k/ and /int/ have the same top hours. Cheers!
+          </div>
+          <div class="a">
+            I have 5-minute interval data for the last few months, so in theory yes.<br>
+            Working on features for the graph is one of the really time consuming and less interesting tasks of the site though.<br>
+            There are also some rewrites I want to do, so the stats-gatherer can better deal with 4chan downtimes and keep the stats more accurate.<br>
+            Will see how it goes.<br>
+            <br>
+            For a normalized timeline you can currently choose to show activity in the hourly graph instead of posts/min.
+          </div>
         </div>
         <div class="qa-card">
           <div class="q">
