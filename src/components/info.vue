@@ -8,7 +8,9 @@
       <img src="../static/hiroooo.png">
       -->
       Extended board timelines for /a/, /aco/, /an/, /c/, /cgl/, /co/, /d/, /fit/, /g/, /gif/, /his/, /int/, /k/, /m/, /mlp/, /mu/, /qa/, /trash/, /vr/ and /wsg/ are now live.<br>
-      Thanks to the helpful admin from desuarchive.org & rbt.asia.
+      Thanks to the helpful admin from desuarchive.org & rbt.asia<br>
+      <br>
+      Will try to improve the UI for the graph soon to better handle the new amount of data. 
     </div>
 
   </div>
