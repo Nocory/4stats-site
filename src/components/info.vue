@@ -7,7 +7,7 @@
       <!--
       <img src="../static/hiroooo.png">
       -->
-      Extended board timelines for /g/, /gif/, /his/, /int/, /k/, /m/, /mlp/, /mu/, /qa/, /trash/, /vr/ and /wsg/ are now live.<br>
+      Extended board timelines for /a/, /aco/, /an/, /c/, /cgl/, /co/, /d/, /fit/, /g/, /gif/, /his/, /int/, /k/, /m/, /mlp/, /mu/, /qa/, /trash/, /vr/ and /wsg/ are now live.<br>
       Thanks to the helpful admin from desuarchive.org & rbt.asia.
     </div>
 
