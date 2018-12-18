@@ -16,6 +16,8 @@
         <template v-if="chartOptions.term == 'day'">
           <div class="property-button-group">
             <a :class="{ 'button-selected': chartOptions.maxEntries.day == 9999 }" @click="setChartOption(['maxEntries','day'],9999)">All</a>
+            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 365 * 3 }" @click="setChartOption(['maxEntries','day'],365 * 3)">3 years</a>
+            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 365 * 2 }" @click="setChartOption(['maxEntries','day'],365 * 2)">2 years</a>
             <a :class="{ 'button-selected': chartOptions.maxEntries.day == 365 }" @click="setChartOption(['maxEntries','day'],365)">1 year</a>
             <a :class="{ 'button-selected': chartOptions.maxEntries.day == 183 }" @click="setChartOption(['maxEntries','day'],183)">6 months</a>
             <a :class="{ 'button-selected': chartOptions.maxEntries.day == 91 }" @click="setChartOption(['maxEntries','day'],91)">3 months</a>

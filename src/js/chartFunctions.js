@@ -123,7 +123,7 @@ const init = id => {
 
 let addBoard = (board, history, options, updateTime = 1000) => {
 	chart.options.elements.line.stepped = options.term == "day"
-	chart.options.scales.xAxes[0].time.unit = options.term == "day" ? options.maxEntries.day == 9999 ? "month" : "week" : {
+	chart.options.scales.xAxes[0].time.unit = options.term == "day" ? options.maxEntries.day > 365 ? "month" : "week" : {
 		24: "hour",
 		[24*7]: "day",
 		[24*7*4]: "week"
