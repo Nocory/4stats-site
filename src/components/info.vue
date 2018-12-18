@@ -10,6 +10,8 @@
       Extended board timelines for /a/, /aco/, /an/, /c/, /cgl/, /co/, /d/, /fit/, /g/, /gif/, /his/, /int/, /k/, /m/, /mlp/, /mu/, /qa/, /trash/, /vr/ and /wsg/ are now live.<br>
       Thanks to the helpful admin from desuarchive.org & rbt.asia<br>
       <br>
+      Also re-added extended /pol/, /sp/, /tv/ and /x/ data taken from the 4plebs archive.<br>
+      <br>
       Will try to improve the UI for the graph soon to better handle the new amount of data. 
     </div>
 
