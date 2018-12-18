@@ -4,7 +4,11 @@
       Info
     </div>
     <div class="info-wrapper">
+      <!--
       <img src="../static/hiroooo.png">
+      -->
+      Extended board timelines for /g/, /gif/, /his/, /int/, /k/, /m/, /mlp/, /mu/, /qa/, /trash/, /vr/ and /wsg/ are now live.<br>
+      Thanks to the helpful admin from desuarchive.org & rbt.asia.
     </div>
 
   </div>
@@ -66,7 +70,7 @@ export default {
   flex-direction: column;
   background: $--color-highlight-2;
   color: $--color-text;
-  padding: 0em;
+  padding: 1em;
   color: $oc-gray-0;
 }
 
