@@ -1,7 +1,7 @@
 <template>
   <div class="chart-component">
     <div class="component__header is-hidden-mobile">
-      Board Timeline (since july 2017 - all times are UTC)
+      Board Timeline (all times are UTC)
     </div>
     <div class="has-text-centered main">
 
@@ -14,20 +14,22 @@
         </div>
 
         <template v-if="chartOptions.term == 'day'">
-          <div class="property-button-group">
-            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 9999 }" @click="setChartOption(['maxEntries','day'],9999)">All</a>
-            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 365 * 5 }" @click="setChartOption(['maxEntries','day'],365 * 5)">5 years</a>
-            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 365 * 3 }" @click="setChartOption(['maxEntries','day'],365 * 3)">3 years</a>
-            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 365 }" @click="setChartOption(['maxEntries','day'],365)">1 year</a>
-            <a :class="{ 'button-selected': chartOptions.maxEntries.day == 183 }" @click="setChartOption(['maxEntries','day'],183)">6 months</a>
+          <div class="property-button-group property-button-group-day">
+            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 20 }" @click="setTimelineRange(20)">All</a>
+            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 5 }" @click="setTimelineRange(5)">5y</a>
+            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 3 }" @click="setTimelineRange(3)">3y</a>
+            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 1 }" @click="setTimelineRange(1)">1y</a>
+            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 0.5 }" @click="setTimelineRange(0.5)">6m</a>
           </div>
+					<input type="date" v-model=dateStartString @input="setTimelineRange()">
+					<input type="date" v-model=dateEndString @input="setTimelineRange()">
         </template>
 
         <template v-if="chartOptions.term == 'hour'">
           <div class="property-button-group">
-            <a :class="{ 'button-selected': chartOptions.maxEntries.hour == 24 * 7 * 4 }" @click="setChartOption(['maxEntries','hour'],24 * 7 * 4)">4 weeks</a>
-            <a :class="{ 'button-selected': chartOptions.maxEntries.hour == 24*7 }" @click="setChartOption(['maxEntries','hour'],24 * 7)">1 week</a>
-            <a :class="{ 'button-selected': chartOptions.maxEntries.hour == 24 }" @click="setChartOption(['maxEntries','hour'],24)">1 day</a>
+            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 28 }" @click="setChartOption('dayRangePreset',28)">4w</a>
+            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 7 }" @click="setChartOption('dayRangePreset',7)">1w</a>
+            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 1 }" @click="setChartOption('dayRangePreset',1)">1d</a>
           </div>
           <div class="property-button-group">
             <a :class="{ 'button-selected': chartOptions.hourProperty == 'postsPerMinute' }" @click="setChartOption('hourProperty','postsPerMinute')">Posts/Minute</a>
@@ -77,14 +79,16 @@ const config = require("js/config")
 const chartFunctions = require("js/chartFunctions")
 export default {
 	data: () => ({
+		dateStartString: "",
+		dateEndString: "",
 		chartOptions : {
 			term: "day",
+			yearRangePreset: 3,
+			dayRangePreset: 7,
 			hourProperty: "postsPerMinute",
 			smoothingLevel: 3,
-			maxEntries: {
-				day: 9999,
-				hour: 24*7
-			}
+			dateStart: new Date(),
+			dateEnd: new Date()
 		},
 		history: {
 			hour: {},
@@ -94,6 +98,29 @@ export default {
 		graphedBoards: []
 	}),
 	methods: {
+		setTimelineRange(range){
+			if(range){
+				const now = new Date
+				this.dateEndString = `${now.getUTCFullYear()}-${(now.getUTCMonth() + 1).toString().padStart(2,'0')}-${now.getUTCDate().toString().padStart(2,'0')}`
+				now.setUTCDate(now.getUTCDate() - (this.chartOptions.term == "day" ? 365 : 1) * range)
+				this.dateStartString = `${now.getUTCFullYear()}-${(now.getUTCMonth() + 1).toString().padStart(2,'0')}-${now.getUTCDate().toString().padStart(2,'0')}`
+			}
+			
+			let splitStringDate = this.dateEndString.split("-")
+			this.chartOptions.dateEnd.setUTCFullYear(splitStringDate[0],splitStringDate[1] - 1,splitStringDate[2],0,0)
+			splitStringDate = this.dateStartString.split("-")
+			this.chartOptions.dateStart.setUTCFullYear(splitStringDate[0],splitStringDate[1] - 1,splitStringDate[2],0,0)
+
+			if(this.chartOptions.term == "day"){
+				this.chartOptions.yearRangePreset = range
+			}else{
+				this.chartOptions.dayRangePreset = range
+			}
+
+			for(let board of this.graphedBoards){
+				this.checkIfRequestOrAdd(board)
+			}
+		},
 		setChartOption(key,value){
 			if(typeof key == "string"){
 				this.chartOptions[key] = value
@@ -189,6 +216,8 @@ export default {
 				}
 			}
 		})
+
+		this.setTimelineRange(3)
 	}
 }
 </script>
@@ -243,6 +272,9 @@ abbr {
 		margin-right: 1rem;
 		//border-right: 8px solid rgba(200,200,255,0.25);
 		user-select: none;
+		+.property-button-group-day>a{
+			width: 4em !important;
+		}
 		>a{
 			width: 8em;
 			padding: 0.5em 0em;
@@ -252,6 +284,18 @@ abbr {
 			overflow: hidden;
 			z-index: 99;
 		}
+	}
+	>input{
+		margin-right: 1rem;
+		background-color: $--color-highlight-1;
+		border: 1px solid $oc-gray-7;
+		width: 10em;
+		padding: 0.5em 0em;
+		position: relative;
+		font-size: 0.75rem;
+		color: $--color-text;
+		overflow: hidden;
+		z-index: 99;
 	}
 }
 

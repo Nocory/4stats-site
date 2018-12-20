@@ -9,8 +9,6 @@ Chart.defaults.global.defaultFontFamily = 'monospace'
 Chart.defaults.global.defaultFontSize = 14
 const store = require("store/index").default
 
-
-
 let chart = null
 
 let availableColors = [
@@ -75,10 +73,11 @@ const init = id => {
 			},
 			elements: {
 				line: {
-					borderWidth: 1.75,
+					borderWidth: 1.25,
 					fill: false,
 					spanGaps: false,
-					borderCapStyle: "round"
+					borderCapStyle: "round",
+					//tension: 0
 				},
 				point: {
 					radius: 0,
@@ -121,15 +120,39 @@ const init = id => {
 	return chart
 }
 
-let addBoard = (board, history, options, updateTime = 1000) => {
-	chart.options.elements.line.stepped = options.term == "day"
-	chart.options.scales.xAxes[0].time.unit = options.term == "day" ? options.maxEntries.day > 365 ? "month" : "week" : {
-		24: "hour",
-		[24*7]: "day",
-		[24*7*4]: "week"
-	}[options.maxEntries.hour]
+let addBoard = (board, history, options, updateTime = 500) => {
 	
-	let chartThis = history.slice(-options.maxEntries[options.term]) //TODO: replace slice with min value date
+	
+	//let chartThis = history.slice(-options.maxEntries[options.term]) //TODO: replace slice with min value date
+	//let chartThis = history.slice()
+	const timeRange = options.term == "day" ? {
+		min: options.dateStart.getTime(),
+		max: options.dateEnd.getTime(),
+		days: (options.dateEnd.getTime() - options.dateStart.getTime()) / (1000 * 60 * 60 * 24)
+	} : {
+		min: Date.now() - 1000 * 60 * 60 * 24 * options.dayRangePreset,
+		max: Date.now()
+	}
+	let chartThis = history.filter(el => el.x > timeRange.min && el.x < timeRange.max)
+
+	chart.options.elements.line.stepped = options.term == "day"
+	if(options.term == "day"){
+		if(timeRange.days > 0) timeUnit = "day"
+		if(timeRange.days >= 60) timeUnit = "week"
+		if(timeRange.days >= 365) timeUnit = "month"
+		if(timeRange.days >= 365 * 2.1) timeUnit = "year"
+	}else{
+		timeUnit = {
+			1: "hour",
+			[7]: "day",
+			[7*4]: "week"
+		}[options.dayRangePreset]
+	}
+	chart.options.scales.xAxes[0].time.unit = timeUnit
+
+	//chart.options.scales.xAxes[0].time.min = options.dateStart
+	//chart.options.scales.xAxes[0].time.max = options.dateEnd
+
 	if(options.term == "hour" && options.hourProperty == "activity"){
 		//let topPPM = board == "combined" ? store.getters.combinedBoardStats.topPPM : store.state.boardData[board].topPPM
 		//chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / topPPM}))
@@ -189,7 +212,7 @@ let removeBoard = board => {
 		availableColors.unshift(color)
 	}
 	chart.data.datasets.splice(index, 1)
-	chart.update(1000)
+	chart.update(0)
 }
 
 module.exports = {
