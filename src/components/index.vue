@@ -9,7 +9,7 @@
         <component-info/>
       </div>
     </div>
-    <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">
+    <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/xmasthunk.png">
   </div>
 </template>
 
