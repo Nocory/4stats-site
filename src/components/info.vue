@@ -7,12 +7,22 @@
       <!--
       <img src="../static/hiroooo.png">
       -->
-      Extended board timelines for /a/, /aco/, /an/, /c/, /cgl/, /co/, /d/, /fit/, /g/, /gif/, /his/, /int/, /k/, /m/, /mlp/, /mu/, /qa/, /trash/, /vr/ and /wsg/ are now live.<br>
-      Thanks to the helpful admin from desuarchive.org & rbt.asia<br>
+      Thanks to a helpful admin from desuarchive.org & rbt.asia extended earlier data for these archived boards has been added to the timeline.<br>
       <br>
-      Also re-added extended /pol/, /sp/, /tv/ and /x/ data taken from the 4plebs archive.<br>
+      <b>Boardlist changes:</b>
+      <ul>
+        <li>posts/minute averages the last 15 minutes instead of 1 hour.</li>
+        <li>'Activity Now' renamed to 'rel. to peak'.</li>
+        <li>New 'Activity ToD' which indicates the boards activity relative to what it usually is at this time-of-day.</li>
+        <li>'Avg Posts/day' should be more accurate (slightly lower).</li>
+        <li>Tooltips updated.</li>
+      </ul>
       <br>
-      Will try to improve the UI for the graph soon to better handle the new amount of data. 
+      <b>Timeline changes:</b>
+      <ul>
+        <li>Start- and end-date can be specified for the day chart.</li>
+        <li>Cycle data now available, showing board data in 5 minute intervals for the last 3 days.</li>
+      </ul>
     </div>
 
   </div>

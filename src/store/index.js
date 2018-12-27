@@ -14,7 +14,12 @@ const adjustActivityIfFewPosts = (data,board) =>{
 		data.relativeActivity = data.postsPerMinute / data.topPPM
 	}
 	*/
-	if(data.avgPostsPerDay < 1000) data.relativeActivity -= 9999
+	if(data.avgPostsPerDay < 1000){
+		data.relativeActivity -= 9999
+	}
+	if(data.avgPostsPerDay < 2500){
+		data.activityThisToD -= 9999
+	}
 	return data
 }
 

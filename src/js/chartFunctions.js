@@ -77,7 +77,7 @@ const init = id => {
 					fill: false,
 					spanGaps: false,
 					borderCapStyle: "round",
-					//tension: 0
+					//tension: 0.5
 				},
 				point: {
 					radius: 0,
@@ -136,13 +136,16 @@ let addBoard = (board, history, options, updateTime = 500) => {
 	let chartThis = history.filter(el => el.x > timeRange.min && el.x < timeRange.max)
 
 	chart.options.elements.line.stepped = options.term == "day"
+	chart.options.elements.line.cubicInterpolationMode = options.term == "hour" ? "default" : "monotone"
+
+	
 	if(options.term == "day"){
 		if(timeRange.days > 0) timeUnit = "day"
 		if(timeRange.days >= 60) timeUnit = "week"
 		if(timeRange.days >= 365) timeUnit = "month"
 		if(timeRange.days >= 365 * 2.1) timeUnit = "year"
 	}else{
-		timeUnit = {
+		timeUnit = options.term == "cycle" ? "day" : {
 			1: "hour",
 			[7]: "day",
 			[7*4]: "week"

@@ -11,6 +11,7 @@
         <div class="property-button-group">
           <a :class="{ 'button-selected': chartOptions.term == 'day'}" @click="setChartOption('term','day')">Daily</a>
           <a :class="{ 'button-selected': chartOptions.term == 'hour' }" @click="setChartOption('term','hour')"> Hourly</a>
+          <a :class="{ 'button-selected': chartOptions.term == 'cycle' }" @click="setChartOption('term','cycle')"> Cycle</a>
         </div>
 
         <template v-if="chartOptions.term == 'day'">
@@ -91,6 +92,7 @@ export default {
 			dateEnd: new Date()
 		},
 		history: {
+			cycle: {},
 			hour: {},
 			day: {}
 		},
@@ -176,17 +178,17 @@ export default {
 				time: el[0],
 				timeCovered: el[1],
 				postCount: el[2],
-				postsPerMinute: el[3]
+				postsPerMinute: term == "cycle" ? el[2]/(el[1] / 60000) : el[3]
 			}))
 			
 			let historyData = {
 				latestTime: newData[newData.length - 1].time,
-				validUntil: Math.max(Date.now() + 1000*60*5,newData[newData.length - 1].time + (term == "hour" ? 1000*60*90 : 1000*60*60*48)) - 10000,
+				validUntil: Math.max(Date.now() + 1000*60*1,newData[newData.length - 1].time + (term == "cycle" ? 1000*60*5 : term == "hour" ? 1000*60*90 : 1000*60*60*48)) - 10000,
 				history : newData.map(el => (
 					{
 						//x: term == "hour" ? el.time : new Date(el.time).setHours(0,0,1,0),
 						x: el.time,
-						y: term == "hour" ? el.postsPerMinute : Math.round(el.postCount)
+						y: term == "day" ? Math.round(el.postCount) : el.postsPerMinute
 					}))
 			}
 			if(term == "day"){
@@ -217,7 +219,7 @@ export default {
 			}
 		})
 
-		this.setTimelineRange(3)
+		this.setTimelineRange(1)
 	}
 }
 </script>
