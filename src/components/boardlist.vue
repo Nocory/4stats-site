@@ -8,7 +8,7 @@
         {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-touch']},
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
         {category: 'relativeActivity', text: 'rel. to peak', tooltip: 'Current posts/minute relative to the boards usual peak daily posts/minute', classes: ['is-hidden-touch','is-hidden-desktop-only', 'is-hidden-widescreen-only']},
-        {category: 'activityThisToD', text: 'Activity ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-touch','is-hidden-desktop-only', 'is-hidden-widescreen-only']},
+        {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-touch','is-hidden-desktop-only', 'is-hidden-widescreen-only']},
       ]" :key="item.name" :class="[sortBoardListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
     <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="">

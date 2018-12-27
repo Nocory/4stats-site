@@ -13,7 +13,7 @@
       <ul>
         <li>posts/minute averages the last 15 minutes instead of 1 hour.</li>
         <li>'Activity Now' renamed to 'rel. to peak'.</li>
-        <li>New 'Activity ToD' which indicates the boards activity relative to what it usually is at this time-of-day.</li>
+        <li>New 'rel. to ToD' which indicates the boards activity relative to what it usually is at this time-of-day.</li>
         <li>'Avg Posts/day' should be more accurate (slightly lower).</li>
         <li>Tooltips updated.</li>
       </ul>
