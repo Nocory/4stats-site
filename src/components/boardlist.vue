@@ -5,20 +5,20 @@
       <div v-for="item in [
         {category: 'name', text: 'Board', tooltip: ''},
         {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 15 minutes'},
-        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-touch']},
+        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-touch','is-hidden-desktop-only']},
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
         {category: 'relativeActivity', text: 'rel. to peak', tooltip: 'Current posts/minute relative to the boards usual peak daily posts/minute', classes: ['is-hidden-touch','is-hidden-desktop-only', 'is-hidden-widescreen-only']},
-        {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-touch','is-hidden-desktop-only', 'is-hidden-widescreen-only']},
+        {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-touch']},
       ]" :key="item.name" :class="[sortBoardListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
     <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="">
       <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'board-selected' : (selectedBoard == boardName)}" class="boardlist__row" @click.stop="boardClicked(boardName)">
         <div :data-hover-text="longBoardNames[boardName]" class="tooltip-right">/{{ boardName }}/</div>
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
-        <div class="is-hidden-touch">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
+        <div class="is-hidden-touch is-hidden-desktop-only">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
         <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
-        <div class="">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
-        <div class="">{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}</div>
+        <div class="is-hidden-touch is-hidden-desktop-only is-hidden-widescreen-only">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
+        <div class="is-hidden-touch">{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}</div>
       </div>
     </transition-group>
   </div>
