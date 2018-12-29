@@ -138,18 +138,16 @@ let addBoard = (board, history, options, updateTime = 500) => {
 	chart.options.elements.line.stepped = options.term == "day"
 	chart.options.elements.line.cubicInterpolationMode = options.term == "hour" ? "default" : "monotone"
 
-	
+	let timeUnit = "day"
 	if(options.term == "day"){
-		if(timeRange.days > 0) timeUnit = "day"
+		if(timeRange.days >= 0) timeUnit = "day"
 		if(timeRange.days >= 60) timeUnit = "week"
 		if(timeRange.days >= 365) timeUnit = "month"
 		if(timeRange.days >= 365 * 2.1) timeUnit = "year"
 	}else{
-		timeUnit = options.term == "cycle" ? "day" : {
-			1: "hour",
-			[7]: "day",
-			[7*4]: "week"
-		}[options.dayRangePreset]
+		if(options.dayRangePreset >= 0) timeUnit = "hour"
+		if(options.dayRangePreset >= 3) timeUnit = "day"
+		if(options.dayRangePreset >= 28) timeUnit = "week"
 	}
 	chart.options.scales.xAxes[0].time.unit = timeUnit
 

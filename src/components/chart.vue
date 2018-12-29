@@ -30,7 +30,7 @@
           <div class="property-button-group">
             <a :class="{ 'button-selected': chartOptions.dayRangePreset == 28 }" @click="setChartOption('dayRangePreset',28)">4w</a>
             <a :class="{ 'button-selected': chartOptions.dayRangePreset == 7 }" @click="setChartOption('dayRangePreset',7)">1w</a>
-            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 1 }" @click="setChartOption('dayRangePreset',1)">1d</a>
+            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 3 }" @click="setChartOption('dayRangePreset',3)">3d</a>
           </div>
           <div class="property-button-group">
             <a :class="{ 'button-selected': chartOptions.hourProperty == 'postsPerMinute' }" @click="setChartOption('hourProperty','postsPerMinute')">Posts/Minute</a>
@@ -40,6 +40,13 @@
             <a :class="{ 'button-selected': chartOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</a>
             <a :class="{ 'button-selected': chartOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel',3)">Smooth</a>
             <a :class="{ 'button-selected': chartOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</a>
+          </div>
+        </template>
+
+        <template v-if="chartOptions.term == 'cycle'">
+          <div class="property-button-group">
+            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 3 }" @click="setChartOption('dayRangePreset',3)">3d</a>
+            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 1 }" @click="setChartOption('dayRangePreset',1)">1d</a>
           </div>
         </template>
       </div>

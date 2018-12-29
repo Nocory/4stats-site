@@ -8,20 +8,22 @@
       <img src="../static/hiroooo.png">
       -->
       Thanks to a helpful admin from desuarchive.org & rbt.asia extended earlier data for these archived boards has been added to the timeline.<br>
-      <br>
+      <hr>
       <b>Boardlist changes:</b>
       <ul>
-        <li>posts/minute averages the last 15 minutes instead of 1 hour.</li>
-        <li>'Activity Now' renamed to 'rel. to peak'.</li>
-        <li>New 'rel. to ToD' which indicates the boards activity relative to what it usually is at this time-of-day.</li>
-        <li>'Avg Posts/day' should be more accurate (slightly lower).</li>
-        <li>Tooltips updated.</li>
+        <li>'Activity Now' renamed to 'rel. to peak'<br>
+        <i>(current board activity relative to average daily peak)</i></li>
+        <li>New 'rel. to ToD' column<br>
+        <i>(current board activity relative to average activity this time-of-day)</i></li>
+        <li>More accurate 'Avg Posts/day' <i>(bit lower)</i></li>
+        <li>Tooltips updated</li>
       </ul>
-      <br>
+      <hr>
       <b>Timeline changes:</b>
       <ul>
-        <li>Start- and end-date can be specified for the day chart.</li>
-        <li>Cycle data now available, showing board data in 5 minute intervals for the last 3 days.</li>
+        <li>Start- and end-date can be specified for the day timeline</li>
+        <li>Added button for cycle-data<br>
+        <i>(showing board data in 5 minute intervals for the last 3 days)</i></li>
       </ul>
     </div>
 
@@ -86,11 +88,16 @@ export default {
   color: $--color-text;
   padding: 1em;
   color: $oc-gray-0;
+  ul{
+    padding-left: 1em;
+    list-style-type: disc;
+    font-size: 0.8em;
+  }
 }
 
 hr{
   background: rgba(255,255,255,0.8);
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   width: 10%;
 }
 
