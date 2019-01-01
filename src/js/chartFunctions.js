@@ -121,16 +121,11 @@ const init = id => {
 }
 
 let addBoard = (board, history, options, updateTime = 500) => {
-	
-	
-	//let chartThis = history.slice(-options.maxEntries[options.term]) //TODO: replace slice with min value date
-	//let chartThis = history.slice()
 	const timeRange = options.term == "day" ? {
 		min: options.dateStart.getTime(),
-		max: options.dateEnd.getTime(),
-		days: (options.dateEnd.getTime() - options.dateStart.getTime()) / (1000 * 60 * 60 * 24)
+		max: options.dateEnd.getTime()
 	} : {
-		min: Date.now() - 1000 * 60 * 60 * 24 * options.dayRangePreset,
+		min: Date.now() - 1000 * 60 * 60 * 24 * options.days,
 		max: Date.now()
 	}
 	let chartThis = history.filter(el => el.x > timeRange.min && el.x < timeRange.max)
@@ -139,28 +134,25 @@ let addBoard = (board, history, options, updateTime = 500) => {
 	chart.options.elements.line.cubicInterpolationMode = options.term == "hour" ? "default" : "monotone"
 
 	let timeUnit = "day"
-	if(options.term == "day"){
-		if(timeRange.days >= 0) timeUnit = "day"
-		if(timeRange.days >= 60) timeUnit = "week"
-		if(timeRange.days >= 365) timeUnit = "month"
-		if(timeRange.days >= 365 * 2.1) timeUnit = "year"
-	}else{
-		if(options.dayRangePreset >= 0) timeUnit = "hour"
-		if(options.dayRangePreset >= 3) timeUnit = "day"
-		if(options.dayRangePreset >= 28) timeUnit = "week"
-	}
+
+	if(options.days >= 0) timeUnit = "hour"
+	if(options.days >= 3) timeUnit = "day"
+	if(options.days >= 28) timeUnit = "week"
+	if(options.days >= 365) timeUnit = "month"
+	if(options.days > 365 * 2) timeUnit = "year"
+
 	chart.options.scales.xAxes[0].time.unit = timeUnit
 
 	//chart.options.scales.xAxes[0].time.min = options.dateStart
 	//chart.options.scales.xAxes[0].time.max = options.dateEnd
 
-	if(options.term == "hour" && options.hourProperty == "activity"){
+	if(options.property == "activity"){
 		//let topPPM = board == "combined" ? store.getters.combinedBoardStats.topPPM : store.state.boardData[board].topPPM
 		//chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / topPPM}))
 		chartThis = chartThis.map(el => ({x: el.x, y: el.y ? el.y * 100 / store.state.boardData[board].topPPM : el.y}))
 	}
 	
-	if(options.term == "hour" && options.smoothingLevel){
+	if(options.smoothingLevel){
 		let maxVariance = chartThis.reduce((totalY, entry) => totalY + entry.y, 0) / chartThis.length
 		maxVariance *= 0.01 + 0.01 / options.smoothingLevel //TODO: find best values
 		for (let i = 0; i < options.smoothingLevel; i++) {

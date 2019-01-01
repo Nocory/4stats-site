@@ -5,48 +5,57 @@
     </div>
     <div class="has-text-centered main">
 
-      <div class="has-text-left property-title">Charting {{ chartOptions.term === "day" ? "posts/day" : chartOptions.hourProperty === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
+      <div class="has-text-left property-title">Charting {{ activeOptions.term === "day" ? "posts/day" : activeOptions.property === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
 
       <div class="property-button-wrapper">
         <div class="property-button-group">
-          <a :class="{ 'button-selected': chartOptions.term == 'day'}" @click="setChartOption('term','day')">Daily</a>
-          <a :class="{ 'button-selected': chartOptions.term == 'hour' }" @click="setChartOption('term','hour')"> Hourly</a>
-          <a :class="{ 'button-selected': chartOptions.term == 'cycle' }" @click="setChartOption('term','cycle')"> Cycle</a>
+          <a :class="{ 'button-selected': activeOptions.term == 'day'}" @click="setActiveTerm('dayOptions')">Daily</a>
+          <a :class="{ 'button-selected': activeOptions.term == 'hour' }" @click="setActiveTerm('hourOptions')"> Hourly</a>
+          <a :class="{ 'button-selected': activeOptions.term == 'cycle' }" @click="setActiveTerm('cycleOptions')"> Cycle</a>
         </div>
 
-        <template v-if="chartOptions.term == 'day'">
+        <template v-if="activeOptions.term == 'day'">
           <div class="property-button-group property-button-group-day">
-            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 20 }" @click="setTimelineRange(20)">All</a>
-            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 5 }" @click="setTimelineRange(5)">5y</a>
-            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 3 }" @click="setTimelineRange(3)">3y</a>
-            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 1 }" @click="setTimelineRange(1)">1y</a>
-            <a :class="{ 'button-selected': chartOptions.yearRangePreset == 0.5 }" @click="setTimelineRange(0.5)">6m</a>
+            <a :class="{ 'button-selected': activeOptions.days == 365*20 }" @click="setChartOption('days',365*20)">All</a>
+            <a :class="{ 'button-selected': activeOptions.days == 365*5 }" @click="setChartOption('days',365*5)">5y</a>
+            <a :class="{ 'button-selected': activeOptions.days == 365*3 }" @click="setChartOption('days',365*3)">3y</a>
+            <a :class="{ 'button-selected': activeOptions.days == 365*1 }" @click="setChartOption('days',365*1)">1y</a>
+            <a :class="{ 'button-selected': activeOptions.days == 365*0.5 }" @click="setChartOption('days',365*0.5)">6m</a>
           </div>
-					<input type="date" v-model=dateStartString @input="setTimelineRange()">
-					<input type="date" v-model=dateEndString @input="setTimelineRange()">
+					<input type="date" v-model=activeOptions.dateStartString @input="setTimelineRange()">
+					<input type="date" v-model=activeOptions.dateEndString @input="setTimelineRange()">
         </template>
 
-        <template v-if="chartOptions.term == 'hour'">
-          <div class="property-button-group">
-            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 28 }" @click="setChartOption('dayRangePreset',28)">4w</a>
-            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 7 }" @click="setChartOption('dayRangePreset',7)">1w</a>
-            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 3 }" @click="setChartOption('dayRangePreset',3)">3d</a>
+        <template v-if="activeOptions.term == 'hour'">
+          <div class="property-button-group property-button-group-day">
+            <a :class="{ 'button-selected': activeOptions.days == 28 }" @click="setChartOption('days',28)">4w</a>
+            <a :class="{ 'button-selected': activeOptions.days == 7 }" @click="setChartOption('days',7)">1w</a>
+            <a :class="{ 'button-selected': activeOptions.days == 3 }" @click="setChartOption('days',3)">3d</a>
           </div>
           <div class="property-button-group">
-            <a :class="{ 'button-selected': chartOptions.hourProperty == 'postsPerMinute' }" @click="setChartOption('hourProperty','postsPerMinute')">Posts/Minute</a>
-            <a :class="{ 'button-selected': chartOptions.hourProperty == 'activity' }" @click="setChartOption('hourProperty','activity')">Activity</a>
+            <a :class="{ 'button-selected': activeOptions.property == 'postsPerMinute' }" @click="setChartOption('property','postsPerMinute')">Posts/Minute</a>
+            <a :class="{ 'button-selected': activeOptions.property == 'activity' }" @click="setChartOption('property','activity')">Activity</a>
           </div>
           <div class="property-button-group">
-            <a :class="{ 'button-selected': chartOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</a>
-            <a :class="{ 'button-selected': chartOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel',3)">Smooth</a>
-            <a :class="{ 'button-selected': chartOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</a>
+            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</a>
+            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel',3)">Smooth</a>
+            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</a>
           </div>
         </template>
 
-        <template v-if="chartOptions.term == 'cycle'">
+        <template v-if="activeOptions.term == 'cycle'">
+          <div class="property-button-group property-button-group-day">
+            <a :class="{ 'button-selected': activeOptions.days == 3 }" @click="setChartOption('days',3)">3d</a>
+            <a :class="{ 'button-selected': activeOptions.days == 1 }" @click="setChartOption('days',1)">1d</a>
+          </div>
           <div class="property-button-group">
-            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 3 }" @click="setChartOption('dayRangePreset',3)">3d</a>
-            <a :class="{ 'button-selected': chartOptions.dayRangePreset == 1 }" @click="setChartOption('dayRangePreset',1)">1d</a>
+            <a :class="{ 'button-selected': activeOptions.property == 'postsPerMinute' }" @click="setChartOption('property','postsPerMinute')">Posts/Minute</a>
+            <a :class="{ 'button-selected': activeOptions.property == 'activity' }" @click="setChartOption('property','activity')">Activity</a>
+          </div>
+          <div class="property-button-group">
+            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</a>
+            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel',3)">Smooth</a>
+            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</a>
           </div>
         </template>
       </div>
@@ -87,16 +96,26 @@ const config = require("js/config")
 const chartFunctions = require("js/chartFunctions")
 export default {
 	data: () => ({
-		dateStartString: "",
-		dateEndString: "",
-		chartOptions : {
+		activeOptions: {},
+		dayOptions: {
 			term: "day",
-			yearRangePreset: 3,
-			dayRangePreset: 7,
-			hourProperty: "postsPerMinute",
-			smoothingLevel: 3,
+			days: 365,
+			dateStartString: "",
+			dateEndString: "",
 			dateStart: new Date(),
 			dateEnd: new Date()
+		},
+		hourOptions: {
+			term: "hour",
+			days: 7,
+			smoothingLevel: 3,
+			property: "postsPerMinute"
+		},
+		cycleOptions: {
+			term: "cycle",
+			days: 3,
+			smoothingLevel: 0,
+			property: "postsPerMinute"
 		},
 		history: {
 			cycle: {},
@@ -107,39 +126,37 @@ export default {
 		graphedBoards: []
 	}),
 	methods: {
-		setTimelineRange(range){
-			if(range){
+		setTimelineRange(days){
+			if(days){
 				const now = new Date
-				this.dateEndString = `${now.getUTCFullYear()}-${(now.getUTCMonth() + 1).toString().padStart(2,'0')}-${now.getUTCDate().toString().padStart(2,'0')}`
-				now.setUTCDate(now.getUTCDate() - (this.chartOptions.term == "day" ? 365 : 1) * range)
-				this.dateStartString = `${now.getUTCFullYear()}-${(now.getUTCMonth() + 1).toString().padStart(2,'0')}-${now.getUTCDate().toString().padStart(2,'0')}`
+				this.activeOptions.dateEndString = `${now.getUTCFullYear()}-${(now.getUTCMonth() + 1).toString().padStart(2,'0')}-${now.getUTCDate().toString().padStart(2,'0')}`
+				now.setUTCDate(now.getUTCDate() - days)
+				this.activeOptions.dateStartString = `${now.getUTCFullYear()}-${(now.getUTCMonth() + 1).toString().padStart(2,'0')}-${now.getUTCDate().toString().padStart(2,'0')}`
 			}
 			
-			let splitStringDate = this.dateEndString.split("-")
-			this.chartOptions.dateEnd.setUTCFullYear(splitStringDate[0],splitStringDate[1] - 1,splitStringDate[2],0,0)
-			splitStringDate = this.dateStartString.split("-")
-			this.chartOptions.dateStart.setUTCFullYear(splitStringDate[0],splitStringDate[1] - 1,splitStringDate[2],0,0)
+			let splitStringDate = this.activeOptions.dateEndString.split("-")
+			this.activeOptions.dateEnd.setUTCFullYear(splitStringDate[0],splitStringDate[1] - 1,splitStringDate[2],0,0)
+			splitStringDate = this.activeOptions.dateStartString.split("-")
+			this.activeOptions.dateStart.setUTCFullYear(splitStringDate[0],splitStringDate[1] - 1,splitStringDate[2],0,0)
 
-			if(this.chartOptions.term == "day"){
-				this.chartOptions.yearRangePreset = range
+			if(days){
+				this.activeOptions.days = days
 			}else{
-				this.chartOptions.dayRangePreset = range
+				this.activeOptions.days = (this.activeOptions.dateEnd.getTime() - this.activeOptions.dateStart.getTime()) / (1000 * 60 * 60 * 24)
 			}
 
 			for(let board of this.graphedBoards){
 				this.checkIfRequestOrAdd(board)
 			}
 		},
+		setActiveTerm(termOptions){
+			this.activeOptions = this[termOptions]
+			for(let board of this.graphedBoards) this.checkIfRequestOrAdd(board)
+		},
 		setChartOption(key,value){
-			if(typeof key == "string"){
-				this.chartOptions[key] = value
-			}else{
-				this.chartOptions[key[0]][key[1]] = value
-			}
-			for(let board of this.graphedBoards){
-				this.checkIfRequestOrAdd(board)
-				//chartFunctions.addBoard(board,this.history[this.chartOptions.term][board],this.chartOptions)
-			}
+			this.activeOptions[key] = value
+			if(this.activeOptions.term == "day" && key == "days") this.setTimelineRange(value)
+			for(let board of this.graphedBoards) this.checkIfRequestOrAdd(board)
 		},
 		toggleBoard(board) {
 			let index = this.graphedBoards.indexOf(board)
@@ -153,17 +170,17 @@ export default {
 			}
 		},
 		checkIfRequestOrAdd(board){
-			let timelineData = this.history[this.chartOptions.term][board] || {}
+			let timelineData = this.history[this.activeOptions.term][board] || {}
 			let validUntil = timelineData.validUntil || 0
 
 			let validMinutesLeft = ((validUntil - Date.now()) / 60000).toFixed(2)
 			pino.debug(`chart.vue toggleBoard: Data for /${board}/ valid for ${validMinutesLeft > 0 ? validMinutesLeft : 0} more minutes`)
 			
 			if (Date.now() > validUntil) {
-				pino.debug(`chart.vue toggleBoard: Requesting timeline for /${board}/ ${this.chartOptions.term}`)
-				this.requestTimeline(board, this.chartOptions.term)
+				pino.debug(`chart.vue toggleBoard: Requesting timeline for /${board}/ ${this.activeOptions.term}`)
+				this.requestTimeline(board, this.activeOptions.term)
 			} else {
-				chartFunctions.addBoard(board,timelineData.history,this.chartOptions)
+				chartFunctions.addBoard(board,timelineData.history,this.activeOptions)
 			}
 		},
 		requestTimeline(board,term){
@@ -207,8 +224,12 @@ export default {
 			}
 			this.history[term][board] = historyData
 			
-			chartFunctions.addBoard(board,historyData.history,this.chartOptions)
+			chartFunctions.addBoard(board,historyData.history,this.activeOptions)
 		}
+	},
+	created(){
+		this.activeOptions = this.dayOptions
+		this.setTimelineRange(this.activeOptions.days,false)
 	},
 	mounted() {
 		chartFunctions.init("myChart")
@@ -216,17 +237,15 @@ export default {
 		this.$store.subscribe(mutation => {
 			if(mutation.type == "updateBoardData"){
 				if (this.graphedBoards.includes(mutation.payload.board)) {
-					const timelineData = this.history[this.chartOptions.term][mutation.payload.board] || {}
+					const timelineData = this.history[this.activeOptions.term][mutation.payload.board] || {}
 					timelineData.lastUpdate = Date.now()
 					if(Date.now() > timelineData.validUntil || 0){
-						pino.debug(`chart.vue on boardUpdate: Automatically requesting timeline for /${mutation.payload.board}/ ${this.chartOptions.term}`)
-						this.requestTimeline(mutation.payload.board, this.chartOptions.term)
+						pino.debug(`chart.vue on boardUpdate: Automatically requesting timeline for /${mutation.payload.board}/ ${this.activeOptions.term}`)
+						this.requestTimeline(mutation.payload.board, this.activeOptions.term)
 					}
 				}
 			}
 		})
-
-		this.setTimelineRange(1)
 	}
 }
 </script>
