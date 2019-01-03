@@ -13,7 +13,7 @@
     </div>
     <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="">
       <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'board-selected' : (selectedBoard == boardName)}" class="boardlist__row" @click.stop="boardClicked(boardName)">
-        <div :data-hover-text="longBoardNames[boardName]" class="tooltip-right"><div class="board-has-sticky" v-if="boardData[boardName].boardHasSticky"></div>/{{ boardName }}/</div>
+        <div :data-hover-text="longBoardNames[boardName]" class="tooltip-right">/{{ boardName }}/</div>
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
         <div class="is-hidden-touch is-hidden-desktop-only">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
         <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>

@@ -5,6 +5,7 @@
         <form name="feedback" method="post" class="has-text-left" netlify autocomplete="off" netlify-honeypot="dont">
           <input type="hidden" name="form-name" value="feedback">
           <input type="text" name="dont" class="is-hidden">
+          <div netlify-recaptcha></div>
           <textarea class="textarea" rows="10" name="message" required minlength="10" maxlength="1000" placeholder="type..."/>
           <div class="button-group">
             <router-link to="/">
@@ -17,39 +18,6 @@
         <div class="description">
           If you have a question and submit it anonymously, then I will add a reply to the list below for a few days.<br>
           (Or mention 4stats.io somwhere on 4chan and I will usually see it after a few hours during late euro times)
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            Hi! I was wondering if you'd be able to get the past years' stats from the relative board archives (e.g. rbt.asia, 4plebs) in order to make a more complete comparison.<br>
-            I'm a software developer, so I think I could help, but I don't know if you're interested.
-          </div>
-          <div class="a">
-            I tried it with some boards, but the only archive site I was able to reliably fetch data from was 4plebs.<br>
-            Most other archives don't even offer any kind of API or at least don't have it documented I think.<br>
-            <br>
-            Even considered manually copying the latest post number at the start of each week, but it would definitely be nicer to have daily numbers.<br>
-            Then there is also the issue with figuring out which boards had dubs eneabled/disabled at which point in time, so that the final post count can be adjusted if necessary. (like /v/, which currently skips over dubs for example)<br>
-            <br>
-            To supplement the existing data it would be good to have the post numbers closest to 9AM UTC for each day, so it stays consistent with the current daily cycle on the site.<br>
-            Basically a JSON array of [[unix_time,post_number],[unix_time,post_number]] for each board would be good enough.<br>
-            Even if the interval isn't exactly 1 day or some days are missing, the approximate daily post count can be calculated from that.<br>
-            <br>
-            If you have an idea how to go about this, then let me know.<br>
-            Could be really neat to have a longer timeline, especially pre-election.
-          </div>
-        </div>
-        <div class="qa-card">
-          <div class="q">
-            Hey, would it be possible to add some kind of time series analysis for the hourly timeline? What I mean is a graph that shows the activity by each hour/minute (00:00-23:59), but takes an average/median over a longer time (like the last month) In the same vein, would it be possible to add a normalized view of the board timeline? Like divide each board (if showing multiple at the same time) by their averages. Then you could see if, for instance, /k/ and /int/ have the same top hours. Cheers!
-          </div>
-          <div class="a">
-            I have 5-minute interval data for the last few months, so in theory yes.<br>
-            Working on features for the graph is one of the really time consuming and less interesting tasks of the site though.<br>
-            There are also some rewrites I want to do, so the stats-gatherer can better deal with 4chan downtimes and keep the stats more accurate.<br>
-            Will see how it goes.<br>
-            <br>
-            For a normalized timeline you can currently choose to show activity in the hourly graph instead of posts/min.
-          </div>
         </div>
         <div class="qa-card">
           <div class="q">
