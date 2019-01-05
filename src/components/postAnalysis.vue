@@ -4,7 +4,7 @@
       While the main page shows data calculated from the catalog, these numbers are based on individual posts.<br>
       Checking all threads on all boards takes a longer time, so updates are less frequent.<br>
       Stats are calculated from currently visible content and any seen posts made in the last 3 days.<br>
-      (not mobile friendly
+      (not mobile friendly)
     </p>
     <div class="container is-fluid">
       <img src="../static/xmashat.gif" class="partyhat is-hidden-touch">

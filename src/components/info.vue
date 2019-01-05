@@ -7,30 +7,23 @@
       <!--
       <img src="../static/hiroooo.png">
       -->
-      I calculated some more stats from this years data.<br>
-      You can check out this thread:
-      <a href="https://boards.4channel.org/qa/thread/2518414">&gt;&gt;&gt;/qa/2518414</a>
-      or this pastebin:
-      <a href="https://pastebin.com/raw/NeVmmEwj">https://pastebin.com/raw/NeVmmEwj</a>
+      <p>
+        I calculated some more stats from last years data.<br>
+        You can check out this thread:<br>
+        <a href="https://boards.4channel.org/qa/thread/2518414">&gt;&gt;&gt;/qa/2518414</a><br>
+        or this (updated) pastebin:<br>
+        <a href="https://pastebin.com/raw/NeVmmEwj">https://pastebin.com/raw/NeVmmEwj</a>
+      </p>
       <hr>
-      Thanks to a helpful admin from desuarchive.org & rbt.asia extended earlier data for these archived boards has been added to the timeline.<br>
+      <p>
+        Also started calculating some additional stats from individual posts.<br>
+        Updates for those stats have longer intervals, but it's some data, that can't be calculated from the catalogs alone.<br>
+        <a href="https://4stats.io/postAnalysis">https://4stats.io/postAnalysis</a>
+      </p>
       <hr>
-      <b>Boardlist changes:</b>
-      <ul>
-        <li>'Activity Now' renamed to 'rel. to peak'<br>
-        <i>(current board activity relative to average daily peak)</i></li>
-        <li>New 'rel. to ToD' column<br>
-        <i>(current board activity relative to average activity this time-of-day)</i></li>
-        <li>More accurate 'Avg Posts/day' <i>(bit lower)</i></li>
-        <li>Tooltips updated</li>
-      </ul>
-      <hr>
-      <b>Timeline changes:</b>
-      <ul>
-        <li>Start- and end-date can be specified for the day timeline</li>
-        <li>Added button for cycle-data<br>
-        <i>(showing board data in 5 minute intervals for the last 3 days)</i></li>
-      </ul>
+      <p>
+        Thanks to a helpful admin from <a href="https://desuarchive.org">desuarchive.org</a> & <a href="https://rbt.asia">rbt.asia</a> extended earlier data for these archived boards has been added to the timeline.<br>
+      </p>
     </div>
 
   </div>
@@ -95,7 +88,7 @@ export default {
   padding: 1em;
   color: $oc-gray-0;
     font-size: 0.8em;
-  >a{
+  a{
     color: rgba(180, 215, 255, 0.8);
   }
   >ul{
