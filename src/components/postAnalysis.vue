@@ -15,8 +15,8 @@
           {category: 'replyLength_mean', text: 'Reply length', tooltip: ''},
           {category: 'OPsWithTitles_ratio', text: 'OP has title', tooltip: ''},
           {category: 'postsWithNames_ratio', text: 'Name used', tooltip: ''},
-          {category: 'postsWithImages_ratio', text: 'Reply has image', tooltip: ''},
-          {category: 'postsWithText_ratio', text: 'Reply has text', tooltip: ''},
+          {category: 'repliesWithImages_ratio', text: 'Reply has image', tooltip: ''},
+          {category: 'repliesWithText_ratio', text: 'Reply has text', tooltip: ''},
           {category: 'sentimentScore_mean', text: 'Sentiment Score', tooltip: ''},
           {category: 'sentimentComparative_mean', text: 'Sentiment Comp.', tooltip: ''},
           {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: ''},
@@ -30,8 +30,8 @@
           <div class="">{{ postAnalysis[boardName].replyLength_mean.toFixed(2) }}</div>
           <div class="">{{ (postAnalysis[boardName].OPsWithTitles_ratio * 100).toFixed(2)+"%" }}</div>
           <div class="">{{ forcedAnon.includes(boardName) ? 'forced anon' : (postAnalysis[boardName].postsWithNames_ratio * 100).toFixed(2)+"%" }}</div>
-          <div class="">{{ (postAnalysis[boardName].postsWithImages_ratio * 100).toFixed(2)+"%" }}</div>
-          <div class="">{{ (postAnalysis[boardName].postsWithText_ratio * 100).toFixed(2)+"%" }}</div>
+          <div class="">{{ (postAnalysis[boardName].repliesWithImages_ratio * 100).toFixed(2)+"%" }}</div>
+          <div class="">{{ (postAnalysis[boardName].repliesWithText_ratio * 100).toFixed(2)+"%" }}</div>
           <div class="">{{ (postAnalysis[boardName].sentimentScore_mean).toFixed(2) }}</div>
           <div class="">{{ (postAnalysis[boardName].sentimentComparative_mean).toFixed(4) }}</div>
           <div class="">{{ Math.floor(postAnalysis[boardName].threadAgeSeconds_mean / (60 * 60 * 24))+"d "+((postAnalysis[boardName].threadAgeSeconds_mean / (60 * 60)) % 24).toFixed(1).padStart(4,"⠀")+"h" }}</div>
