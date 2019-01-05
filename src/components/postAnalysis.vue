@@ -17,8 +17,6 @@
           {category: 'postsWithNames_ratio', text: 'Name used', tooltip: ''},
           {category: 'repliesWithImages_ratio', text: 'Reply has image', tooltip: ''},
           {category: 'repliesWithText_ratio', text: 'Reply has text', tooltip: ''},
-          {category: 'sentimentScore_mean', text: 'Sentiment Score', tooltip: ''},
-          {category: 'sentimentComparative_mean', text: 'Sentiment Comp.', tooltip: ''},
           {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: ''},
           {category: 'dataAgeHours', text: 'Last checked', tooltip: ''},
         ]" :key="item.name" :class="[sortListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
@@ -32,8 +30,6 @@
           <div class="">{{ forcedAnon.includes(boardName) ? 'forced anon' : (postAnalysis[boardName].postsWithNames_ratio * 100).toFixed(2)+"%" }}</div>
           <div class="">{{ (postAnalysis[boardName].repliesWithImages_ratio * 100).toFixed(2)+"%" }}</div>
           <div class="">{{ (postAnalysis[boardName].repliesWithText_ratio * 100).toFixed(2)+"%" }}</div>
-          <div class="">{{ (postAnalysis[boardName].sentimentScore_mean).toFixed(2) }}</div>
-          <div class="">{{ (postAnalysis[boardName].sentimentComparative_mean).toFixed(4) }}</div>
           <div class="">{{ Math.floor(postAnalysis[boardName].threadAgeSeconds_mean / (60 * 60 * 24))+"d "+((postAnalysis[boardName].threadAgeSeconds_mean / (60 * 60)) % 24).toFixed(1).padStart(4,"⠀")+"h" }}</div>
           <div class="">{{ (postAnalysis[boardName].dataAgeHours).toFixed(2)+" h" }}</div>
         </div>
