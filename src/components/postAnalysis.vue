@@ -22,7 +22,7 @@
         ]" :key="item.name" :class="[sortListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
       </div>
       <transition-group v-if="postAnalysis.a" tag="div" class="">
-        <div v-for="boardName in sortedList" :key="boardName" :id="'board-'+boardName" class="boardlist__row">
+        <div v-for="boardName in sortedList" :key="boardName" class="boardlist__row">
           <div :data-hover-text="longBoardNames[boardName]" class="tooltip-right">/{{ boardName }}/</div>
           <div class="">{{ postAnalysis[boardName].OPLength_mean.toFixed(2) }}</div>
           <div class="">{{ postAnalysis[boardName].replyLength_mean.toFixed(2) }}</div>
@@ -238,31 +238,5 @@ export default {
 
 [data-hover-text].tooltip-right:hover::after{
     left: 100%;
-}
-
-////////////////
-// Animations //
-////////////////
-
-.just-updated>div {
-  animation-duration: 3s;
-  animation-name: updateAnim;
-  animation-timing-function: ease-out;
-  z-index: 99;
-}
-
-@keyframes updateAnim {
-  0% {
-    background-color: transparent;
-  }
-  10% {
-    background-color: $--color-update;
-  }
-  55% {
-    background-color: $--color-update;
-  }
-  100% {
-    background-color: transparent;
-  }
 }
 </style>
