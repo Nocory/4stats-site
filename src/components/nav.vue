@@ -13,13 +13,21 @@
         <div class="nav-link">Live</div>
       </router-link>
 			-->
-			
+
       <div class="spacer"/>
       <!--
       <router-link to="/snapshotAnalysisWorkInProgress" class="is-hidden-touch is-hidden-desktop-only">
         <div class="nav-link">Snapshot WIP</div>
       </router-link>
 			-->
+      <router-link to="/postAnalysis" class="is-hidden-mobile">
+        <div class="nav-link">Post-Analysis</div>
+      </router-link>
+
+      <router-link to="/archive" class="is-hidden is-hidden-mobile">
+        <div class="nav-link">Archive-WIP</div>
+      </router-link>
+			
       <router-link to="/feedback" class="is-hidden-mobile">
         <div class="nav-link">Feedback/Contact</div>
       </router-link>
@@ -92,11 +100,11 @@ export default {
 	}
 }
 
-.mostActiveBoard{
+.mostActiveBoard, .subTitle{
 	position: relative;
 	display: flex;
 	align-items: center;
-	padding: 0 1rem;
+	padding: 0;
 }
 
 .spacer{
@@ -109,6 +117,16 @@ a{
 	align-items: center;
 	@include tablet{
 		padding: 0 1rem;
+	}
+	&:not(:first-child):not(:last-of-type)::after{
+		content: "";
+		height: 100%;
+		width: 4px;
+		background: rgba(255,255,255,0.2);
+		position: absolute;
+		right: -2px;
+		//transform-origin: center center;
+		transform: skewX(-20deg);
 	}
 	>.nav-link{
 		position: relative;

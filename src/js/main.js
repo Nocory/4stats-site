@@ -45,6 +45,8 @@ const routes = [
 	{ path: '/', component: require("../components/index.vue").default },
 	//{ path: '/snapshotAnalysisWorkInProgress', component: detailedStats },
 	//{ path: '/thumbnailStreamTest', component: thumbnailStream },
+	{ path: '/postAnalysis', component: require("../components/postAnalysis.vue").default },
+	{ path: '/archive', component: require("../components/archive.vue").default },
 	{ path: '/config', component: require("../components/config.vue").default },
 	{ path: '/feedback', component: require("../components/feedback.vue").default },
 	{ path: '*', component: require("../components/index.vue").default }
