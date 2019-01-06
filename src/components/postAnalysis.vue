@@ -15,13 +15,13 @@
           {category: 'OPLength_mean', text: 'OP length', tooltip: ''},
           {category: 'replyLength_mean', text: 'Reply length', tooltip: ''},
           {category: 'OPsWithTitles_ratio', text: 'OP has title', tooltip: ''},
-          {category: 'postsWithNames_ratio', text: 'Name used', tooltip: ''},
+          {category: 'postsWithNames_ratio', text: 'Name used', tooltip: 'Includes trip codes'},
           {category: 'repliesWithImages_ratio', text: 'Reply has img', tooltip: ''},
           {category: 'repliesWithText_ratio', text: 'Reply has txt', tooltip: ''},
           {category: 'filesize_mean', text: 'Avg. file size', tooltip: ''},
-          {category: 'visibleFilesize_sum', text: 'Live content', tooltip: ''},
-          {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: ''},
-          {category: 'dataAge', text: 'Last checked', tooltip: ''},
+          {category: 'visibleFilesize_sum', text: 'Live content', tooltip: 'of currently visible threads'},
+          {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: 'of currently visible threads'},
+          {category: 'dataAge', text: 'Last checked', tooltip: 'more active boards get checked more frequently'},
         ]" :key="item.name" :class="[sortListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
       </div>
       <transition-group v-if="postAnalysis.a" tag="div" class="">
@@ -249,6 +249,10 @@ export default {
   white-space: nowrap;
   background-color: rgba(0,0,0,0.85);
   color: $--color-text-minor;
+}
+
+.tooltip-bottom:not([data-hover-text=""]){
+  text-decoration: underline dotted;
 }
 
 [data-hover-text].tooltip-bottom:hover::after{

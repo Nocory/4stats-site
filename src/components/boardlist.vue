@@ -196,6 +196,10 @@ export default {
   color: $--color-text-minor;
 }
 
+.tooltip-bottom:not([data-hover-text=""]){
+  text-decoration: underline dotted;
+}
+
 [data-hover-text].tooltip-bottom:hover::after{
   left: 0px;
   top: 125%;
