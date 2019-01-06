@@ -4,7 +4,7 @@
       While the main page shows data calculated from the catalog, these numbers are based on individual posts.<br>
       Checking all threads on all boards takes a longer time, so updates are less frequent.<br>
       Stats are calculated from currently visible content and any seen posts made in the last 3 days.<br>
-      'Live content' and 'Avg. thread age' values are calculated from visible threads only.<br>
+      'Replies/thread' and 'Avg. thread age' values are calculated from visible threads only.<br>
       (not mobile friendly)
     </p>
     <div class="container is-fluid">
@@ -15,12 +15,14 @@
           {category: 'OPLength_mean', text: 'OP length', tooltip: ''},
           {category: 'replyLength_mean', text: 'Reply length', tooltip: ''},
           {category: 'OPsWithTitles_ratio', text: 'OP has title', tooltip: ''},
+          {category: 'repliesPerThread_mean', text: 'Replies/thread', tooltip: 'of currently visible threads'},
+          //{category: 'repliesPerIP', text: 'Replies/IP', tooltip: 'of currently visible threads'},
           {category: 'postsWithNames_ratio', text: 'Name used', tooltip: 'Includes trip codes'},
           {category: 'repliesWithImages_ratio', text: 'Reply has img', tooltip: ''},
           {category: 'repliesWithText_ratio', text: 'Reply has txt', tooltip: ''},
-          {category: 'filesize_mean', text: 'Avg. file size', tooltip: ''},
-          {category: 'visibleFilesize_sum', text: 'Live content', tooltip: 'of currently visible threads'},
-          {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: 'of currently visible threads'},
+          //{category: 'filesize_mean', text: 'Avg. file size', tooltip: ''},
+          //{category: 'visibleFilesize_sum', text: 'Live content', tooltip: 'of currently visible threads'},
+          {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: 'of currently non-locked visible threads'},
           {category: 'dataAge', text: 'Last checked', tooltip: 'more active boards get checked more frequently'},
         ]" :key="item.name" :class="[sortListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
       </div>
@@ -30,11 +32,13 @@
           <div class="">{{ postAnalysis[boardName].OPLength_mean.toFixed(2) }}</div>
           <div class="">{{ postAnalysis[boardName].replyLength_mean.toFixed(2) }}</div>
           <div class="">{{ (postAnalysis[boardName].OPsWithTitles_ratio * 100).toFixed(2)+"%" }}</div>
+          <div class="">{{ postAnalysis[boardName].repliesPerThread_mean.toFixed(2) }}</div>
+          <!--<div class="">{{ (postAnalysis[boardName].repliesPerIP).toFixed(2) }}</div>-->
           <div class="">{{ forcedAnon.includes(boardName) ? 'forced anon' : (postAnalysis[boardName].postsWithNames_ratio * 100).toFixed(2)+"%" }}</div>
           <div class="">{{ (postAnalysis[boardName].repliesWithImages_ratio * 100).toFixed(2)+"%" }}</div>
           <div class="">{{ (postAnalysis[boardName].repliesWithText_ratio * 100).toFixed(2)+"%" }}</div>
-          <div class="">{{ !postAnalysis[boardName].filesize_mean ? 'OP file only' : Math.round(postAnalysis[boardName].filesize_mean / 1000)+" KB" }}</div>
-          <div class="">{{ postAnalysis[boardName].visibleFilesize_sum >= 1000000000 ? (postAnalysis[boardName].visibleFilesize_sum / 1000000000).toFixed(2)+" GB" : Math.round(postAnalysis[boardName].visibleFilesize_sum / 1000000)+" MB" }}</div>
+          <!--<div class="">{{ !postAnalysis[boardName].filesize_mean ? 'OP file only' : Math.round(postAnalysis[boardName].filesize_mean / 1000)+" KB" }}</div>-->
+          <!--<div class="">{{ postAnalysis[boardName].visibleFilesize_sum >= 1000000000 ? (postAnalysis[boardName].visibleFilesize_sum / 1000000000).toFixed(2)+" GB" : Math.round(postAnalysis[boardName].visibleFilesize_sum / 1000000)+" MB" }}</div>-->
           <div class="">{{ postAnalysis[boardName].threadAgeStr }}</div>
           <!--<div class="">{{ Math.floor(postAnalysis[boardName].dataAge / (60 * 60))+":"+Math.round((postAnalysis[boardName].dataAge / 60) % 60).toString().padStart(2,"0")+" h" }}</div>-->
           <div class="">{{ postAnalysis[boardName].dataAgeStr }}</div>
@@ -92,6 +96,8 @@ export default {
             Math.floor(res.data[board].dataAge / 60) + "m" : 
             Math.floor(res.data[board].dataAge / (60 * 60)) + ":" + (Math.floor(res.data[board].dataAge / 60) % 60).toString().padStart(2,"0") + "h"
             
+          res.data[board].repliesPerIP = res.data[board].repliesPerThread_mean / res.data[board].IPsPerThread_mean
+
           res.data[board].threadAgeStr = ""
           if(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 24){
             res.data[board].threadAgeStr = Math.floor(res.data[board].threadAgeSeconds_mean / (60 * 60 * 24))+"d "
