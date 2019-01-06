@@ -15,8 +15,8 @@
           {category: 'replyLength_mean', text: 'Reply length', tooltip: ''},
           {category: 'OPsWithTitles_ratio', text: 'OP has title', tooltip: ''},
           {category: 'postsWithNames_ratio', text: 'Name used', tooltip: ''},
-          {category: 'repliesWithImages_ratio', text: 'Reply has image', tooltip: ''},
-          {category: 'repliesWithText_ratio', text: 'Reply has text', tooltip: ''},
+          {category: 'repliesWithImages_ratio', text: 'Reply has img', tooltip: ''},
+          {category: 'repliesWithText_ratio', text: 'Reply has txt', tooltip: ''},
           {category: 'filesize_mean', text: 'Avg. file size', tooltip: ''},
           {category: 'visibleFilesize_sum', text: 'Live content', tooltip: ''},
           {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: ''},
@@ -169,7 +169,7 @@ export default {
       font-weight: bold;
     }
     &:not(:first-child){
-      min-width: 7rem;
+      min-width: 7.5rem;
     }
     >.board-has-sticky{
       position: absolute;
