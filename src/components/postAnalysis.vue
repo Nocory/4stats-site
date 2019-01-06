@@ -17,6 +17,8 @@
           {category: 'postsWithNames_ratio', text: 'Name used', tooltip: ''},
           {category: 'repliesWithImages_ratio', text: 'Reply has image', tooltip: ''},
           {category: 'repliesWithText_ratio', text: 'Reply has text', tooltip: ''},
+          {category: 'filesize_mean', text: 'Avg. file size', tooltip: ''},
+          {category: 'visibleFilesize_sum', text: 'Live content', tooltip: ''},
           {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: ''},
           {category: 'dataAgeHours', text: 'Last checked', tooltip: ''},
         ]" :key="item.name" :class="[sortListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
@@ -30,8 +32,12 @@
           <div class="">{{ forcedAnon.includes(boardName) ? 'forced anon' : (postAnalysis[boardName].postsWithNames_ratio * 100).toFixed(2)+"%" }}</div>
           <div class="">{{ (postAnalysis[boardName].repliesWithImages_ratio * 100).toFixed(2)+"%" }}</div>
           <div class="">{{ (postAnalysis[boardName].repliesWithText_ratio * 100).toFixed(2)+"%" }}</div>
+          <div class="">{{ !postAnalysis[boardName].filesize_mean ? 'OP file only' : Math.round(postAnalysis[boardName].filesize_mean / 1000)+" KB" }}</div>
+          <div class="">{{ postAnalysis[boardName].visibleFilesize_sum >= 1000000000 ? (postAnalysis[boardName].visibleFilesize_sum / 1000000000).toFixed(2)+" GB" : Math.round(postAnalysis[boardName].visibleFilesize_sum / 1000000)+" MB" }}</div>
           <div class="">{{ Math.floor(postAnalysis[boardName].threadAgeSeconds_mean / (60 * 60 * 24))+"d "+((postAnalysis[boardName].threadAgeSeconds_mean / (60 * 60)) % 24).toFixed(1).padStart(4,"⠀")+"h" }}</div>
-          <div class="">{{ (postAnalysis[boardName].dataAgeHours).toFixed(2)+" h" }}</div>
+          <!--<div class="">{{ Math.floor(postAnalysis[boardName].dataAge / (60 * 60))+":"+Math.round((postAnalysis[boardName].dataAge / 60) % 60).toString().padStart(2,"0")+" h" }}</div>-->
+          <div class="">{{ Math.floor(postAnalysis[boardName].dataAge / (60 * 60))+"h "+Math.floor((postAnalysis[boardName].dataAge / 60) % 60).toString().padStart(2,"⠀")+"m" }}</div>
+          <!--<div class="">{{ (postAnalysis[boardName].dataAgeHours).toFixed(2)+" h" }}</div>-->
         </div>
       </transition-group>
     </div>
@@ -75,10 +81,12 @@ export default {
 		}
 	},
 	mounted(){
-    axios.get("https://api.4stats.io/allPostAnalysis")
+    //axios.get("https://api.4stats.io/allPostAnalysis")
+    axios.get("http://localhost:8080/allBoardStats")
       .then(res => {
         const nowUnix = Date.now() / 1000
         for(let board in res.data){
+          res.data[board].dataAge = nowUnix - res.data[board].created_unix
           res.data[board].dataAgeHours = (nowUnix - res.data[board].created_unix) / (60 * 60)
         }
         this.postAnalysis = res.data
@@ -123,7 +131,7 @@ export default {
 		@include desktop{
       margin: 0 1rem;
       @include float-shadow-box;
-      max-width: 80%;
+      max-width: 95%;
 		}
 		@include widescreen{
 			margin: 1rem 0rem;
@@ -145,13 +153,10 @@ export default {
   white-space: nowrap;
   position: relative;
   display: flex;
-  cursor: pointer;
-  user-select: none;
   font-size: 0.8rem;
   color: $--color-text-minor;
-  transition: color 0.5s ease, background-color 0.5s ease, transform 0.5s ease;
+  transition: color 0.1s ease, background-color 0.1s ease, transform 0.5s ease;
   >div{
-    overflow: hidden;
     position: relative;
     flex: 1 1 0;
     text-align: right;
@@ -164,7 +169,7 @@ export default {
       font-weight: bold;
     }
     &:not(:first-child){
-      min-width: 8rem;
+      min-width: 7rem;
     }
     >.board-has-sticky{
       position: absolute;
@@ -179,10 +184,12 @@ export default {
 }
 
 .boardlist__header{
+  cursor: pointer;
   line-height: 2.25rem;
   background-color: $--color-highlight-1;
   background: rgba(0,0,0,0.8);
   >div{
+    //overflow: hidden;
     &::before{
       content: "";
       position: absolute;
@@ -208,10 +215,9 @@ export default {
     background-color: $--color-highlight-1;
   }
   border-top: 1px solid rgba(0,0,0,0.5);
-  &.board-selected>div{
-    background-color: $--color-background-selected;
-    color: $--color-text-selected;
-    //transition: color 0s, background-color 0s;
+  &:hover{
+    color: $--color-text;
+    background-color: $--color-update;
   }
 }
 
