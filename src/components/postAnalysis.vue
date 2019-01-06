@@ -81,8 +81,8 @@ export default {
 		}
 	},
 	mounted(){
-    //axios.get("https://api.4stats.io/allPostAnalysis")
-    axios.get("http://localhost:8080/allBoardStats")
+    axios.get("https://api.4stats.io/allPostAnalysis")
+    //axios.get("http://localhost:8080/allBoardStats")
       .then(res => {
         const nowUnix = Date.now() / 1000
         for(let board in res.data){
