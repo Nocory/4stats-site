@@ -19,7 +19,7 @@
           //{category: 'repliesPerIP', text: 'Replies/IP', tooltip: 'of currently visible threads'},
           {category: 'postsWithNames_ratio', text: 'Name used', tooltip: 'Includes trip codes'},
           {category: 'repliesWithImages_ratio', text: 'Reply has img', tooltip: ''},
-          {category: 'repliesWithText_ratio', text: 'Reply has txt', tooltip: ''},
+          {category: 'repliesWithText_ratio', text: 'Reply has txt', tooltip: 'Not counting quoted postnumbers'},
           //{category: 'filesize_mean', text: 'Avg. file size', tooltip: ''},
           //{category: 'visibleFilesize_sum', text: 'Live content', tooltip: 'of currently visible threads'},
           {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: 'of currently non-locked visible threads'},
@@ -70,7 +70,7 @@ export default {
 				result.sort()
 			}else{
 				result.sort((a, b) => {
-					return this.postAnalysis[b][this.sortListBy] - this.postAnalysis[a][this.sortListBy] + (a>b?0.0001:-0.0001)
+					return this.postAnalysis[b][this.sortListBy] - this.postAnalysis[a][this.sortListBy] + (a>b?0.00001:-0.00001)
         })
         if(this.sortListBy == "dataAge") result.reverse()
 			}
@@ -102,7 +102,7 @@ export default {
           if(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 24){
             res.data[board].threadAgeStr = Math.floor(res.data[board].threadAgeSeconds_mean / (60 * 60 * 24))+"d "
           }
-          res.data[board].threadAgeStr += Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60 * 24) / (60 * 60)).toString().padStart(2,"0") + ":" + (Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60) / 60)).toString().padStart(2,"0") + "h"
+          res.data[board].threadAgeStr += Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60 * 24) / (60 * 60)).toString().padStart(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 10 ? 2 : 1,"0") + ":" + (Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60) / 60)).toString().padStart(2,"0") + "h"
           /*
           res.data[board].threadAgeSeconds_mean < 60 * 60 * 24 ?
             Math.floor(res.data[board].dataAge / 60) + "m" : 
