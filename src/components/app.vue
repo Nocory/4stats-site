@@ -3,7 +3,7 @@
     <component-nav/>
 		
     <div class="router-view">
-			<div class="usercount">{{userCount}}</div>
+			<!--<div class="usercount">{{userCount}}</div>-->
       <keep-alive>
         <router-view/>
       </keep-alive>
