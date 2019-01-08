@@ -5,15 +5,15 @@
     </div>
     <div class="stats-wrapper">
       <div class="cat">4chan now:</div>
-      <div>{{ combinedBoardStats.postsPerMinute.toFixed(2).toString().padStart(7," ") }} posts/min.</div>
-      <div>{{ combinedBoardStats.threadsPerHour.toFixed(2) }} threads/hour.</div>
+      <div>{{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/min.</div>
+      <div>{{ (combinedBoardStats.threadsPerHour / 60).toFixed(2).toString().padStart(Math.log10(combinedBoardStats.postsPerMinute || 1) + 4," ") }} threads/min.</div>
       <!--<div>{{ Math.round((combinedBoardStats.postsPerMinute / combinedBoardStats.topPPM) * 100) }}% activity</div>-->
       <hr>
       <div class="cat">4chan average:</div>
       <div>~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
       <hr>
       <div class="cat">4stats.io:</div>
-      <!--<div>{{ userCount }} user{{userCount == 1 ? '' : 's'}} on site</div>-->
+      <div v-if="showUserCount">{{ userCount }} user{{userCount == 1 ? '' : 's'}} on site</div>
       <div>Just updated /{{ recentlyUpdatedBoard }}/</div>
       <div class="cat" v-if="error">Error -> {{ error }}</div>
     </div>
@@ -28,7 +28,8 @@ export default {
 	data(){
 		return{
 			recentlyUpdatedBoard: "",
-      error: ""
+      error: "",
+      showUserCount: JSON.parse(localStorage.getItem("showUserCount")) || false
 		}
 	},
 	computed: {
