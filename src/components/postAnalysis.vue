@@ -8,7 +8,7 @@
       (not mobile friendly)
     </p>
     <div class="container is-fluid">
-      <img src="../static/xmashat.gif" class="partyhat is-hidden-touch">
+      <!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
       <div class="boardlist__header">
         <div v-for="item in [
           {category: 'name', text: 'Board', tooltip: ''},

@@ -9,7 +9,7 @@
         <component-info/>
       </div>
     </div>
-    <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/xmasthunk.png">
+    <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">
   </div>
 </template>
 
@@ -18,8 +18,6 @@ import { mapState } from 'vuex'
 export default {
 	data: () => ({
 		renderChart: window.innerWidth >= 768, // the bulma breakpoint for tablets
-		recentlyUpdatedBoard: "",
-		connectedUsers: 0,
 		rightIsFixed: false
 	}),
 	computed: {

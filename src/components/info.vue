@@ -1,5 +1,5 @@
-<template>
-  <div class="meta-component">
+<template >
+  <div class="meta-component" v-once>
     <div class="component__header is-hidden-mobile">
       Info
     </div>
@@ -28,33 +28,6 @@
 
   </div>
 </template>
-
-<script>
-const socket = require("js/socket")
-import { mapGetters } from 'vuex'
-export default {
-	data(){
-		return{
-			recentlyUpdatedBoard: "",
-			connectedUsers: 0
-		}
-	},
-	computed: {
-		...mapGetters(['combinedBoardStats'])
-	},
-	methods: {
-    
-	},
-	created(){
-		socket.on("userCount",userCount => {
-			this.connectedUsers = userCount
-		})
-		socket.on("boardUpdate",board => {
-			this.recentlyUpdatedBoard = board
-		})
-	}
-}
-</script>
 
 <style scoped lang="scss">
 @import "~css/variables.scss";

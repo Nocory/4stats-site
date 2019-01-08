@@ -5,14 +5,15 @@
     </div>
     <div class="stats-wrapper">
       <div class="cat">4chan now:</div>
-      <div>{{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/min.</div>
+      <div>{{ combinedBoardStats.postsPerMinute.toFixed(2).toString().padStart(7," ") }} posts/min.</div>
+      <div>{{ combinedBoardStats.threadsPerHour.toFixed(2) }} threads/hour.</div>
       <!--<div>{{ Math.round((combinedBoardStats.postsPerMinute / combinedBoardStats.topPPM) * 100) }}% activity</div>-->
       <hr>
       <div class="cat">4chan average:</div>
       <div>~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
       <hr>
       <div class="cat">4stats.io:</div>
-      <div>{{ connectedUsers }} user{{connectedUsers == 1 ? '' : 's'}} on site</div>
+      <!--<div>{{ userCount }} user{{userCount == 1 ? '' : 's'}} on site</div>-->
       <div>Just updated /{{ recentlyUpdatedBoard }}/</div>
       <div class="cat" v-if="error">Error -> {{ error }}</div>
     </div>
@@ -22,25 +23,22 @@
 
 <script>
 const socket = require("js/socket")
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
 	data(){
 		return{
 			recentlyUpdatedBoard: "",
-      connectedUsers: 0,
       error: ""
 		}
 	},
 	computed: {
+		...mapState(["userCount"]),
 		...mapGetters(['combinedBoardStats'])
 	},
 	methods: {
     
 	},
 	created(){
-		socket.on("userCount",userCount => {
-			this.connectedUsers = userCount
-		})
 		socket.on("boardUpdate",board => {
 			this.recentlyUpdatedBoard = board
     })
@@ -84,6 +82,7 @@ hr{
 }
 
 .stats-wrapper{
+  white-space: pre;
   display: flex;
   flex-direction: column;
   background: $--color-highlight-2;

@@ -37,7 +37,8 @@ const store = new Vuex.Store({
 			relativeActivity: 0
 		}}),{}), //technology
 		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{}),
-		chartPreference: localStorage.getItem("chartPreference") || 0
+		chartPreference: JSON.parse(localStorage.getItem("chartPreference")) || 0,
+		userCount: 0
 	},
 	getters: {
 		mostActiveBoard : state => {
@@ -85,6 +86,9 @@ const store = new Vuex.Store({
 		}
 	},
 	mutations: {
+		updateUserCount(state, payload){
+			state.userCount = payload
+		},
 		setEnabledBoards(state, payload) {
 			state.enabledBoards = payload
 			localStorage.setItem("enabledBoards",JSON.stringify(payload))
@@ -92,16 +96,16 @@ const store = new Vuex.Store({
 		setInitialData(state,payload){
 			for(let key in payload){
 				adjustActivityIfFewPosts(payload[key],key)
+				if(["qa","s4s","vip"].includes(key)) payload[key].hasSticky = false
 			}
 			Vue.set(state, 'boardData', payload)
 		},
 		updateBoardData(state,payload){
 			adjustActivityIfFewPosts(payload.data,payload.board)
+			if(["qa","s4s","vip"].includes(payload.board)) payload[payload.board].hasSticky = false
 			
 			if(state.boardData[payload.board]){
-				for(let key in payload.data){
-					state.boardData[payload.board][key] = payload.data[key]
-				}
+				state.boardData[payload.board] = payload.data
 			}else{
 				Vue.set(state.boardData, payload.board, payload.data)
 				pino.warn(`${payload.board} missing from list. Adding it now. This shouldn't happen really.`)
@@ -157,6 +161,10 @@ const store = new Vuex.Store({
 socket.on("connect",() => {
 	store.commit("clearThreads")
 	store.dispatch("getActiveThreads")
+})
+
+socket.on("userCount",userCount => {
+	store.commit("updateUserCount",userCount)
 })
 
 socket.on("allBoardStats",allBoardStats => {
