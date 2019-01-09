@@ -28,7 +28,7 @@
       </div>
       <transition-group v-if="postAnalysis.a" tag="div" class="">
         <div v-for="boardName in sortedList" :key="boardName" class="boardlist__row">
-          <div :data-hover-text="longBoardNames[boardName]" class="tooltip-right">/{{ boardName }}/</div>
+          <div :data-hover-text="longBoardNames[boardName]" class="tooltip-right">{{ boardName == "s4s" ? "[s4s]" : "/"+boardName+"/" }}</div>
           <div class="">{{ postAnalysis[boardName].OPLength_mean.toFixed(2) }}</div>
           <div class="">{{ postAnalysis[boardName].replyLength_mean.toFixed(2) }}</div>
           <div class="">{{ (postAnalysis[boardName].OPsWithTitles_ratio * 100).toFixed(2)+"%" }}</div>

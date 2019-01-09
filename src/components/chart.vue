@@ -76,7 +76,8 @@
       </div>
 			-->
         <div v-for="board in allBoards" :key="board" class="button-padder" @click="toggleBoard(board)">
-          <div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">/{{ board }}/</div>
+          <!--<div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">/{{ board }}/</div>-->
+					<div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">{{ board == "s4s" ? "[s4s]" : "/"+board+"/" }}</div>
         </div>
       </div>
     <!--
