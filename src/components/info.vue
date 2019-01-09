@@ -8,21 +8,12 @@
       <img src="../static/hiroooo.png">
       -->
       <p>
-        I calculated some more stats from last years data.<br>
-        You can check out this thread:<br>
-        <a href="https://boards.4channel.org/qa/thread/2518414">&gt;&gt;&gt;/qa/2518414</a><br>
-        or this (updated) pastebin:<br>
-        <a href="https://pastebin.com/raw/NeVmmEwj">https://pastebin.com/raw/NeVmmEwj</a>
-      </p>
-      <hr>
-      <p>
-        Also started calculating some additional stats from individual posts.<br>
-        Updates for those stats have longer intervals, but it's some data, that can't be calculated from the catalogs alone.<br>
-        <a href="https://4stats.io/postAnalysis">https://4stats.io/postAnalysis</a>
-      </p>
-      <hr>
-      <p>
         Thanks to a helpful admin from <a href="https://desuarchive.org">desuarchive.org</a> & <a href="https://rbt.asia">rbt.asia</a> extended earlier data for these archived boards has been added to the timeline.<br>
+      </p>
+      <hr>
+      <p>
+        Also some new stats calculated from individual posts:<br>
+        <a href="https://4stats.io/postAnalysis">https://4stats.io/postAnalysis</a>
       </p>
     </div>
 
