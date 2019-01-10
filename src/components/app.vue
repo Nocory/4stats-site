@@ -15,10 +15,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import componentNav from './nav.vue'
+import componentFooter from './footer.vue'
 export default {
 	components: {
-		componentNav: require("./nav.vue").default,
-		componentFooter: require("./footer.vue").default
+		componentNav,
+		componentFooter
 	},
 	computed: {
 		...mapState(["userCount"]),

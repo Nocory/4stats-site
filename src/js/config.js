@@ -8,6 +8,7 @@ let config = {
 	VERSION,
 	debugLevelProduction: "info",
 	debugLevelDevelopment: "trace",
+	//url: "http://localhost:4001",
 	url: "https://api.4stats.io",
 	safeInitialBoard : ["3","an","ck","diy","g","gd","his","lit","n","news","o","out","p","po","sci","tg","trv","vr","wg"],
 	availableBoards : {
@@ -169,4 +170,4 @@ let config = {
 config.allBoards = Object.keys(config.availableBoards).reduce((acc,key) => [...acc,...config.availableBoards[key]],[])
 config.allBoards.sort()
 
-module.exports = config
+export default config

@@ -96,8 +96,8 @@
 </template>
 
 <script>
-const axios = require("axios")
-const config = require("js/config")
+import axios from "axios"
+import config from "js/config"
 export default {
 	data(){
 		return{
@@ -267,7 +267,7 @@ export default {
 		//this.requestTextAnalysis("boomer")
 	},
 	mounted(){
-		const Chart = require('chart.js')
+		import Chart from 'chart.js'
 		Chart.defaults.global.defaultFontFamily = 'monospace'
 		//Chart.defaults.global.defaultFontSize = 16
 		var ctx = document.getElementById("detailChart").getContext('2d')
@@ -275,7 +275,6 @@ export default {
 
 		this.chart = new Chart(ctx, {
 			type: 'scatter',
-			plugins: [require("chartjs-plugin-datalabels")],
 			data: {
 				labels: [],
 				datasets: []

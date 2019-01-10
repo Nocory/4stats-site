@@ -1,6 +1,6 @@
-const socketIO = require('socket.io-client')
-const config = require('./config')
-const pino = require("./pino")
+import socketIO from 'socket.io-client'
+import config from './config'
+import pino from "./pino"
 
 let socket = socketIO(config.url,{
 	transports: window.WebSocket ? ['websocket'] : ['polling', 'websocket'],
@@ -63,4 +63,4 @@ if(document.hidden) handleVisibilityChange()
 
 document.addEventListener("visibilitychange", handleVisibilityChange, false)
 
-module.exports = socket
+export default socket

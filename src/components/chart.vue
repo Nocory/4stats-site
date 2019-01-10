@@ -91,10 +91,10 @@
 </template>
 
 <script>
-const axios = require("axios")
-const pino = require("js/pino")
-const config = require("js/config")
-const chartFunctions = require("js/chartFunctions")
+import axios from "axios"
+import pino from "js/pino"
+import config from "js/config"
+import chartFunctions from "js/chartFunctions"
 export default {
 	data: () => ({
 		activeOptions: {},

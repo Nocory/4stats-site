@@ -21,9 +21,9 @@
 </template>
 
 <script>
-const axios = require("axios")
-const pino = require("js/pino")
-const config = require("js/config")
+import axios from "axios"
+import pino from "js/pino"
+import config from "js/config"
 export default {
 	data: () => ({
     allBoards: config.allBoards,

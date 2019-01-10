@@ -23,7 +23,7 @@
 </template>
 
 <script>
-const socket = require("js/socket")
+import socket from "js/socket"
 import { mapState, mapGetters } from 'vuex'
 export default {
 	data(){

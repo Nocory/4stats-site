@@ -1,4 +1,4 @@
-module.exports =  (el, callback) =>{
+export default (el, callback) =>{
 	let start = [0,0]
 	let end = [0,0]
 

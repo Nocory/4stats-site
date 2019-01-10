@@ -24,7 +24,6 @@
             </div>
           </div>
         </div>
-
 				
         <div class="setting-category">Show Chart</div>
 
@@ -41,13 +40,13 @@
 </template>
 
 <script>
-const pino = require("js/pino")
+import pino from "js/pino"
 import { mapState } from 'vuex'
-const config = require("js/config")
+import config from "js/config"
 export default {
 	data(){
 		return{
-			longBoardNames : require('js/config').boardNames,
+			longBoardNames : config.boardNames,
 			selectedCategory: "",
 			tempEnabledBoards : this.$store.state.enabledBoards.slice(),
 			availableBoards : config.availableBoards,

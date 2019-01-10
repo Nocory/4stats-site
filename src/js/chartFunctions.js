@@ -1,7 +1,8 @@
 //window.moment = require('moment/min/moment.min.js')
+//window.moment.tz.setDefault("UTC");
 
 // THE REQUIRED JS HAS BEEN MANUALLY CHANGED TO INSTEAD REQUIRE moment.min IN TURN !!!!!! 
-window.moment = require('moment-timezone/builds/moment-timezone-with-data-2012-2022.js')
+window.moment = require('moment-timezone/builds/moment-timezone-with-data.js')
 window.moment.tz.setDefault("UTC");
 
 const Chart = require('chart.js/dist/Chart.js')
@@ -208,7 +209,7 @@ let removeBoard = board => {
 	chart.update(0)
 }
 
-module.exports = {
+export default {
 	init,
 	addBoard,
 	removeBoard

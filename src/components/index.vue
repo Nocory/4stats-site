@@ -15,6 +15,10 @@
 
 <script>
 import { mapState } from 'vuex'
+import componentBoardlist from './boardlist.vue'
+import componentThreadlist from './threadlist.vue'
+import componentMeta from './meta.vue'
+import componentInfo from './info.vue'
 export default {
 	data: () => ({
 		renderChart: window.innerWidth >= 768, // the bulma breakpoint for tablets
@@ -26,10 +30,10 @@ export default {
 		])
 	},
 	components: {
-		componentBoardlist: require("./boardlist.vue").default,
-		componentThreadlist: require("./threadlist.vue").default,
-		componentMeta: require("./meta.vue").default,
-		componentInfo: require("./info.vue").default,
+		componentBoardlist,
+		componentThreadlist,
+		componentMeta,
+		componentInfo,
 		componentChart: () => import('./chart.vue')
 	},
 	methods:{

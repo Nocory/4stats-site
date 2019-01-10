@@ -3,7 +3,7 @@
     <!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
     <div class="boardlist__header">
       <div v-for="item in [
-        {category: 'name', text: 'Board', tooltip: ''},
+        {category: 'name', text: 'Board', tooltip: ' '},
         {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 15 minutes'},
         {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-touch','is-hidden-desktop-only']},
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
@@ -28,10 +28,11 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-const pino = require("js/pino")
+import pino from "js/pino"
+import config from 'js/config'
 export default {
 	data: () => ({
-		longBoardNames : require('js/config').boardNames,
+		longBoardNames : config.boardNames,
 		sortBoardListBy: localStorage.getItem("sortBoardListBy") || "avgPostsPerDay",
 		isThreadlistReversed: false
 	}),
@@ -208,16 +209,16 @@ export default {
   color: $--color-text-minor;
 }
 
-.tooltip-bottom:not([data-hover-text=""]){
+.tooltip-bottom:not([data-hover-text=" "]){
   text-decoration: underline dotted;
 }
 
-[data-hover-text].tooltip-bottom:hover::after{
+.tooltip-bottom:hover::after{
   left: 0px;
   top: 125%;
 }
 
-[data-hover-text].tooltip-right:hover::after{
+.tooltip-right:hover::after{
     left: 100%;
 }
 

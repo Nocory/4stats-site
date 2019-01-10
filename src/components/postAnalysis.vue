@@ -11,14 +11,14 @@
       <!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
       <div class="boardlist__header">
         <div v-for="item in [
-          {category: 'name', text: 'Board', tooltip: ''},
-          {category: 'OPLength_mean', text: 'OP length', tooltip: ''},
-          {category: 'replyLength_mean', text: 'Reply length', tooltip: ''},
-          {category: 'OPsWithTitles_ratio', text: 'OP has title', tooltip: ''},
+          {category: 'name', text: 'Board', tooltip: ' '},
+          {category: 'OPLength_mean', text: 'OP length', tooltip: ' '},
+          {category: 'replyLength_mean', text: 'Reply length', tooltip: ' '},
+          {category: 'OPsWithTitles_ratio', text: 'OP has title', tooltip: ' '},
           {category: 'repliesPerThread_mean', text: 'Replies/thread', tooltip: 'of currently visible threads'},
           //{category: 'repliesPerIP', text: 'Replies/IP', tooltip: 'of currently visible threads'},
           {category: 'postsWithNames_ratio', text: 'Name used', tooltip: 'Includes trip codes'},
-          {category: 'repliesWithImages_ratio', text: 'Reply has img', tooltip: ''},
+          {category: 'repliesWithImages_ratio', text: 'Reply has img', tooltip: ' '},
           {category: 'repliesWithText_ratio', text: 'Reply has txt', tooltip: 'Not counting quoted postnumbers'},
           //{category: 'filesize_mean', text: 'Avg. file size', tooltip: ''},
           //{category: 'visibleFilesize_sum', text: 'Live content', tooltip: 'of currently visible threads'},
@@ -49,12 +49,13 @@
 </template>
 
 <script>
-const pino = require("js/pino")
-const axios = require("axios")
+import pino from "js/pino"
+import axios from "axios"
+import config from "js/config"
 import { mapState, mapGetters } from 'vuex'
 export default {
 	data: () => ({
-    longBoardNames : require('js/config').boardNames,
+    longBoardNames : config.boardNames,
 		postAnalysis : {},
 		sortListBy: "name",
     isListReversed: false,
@@ -257,7 +258,7 @@ export default {
   color: $--color-text-minor;
 }
 
-.tooltip-bottom:not([data-hover-text=""]){
+.tooltip-bottom:not([data-hover-text=" "]){
   text-decoration: underline dotted;
 }
 

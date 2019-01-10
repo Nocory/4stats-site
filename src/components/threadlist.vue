@@ -32,7 +32,7 @@
 </template>
 
 <script>
-const pino = require("js/pino")
+import pino from "js/pino"
 import { mapState } from 'vuex'
 export default {
 	data(){

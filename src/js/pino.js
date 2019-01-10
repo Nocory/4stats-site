@@ -8,4 +8,4 @@ const pino = require("pino")({
 	base: null
 })
 
-module.exports = pino
+export default pino

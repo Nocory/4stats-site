@@ -1,4 +1,4 @@
-const pino = require("./pino")
+import pino from "./pino"
 
 pino.info("NODE_ENV is:", process.env.NODE_ENV)
 
@@ -41,15 +41,21 @@ import store from "store/index.js"
 //const detailedStats = () => import('../components/detailedStats.vue')
 //const thumbnailStream = () => import('../components/thumbnailStream.vue')
 
+import indexComponent from "../components/index.vue"
+import postAnalysisComponent from "../components/postAnalysis.vue"
+import archiveComponent from "../components/archive.vue"
+import configComponent from "../components/config.vue"
+import feedbackComponent from "../components/feedback.vue"
+
 const routes = [
-	{ path: '/', component: require("../components/index.vue").default },
+	{ path: '/', component: indexComponent },
 	//{ path: '/snapshotAnalysisWorkInProgress', component: detailedStats },
 	//{ path: '/thumbnailStreamTest', component: thumbnailStream },
-	{ path: '/postAnalysis', component: require("../components/postAnalysis.vue").default },
-	{ path: '/archive', component: require("../components/archive.vue").default },
-	{ path: '/config', component: require("../components/config.vue").default },
-	{ path: '/feedback', component: require("../components/feedback.vue").default },
-	{ path: '*', component: require("../components/index.vue").default }
+	{ path: '/postAnalysis', component: postAnalysisComponent },
+	//{ path: '/archive', component: archiveComponent },
+	{ path: '/config', component: configComponent },
+	{ path: '/feedback', component: feedbackComponent },
+	{ path: '*', component: indexComponent }
 ]
 
 const router = new VueRouter({
