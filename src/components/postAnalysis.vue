@@ -205,9 +205,11 @@ export default {
 }
 
 .boardlist__header{
+  position: sticky;
+  top: 0;
+  z-index: 100;
   cursor: pointer;
   line-height: 2.25rem;
-  background-color: $--color-highlight-1;
   background: rgba(0,0,0,0.8);
   >div{
     //overflow: hidden;

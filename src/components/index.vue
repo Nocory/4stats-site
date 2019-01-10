@@ -5,8 +5,10 @@
       <component-threadlist/>
       <component-chart v-if="this.$route.path == '/' && chartPreference != -1 && (renderChart || chartPreference == 1)"/>
       <div class="right is-hidden-touch is-hidden-desktop-only">
-        <component-meta/>
-        <component-info/>
+				<div class="right-wrapper">
+					<component-meta/>
+					<component-info/>
+				</div>
       </div>
     </div>
     <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">
@@ -35,74 +37,6 @@ export default {
 		componentMeta,
 		componentInfo,
 		componentChart: () => import('./chart.vue')
-	},
-	methods:{
-		setRightElRelative(){
-			//console.log("rel")
-			const rightComponent = document.querySelector(".right")
-			if(!rightComponent) return
-			rightComponent.style.position = "relative"
-			rightComponent.style.top = "inherit"
-			rightComponent.style.left = "inherit"
-			rightComponent.style.width = "inherit"
-			this.rightIsFixed = false
-		},
-		setRightElFixed(){
-			//console.log("fixing")
-			if(window.scrollY < 48) return
-			const rightComponent = document.querySelector(".right")
-			if(!rightComponent) return
-			const boundingRect = rightComponent.getBoundingClientRect()
-			rightComponent.style.position = "fixed"
-			rightComponent.style.top = 0+"px"
-			rightComponent.style.left = boundingRect.left+"px"
-			rightComponent.style.width = boundingRect.width+"px"
-			this.rightIsFixed = true
-		}
-	},
-	mounted(){
-		window.addEventListener("resize",() => {
-			this.renderChart = window.innerWidth >= 768
-			this.setRightElRelative()
-			this.setRightElFixed()
-		},{
-			passive: true
-		})
-
-		window.addEventListener("scroll",() => {
-			//console.log(e)
-			if(window.scrollY >= 48 && !this.rightIsFixed){
-				this.setRightElFixed()
-			}
-			if(window.scrollY < 48 && this.rightIsFixed){
-				this.setRightElRelative()
-			}
-		},{
-			passive: true
-		})
-
-		this.setRightElFixed()
-		/*
-		const rightComponent = document.querySelector(".right")
-		window.addEventListener("scroll",e => {
-			console.log(window.scrollY + "px")
-			//rightComponent.style.top = window.scrollY + "px"
-			rightComponent.style.setProperty("--meta-y-offset",window.scrollY + "px")
-		},{
-			passive: true
-		})
-		*/
-		/*
-		const rightComponent = document.querySelector(".right")
-		const boundingRect = rightComponent.getBoundingClientRect()
-
-		console.log(boundingRect)
-
-		rightComponent.style.position = "fixed"
-		rightComponent.style.top = boundingRect.top+"px"
-		rightComponent.style.left = boundingRect.left+"px"
-		rightComponent.style.width = boundingRect.width+"px"
-		*/
 	}
 }
 </script>
@@ -184,23 +118,9 @@ export default {
 
 .right{
 	grid-area: right;
-}
-
-.connected {
-	position: absolute;
-	top: 4px;
-	left: 4px;
-  font-size: 10px;
-  color: $oc-gray-4;
-	opacity: 1;
-	&:hover{
-		opacity: 1;
-	}
-	&:after{
-		position: absolute;
-		left: 0;
-		top: 200%;
-		//content: "works now?";
+	>.right-wrapper{
+		position: sticky;
+		top: 1rem;
 	}
 }
 </style>

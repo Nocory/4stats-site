@@ -156,8 +156,12 @@ export default {
 }
 
 .boardlist__header{
+  /*
+  top: 0px;
+  position: sticky;
+  */
+  z-index: 100;
   line-height: 2.25rem;
-  background-color: $--color-highlight-1;
   background: rgba(0,0,0,0.8);
   >div{
     &::before{

@@ -1,13 +1,5 @@
-//window.moment = require('moment/min/moment.min.js')
-//window.moment.tz.setDefault("UTC");
-
-// THE REQUIRED JS HAS BEEN MANUALLY CHANGED TO INSTEAD REQUIRE moment.min IN TURN !!!!!! 
-//window.moment = require('./moment-timezone-with-data-custom.js')
 import momenttz from './moment-timezone-with-data-custom.js'
 window.moment = momenttz
-//window.moment = require('./moment-timezone-with-data-custom.js')
-//window.moment = require('moment-timezone/builds/moment-timezone-with-data-custom.js')
-//window.moment = () => import('./moment-timezone-with-data-custom.js')
 window.moment.tz.setDefault("UTC");
 
 const Chart = require('chart.js/dist/Chart.js')
@@ -153,8 +145,6 @@ let addBoard = (board, history, options, updateTime = 500) => {
 	//chart.options.scales.xAxes[0].time.max = options.dateEnd
 
 	if(options.property == "activity"){
-		//let topPPM = board == "combined" ? store.getters.combinedBoardStats.topPPM : store.state.boardData[board].topPPM
-		//chartThis = chartThis.map(el => ({x: el.x, y: el.y * 100 / topPPM}))
 		chartThis = chartThis.map(el => ({x: el.x, y: el.y ? el.y * 100 / store.state.boardData[board].topPPM : el.y}))
 	}
 	

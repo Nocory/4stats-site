@@ -29,7 +29,6 @@ export default {
 #app {
 	display: flex;
 	flex-direction: column;
-	overflow: hidden;
   position: relative;
   min-height: 100vh;
 	font-family: monospace;

@@ -171,6 +171,7 @@ export default {
       width: 100%;
       height: 3rem;
       font-size: 1.25rem;
+      color: $--color-text;
       >.headline{
         flex-grow: 1;
         white-space: nowrap;
