@@ -1,25 +1,13 @@
 <template>
   <div class="component-nav">
     <div class="container is-fluid">
+
       <router-link to="/">
         <div class="nav-link site-title">4stats.io</div>
       </router-link>
-			
-      <div v-if="mostActiveBoard" class="mostActiveBoard is-hidden">
-        /<b>{{ mostActiveBoard }}</b>/ is at {{ Math.round(boardData[mostActiveBoard].relativeActivity * 100) }}% activity. Something going on.
-      </div>
-      <!--
-      <router-link to="/" class="is-hidden-touch is-hidden-desktop-only">
-        <div class="nav-link">Live</div>
-      </router-link>
-			-->
 
       <div class="spacer"/>
-      <!--
-      <router-link to="/snapshotAnalysisWorkInProgress" class="is-hidden-touch is-hidden-desktop-only">
-        <div class="nav-link">Snapshot WIP</div>
-      </router-link>
-			-->
+			
       <router-link to="/postAnalysis" class="is-hidden-mobile">
         <div class="nav-link">Post-Analysis</div>
       </router-link>
@@ -36,39 +24,13 @@
         <div class="nav-link">Config</div>
       </router-link>
     </div>
-		
 
-    <!--
-    <router-link :to="this.$route.path != '/config' ? '/config' : '/'">
-      <button class="config-button" @click="showConfig = true">
-        <template v-if="this.$route.path != '/config'">
-          <span class="icon">
-            <i class="fa-lg fa-cog"/>
-          </span>
-          <span class="config-button-text">
-            Boards
-          </span>
-        </template>
-        <template v-else>
-          <span class="config-button-text">
-            Save ✔
-          </span>
-        </template>
-      </button>
-    </router-link>
-		-->			
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
 export default {
-	computed: {
-		...mapState([
-			"boardData"
-		]),
-		...mapGetters(['combinedBoardStats','mostActiveBoard'])
-	}
+	
 }
 </script>
 
@@ -98,13 +60,6 @@ export default {
 			margin: 0 4rem;
 		}
 	}
-}
-
-.mostActiveBoard, .subTitle{
-	position: relative;
-	display: flex;
-	align-items: center;
-	padding: 0;
 }
 
 .spacer{

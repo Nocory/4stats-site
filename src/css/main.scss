@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
-@import "fa_boiler.css";
-@import "icomoon_cogs.css";
+//@import "fa_boiler.css";
+//@import "icomoon_cogs.css";
 @import "variables.scss";
 @import "~bulma/bulma.sass";
 
@@ -11,19 +11,4 @@
 
 .greentext {
   color: $--color-greentext;
-}
-
-.headline {
-  position: relative;
-  z-index: 10;
-  color: $--color-title;
-  //@include float-shadow-text;
-	background: transparent;
-  padding: 0;
-  font-weight: normal;
-  margin: 0;
-  text-align: center;
-  @include desktop{
-    padding: 0.5rem 0;
-  }
 }

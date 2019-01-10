@@ -112,7 +112,6 @@ const store = new Vuex.Store({
 			}
 		},
 		updateThreadData(state,payload){
-			console.log("replacing")
 			for(let thread of payload.threads){
 				thread.com = thread.com.replace(/&gt;.*?($|<br>)/gim,"<span class='greentext'>$&</span>")
 				if(payload.board == "p") thread.com = thread.com.replace(/<span class="abbr">.+<\/table>/gms,"") //FIXME: gatherer doesn't deliver html tags for this

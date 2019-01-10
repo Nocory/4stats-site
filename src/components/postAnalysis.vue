@@ -11,20 +11,20 @@
       <!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
       <div class="boardlist__header">
         <div v-for="item in [
-          {category: 'name', text: 'Board', tooltip: ' '},
-          {category: 'OPLength_mean', text: 'OP length', tooltip: ' '},
-          {category: 'replyLength_mean', text: 'Reply length', tooltip: ' '},
-          {category: 'OPsWithTitles_ratio', text: 'OP has title', tooltip: ' '},
+          {category: 'name', text: 'Board', tooltip: ''},
+          {category: 'OPLength_mean', text: 'OP length', tooltip: ''},
+          {category: 'replyLength_mean', text: 'Reply length', tooltip: ''},
+          {category: 'OPsWithTitles_ratio', text: 'OP has title', tooltip: ''},
           {category: 'repliesPerThread_mean', text: 'Replies/thread', tooltip: 'of currently visible threads'},
           //{category: 'repliesPerIP', text: 'Replies/IP', tooltip: 'of currently visible threads'},
           {category: 'postsWithNames_ratio', text: 'Name used', tooltip: 'Includes trip codes'},
-          {category: 'repliesWithImages_ratio', text: 'Reply has img', tooltip: ' '},
+          {category: 'repliesWithImages_ratio', text: 'Reply has img', tooltip: ''},
           {category: 'repliesWithText_ratio', text: 'Reply has txt', tooltip: 'Not counting quoted postnumbers'},
           //{category: 'filesize_mean', text: 'Avg. file size', tooltip: ''},
           //{category: 'visibleFilesize_sum', text: 'Live content', tooltip: 'of currently visible threads'},
           {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: 'of currently non-locked visible threads'},
           {category: 'dataAge', text: 'Last checked', tooltip: 'more active boards get checked more frequently'},
-        ]" :key="item.name" :class="[sortListBy == item.category ? 'category-selected' : '', ...item.classes]" :data-hover-text="item.tooltip" class="tooltip-bottom" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
+        ]" :key="item.name" :class="[{'category-selected' : sortListBy == item.category, 'tooltip-bottom' : item.tooltip}, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
       </div>
       <transition-group v-if="postAnalysis.a" tag="div" class="">
         <div v-for="boardName in sortedList" :key="boardName" class="boardlist__row">
@@ -258,16 +258,16 @@ export default {
   color: $--color-text-minor;
 }
 
-.tooltip-bottom:not([data-hover-text=" "]){
+.tooltip-bottom{
   text-decoration: underline dotted;
 }
 
-[data-hover-text].tooltip-bottom:hover::after{
+.tooltip-bottom:hover::after{
   left: 0px;
   top: 125%;
 }
 
-[data-hover-text].tooltip-right:hover::after{
+.tooltip-right:hover::after{
     left: 100%;
 }
 </style>

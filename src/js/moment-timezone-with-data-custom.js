@@ -4,13 +4,7 @@
 //! license : MIT
 //! github.com/moment/moment-timezone
 
-(function (root, factory) {
-	"use strict";
-
-	/*global define*/
-	module.exports = factory(require('moment/min/moment.min.js')); // Node
-}(this, function (moment) {
-	"use strict";
+const factory = (moment) => {
 
 	// Do not load moment-timezone a second time.
 	// if (moment.tz !== undefined) {
@@ -617,4 +611,6 @@
 
 
 	return moment;
-}));
+}
+
+export default factory(require('moment/min/moment.min.js'))

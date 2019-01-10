@@ -2,7 +2,12 @@
 //window.moment.tz.setDefault("UTC");
 
 // THE REQUIRED JS HAS BEEN MANUALLY CHANGED TO INSTEAD REQUIRE moment.min IN TURN !!!!!! 
-window.moment = require('./moment-timezone-with-data-custom.js')
+//window.moment = require('./moment-timezone-with-data-custom.js')
+import momenttz from './moment-timezone-with-data-custom.js'
+window.moment = momenttz
+//window.moment = require('./moment-timezone-with-data-custom.js')
+//window.moment = require('moment-timezone/builds/moment-timezone-with-data-custom.js')
+//window.moment = () => import('./moment-timezone-with-data-custom.js')
 window.moment.tz.setDefault("UTC");
 
 const Chart = require('chart.js/dist/Chart.js')

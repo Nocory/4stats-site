@@ -1,5 +1,5 @@
 <template>
-  <div class="component-footer">
+  <div class="component-footer" v-once>
     <div class="container is-fluid">
       <p>
         Data source: <a href="https://4chan.org" target="_blank" rel="noopener">https://4chan.org</a>.<br>
