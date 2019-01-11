@@ -79,6 +79,10 @@
           <!--<div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">/{{ board }}/</div>-->
 					<div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">{{ board == "s4s" ? "[s4s]" : "/"+board+"/" }}</div>
         </div>
+        <div class="button-padder" @click="toggleBoard('all')">
+          <!--<div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">/{{ board }}/</div>-->
+					<div :class="{'button-selected': graphedBoards.includes('all')}" class="board-button">/all/</div>
+        </div>
       </div>
     <!--
       <a class="board-buttons" @click="toggleBoard('combined')">
@@ -213,7 +217,7 @@ export default {
 					{
 						//x: term == "hour" ? el.time : new Date(el.time).setHours(0,0,1,0),
 						x: el.time,
-						y: term == "day" ? Math.round(el.postCount) : el.postsPerMinute
+						y: term == "day" && el.postCount ? Math.round(el.postCount) : el.postsPerMinute
 					}))
 			}
 			if(term == "day"){
