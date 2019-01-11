@@ -201,7 +201,11 @@ export default {
 				})
 		},
 		processNewTimelineData(board, term, newData) {
-			if(!newData || !newData.length) return pino.warn("chart.vue processNewTimelineData: history was empty")
+			if(!newData || !newData.length){
+				chartFunctions.removeBoard(board)
+				pino.warn("chart.vue processNewTimelineData: history was empty")
+				return
+			}
 
 			newData = newData.map(el => ({
 				time: el[0],

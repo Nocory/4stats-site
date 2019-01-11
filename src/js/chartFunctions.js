@@ -145,7 +145,7 @@ let addBoard = (board, history, options, updateTime = 500) => {
 	//chart.options.scales.xAxes[0].time.max = options.dateEnd
 
 	if(options.property == "activity"){
-		chartThis = chartThis.map(el => ({x: el.x, y: el.y ? el.y * 100 / store.state.boardData[board].topPPM : el.y}))
+		chartThis = board == "all" ? [] : chartThis.map(el => ({x: el.x, y: el.y ? el.y * 100 / store.state.boardData[board].topPPM : el.y}))
 	}
 	
 	if(options.smoothingLevel){
