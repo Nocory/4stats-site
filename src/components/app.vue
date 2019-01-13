@@ -32,6 +32,7 @@ export default {
   position: relative;
   min-height: 100vh;
 	font-family: monospace;
+	overflow: hidden;
 	@include mobile{
 		touch-action: pan-y;
 	}
