@@ -48,7 +48,7 @@
   color: $--color-text;
   padding: 1em;
   color: $oc-gray-0;
-    font-size: 0.8em;
+  //font-size: 0.8em;
   a{
     color: rgba(180, 215, 255, 0.8);
   }
