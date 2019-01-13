@@ -38,8 +38,7 @@ export default {
 @import "~css/variables.scss";
 
 .component-nav{
-	z-index: 1;
-	position: relative;
+	top: 0px;
 	background: $--color-navbar;
 	color: $--color-text;
 	height: 3rem;

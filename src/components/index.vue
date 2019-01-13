@@ -36,7 +36,7 @@ export default {
 		componentThreadlist,
 		componentMeta,
 		componentInfo,
-		componentChart: () => import('./chart.vue')
+		componentChart: () => import(/* webpackChunkName: "chart" */'./chart.vue')
 	}
 }
 </script>

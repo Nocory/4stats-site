@@ -6,10 +6,11 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 //const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-//const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
+const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = {
 	entry: {
@@ -21,24 +22,21 @@ module.exports = {
 	},
 	module: {
 		rules: [{
-			test: /\.css$/,
+			test: /\.(sa|sc|c)ss$/,
 			use: [
-				MiniCssExtractPlugin.loader,'css-loader', 'postcss-loader'
-			]
-		},
-		{
-			test: /\.(sass|scss)$/,
-			use: [
-				MiniCssExtractPlugin.loader,'css-loader', 'postcss-loader', 'sass-loader'
+				devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+				'css-loader',
+				'postcss-loader',
+				'sass-loader'
 			]
 		},
 		{
 			test: /\.(ttf|eot|woff|woff2|svg)$/,
-			loader: "url-loader?limit=10240&name=fonts/[name]_[hash:8].[ext]"
+			loader: "url-loader?limit=1024&name=fonts/[name]_[hash:8].[ext]"
 		},
 		{
 			test: /\.(png|jpg|jpeg|gif)$/,
-			loader: "url-loader?limit=10240&name=img/[name]_[hash:8].[ext]"
+			loader: "url-loader?limit=1024&name=img/[name]_[hash:8].[ext]"
 		},
 		{
 			test: /\.js$/,
@@ -62,11 +60,12 @@ module.exports = {
 	},
 	plugins: [
 		new VueLoaderPlugin(),
-		new CleanWebpackPlugin(['dist'], {
+		new CleanWebpackPlugin(['../dist'], {
 			root: __dirname,
 			verbose: true,
 			dry: false,
-			watch: false
+			watch: false,
+			allowExternal: true
 		}),
 
 		new webpack.EnvironmentPlugin(['NODE_ENV']),
@@ -82,22 +81,12 @@ module.exports = {
 			{ from: 'src/static/_headers', to: '_headers', toType: 'file'}, // hints for netlify http2 push
 			{ from: 'src/static', to: '' }
 		]),
-		/*
-		new ExtractTextPlugin({
-			//filename: "[name]_[contenthash:8].css",
-			filename: "[name].css",
-			disable: false,
-			allChunks: true
-		}),
-		*/
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output
 			// both options are optional
 			filename: "[name].css",
 			chunkFilename: "[id].css"
 		})
-
-		//new BundleAnalyzerPlugin()
 	],
 	stats: {
 		maxModules: Infinity,

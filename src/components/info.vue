@@ -4,9 +4,6 @@
       Info
     </div>
     <div class="info-wrapper">
-      <!--
-      <img src="../static/hiroooo.png">
-      -->
       <p>
         Thanks to a helpful admin from <a href="https://desuarchive.org">desuarchive.org</a> & <a href="https://rbt.asia">rbt.asia</a> extended earlier data for these archived boards has been added to the timeline.<br>
       </p>

@@ -1,11 +1,11 @@
-const config = require("./config")
+import config from "./config"
 
-const pino = require("pino")({
+import pino from "pino"
+
+export default pino({
 	name: '4stats',
 	safe: true,
 	prettyPrint: process.env.NODE_ENV != "production",
 	level: process.env.PINO_LEVEL || (process.env.NODE_ENV == "production" ? config.debugLevelProduction : config.debugLevelDevelopment),
 	base: null
 })
-
-export default pino

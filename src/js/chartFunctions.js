@@ -3,9 +3,10 @@ window.moment = momenttz
 window.moment.tz.setDefault("UTC");
 
 const Chart = require('chart.js/dist/Chart.js')
+//import Chart from 'chart.js/dist/Chart.js';
 Chart.defaults.global.defaultFontFamily = 'monospace'
 Chart.defaults.global.defaultFontSize = 14
-const store = require("store/index").default
+import store from "../store/index"
 
 let chart = null
 

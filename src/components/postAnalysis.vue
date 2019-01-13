@@ -9,6 +9,9 @@
     </p>
     <div class="container is-fluid">
       <!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
+      <button class="button refresh-button" @click="reloadStats(true)">
+        <div class="refresh-button-text">&#11118;</div>
+      </button>
       <div class="boardlist__header">
         <div v-for="item in [
           {category: 'name', text: 'Board', tooltip: ''},
@@ -84,35 +87,53 @@ export default {
 		categoryClicked(sortBy){
 			this.isListReversed = sortBy == this.sortListBy ? !this.isListReversed : false
 			this.sortListBy = sortBy
-		}
+    },
+    reloadStats(animateButton = false){
+      if(animateButton){
+        const element = document.querySelector(".refresh-button-text")
+				if(!element || element.classList.contains("refresh-button-clicked")) return
+        
+				element.classList.add("refresh-button-clicked")
+				element.addEventListener(
+					"animationend",
+					event => {
+						element.classList.remove("refresh-button-clicked")
+					},{
+						once: true,
+						passive: true
+					})
+      }
+
+      axios.get("https://api.4stats.io/allPostAnalysis")
+      //axios.get("http://localhost:8080/allBoardStats")
+        .then(res => {
+          const nowUnix = Date.now() / 1000
+          for(let board in res.data){
+            res.data[board].dataAge = nowUnix - res.data[board].created_unix
+            res.data[board].dataAgeStr = res.data[board].dataAge < 60 * 60 ?
+              Math.floor(res.data[board].dataAge / 60) + "m" : 
+              Math.floor(res.data[board].dataAge / (60 * 60)) + ":" + (Math.floor(res.data[board].dataAge / 60) % 60).toString().padStart(2,"0") + "h"
+              
+            res.data[board].repliesPerIP = res.data[board].repliesPerThread_mean / res.data[board].IPsPerThread_mean
+
+            res.data[board].threadAgeStr = ""
+            if(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 24){
+              res.data[board].threadAgeStr = Math.floor(res.data[board].threadAgeSeconds_mean / (60 * 60 * 24))+"d "
+            }
+            res.data[board].threadAgeStr += Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60 * 24) / (60 * 60)).toString().padStart(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 10 ? 2 : 1,"0") + ":" + (Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60) / 60)).toString().padStart(2,"0") + "h"
+            /*
+            res.data[board].threadAgeSeconds_mean < 60 * 60 * 24 ?
+              Math.floor(res.data[board].dataAge / 60) + "m" : 
+              Math.floor(res.data[board].threadAgeSeconds_mean / (60 * 60)) + ":" + (Math.floor(res.data[board].threadAgeSeconds_mean / 60) % 60).toString().padStart(2,"0") + "h"
+            */
+          }
+          this.postAnalysis = res.data
+        })
+        .catch(console.error)
+    }
 	},
 	mounted(){
-    axios.get("https://api.4stats.io/allPostAnalysis")
-    //axios.get("http://localhost:8080/allBoardStats")
-      .then(res => {
-        const nowUnix = Date.now() / 1000
-        for(let board in res.data){
-          res.data[board].dataAge = nowUnix - res.data[board].created_unix
-          res.data[board].dataAgeStr = res.data[board].dataAge < 60 * 60 ?
-            Math.floor(res.data[board].dataAge / 60) + "m" : 
-            Math.floor(res.data[board].dataAge / (60 * 60)) + ":" + (Math.floor(res.data[board].dataAge / 60) % 60).toString().padStart(2,"0") + "h"
-            
-          res.data[board].repliesPerIP = res.data[board].repliesPerThread_mean / res.data[board].IPsPerThread_mean
-
-          res.data[board].threadAgeStr = ""
-          if(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 24){
-            res.data[board].threadAgeStr = Math.floor(res.data[board].threadAgeSeconds_mean / (60 * 60 * 24))+"d "
-          }
-          res.data[board].threadAgeStr += Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60 * 24) / (60 * 60)).toString().padStart(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 10 ? 2 : 1,"0") + ":" + (Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60) / 60)).toString().padStart(2,"0") + "h"
-          /*
-          res.data[board].threadAgeSeconds_mean < 60 * 60 * 24 ?
-            Math.floor(res.data[board].dataAge / 60) + "m" : 
-            Math.floor(res.data[board].threadAgeSeconds_mean / (60 * 60)) + ":" + (Math.floor(res.data[board].threadAgeSeconds_mean / 60) % 60).toString().padStart(2,"0") + "h"
-          */
-        }
-        this.postAnalysis = res.data
-      })
-      .catch(console.error)
+    this.reloadStats()
 	}
 }
 </script>
@@ -143,6 +164,37 @@ export default {
 }
 
 .container{
+  >.refresh-button{
+    position: absolute;
+    height: 2rem;
+    width: 2rem;
+    left: calc(100% - 2.5rem);
+    top: -2.5rem;
+    @include float-shadow-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $--color-highlight-1;
+    >.refresh-button-text{
+      font-weight: bold;
+      color: $--color-text;
+      &.refresh-button-clicked{
+        animation-duration: 1s;
+        animation-name: postAnalysisRefreshAnim;
+        animation-timing-function: ease-in-out;
+      }
+    }
+  }
+
+  @keyframes postAnalysisRefreshAnim {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
   height: 100%;
 	&.is-fluid{
 		@include touch{
