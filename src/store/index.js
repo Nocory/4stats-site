@@ -86,6 +86,9 @@ const store = new Vuex.Store({
 		}
 	},
 	mutations: {
+		replaceThreadThumbnail(state,payload){
+			state.threadData[payload.selectedBoard][payload.index].image = require('../static/404-DanKim.jpg')
+		},
 		updateUserCount(state, payload){
 			state.userCount = payload
 		},

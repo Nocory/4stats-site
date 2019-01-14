@@ -7,8 +7,8 @@
         {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 15 minutes'},
         {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-touch','is-hidden-desktop-only']},
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
-        {category: 'relativeActivity', text: 'rel. to peak', tooltip: 'Current posts/minute relative to the boards usual peak daily posts/minute', classes: ['is-hidden-touch','is-hidden-desktop-only', 'is-hidden-widescreen-only']},
-        {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-touch']},
+        {category: 'relativeActivity', text: 'rel. to peak', tooltip: 'Current posts/minute relative to the boards usual peak daily posts/minute', classes: ['']},
+        {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-touch','is-hidden-desktop-only', 'is-hidden-widescreen-only']},
       ]" :key="item.name" :class="[{'category-selected' : sortBoardListBy == item.category, 'tooltip-bottom' : item.tooltip}, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
     <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="">
@@ -17,8 +17,8 @@
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
         <div class="is-hidden-touch is-hidden-desktop-only">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
         <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
-        <div class="is-hidden-touch is-hidden-desktop-only is-hidden-widescreen-only">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
-        <div class="is-hidden-touch">{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}</div>
+        <div class="">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
+        <div class="is-hidden-touch is-hidden-desktop-only is-hidden-widescreen-only">{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}</div>
         <img class="board-has-sticky" v-if="boardData[boardName].hasSticky" src="../static/sticky.gif">
       </div>
     </transition-group>

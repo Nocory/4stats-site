@@ -1,8 +1,9 @@
-$tablet: 768px; // Bulma default is 769
+//$tablet: 500px; // Bulma default is 769
 
 @import "~nord/src/sass/nord.scss";
 @import "~open-color/open-color.scss";
-@import "~bulma/sass/utilities/_all.sass";
+@import "./custom_bulma_mixins.scss";
+//@import "~bulma/sass/utilities/_all.sass";
 
 $--color-navbar: #1f1f1f;
 

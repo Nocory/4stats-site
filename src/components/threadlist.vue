@@ -4,15 +4,15 @@
       Active threads on /{{ selectedBoard }}/
     </div>
 
-    <div class="mobile-headline-wrapper is-hidden-tablet ">
+    <div class="mobile-headline-wrapper is-hidden-tablet">
       <h4 class="headline">Active threads on /{{ selectedBoard }}/</h4>
       <div class="back-button" @click="closeThreadSideBar">x</div>
     </div>
     
     <div v-if="selectedBoard" class="threads-wrapper">
-      <a v-for="thread in threadData[selectedBoard].slice(0,elementProperties.threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
+      <a v-for="(thread,index) in threadData[selectedBoard].slice(0,elementProperties.threadsToShow)" :key="thread.no" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" rel="noopener">
         <div class="img-wrapper">
-          <img ref="img" :src="thread.image" :alt="`${selectedBoard} thread image`" referrerpolicy="same-origin" @error="thread.image='https://s.4cdn.org/image/error/404/404-DanKim.gif'">
+          <img ref="img" :src="thread.image" :alt="`${selectedBoard} thread image ${index}`" referrerpolicy="same-origin" @error="$store.commit('replaceThreadThumbnail',{selectedBoard, index})">
         </div>
         
         <div class="text-wrapper">
@@ -120,7 +120,7 @@ export default {
 			const absX = Math.abs(delta[0])
 			const absy = Math.abs(delta[1])
 
-			if(absX < 64 && absy < 64)return
+      if(absX < 64 && absy < 64)return
 			if(absX > absy * 2.5){
 				if(delta[0] > 0){
 					this.handleSwipe("right")
@@ -137,8 +137,6 @@ export default {
 
 <style scoped lang="scss">
 @import "~css/variables.scss";
-
-
 
 @include mobile{
   .threadlist-component{
