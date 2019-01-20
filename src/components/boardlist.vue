@@ -112,7 +112,6 @@ export default {
 }
 
 .header, .row{
-  white-space: nowrap;
   position: relative;
   display: flex;
   cursor: pointer;
@@ -121,7 +120,6 @@ export default {
   color: $--color-text-minor;
   transition: color 0.5s ease, background-color 0.5s ease, transform 0.5s ease;
   >div{
-    overflow: hidden;
     position: relative;
     flex: 1 1 0;
     text-align: right;
@@ -138,11 +136,21 @@ export default {
 
 .header{
   z-index: 100;
-  line-height: 2.25rem;
+  height: 2.25rem;
+  align-items: stretch;
   background: rgba(0,0,0,0.8);
   &__col{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     width: 100%;
-    overflow: none;
+    &:first-child{
+      width: 64px;
+      flex: none;
+      justify-content: flex-start;
+      padding: 0 0 0 1em;
+      font-weight: bold;
+    }
     &::before{
       content: "";
       position: absolute;
