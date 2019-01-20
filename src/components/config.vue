@@ -29,16 +29,6 @@
 				</div>			
 			</div>
 
-			<div class="category is-hidden">
-				<div class="component-title">Threadlist</div>
-				<div class="category__content">
-					<div>
-						<input type="checkbox" name="no-nsfw-images" v-model="hideNSFWImages" @input="toggleNSFWImages">
-						<label for="no-nsfw-images">Hide NSFW board images</label>
-					</div>
-				</div>
-			</div>
-
 		</div>
 			
   </div>
@@ -58,8 +48,7 @@ export default {
 			categories: [
 				["main","Main"],
 				["nsfw","NSFW"],
-			],
-			hideNSFWImages : JSON.parse(localStorage.getItem("hideNSFWImages")) || false
+			]
 		}
 	},
 	computed: mapState([
@@ -94,9 +83,6 @@ export default {
 				this.tempEnabledBoards.push(board)
 			}
 			pino.debug("config.vue toggleBoard new list",this.tempEnabledBoards)
-		},
-		toggleNSFWImages(){
-			console.log(this.hideNSFWImages)
 		},
 		saveSettings(){
 			this.$store.commit("setEnabledBoards",this.tempEnabledBoards.slice())
@@ -155,9 +141,10 @@ export default {
 	width: 8rem;
 	border-radius: 4px;
 	border-style: solid;
-	background: #fafafa;
+	color: $--color-text;
+	background-color: $--color-highlight-1;
 	margin-right: 1rem;
-	//@include float-shadow-box;
+	@include float-shadow-box;
 }
 
 .boards{
@@ -167,6 +154,7 @@ export default {
 	width: 20rem;
 	justify-content: flex-start;
 	justify-content: center;
+	@include float-shadow-box;
 }
 
 .board{

@@ -242,7 +242,6 @@ export default {
   user-select: none;
   font-size: 0.8rem;
   color: $--color-text-minor;
-  transition: color 0.5s ease, background-color 0.5s ease, transform 0.5s ease;
   >div{
     position: relative;
     min-width: 0;
@@ -292,29 +291,9 @@ export default {
     background-color: $--color-highlight-1;
   }
   border-top: 1px solid rgba(0,0,0,0.5);
-  &--selected{
-    background-color: $--color-background-selected !important;
-    color: $--color-text-selected;
-    //transition: color 0s, background-color 0s;
-  }
-  &--has-sticky{
-    position: absolute;
-    top: 12.5%;
-    left: 64px;
-    height: 75%;
-    object-fit: cover;
-    z-index: 99;
-    background-color: transparent;
-    &:before{
-    z-index: 99;
-      position: absolute;
-      content: "";
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      background-color: white;
-    }
+  &:hover{
+    //color: $oc-gray-7;
+    background-color: $--color-update;
   }
 }
 

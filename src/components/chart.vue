@@ -282,10 +282,6 @@ export default {
   //background: rgba(0,0,0,0.3);
 }
 
-abbr {
-  cursor: pointer;
-}
-
 .property-button-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -294,6 +290,7 @@ abbr {
 	padding-left: 3rem;
 	//margin-bottom: -1rem;
 	>.property-button-group{
+		cursor: pointer;
 		display: flex;
 		//background-color: $--color-highlight-2;
 		//background-color: transparent;
