@@ -1,22 +1,22 @@
 <template>
   <div class="meta-component">
-    <div class="component__header is-hidden-mobile">
+    <div class="component-title">
       Meta
     </div>
-    <div class="stats-wrapper">
-      <div class="cat">4chan now:</div>
-      <div>{{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/min.</div>
+    <div class="component-content">
+      <div class="component-content__cat">4chan now:</div>
+      <div class="component-content__text">{{ combinedBoardStats.postsPerMinute.toFixed(2) }} posts/min.</div>
       <!--<div>New thread every {{ (1 / (combinedBoardStats.threadsPerHour / (60 * 60))).toFixed(2) }} seconds</div>-->
       <!--<div>{{ Math.round((combinedBoardStats.postsPerMinute / combinedBoardStats.topPPM) * 100) }}% activity</div>-->
       <hr>
-      <div class="cat">4chan average:</div>
-      <div>~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
+      <div class="component-content__cat">4chan average:</div>
+      <div class="component-content__text">~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
       <hr>
-      <div class="cat">4stats.io:</div>
+      <div class="component-content__cat">4stats.io:</div>
       <!--<div v-if="showUserCount">{{ userCount }} user{{userCount == 1 ? '' : 's'}} on site</div>-->
-      <div>{{ userCount }} user{{userCount == 1 ? '' : 's'}} on site</div>
-      <div>Just updated {{ recentlyUpdatedBoard == "s4s" ? "[s4s]" : "/"+recentlyUpdatedBoard+"/" }}</div>
-      <div class="cat" v-if="error">Error -> {{ error }}</div>
+      <div class="component-content__text">{{ userCount }} user{{userCount == 1 ? '' : 's'}} on site</div>
+      <div class="component-content__text">Just updated {{ recentlyUpdatedBoard == "s4s" ? "[s4s]" : "/"+recentlyUpdatedBoard+"/" }}</div>
+      <div class="component-content__cat" v-if="error">Error -> {{ error }}</div>
     </div>
 
   </div>
@@ -61,11 +61,6 @@ export default {
   display: flex;
   flex-direction: column;
   @include float-shadow-box;
-  
-  margin: 1rem 0;
-  //--meta-y-offset: 0px;
-  //transform: translateY(var(--meta-y-offset));
-  //transition: all 1s ease-out;
 }
 
 hr{
@@ -74,29 +69,21 @@ hr{
   width: 10%;
 }
 
-.component__header{
-  background: rgba(0,0,0,0.8);
-  color: $oc-gray-4;
-  padding: 0rem 0.5rem;
-  line-height: 2.25rem;
-  text-align: left;
-  font-weight: bold;
-}
-
-.stats-wrapper{
+.component-content{
   white-space: pre;
   display: flex;
   flex-direction: column;
   background: $--color-highlight-2;
   color: $--color-text;
   padding: 1rem;
-  color: $oc-gray-0;
   >div{
     line-height: 1.2;
   }
-}
-
-.cat{
-  color: $oc-gray-6;
+  &__cat{
+    color: $oc-gray-6;
+  }
+  &__text{
+    color: $oc-gray-0;
+  }
 }
 </style>

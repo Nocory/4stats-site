@@ -37,7 +37,6 @@ const store = new Vuex.Store({
 			relativeActivity: 0
 		}}),{}), //technology
 		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{}),
-		chartPreference: JSON.parse(localStorage.getItem("chartPreference")) || 0,
 		userCount: 0
 	},
 	getters: {
@@ -131,10 +130,6 @@ const store = new Vuex.Store({
 					state.threadData[board] = []
 				}
 			}
-		},
-		setChartPreference(state, payload){
-			state.chartPreference = payload
-			localStorage.setItem("chartPreference",payload)
 		}
 	},
 	actions: {

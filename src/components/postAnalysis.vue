@@ -1,18 +1,20 @@
 <template>
   <div class="postAnalysis-component">
-    <p class="explanation has-text-centered">
+    <div class="explanation">
       While the main page shows data calculated from the catalog, these numbers are based on individual posts.<br>
       Checking all threads on all boards takes a longer time, so updates are less frequent.<br>
       Stats are calculated from currently visible content and any seen posts made in the last 3 days.<br>
       'Replies/thread' and 'Avg. thread age' values are calculated from visible threads only.<br>
       (not mobile friendly)
-    </p>
-    <div class="container is-fluid">
+    </div>
+    <div class="container">
       <!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
-      <button class="button refresh-button" @click="reloadStats(true)">
-        <div class="refresh-button-text">&#11118;</div>
+      
+      <button class="refresh-button" @click="reloadStats(true)">
+        <div class="refresh-button__text">&#11118;</div>
       </button>
-      <div class="boardlist__header">
+      
+      <div class="header">
         <div v-for="item in [
           {category: 'name', text: 'Board', tooltip: ''},
           {category: 'OPLength_mean', text: 'OP length', tooltip: ''},
@@ -27,24 +29,24 @@
           //{category: 'visibleFilesize_sum', text: 'Live content', tooltip: 'of currently visible threads'},
           {category: 'threadAgeSeconds_mean', text: 'Avg. thread age', tooltip: 'of currently non-locked visible threads'},
           {category: 'dataAge', text: 'Last checked', tooltip: 'more active boards get checked more frequently'},
-        ]" :key="item.name" :class="[{'category-selected' : sortListBy == item.category, 'tooltip-bottom' : item.tooltip}, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
+        ]" :key="item.name" :class="['header__col', {'header__col--selected' : sortListBy == item.category, 'tooltip--bottom' : item.tooltip}, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
       </div>
-      <transition-group v-if="postAnalysis.a" tag="div" class="">
-        <div v-for="boardName in sortedList" :key="boardName" class="boardlist__row">
-          <div :data-hover-text="longBoardNames[boardName]" class="tooltip-right">{{ boardName == "s4s" ? "[s4s]" : "/"+boardName+"/" }}</div>
-          <div class="">{{ postAnalysis[boardName].OPLength_mean.toFixed(2) }}</div>
-          <div class="">{{ postAnalysis[boardName].replyLength_mean.toFixed(2) }}</div>
-          <div class="">{{ (postAnalysis[boardName].OPsWithTitles_ratio * 100).toFixed(2)+"%" }}</div>
-          <div class="">{{ postAnalysis[boardName].repliesPerThread_mean.toFixed(2) }}</div>
+      <transition-group v-if="postAnalysis.a" tag="div" class="rows">
+        <div v-for="boardName in sortedList" :key="boardName" class="row">
+          <div class="row__item tooltip--right" :data-hover-text="longBoardNames[boardName]">{{ boardName == "s4s" ? "[s4s]" : "/"+boardName+"/" }}</div>
+          <div class="row__item">{{ postAnalysis[boardName].OPLength_mean.toFixed(2) }}</div>
+          <div class="row__item">{{ postAnalysis[boardName].replyLength_mean.toFixed(2) }}</div>
+          <div class="row__item">{{ (postAnalysis[boardName].OPsWithTitles_ratio * 100).toFixed(2)+"%" }}</div>
+          <div class="row__item">{{ postAnalysis[boardName].repliesPerThread_mean.toFixed(2) }}</div>
           <!--<div class="">{{ (postAnalysis[boardName].repliesPerIP).toFixed(2) }}</div>-->
-          <div class="">{{ forcedAnon.includes(boardName) ? 'forced anon' : (postAnalysis[boardName].postsWithNames_ratio * 100).toFixed(2)+"%" }}</div>
-          <div class="">{{ (postAnalysis[boardName].repliesWithImages_ratio * 100).toFixed(2)+"%" }}</div>
-          <div class="">{{ (postAnalysis[boardName].repliesWithText_ratio * 100).toFixed(2)+"%" }}</div>
+          <div class="row__item">{{ forcedAnon.includes(boardName) ? 'forced anon' : (postAnalysis[boardName].postsWithNames_ratio * 100).toFixed(2)+"%" }}</div>
+          <div class="row__item">{{ (postAnalysis[boardName].repliesWithImages_ratio * 100).toFixed(2)+"%" }}</div>
+          <div class="row__item">{{ (postAnalysis[boardName].repliesWithText_ratio * 100).toFixed(2)+"%" }}</div>
           <!--<div class="">{{ !postAnalysis[boardName].filesize_mean ? 'OP file only' : Math.round(postAnalysis[boardName].filesize_mean / 1000)+" KB" }}</div>-->
           <!--<div class="">{{ postAnalysis[boardName].visibleFilesize_sum >= 1000000000 ? (postAnalysis[boardName].visibleFilesize_sum / 1000000000).toFixed(2)+" GB" : Math.round(postAnalysis[boardName].visibleFilesize_sum / 1000000)+" MB" }}</div>-->
-          <div class="">{{ postAnalysis[boardName].threadAgeStr }}</div>
+          <div class="row__item">{{ postAnalysis[boardName].threadAgeStr }}</div>
           <!--<div class="">{{ Math.floor(postAnalysis[boardName].dataAge / (60 * 60))+":"+Math.round((postAnalysis[boardName].dataAge / 60) % 60).toString().padStart(2,"0")+" h" }}</div>-->
-          <div class="">{{ postAnalysis[boardName].dataAgeStr }}</div>
+          <div class="row__item">{{ postAnalysis[boardName].dataAgeStr }}</div>
         </div>
       </transition-group>
     </div>
@@ -90,14 +92,14 @@ export default {
     },
     reloadStats(animateButton = false){
       if(animateButton){
-        const element = document.querySelector(".refresh-button-text")
-				if(!element || element.classList.contains("refresh-button-clicked")) return
+        const element = document.querySelector(".refresh-button__text")
+				if(!element || element.classList.contains("refresh-button__text--clicked")) return
         
-				element.classList.add("refresh-button-clicked")
+				element.classList.add("refresh-button__text--clicked")
 				element.addEventListener(
 					"animationend",
 					event => {
-						element.classList.remove("refresh-button-clicked")
+						element.classList.remove("refresh-button__text--clicked")
 					},{
 						once: true,
 						passive: true
@@ -142,17 +144,35 @@ export default {
 @import "~css/variables.scss";
 
 .postAnalysis-component{
-  position: relative;
-  z-index: 10;
-  background: $--color-background;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  >.partyhat{
+    z-index: 9999;
+    object-fit: contain;
+		position: absolute;
+		top: -56px;
+		left: -36px;
+		width: 80px;
+    transform: rotate(-22deg);
+    pointer-events: none;
+  }
+	@include desktop{
+		padding: 1rem;
+	}
+
+	@include widescreen{
+		padding: 1rem 2rem 2rem;
+	}
 }
 
 .explanation{
+  text-align: center;
   color: $--color-text;
-  margin: 1rem 1rem 0;
+  margin-bottom: 1rem;
   padding: 0.5rem;
   font-size: 0.8em;
   max-width: 1024px;
@@ -164,52 +184,7 @@ export default {
 }
 
 .container{
-  >.refresh-button{
-    position: absolute;
-    height: 2rem;
-    width: 2rem;
-    left: calc(100% - 2.5rem);
-    top: -2.5rem;
-    @include float-shadow-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: $--color-highlight-1;
-    >.refresh-button-text{
-      font-weight: bold;
-      color: $--color-text;
-      &.refresh-button-clicked{
-        animation-duration: 1s;
-        animation-name: postAnalysisRefreshAnim;
-        animation-timing-function: ease-in-out;
-      }
-    }
-  }
-
-  @keyframes postAnalysisRefreshAnim {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  height: 100%;
-	&.is-fluid{
-		@include touch{
-			margin: 0 1rem;
-      max-width: 100%;
-		}
-		@include desktop{
-      margin: 0 1rem;
-      @include float-shadow-box;
-      max-width: 95%;
-		}
-		@include widescreen{
-			margin: 1rem 0rem;
-		}
-  }
+  position: relative;
   &>.partyhat{
     z-index: 9999;
     object-fit: contain;
@@ -220,51 +195,78 @@ export default {
     transform: rotate(-22deg);
     pointer-events: none;
   }
+  @include desktop{
+    @include float-shadow-box;
+  }
 }
 
-.boardlist__header, .boardlist__row{
+.refresh-button{
+  border-radius: 4px;
+  border-style: solid;
+  cursor: pointer;
+  position: absolute;
+  height: 2rem;
+  width: 2rem;
+  left: calc(100% - 2.5rem);
+  top: -2.5rem;
+  @include float-shadow-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $--color-highlight-1;
+  &__text{
+    font-weight: bold;
+    color: $--color-text;
+    &--clicked{
+      animation-duration: 1s;
+      animation-name: postAnalysisRefreshAnim;
+      animation-timing-function: ease-in-out;
+    }
+  }
+}
+
+@keyframes postAnalysisRefreshAnim {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.header, .row{
   white-space: nowrap;
   position: relative;
   display: flex;
+  cursor: pointer;
+  user-select: none;
   font-size: 0.8rem;
   color: $--color-text-minor;
-  transition: color 0.1s ease, background-color 0.1s ease, transform 0.5s ease;
+  transition: color 0.5s ease, background-color 0.5s ease, transform 0.5s ease;
   >div{
     position: relative;
+    min-width: 0;
     flex: 1 1 0;
     text-align: right;
     padding: 0 1em 0 0;
+    width: 8rem;
     &:first-child{
-      width: 64px;
+      max-width: 64px;
       flex: none;
       text-align: left;
       padding: 0 0 0 1em;
       font-weight: bold;
     }
-    &:not(:first-child){
-      min-width: 7.5rem;
-    }
-    >.board-has-sticky{
-      position: absolute;
-      top: 20%;
-      left: 64px;
-      content: url("../static/sticky.gif");
-      height: 60%;
-      object-fit: cover;
-      z-index: 9;
-    }
   }
 }
 
-.boardlist__header{
+.header{
   position: sticky;
-  top: 0;
+	top: 0;
   z-index: 100;
-  cursor: pointer;
   line-height: 2.25rem;
   background: rgba(0,0,0,0.8);
-  >div{
-    //overflow: hidden;
+  &__col{
     &::before{
       content: "";
       position: absolute;
@@ -277,22 +279,42 @@ export default {
       transform-origin: center bottom;
       transition: transform 0.25s ease;
     }
-    &.category-selected::before{
+    &--selected::before{
       transform: scaleY(1);
     }
   }
 }
 
-.boardlist__row{
+.row{
   line-height: 1.25rem;
   background-color: $--color-highlight-2;
   &:nth-of-type(2n){
     background-color: $--color-highlight-1;
   }
   border-top: 1px solid rgba(0,0,0,0.5);
-  &:hover{
-    color: $--color-text;
-    background-color: $--color-update;
+  &--selected{
+    background-color: $--color-background-selected !important;
+    color: $--color-text-selected;
+    //transition: color 0s, background-color 0s;
+  }
+  &--has-sticky{
+    position: absolute;
+    top: 12.5%;
+    left: 64px;
+    height: 75%;
+    object-fit: cover;
+    z-index: 99;
+    background-color: transparent;
+    &:before{
+    z-index: 99;
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+    }
   }
 }
 
@@ -312,16 +334,16 @@ export default {
   color: $--color-text-minor;
 }
 
-.tooltip-bottom{
+.tooltip--bottom{
   text-decoration: underline dotted;
 }
 
-.tooltip-bottom:hover::after{
+.tooltip--bottom:hover::after{
   left: 0px;
   top: 125%;
 }
 
-.tooltip-right:hover::after{
+.tooltip--right:hover::after{
     left: 100%;
 }
 </style>

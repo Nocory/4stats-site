@@ -34,11 +34,13 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
+  margin: 0 64px;
 }
 
 p {
   font-size: 0.875rem;
   color: $oc-gray-5;
+  margin: 0;
 }
 
 a {

@@ -1,16 +1,12 @@
-<template >
+<template>
   <div class="meta-component" v-once>
-    <div class="component__header is-hidden-mobile">
+    <div class="component-title">
       Info
     </div>
-    <div class="info-wrapper">
+    <div class="component-content">
       <p>
-        Thanks to a helpful admin from <a href="https://desuarchive.org">desuarchive.org</a> & <a href="https://rbt.asia">rbt.asia</a> extended earlier data for these archived boards has been added to the timeline.<br>
-      </p>
-      <hr>
-      <p>
-        Also some new stats calculated from individual posts:<br>
-        <a href="https://4stats.io/postAnalysis">https://4stats.io/postAnalysis</a>
+        Lots of CSS updates.<br>
+        Hope nothing is broken.
       </p>
     </div>
 
@@ -25,23 +21,10 @@
   flex-direction: column;
   @include float-shadow-box;
   position: relative;
-  
-  margin: 1rem 0;
-  //--meta-y-offset: 0px;
-  //transform: translateY(var(--meta-y-offset));
-  //transition: all 1s ease-out;
+  //height: 100px;
 }
 
-.component__header{
-  background: rgba(0,0,0,0.8);
-  color: $oc-gray-4;
-  padding: 0rem 0.5rem;
-  line-height: 2.25rem;
-  text-align: left;
-  font-weight: bold;
-}
-
-.info-wrapper{
+.component-content{
   display: flex;
   flex-direction: column;
   background: $--color-highlight-2;
@@ -49,13 +32,10 @@
   padding: 1em;
   color: $oc-gray-0;
   //font-size: 0.8em;
-  a{
-    color: rgba(180, 215, 255, 0.8);
-  }
-  >ul{
-    padding-left: 1em;
-    list-style-type: disc;
-  }
+}
+
+a {
+  color: rgba(180, 215, 255, 0.8);
 }
 
 hr{
@@ -64,38 +44,7 @@ hr{
   width: 10%;
 }
 
-.strike-text{
-  position: relative;
-  background: white;
-  color: black;
-  padding: 0 1rem;
-  font-weight: bold;
-  &::after{
-    content: "";
-    position: absolute;
-    top: 45%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: rgba(255,0,0,0.5);
-    transform: rotate(-45deg)
-  }
-  &::before{
-    content: "";
-    position: absolute;
-    top: 45%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: rgba(255,0,0,0.5);
-    transform: rotate(45deg)
-  }
-}
-
-.strike-replace{
-  background: white;
-  color: black;
-  padding: 0 1rem;
-  font-weight: bold;
+p{
+  margin: 0;
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div class="chart-component">
-    <div class="component__header is-hidden-mobile">
+    <div class="component-title is-hidden-mobile">
       Board Timeline (all times are UTC)
     </div>
-    <div class="has-text-centered main">
+    <div class="component-content">
 
-      <div class="has-text-left property-title">Charting {{ activeOptions.term === "day" ? "posts/day" : activeOptions.property === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
+      <div class="property-title">Charting {{ activeOptions.term === "day" ? "posts/day" : activeOptions.property === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
 
       <div class="property-button-wrapper">
         <div class="property-button-group">
@@ -276,8 +276,9 @@ export default {
   font-weight: bold;
 }
 
-.main{
-  background: $--color-highlight-2;
+.component-content{
+	background: $--color-highlight-2;
+	text-align: center;
   //background: rgba(0,0,0,0.3);
 }
 
@@ -345,16 +346,6 @@ abbr {
 	//background: $--color-highlight-1;
 	user-select: none;
 	padding: 0.5rem 0 0.5rem;
-	&:after{
-		z-index: -10;
-		position: absolute;
-		top: -40%;
-		left: -50%;
-		width: 200%;
-		height: 170%;
-		//background: radial-gradient(closest-side, rgba(255, 255, 255, 0.05) 50%, rgba(255,255,255,0) 75%);
-		content: "";
-	}
 	>canvas{
 		position: relative;
 		z-index: 20;
@@ -416,6 +407,7 @@ abbr {
 }
 
 .property-title{
+	text-align: left;
 	color: $oc-gray-0;
 	padding: 0.5rem;
 	

@@ -1,9 +1,13 @@
-//$tablet: 500px; // Bulma default is 769
-
 @import "~nord/src/sass/nord.scss";
 @import "~open-color/open-color.scss";
-@import "./custom_bulma_mixins.scss";
-//@import "~bulma/sass/utilities/_all.sass";
+
+$gap: 64px;
+$tablet: 768px;
+$desktop: 1024px;
+$widescreen: 1224px;
+$fullhd: 1824px;
+
+@import "./responsive.scss";
 
 $--color-navbar: #1f1f1f;
 
@@ -31,4 +35,13 @@ $--color-greentext: #b5bd68;
 
 @mixin float-shadow-text {
 	text-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+}
+
+@function max($numbers...){
+	@return m#{a}x(#{$numbers})
+}
+  
+
+@function min($numbers...){
+  @return m#{i}n(#{$numbers})
 }

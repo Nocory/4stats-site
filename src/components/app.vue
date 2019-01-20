@@ -32,16 +32,19 @@ export default {
   position: relative;
   min-height: 100vh;
 	font-family: monospace;
-	overflow: hidden;
 	@include mobile{
 		touch-action: pan-y;
 	}
 }
 
 .router-view{
+	z-index: 2;
 	flex-grow: 1;
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+
+	background-image: linear-gradient(0deg, rgb(18, 43, 77) 0px, rgb(83, 120, 149));
 }
 </style>

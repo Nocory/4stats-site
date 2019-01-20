@@ -1,16 +1,14 @@
 <template>
   <div class="index-component">
-    <div class="container is-fluid">
-      <component-boardlist/>
-      <component-threadlist/>
-      <component-chart v-if="this.$route.path == '/' && chartPreference != -1 && (renderChart || chartPreference == 1)"/>
-      <div class="right is-hidden-touch is-hidden-desktop-only">
-				<div class="right-wrapper">
-					<component-meta/>
-					<component-info/>
-				</div>
-      </div>
-    </div>
+		<component-boardlist/>
+		<component-threadlist/>
+		<div class="right is-hidden-below-widescreen">
+			<div class="right-wrapper">
+				<component-meta/>
+				<component-info/>
+			</div>
+		</div>
+		<component-chart class="is-hidden-below-desktop" v-if="this.$route.path == '/'"/>
     <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">
   </div>
 </template>
@@ -22,15 +20,7 @@ import componentThreadlist from './threadlist.vue'
 import componentMeta from './meta.vue'
 import componentInfo from './info.vue'
 export default {
-	data: () => ({
-		renderChart: window.innerWidth >= 768, // the bulma breakpoint for tablets
-		rightIsFixed: false
-	}),
-	computed: {
-		...mapState([
-			"chartPreference"
-		])
-	},
+	data: () => ({}),
 	components: {
 		componentBoardlist,
 		componentThreadlist,
@@ -45,7 +35,7 @@ export default {
 @import "~css/variables.scss";
 
 .really-makes-you-think-doesnt-it{
-	z-index: -999;
+	z-index: -1;
 	position: absolute;
 	bottom: -5rem;
 	right: 0;
@@ -56,60 +46,52 @@ export default {
 .index-component {
 	position: relative;
 	z-index: 2;
-	background: $--color-background;
-	@include desktop{
-		padding-bottom: 2rem;
-	}
-	//height: 100%;
-}
-
-.container{
-	flex: 2;
 	display: grid;
-	position: relative;
-
+	width: 100%;
 	@include mobile{
-		grid-template: 	"boards" auto
-										"chart" auto /
+		grid-template: 	"boards" 	auto /
 										1fr;
+		grid-gap: 0rem;
 	}
 
 	@include tablet{
-		grid-template: 	"boards threads" 512px
-										"boards threads" max-content
-										"chart chart" auto /
-										1fr 1fr;
+		grid-template: 	"boards threads" 	auto
+										"boards threads" 	auto /
+										1fr 		1fr;
+		grid-gap: 0rem;
+		max-width: 100%;
 	}
 
 	@include desktop{
-		grid-template: 	"boards threads" 512px
-										"boards threads" max-content
-										"chart chart" auto /
-										1fr 1fr;
-		padding: 0;
-		margin: 0 1rem;
+		grid-template: 	"boards threads" 	auto
+										"boards threads" 	auto
+										"chart 	chart" 		auto /
+										1fr 		1fr;
 		grid-gap: 1rem;
+		max-width: calc(100% - 32px);
+		padding: 1rem 0;
 	}
 
 	@include widescreen{
-		grid-template: 	"boards threads right" 512px
-										"boards threads right" max-content
-										"chart chart right" auto /
-										1fr 1fr 0.618fr;
-		padding: 0;
-		margin: 0 4rem;
+		grid-template: 	"boards threads right" 	auto
+										"boards threads right" 	auto
+										"chart 	chart 	right" 	auto /
+										1fr 		1fr 		.618fr;
 		grid-gap: 1rem;
+		width: $fullhd;
+		max-width: calc(100% - 64px);
+		padding: 1rem 0 2rem;
 	}
 }
 
 .boardlist-component{
 	grid-area: boards;
-	min-width: 0;
+	min-width: 100%;
 }
 
 .threadlist-component{
 	grid-area: threads;
-	min-width: 0;
+	min-width: 100%;
 }
 
 .chart-component{
@@ -118,9 +100,13 @@ export default {
 
 .right{
 	grid-area: right;
+	min-width: 100%;
 	>.right-wrapper{
 		position: sticky;
 		top: 1rem;
+		>div:not(:first-child){
+			margin-top: 1rem;
+		}
 	}
 }
 </style>

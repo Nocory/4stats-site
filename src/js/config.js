@@ -1,5 +1,6 @@
-const VERSION = 11
+const VERSION = 13
 if(localStorage.getItem("VERSION") != VERSION){
+	console.log("Site version changed! Clearing localstorage!")
 	localStorage.clear()
 	localStorage.setItem("VERSION",VERSION)
 }

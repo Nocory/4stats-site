@@ -1,14 +1,26 @@
 @charset "UTF-8";
 
-//@import "fa_boiler.css";
-//@import "icomoon_cogs.css";
+@import "sanitize.css";
 @import "variables.scss";
-@import "~bulma/bulma.sass";
 
-.section{
-  padding: 1rem;
+html{
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+a{
+  text-decoration: none;
 }
 
 .greentext {
   color: $--color-greentext;
+}
+
+.component-title{
+  background: rgba(0,0,0,0.8);
+  color: $oc-gray-4;
+  padding: 0rem 0.5rem;
+  line-height: 2.25rem;
+  text-align: left;
+  font-weight: bold;
 }

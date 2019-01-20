@@ -1,25 +1,25 @@
 <template>
   <div class="boardlist-component">
     <!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
-    <div class="boardlist__header">
+    <div class="header">
       <div v-for="item in [
         {category: 'name', text: 'Board', tooltip: ''},
         {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 15 minutes'},
-        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-touch','is-hidden-desktop-only']},
+        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-below-widescreen']},
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
         {category: 'relativeActivity', text: 'rel. to peak', tooltip: 'Current posts/minute relative to the boards usual peak daily posts/minute', classes: ['']},
-        {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-touch','is-hidden-desktop-only', 'is-hidden-widescreen-only']},
-      ]" :key="item.name" :class="[{'category-selected' : sortBoardListBy == item.category, 'tooltip-bottom' : item.tooltip}, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
+        {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-below-fullhd']},
+      ]" :key="item.name" :class="['header__col',{'header__col--selected' : sortBoardListBy == item.category, 'tooltip--bottom' : item.tooltip}, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
-    <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="">
-      <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'board-selected' : (selectedBoard == boardName)}" class="boardlist__row" @click.stop="boardClicked(boardName)">
-        <div v-once :data-hover-text="longBoardNames[boardName]" class="tooltip-right">{{ boardName == "s4s" ? "[s4s]" : "/"+boardName+"/" }}</div>
+    <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="rows">
+      <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'row--selected' : (selectedBoard == boardName)}" class="row" @click.stop="boardClicked(boardName)">
+        <div v-once :data-hover-text="longBoardNames[boardName]" class="tooltip--right">{{ boardName == "s4s" ? "[s4s]" : "/"+boardName+"/" }}</div>
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
-        <div class="is-hidden-touch is-hidden-desktop-only">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
+        <div class="is-hidden-below-widescreen">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
         <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
         <div class="">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
-        <div class="is-hidden-touch is-hidden-desktop-only is-hidden-widescreen-only">{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}</div>
-        <img class="board-has-sticky" v-if="boardData[boardName].hasSticky" src="../static/sticky.gif">
+        <div class="is-hidden-below-fullhd">{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}</div>
+        <img class="row--has-sticky" v-if="boardData[boardName].hasSticky" src="../static/sticky.gif">
       </div>
     </transition-group>
   </div>
@@ -97,7 +97,6 @@ export default {
   position: relative;
   z-index: 10;
   @include desktop{
-    margin: 1rem 0;
     @include float-shadow-box;
   }
   >.partyhat{
@@ -112,7 +111,7 @@ export default {
   }
 }
 
-.boardlist__header, .boardlist__row{
+.header, .row{
   white-space: nowrap;
   position: relative;
   display: flex;
@@ -122,6 +121,7 @@ export default {
   color: $--color-text-minor;
   transition: color 0.5s ease, background-color 0.5s ease, transform 0.5s ease;
   >div{
+    overflow: hidden;
     position: relative;
     flex: 1 1 0;
     text-align: right;
@@ -134,36 +134,15 @@ export default {
       font-weight: bold;
     }
   }
-  >.board-has-sticky{
-    position: absolute;
-    top: 12.5%;
-    left: 64px;
-    height: 75%;
-    object-fit: cover;
-    z-index: 99;
-    background-color: transparent;
-    &:before{
-    z-index: 99;
-      position: absolute;
-      content: "123";
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      background-color: white;
-    }
-  }
 }
 
-.boardlist__header{
-  /*
-  top: 0px;
-  position: sticky;
-  */
+.header{
   z-index: 100;
   line-height: 2.25rem;
   background: rgba(0,0,0,0.8);
-  >div{
+  &__col{
+    width: 100%;
+    overflow: none;
     &::before{
       content: "";
       position: absolute;
@@ -176,23 +155,42 @@ export default {
       transform-origin: center bottom;
       transition: transform 0.25s ease;
     }
-    &.category-selected::before{
+    &--selected::before{
       transform: scaleY(1);
     }
   }
 }
 
-.boardlist__row{
+.row{
   line-height: 1.25rem;
   background-color: $--color-highlight-2;
   &:nth-of-type(2n){
     background-color: $--color-highlight-1;
   }
   border-top: 1px solid rgba(0,0,0,0.5);
-  &.board-selected>div{
-    background-color: $--color-background-selected;
+  &--selected{
+    background-color: $--color-background-selected !important;
     color: $--color-text-selected;
     //transition: color 0s, background-color 0s;
+  }
+  &--has-sticky{
+    position: absolute;
+    top: 12.5%;
+    left: 64px;
+    height: 75%;
+    object-fit: cover;
+    z-index: 99;
+    background-color: transparent;
+    &:before{
+    z-index: 99;
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+    }
   }
 }
 
@@ -205,23 +203,24 @@ export default {
   z-index: 999;
   position: absolute;
   content: attr(data-hover-text);
-  white-space: nowrap;
   padding: 0 1em;
   white-space: nowrap;
   background-color: rgba(0,0,0,0.85);
   color: $--color-text-minor;
+  @include touch{
+    display: none;
+  }
 }
 
-.tooltip-bottom{
+.tooltip--bottom{
   text-decoration: underline dotted;
+  &:hover::after{
+    left: 0px;
+    top: 125%;
+  }
 }
 
-.tooltip-bottom:hover::after{
-  left: 0px;
-  top: 125%;
-}
-
-.tooltip-right:hover::after{
+.tooltip--right:hover::after{
     left: 100%;
 }
 

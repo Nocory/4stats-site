@@ -1,46 +1,40 @@
 <template>
-  <div class="component-feedback has-text-centered">
-    <div class="section">
-      <div class="container">
-        <form name="feedback" method="post" class="has-text-left" netlify autocomplete="off" netlify-honeypot="dont">
-          <input type="hidden" name="form-name" value="feedback">
-          <input type="text" name="dont" class="is-hidden">
-          <div netlify-recaptcha></div>
-          <textarea class="textarea" rows="10" name="message" required minlength="10" maxlength="1000" placeholder="type..."/>
-          <div class="button-group">
-            <router-link to="/">
-              <button class="button" type="button" @click="$emit('update:showFeedbackForm', false)">Cancel</button>
-            </router-link>
-            <button class="button" type="submit">Send</button>
-            <!--<button class="button" type="button" @click="send">Send</button>-->
-          </div>
-        </form>
-        <div class="description">
-          If you have a question and submit it anonymously, then I will add a reply to the list below for a few days.<br>
-          (Or mention 4stats.io somwhere on 4chan and I will usually see it after a few hours during late euro times)
+  <div class="component-feedback">
+    
+    <div class="container">
+      <form name="feedback" method="post" netlify autocomplete="off" netlify-honeypot="dont">
+        <input type="hidden" name="form-name" value="feedback">
+        <input type="text" name="dont" class="is-hidden">
+        <div netlify-recaptcha></div>
+        <textarea rows="10" name="message" required minlength="10" maxlength="1000" placeholder="type..."/>
+        <button type="submit">Send</button>
+      </form>
+      <div class="explanation">
+        If you have a question and submit it anonymously, I will add a reply to the list below for a few days.<br>
+        (Or mention 4stats.io somewhere on 4chan and I will usually see it after a few hours during late euro times)
+      </div>
+      <div class="qa-card">
+        <div class="qa-card__question">
+          can you post the code for the website on github in case you can't fund it
         </div>
-        <div class="qa-card">
-          <div class="q">
-            can you post the code for the website on github in case you can't fund it
-          </div>
-          <div class="a">
-            Scroll all the way down.<br>
-            On the bottom of each page are links to the relevant repositories.<br>
-            <br>
-            Current yearly cost is ~200$, though if I wanted I could cut the cost down by half, by combining the Gatherer and API server and using a cheaper TLD.
-          </div>
+        <div class="qa-card__answer">
+          Scroll all the way down.<br>
+          On the bottom of each page are links to the relevant repositories.<br>
+          <br>
+          Current yearly cost is ~200$, though if I wanted I could cut the cost down by half, by combining the Gatherer and API server and using a cheaper TLD.
         </div>
-        <div class="qa-card">
-          <div class="q">
-            Why doesn't /adv/ preview OP images?
-          </div>
-          <div class="a">
-            Adblockers prevent them from loading because of the ".org/adv/" in "https://i.4cdn.org/adv/1531810755359s.jpg".<br>
-            Not sure what to do about it really.
-          </div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-card__question">
+          Why doesn't /adv/ preview OP images?
+        </div>
+        <div class="qa-card__answer">
+          Adblockers prevent them from loading because of the ".org/adv/" in "https://i.4cdn.org/adv/1531810755359s.jpg".<br>
+          Not sure what to do about it really.
         </div>
       </div>
     </div>
+      
   </div>
 </template>
 
@@ -62,17 +56,28 @@ export default {
 @import "~css/variables.scss";
 .component-feedback{
   position: relative;
+  width: 100%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.9);
-  background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+	@include mobile{
+		padding: 1rem;
+  }
+  
+	@include tablet{
+		padding: 1rem;
+	}
+
+	@include widescreen{
+		padding: 2rem 2rem 2rem;
+	}
 }
 
 .container{
   position: relative;
+  width: 100%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -82,52 +87,42 @@ export default {
 
 form{
   z-index: 2;
-  width: 80%;
-  max-width: 512px;
+  width: 512px;
+  max-width: 100%;
   display: flex;
   position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
+
+  >textarea{
+    width: 100%;
+    border-radius: 4px;
+    padding: 1rem;
+    @include float-shadow-box;
+    margin-bottom: 1rem;
+  }
+
+  >button{
+    padding: 0.5rem 2rem;
+    border-radius: 4px;
+    border-style: solid;
+    @include float-shadow-box;
+  }
 }
 
-.button-group{
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
-
-button{
-  margin: 1rem 0 0;
-  width: 128px;
-}
-
-.description{
-  width: 80%;
-  max-width: 512px;
-  position: relative;
-  color: $oc-gray-0;
+.explanation{
   text-align: center;
-  padding: 0.5rem 0;
-  margin: 2rem;
-  &::before{
-    position: absolute;
-    content: "";
-    top: 0px;
-    left: 25%;
-    width: 50%;
-    height: 1px;
-    background: $oc-gray-0;
-  }
-  &::after{
-    position: absolute;
-    content: "";
-    bottom: 0px;
-    left: 25%;
-    width: 50%;
-    height: 1px;
-    background: $oc-gray-0;
-  }
+  color: $oc-gray-7;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-size: 0.8em;
+  font-weight: bold;
+  max-width: 100%;
+  background-color: #f1f1f1;
+  border: 2px solid $--color-highlight-1;
+  @include float-shadow-box;
 }
 
 .qa-card{
@@ -146,8 +141,9 @@ button{
   align-items: flex-start;
 
   line-height: 1.2;
+  @include float-shadow-box;
 
-  >.q{
+  &__question{
     position: relative;
     color: $oc-gray-7;
     font-weight: bolder;
@@ -162,7 +158,7 @@ button{
       background: $oc-blue-8;
     }
   }
-  >.a{
+  &__answer{
     color: $oc-gray-7;
   }
 }
