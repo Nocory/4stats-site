@@ -57,6 +57,7 @@ export default {
 	},
 	methods: {
 		revealThreadSideBar(doScrollToTop){
+      if(Math.max(document.documentElement.clientWidth, window.innerWidth || 0) >= 768) return
 			document.querySelector(".mobile-wrapper").classList.add("thread-sidebar-revealed")
 			if(doScrollToTop){
 				document.querySelector(".component-nav").scrollIntoView({
