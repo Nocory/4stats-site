@@ -7,7 +7,7 @@
 
       <div class="mobile-headline-wrapper is-hidden-tablet">
         <h4 class="headline">Active threads on /{{ selectedBoard }}/</h4>
-        <div class="back-button" @click="closeThreadSideBar">🗙</div>
+        <div class="back-button" @click="closeThreadSideBar">x</div>
       </div>
       
       <div v-if="selectedBoard" class="threadlist">
