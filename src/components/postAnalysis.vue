@@ -242,7 +242,7 @@ export default {
   user-select: none;
   font-size: 0.8rem;
   color: $--color-text-minor;
-  transition: color 0.5s ease, background-color 0.5s ease, transform 0.5s ease;
+  transition: transform 0.5s ease;
   >div{
     position: relative;
     min-width: 0;
@@ -293,7 +293,6 @@ export default {
   }
   border-top: 1px solid rgba(0,0,0,0.5);
   &:hover{
-    //color: $oc-gray-7;
     background-color: $--color-update;
   }
 }

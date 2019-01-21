@@ -118,7 +118,7 @@ export default {
   user-select: none;
   font-size: 0.8rem;
   color: $--color-text-minor;
-  transition: color 0.5s ease, background-color 0.5s ease, transform 0.5s ease;
+  transition: transform 0.5s ease;
   >div{
     position: relative;
     flex: 1 1 0;
@@ -176,10 +176,12 @@ export default {
     background-color: $--color-highlight-1;
   }
   border-top: 1px solid rgba(0,0,0,0.5);
+  &:hover{
+    background-color: $--color-update;
+  }
   &--selected{
     background-color: $--color-background-selected !important;
     color: $--color-text-selected;
-    //transition: color 0s, background-color 0s;
   }
   &--has-sticky{
     position: absolute;
