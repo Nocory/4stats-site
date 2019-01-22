@@ -58,6 +58,10 @@
             <a :class="{ 'button-selected': activeOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</a>
           </div>
         </template>
+
+        <div class="property-button-group">
+          <a :class="{ 'button-selected': activeOptions.yIsLimited}" @click="toggleYLimit">Limit y-axis</a>
+        </div>
       </div>
 
       <div class="chart-wrapper">
@@ -108,7 +112,8 @@ export default {
 			dateStartString: "",
 			dateEndString: "",
 			dateStart: new Date(),
-			dateEnd: new Date()
+			dateEnd: new Date(),
+			yIsLimited: false
 		},
 		hourOptions: {
 			term: "hour",
@@ -150,9 +155,7 @@ export default {
 				this.activeOptions.days = (this.activeOptions.dateEnd.getTime() - this.activeOptions.dateStart.getTime()) / (1000 * 60 * 60 * 24)
 			}
 
-			for(let board of this.graphedBoards){
-				this.checkIfRequestOrAdd(board)
-			}
+			for(let board of this.graphedBoards) this.checkIfRequestOrAdd(board)
 		},
 		setActiveTerm(termOptions){
 			this.activeOptions = this[termOptions]
@@ -160,14 +163,18 @@ export default {
 		},
 		setChartOption(key,value){
 			this.activeOptions[key] = value
-			if(this.activeOptions.term == "day" && key == "days") this.setTimelineRange(value)
-			for(let board of this.graphedBoards) this.checkIfRequestOrAdd(board)
+			if(this.activeOptions.term == "day" && key == "days"){
+				this.setTimelineRange(value)
+			}else{
+				for(let board of this.graphedBoards) this.checkIfRequestOrAdd(board)
+			}
 		},
 		toggleBoard(board) {
 			let index = this.graphedBoards.indexOf(board)
 			if(index >= 0){
 				this.graphedBoards.splice(index,1)
 				chartFunctions.removeBoard(board)
+				chartFunctions.updateChart(this.activeOptions)
 			}else{
 				if(this.graphedBoards.length >= 8) return
 				this.graphedBoards.push(board)
@@ -185,12 +192,12 @@ export default {
 				pino.debug(`chart.vue toggleBoard: Requesting timeline for /${board}/ ${this.activeOptions.term}`)
 				this.requestTimeline(board, this.activeOptions.term)
 			} else {
+				console.log("t",board)
 				chartFunctions.addBoard(board,timelineData.history,this.activeOptions)
+				chartFunctions.updateChart(this.activeOptions)
 			}
 		},
 		requestTimeline(board,term){
-			//let url = board != 'combined' ? config.url + `/history/${term}/${board}` : config.url + `/combinedHistory/${term}`
-			//axios.get(url)
 			axios.get(config.url + `/history/${term}/${board}`)
 				.then(response => {
 					pino.debug("chart.vue requestTimeline %d",response.status, response.data)
@@ -234,11 +241,16 @@ export default {
 			this.history[term][board] = historyData
 			
 			chartFunctions.addBoard(board,historyData.history,this.activeOptions)
+			chartFunctions.updateChart(this.activeOptions)
+		},
+		toggleYLimit(){
+			this.activeOptions.yIsLimited = !this.activeOptions.yIsLimited
+			for(let board of this.graphedBoards) chartFunctions.updateChart(this.activeOptions)
 		}
 	},
 	created(){
 		this.activeOptions = this.dayOptions
-		this.setTimelineRange(this.activeOptions.days,false)
+		this.setTimelineRange(this.activeOptions.days)
 	},
 	mounted() {
 		chartFunctions.init("myChart")
@@ -279,7 +291,6 @@ export default {
 .component-content{
 	background: $--color-highlight-2;
 	text-align: center;
-  //background: rgba(0,0,0,0.3);
 }
 
 .property-button-wrapper {
@@ -288,24 +299,12 @@ export default {
   justify-content: flex-start;
 	align-items: center;
 	padding-left: 3rem;
-	//margin-bottom: -1rem;
 	>.property-button-group{
 		cursor: pointer;
 		display: flex;
-		//background-color: $--color-highlight-2;
-		//background-color: transparent;
-		//background-color: rgba(255,255,255,0.05);
-		//background-color: rgba(0,0,0,0.2);
 		background-color: $--color-highlight-1;
 		border: 1px solid $oc-gray-7;
-		//@include float-shadow-box;
-		//box-shadow: 0px 0px 8px rgba(255,255,255,0.1);
-
-		
-		//background-color: $oc-gray-6;
-		//border-right: 2px solid $oc-gray-6;
 		margin-right: 1rem;
-		//border-right: 8px solid rgba(200,200,255,0.25);
 		user-select: none;
 		+.property-button-group-day>a{
 			width: 4em !important;
@@ -337,10 +336,6 @@ export default {
 .chart-wrapper {
   position: relative;
   min-height: 400px;
-	//background: linear-gradient(to top, #d5d4d0 0%, #d5d4d0 1%, #eeeeec 31%, #efeeec 75%, #e9e9e7 100%);
-	//background: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
-	//background: #e9ecef;
-	//background: $--color-highlight-1;
 	user-select: none;
 	padding: 0.5rem 0 0.5rem;
 	>canvas{
@@ -370,7 +365,6 @@ export default {
 			z-index: 99;
 			transition: color 0.25s ease-out;
 			border: 1px solid $oc-gray-7;
-			//@include float-shadow-box;
 			&.button-selected{
 				font-weight: bolder;
 				color: $oc-gray-7;

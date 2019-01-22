@@ -21,6 +21,8 @@ let availableColors = [
 	"#38d9a9",
 ]
 
+let newDataSets = []
+
 Chart.pluginService.register({
 	beforeDraw: function (chart) {
 		const backgroundColor = chart.config.options.chartArea.backgroundColor
@@ -75,8 +77,7 @@ const init = id => {
 					borderWidth: 1.25,
 					fill: false,
 					spanGaps: false,
-					borderCapStyle: "round",
-					//tension: 0.5
+					borderCapStyle: "round"
 				},
 				point: {
 					radius: 0,
@@ -118,8 +119,42 @@ const init = id => {
 	})
 	return chart
 }
+// 87000, 219000, 8200
+let updateChart = (options,updateTime = 0) => {
+	//chart.data.datasets = newDataSets
+	if(options.yIsLimited){
+		chart.options.scales.yAxes[0].ticks.max = undefined
+		for(let dataset of newDataSets){
+			const sortedValues = dataset.data.slice().sort((a,b) => a.y - b.y)
+			// newMaw will be max of either 99th percentile or 2x median value
+			const newMax = Math.max(sortedValues[Math.floor(dataset.data.length * 0.5)].y * 2,sortedValues[Math.floor(dataset.data.length * 0.98)].y)
+			//const newMax = sortedValues[Math.floor(dataset.data.length * 0.99)].y
+			//const newMax = sortedValues[Math.floor(dataset.data.length * 0.5)].y * 2
+			let maxToUse = Math.max(chart.options.scales.yAxes[0].ticks.max || 1,newMax)
+			console.log(maxToUse,sortedValues[sortedValues.length - 1].y)
+			if(maxToUse < sortedValues[sortedValues.length - 1].y){
+				chart.options.scales.yAxes[0].ticks = {
+					beginAtZero: true,
+					fontColor: "rgba(255,255,255,0.75)",
+					//min: Math.max(chart.options.scales.yAxes[0].ticks.max || 1,0,newMin * 0.5),
+					max: Math.round(maxToUse)
+				}
+			}
+		}
+	}else{
+		chart.options.scales.yAxes[0].ticks = {
+			max: undefined,
+			beginAtZero: true,
+			fontColor: "rgba(255,255,255,0.75)"
+		}
+	}
+	
+	chart.data.datasets = newDataSets
+	
+	chart.update(updateTime)
+}
 
-let addBoard = (board, history, options, updateTime = 500) => {
+let addBoard = (board, history, options) => {
 	const timeRange = options.term == "day" ? {
 		min: options.dateStart.getTime(),
 		max: options.dateEnd.getTime()
@@ -128,6 +163,8 @@ let addBoard = (board, history, options, updateTime = 500) => {
 		max: Date.now()
 	}
 	let chartThis = history.filter(el => el.x > timeRange.min && el.x < timeRange.max)
+	//let chartThis = history.slice(-100)
+	//let chartThis = history
 
 	chart.options.elements.line.stepped = options.term == "day"
 	chart.options.elements.line.cubicInterpolationMode = options.term == "hour" ? "default" : "monotone"
@@ -174,39 +211,36 @@ let addBoard = (board, history, options, updateTime = 500) => {
 			chartThis = smoothedHistory
 		}
 	}
-
-	let index = chart.data.datasets.findIndex(obj => obj.label == board)
-	if(index != -1 && chart.data.datasets[index].data.length != chartThis.length){
-		updateTime = 0
-	}
+	
+	let index = newDataSets.findIndex(obj => obj.label == board)
 	
 	if (index != -1) {
-		chart.data.datasets[index].data = chartThis
+		newDataSets[index].data = chartThis
 	} else {
 		let color = availableColors.length ? availableColors.shift() : `hsla(${Math.ceil(Math.random() * 255)},50%,50%,1)`
-		chart.data.datasets.push({
+		newDataSets.push({
 			label: board,
 			data: chartThis,
 			borderColor: color,
 			backgroundColor: color
 		})
 	}
-	chart.update(updateTime)
 }
 
 let removeBoard = board => {
-	let index = chart.data.datasets.findIndex(obj => obj.label == board)
+	let index = newDataSets.findIndex(obj => obj.label == board)
 	if (index == -1) return
-	let color = chart.data.datasets[index].borderColor
+	let color = newDataSets[index].borderColor
 	if (color.startsWith("#")) {
 		availableColors.unshift(color)
 	}
-	chart.data.datasets.splice(index, 1)
-	chart.update(0)
+	newDataSets.splice(index, 1)
 }
 
 export default {
 	init,
 	addBoard,
-	removeBoard
+	removeBoard,
+	updateChart,
+	generateImage: () => chart.toBase64Image()
 }
