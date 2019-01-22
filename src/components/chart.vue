@@ -245,7 +245,7 @@ export default {
 		},
 		toggleYLimit(){
 			this.activeOptions.yIsLimited = !this.activeOptions.yIsLimited
-			for(let board of this.graphedBoards) chartFunctions.updateChart(this.activeOptions)
+			chartFunctions.updateChart(this.activeOptions)
 		}
 	},
 	created(){

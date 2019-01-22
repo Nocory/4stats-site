@@ -121,32 +121,23 @@ const init = id => {
 }
 // 87000, 219000, 8200
 let updateChart = (options,updateTime = 0) => {
-	//chart.data.datasets = newDataSets
 	if(options.yIsLimited){
-		chart.options.scales.yAxes[0].ticks.max = undefined
-		for(let dataset of newDataSets){
-			const sortedValues = dataset.data.slice().sort((a,b) => a.y - b.y)
-			// newMaw will be max of either 99th percentile or 2x median value
-			const newMax = Math.max(sortedValues[Math.floor(dataset.data.length * 0.5)].y * 2,sortedValues[Math.floor(dataset.data.length * 0.98)].y)
-			//const newMax = sortedValues[Math.floor(dataset.data.length * 0.99)].y
-			//const newMax = sortedValues[Math.floor(dataset.data.length * 0.5)].y * 2
-			let maxToUse = Math.max(chart.options.scales.yAxes[0].ticks.max || 1,newMax)
-			console.log(maxToUse,sortedValues[sortedValues.length - 1].y)
-			if(maxToUse < sortedValues[sortedValues.length - 1].y){
-				chart.options.scales.yAxes[0].ticks = {
-					beginAtZero: true,
-					fontColor: "rgba(255,255,255,0.75)",
-					//min: Math.max(chart.options.scales.yAxes[0].ticks.max || 1,0,newMin * 0.5),
-					max: Math.round(maxToUse)
-				}
-			}
+		const sortedNewDataSets = newDataSets.reduce((acc,val) => [...acc,(val.data.slice().sort((a,b) => a.y - b.y))],[])
+		const maxY = sortedNewDataSets.reduce((acc,val) => Math.max(acc,val[val.length - 1].y),0)
+		let maxToUse = 1
+		console.log(sortedNewDataSets.length)
+		for(let sortedValues of sortedNewDataSets){
+			const newMax = Math.max(sortedValues[Math.floor(sortedValues.length * 0.5)].y * 2,sortedValues[Math.floor(sortedValues.length * 0.98)].y)
+			maxToUse = Math.max(maxToUse,newMax)
+			console.log(maxToUse,maxY)
+		}
+		if(maxToUse < maxY){
+			chart.options.scales.yAxes[0].ticks.max = Math.round(maxToUse)
+		}else{
+			chart.options.scales.yAxes[0].ticks.max = undefined
 		}
 	}else{
-		chart.options.scales.yAxes[0].ticks = {
-			max: undefined,
-			beginAtZero: true,
-			fontColor: "rgba(255,255,255,0.75)"
-		}
+		chart.options.scales.yAxes[0].ticks.max = undefined
 	}
 	
 	chart.data.datasets = newDataSets
