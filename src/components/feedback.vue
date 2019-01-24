@@ -15,6 +15,18 @@
       </div>
       <div class="qa-card">
         <div class="qa-card__question">
+          Have you ever thought of implementing some kind of measure of "interestingness" of a thread?<br>
+          Something like Reply Length vs Reply Rate, or maybe Number of Replies based on certain keywords?<br>
+          Also, it can be useful to add a feature to look for certain thread title keywords, such as "general" or "storytime"...
+        </div>
+        <div class="qa-card__answer">
+          I wouldn't really want to set up a system to rate or curate threads in such a way, that goes much beyond just showing the ones contributing the most to a boards current activity, as it is now.<br>
+          <br>
+          For the threadlist on the main page it's not even technically possible, as it only has the data from the catalog (OP + 5 most recent replies) to generate the stats.
+        </div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-card__question">
           can you post the code for the website on github in case you can't fund it
         </div>
         <div class="qa-card__answer">
