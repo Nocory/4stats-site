@@ -114,7 +114,6 @@ export default {
   position: relative;
   display: flex;
   cursor: pointer;
-  user-select: none;
   font-size: 0.8rem;
   color: $--color-text;
   transition: transform 0.5s ease;

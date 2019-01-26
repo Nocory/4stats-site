@@ -303,7 +303,6 @@ export default {
 		background-color: $--background-content;
 		border: 1px solid $oc-gray-7;
 		margin-right: 1rem;
-		user-select: none;
 		+.property-button-group-day>a{
 			width: 4em !important;
 		}
@@ -334,7 +333,6 @@ export default {
 .chart-wrapper {
   position: relative;
   min-height: 400px;
-	user-select: none;
 	padding: 0.5rem 0 0.5rem;
 	>canvas{
 		position: relative;
@@ -347,7 +345,6 @@ export default {
   display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	user-select: none;
 	padding: 0 0 0.5rem;
 	>.button-padder{
 		padding: 0.3125rem 0.3125rem;
