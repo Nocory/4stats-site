@@ -48,14 +48,13 @@ export default {
     socket.on("serverError",error => {
       this.error = error
       clearTimeout(timeoutID)
-      timeoutID = setTimeout(() => {this.error = ""},30000)
+      timeoutID = setTimeout(() => {this.error = ""},300000)
     })
 	}
 }
 </script>
 
 <style scoped lang="scss">
-@import "~css/variables.scss";
 
 .meta-component{
   display: flex;
@@ -64,26 +63,18 @@ export default {
 }
 
 hr{
-  background: rgba(255,255,255,0.5);
+  background: $--color-text;
   margin: 0.5rem 0;
   width: 10%;
 }
 
 .component-content{
-  white-space: pre;
-  display: flex;
-  flex-direction: column;
-  background: $--color-highlight-2;
-  color: $--color-text;
   padding: 1rem;
   >div{
     line-height: 1.2;
   }
   &__cat{
-    color: $oc-gray-6;
-  }
-  &__text{
-    color: $oc-gray-0;
+    color: darken($--color-text,33%);
   }
 }
 </style>

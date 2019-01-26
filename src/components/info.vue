@@ -14,7 +14,6 @@
 </template>
 
 <style scoped lang="scss">
-@import "~css/variables.scss";
 
 .meta-component{
   display: flex;
@@ -27,19 +26,17 @@
 .component-content{
   display: flex;
   flex-direction: column;
-  background: $--color-highlight-2;
-  color: $--color-text;
   padding: 1em;
   color: $oc-gray-0;
   //font-size: 0.8em;
 }
 
 a {
-  color: rgba(180, 215, 255, 0.8);
+  color: $--color-link;
 }
 
 hr{
-  background: rgba(255,255,255,0.8);
+  background: $--color-text;
   margin: 0.5rem 0;
   width: 10%;
 }

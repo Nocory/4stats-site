@@ -31,7 +31,7 @@
           {category: 'dataAge', text: 'Last checked', tooltip: 'more active boards get checked more frequently'},
         ]" :key="item.name" :class="['header__col', {'header__col--selected' : sortListBy == item.category, 'tooltip--bottom' : item.tooltip}, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
       </div>
-      <transition-group v-if="postAnalysis.a" tag="div" class="rows">
+      <transition-group v-if="postAnalysis.a" tag="div" class="rows component-content">
         <div v-for="boardName in sortedList" :key="boardName" class="row">
           <div class="row__item tooltip--right" :data-hover-text="longBoardNames[boardName]">{{ boardName == "s4s" ? "[s4s]" : "/"+boardName+"/" }}</div>
           <div class="row__item">{{ postAnalysis[boardName].OPLength_mean.toFixed(2) }}</div>
@@ -54,10 +54,9 @@
 </template>
 
 <script>
-import pino from "js/pino"
 import axios from "axios"
 import config from "js/config"
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 export default {
 	data: () => ({
     longBoardNames : config.boardNames,
@@ -141,7 +140,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~css/variables.scss";
 
 .postAnalysis-component{
   display: flex;
@@ -176,8 +174,8 @@ export default {
   padding: 0.5rem;
   font-size: 0.8em;
   max-width: 1024px;
-  background-color: $--color-highlight-2;
-  border: 2px solid $--color-highlight-1;
+  background-color: $--background-content;
+  border: 2px solid $--background-content;
   @include desktop{
     @include float-shadow-box;
   }
@@ -213,7 +211,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $--color-highlight-1;
+  background: $--background-content;
   &__text{
     font-weight: bold;
     color: $--color-text;
@@ -241,7 +239,7 @@ export default {
   cursor: pointer;
   user-select: none;
   font-size: 0.8rem;
-  color: $--color-text-minor;
+  color: $--color-text-alt;
   transition: transform 0.5s ease;
   >div{
     position: relative;
@@ -265,7 +263,7 @@ export default {
 	top: 0;
   z-index: 100;
   line-height: 2.25rem;
-  background: rgba(0,0,0,0.8);
+  background: $--background-title;
   &__col{
     &::before{
       content: "";
@@ -274,7 +272,7 @@ export default {
       left: 0px;
       height: 3px;
       width: 100%;
-      background: $nord6;
+      background: $--color-selected-background;
       transform: scaleY(0);
       transform-origin: center bottom;
       transition: transform 0.25s ease;
@@ -287,13 +285,12 @@ export default {
 
 .row{
   line-height: 1.25rem;
-  background-color: $--color-highlight-2;
   &:nth-of-type(2n){
-    background-color: $--color-highlight-1;
+    background: $--background-content-2n;
   }
   border-top: 1px solid rgba(0,0,0,0.5);
   &:hover{
-    background-color: $--color-update;
+    background-color: $--color-hover;
   }
 }
 
@@ -310,7 +307,7 @@ export default {
   padding: 0 1em;
   white-space: nowrap;
   background-color: rgba(0,0,0,0.85);
-  color: $--color-text-minor;
+  color: $--color-text-alt;
 }
 
 .tooltip--bottom{

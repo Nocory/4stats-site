@@ -10,7 +10,7 @@
         <div class="back-button" @click="closeThreadSideBar">x</div>
       </div>
       
-      <div v-if="selectedBoard" class="threadlist">
+      <div v-if="selectedBoard" class="threadlist component-content">
         <a v-for="(thread,index) in threadData[selectedBoard].slice(0,elementProperties.threadsToShow)" :key="thread.no" class="thread" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
           <div class="img-wrapper">
             <img class="img-wrapper__img" :src="thread.image" :alt="`${selectedBoard} thread image ${index}`" referrerpolicy="same-origin" @error="$store.commit('replaceThreadThumbnail',{selectedBoard, index})">
@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import pino from "js/pino"
 import { mapState } from 'vuex'
 export default {
 	data(){
@@ -135,8 +134,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~css/variables.scss";
-
 @include mobile{
   .threadlist-component{
     z-index: 999;
@@ -168,7 +165,7 @@ export default {
     left: 0;
     display: flex;
     align-items: center;
-    background: $--color-navbar;
+    background: $--background-nav;
     width: 100%;
     height: 3rem;
     font-size: 1.25rem;
@@ -181,9 +178,8 @@ export default {
     }
     >.back-button{
       cursor: pointer;
-      background: $nord1;
       color: $oc-gray-0;
-      padding: 0 1rem;
+      padding: 0 2rem;
       min-height: 100%;
       display: flex;
       align-items: center;
@@ -218,9 +214,6 @@ export default {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  @include mobile{
-    background: $--color-background;
-  }
 }
 
 .thread {
@@ -229,17 +222,10 @@ export default {
   flex: 1 1 0;
   display: flex;
   color: $--color-text;
-  background: $--color-highlight-2;
+  //background: $--color-highlight-2;
   &:nth-child(2n){
-    background: $--color-highlight-1;
+    background: $--background-content-2n;
   }
-  /*
-  @include mobile{
-    &:not(:last-of-type) {
-      border-bottom: 2px solid $--color-highlight-1;
-    }
-  }
-  */
 }
 
 .text-wrapper {
@@ -252,9 +238,10 @@ export default {
   border-bottom: 4px solid transparent;
 
   &__stats {
+    color: $--color-text-alt;
     padding: 0rem;
     margin: 0.5rem;
-    text-decoration: $oc-gray-4 underline;
+    text-decoration: $--color-text-alt underline;
   }
 
   &__sub {
@@ -267,7 +254,6 @@ export default {
   &__com {
     padding: 0rem;
     margin: 0.5rem;
-    color: $--color-text-minor;
   }
 }
 

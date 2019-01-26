@@ -1,7 +1,9 @@
 @charset "UTF-8";
 
 @import "sanitize.css";
+
 @import "variables.scss";
+@import "responsive.scss";
 
 html{
   line-height: 1.5;
@@ -13,14 +15,19 @@ a{
 }
 
 .greentext {
-  color: $--color-greentext;
+  color: #b5bd68;
 }
 
 .component-title{
-  background: rgba(0,0,0,0.8);
-  color: $oc-gray-4;
+  background: $--background-title;
+  color: $--color-text;
   padding: 0rem 0.5rem;
   line-height: 2.25rem;
   text-align: left;
   font-weight: bold;
+}
+
+.component-content{
+  background: $--background-content;
+  color: $--color-text;
 }

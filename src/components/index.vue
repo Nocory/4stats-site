@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import componentBoardlist from './boardlist.vue'
 import componentThreadlist from './threadlist.vue'
 import componentMeta from './meta.vue'
@@ -32,7 +31,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~css/variables.scss";
 
 .really-makes-you-think-doesnt-it{
 	z-index: -1;
@@ -40,12 +38,11 @@ export default {
 	bottom: -5rem;
 	right: 0;
 	width: 20%;
-	filter: drop-shadow(0px 8px 8px rgba(0,0,0,0.25));
+	filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.25));
 }
 
 .index-component {
 	position: relative;
-	z-index: 2;
 	display: grid;
 	width: 100%;
 	@include mobile{

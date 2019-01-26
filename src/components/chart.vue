@@ -272,7 +272,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~css/variables.scss";
 
 .chart-component{
 	//background: #222;
@@ -281,7 +280,7 @@ export default {
 
 .component__header{
   background: rgba(0,0,0,0.8);
-  color: $oc-gray-4;
+  color: $--color-text;
   padding: 0rem 0.5rem;
   line-height: 2.25rem;
   text-align: left;
@@ -289,7 +288,6 @@ export default {
 }
 
 .component-content{
-	background: $--color-highlight-2;
 	text-align: center;
 }
 
@@ -302,7 +300,7 @@ export default {
 	>.property-button-group{
 		cursor: pointer;
 		display: flex;
-		background-color: $--color-highlight-1;
+		background-color: $--background-content;
 		border: 1px solid $oc-gray-7;
 		margin-right: 1rem;
 		user-select: none;
@@ -321,7 +319,7 @@ export default {
 	}
 	>input{
 		margin-right: 1rem;
-		background-color: $--color-highlight-1;
+		background-color: $--background-content;
 		border: 1px solid $oc-gray-7;
 		width: 10em;
 		padding: 0.5em 0em;
@@ -360,14 +358,14 @@ export default {
 			width: 4rem;
 			font-size: 0.75rem;
 			color: $--color-text;
-			background-color: $--color-highlight-1;
+			background-color: $--background-content;
 			overflow: hidden;
 			z-index: 99;
 			transition: color 0.25s ease-out;
-			border: 1px solid $oc-gray-7;
+			border: 1px solid $oc-gray-6;
 			&.button-selected{
 				font-weight: bolder;
-				color: $oc-gray-7;
+				color: $--background-content;
 			}
 		}
 	}
@@ -382,7 +380,7 @@ export default {
   left: 0px;
   min-height: 3px;
   width: 100%;
-  background: $--color-background-selected;
+  background: $--color-selected-background;
   transform: translateY(3px);
   transition: transform 0.25s ease-out;
 }

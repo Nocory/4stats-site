@@ -20,13 +20,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~css/variables.scss";
 
 .component-footer{
   position: relative;
-  background: #111;
+  background: $--background-footer;
   z-index: 10;
   padding: 1rem;
+  @include desktop{
+    @include float-shadow-box;
+	}
 }
 
 .container{
@@ -44,7 +46,8 @@ p {
 }
 
 a {
-	color: $--color-link;
+  color: $--color-text;
+  text-decoration: underline;
 }
 
 hr{

@@ -27,7 +27,17 @@ module.exports = {
 				devMode ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
 				'css-loader',
 				'postcss-loader',
-				'sass-loader'
+				//'sass-loader',
+				{
+					loader: 'sass-loader',
+					options: {
+						// you can also read from a file, e.g. `variables.scss`
+						data: `
+							@import "~css/variables.scss";
+							@import "~css/mixins.scss";
+						`
+					}
+				}
 			]
 		},
 		{

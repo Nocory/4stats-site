@@ -96,7 +96,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~css/variables.scss";
 
 .component-config{
 	position: relative;
@@ -124,7 +123,7 @@ export default {
 .category__content{
   display: flex;
   flex-direction: column;
-  background: $--color-highlight-2;
+  background: $--background-content;
   color: $--color-text;
   padding: 1em;
   color: $oc-gray-0;
@@ -142,7 +141,7 @@ export default {
 	border-radius: 4px;
 	border-style: solid;
 	color: $--color-text;
-	background-color: $--color-highlight-1;
+	background-color: $--background-content;
 	margin-right: 1rem;
 	@include float-shadow-box;
 }
@@ -170,7 +169,7 @@ export default {
 	height: 3rem;
 	padding: 1rem;
 	color: $--color-text;
-	background-color: $--color-highlight-1;
+	background-color: $--background-content;
 	>.shortname{
 		color:$oc-gray-4;
 		font-weight: bolder;

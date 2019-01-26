@@ -11,7 +11,7 @@
         {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-below-fullhd']},
       ]" :key="item.name" :class="['header__col',{'header__col--selected' : sortBoardListBy == item.category, 'tooltip--bottom' : item.tooltip}, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
-    <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="rows">
+    <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="rows component-content">
       <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'row--selected' : (selectedBoard == boardName)}" class="row" @click.stop="boardClicked(boardName)">
         <div v-once :data-hover-text="longBoardNames[boardName]" class="tooltip--right">{{ boardName == "s4s" ? "[s4s]" : "/"+boardName+"/" }}</div>
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
@@ -91,7 +91,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~css/variables.scss";
 
 .boardlist-component{
   position: relative;
@@ -117,7 +116,7 @@ export default {
   cursor: pointer;
   user-select: none;
   font-size: 0.8rem;
-  color: $--color-text-minor;
+  color: $--color-text;
   transition: transform 0.5s ease;
   >div{
     position: relative;
@@ -138,7 +137,7 @@ export default {
   z-index: 100;
   height: 2.25rem;
   align-items: stretch;
-  background: rgba(0,0,0,0.8);
+  background: $--background-title;
   &__col{
     display: flex;
     align-items: center;
@@ -158,7 +157,7 @@ export default {
       left: 0px;
       height: 3px;
       width: 100%;
-      background: $nord6;
+      background: $--color-selected-background;
       transform: scaleY(0);
       transform-origin: center bottom;
       transition: transform 0.25s ease;
@@ -171,17 +170,16 @@ export default {
 
 .row{
   line-height: 1.25rem;
-  background-color: $--color-highlight-2;
   &:nth-of-type(2n){
-    background-color: $--color-highlight-1;
+    background: $--background-content-2n;
   }
   border-top: 1px solid rgba(0,0,0,0.5);
   &:hover{
-    background-color: $--color-update;
+    background-color: $--color-hover;
   }
   &--selected{
-    background-color: $--color-background-selected !important;
-    color: $--color-text-selected;
+    background-color: $--color-selected-background !important;
+    color: $--color-selected-text;
   }
   &--has-sticky{
     position: absolute;
@@ -191,16 +189,6 @@ export default {
     object-fit: cover;
     z-index: 99;
     background-color: transparent;
-    &:before{
-    z-index: 99;
-      position: absolute;
-      content: "";
-      top: 0;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      background-color: white;
-    }
   }
 }
 
@@ -213,10 +201,12 @@ export default {
   z-index: 999;
   position: absolute;
   content: attr(data-hover-text);
-  padding: 0 1em;
+  padding: 0.25rem 1rem;
   white-space: nowrap;
   background-color: rgba(0,0,0,0.85);
-  color: $--color-text-minor;
+  //border: 1px solid $--color-text;
+  @include float-shadow-box;
+  color: $--color-text;
   @include touch{
     display: none;
   }
@@ -250,10 +240,10 @@ export default {
     background-color: transparent;
   }
   10% {
-    background-color: $--color-update;
+    background-color: $--color-hover;
   }
   55% {
-    background-color: $--color-update;
+    background-color: $--color-hover;
   }
   100% {
     background-color: transparent;

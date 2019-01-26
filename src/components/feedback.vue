@@ -65,7 +65,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "~css/variables.scss";
 .component-feedback{
   position: relative;
   width: 100%;
@@ -133,7 +132,7 @@ form{
   font-weight: bold;
   max-width: 100%;
   background-color: #f1f1f1;
-  border: 2px solid $--color-highlight-1;
+  //border: 2px solid $--color-highlight-1;
   @include float-shadow-box;
 }
 
