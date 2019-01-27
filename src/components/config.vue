@@ -162,8 +162,6 @@ export default {
 	justify-content: flex-start;
 	cursor: pointer;
 	border-radius: 0;
-  //background: $oc-gray-2;
-	//background: rgba(255,230,230,1);
 	border-left: 6px solid $oc-red-5;
 	width: 100%;
 	height: 3rem;

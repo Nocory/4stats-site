@@ -32,11 +32,14 @@ export default {
 }
 
 .container{
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  position: relative;
-  margin: 0 64px;
+	height: 100%;
+	width: $fullhd;
+	max-width: calc(100% - 64px);
+	margin: auto;
 }
 
 p {

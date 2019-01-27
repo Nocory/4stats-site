@@ -278,15 +278,6 @@ export default {
 	@include float-shadow-box;
 }
 
-.component__header{
-  background: rgba(0,0,0,0.8);
-  color: $--color-text;
-  padding: 0rem 0.5rem;
-  line-height: 2.25rem;
-  text-align: left;
-  font-weight: bold;
-}
-
 .component-content{
 	text-align: center;
 }

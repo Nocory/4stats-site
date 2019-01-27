@@ -6,8 +6,12 @@ $desktop: 1024px; //1025
 $widescreen: 1224px; //more
 $fullhd: 1824px;
 
+$--color-temp: blue;
+$--color-temp-alt: lime;
+
 $--background-nav: $oc-gray-9;
 $--background-main: rgb(129, 160, 201);
+//$--background-main: $--color-temp-alt;
 $--background-footer: $--background-nav;
 
 /*
@@ -15,8 +19,8 @@ $--background-content: darken($--background-main,50%);
 $--background-content-2n: darken($--background-main,35%);
 */
 $--background-title: $oc-gray-9;
-$--background-content: rgba(22, 22, 32, 0.75);
-$--background-content-2n: rgba(0,0,0,0.25);
+$--background-content: #30384a;
+$--background-content-2n: #242A37;
 
 $--color-text: $oc-gray-1;
 $--color-text-alt: $oc-gray-4;
@@ -29,6 +33,3 @@ $--color-hover: rgba(255,255,255,0.25);
 
 $--color-accent: rgba(0,0,0,0.6);
 $--color-accent-alt: rgba(0,0,0,0.6);
-
-$--color-temp: blue;
-$--color-temp-alt: lime;

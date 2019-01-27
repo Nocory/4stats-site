@@ -6,16 +6,16 @@
       </router-link>
 			<div class="nav-links is-hidden-mobile">
 				<router-link to="/" class="nav-links__link">
-					<div>Main</div>
+					<div class="nav-links__text">Main</div>
 				</router-link>
 				<router-link to="/postAnalysis" class="nav-links__link is-hidden-below-widescreen">
-					Post-Analysis
+					<div class="nav-links__text">Post-Analysis</div>
 				</router-link>
 				<router-link to="/feedback" class="nav-links__link">
-					<div>Feedback/Contact</div>
+					<div class="nav-links__text">Feedback/Contact</div>
 				</router-link>
 				<router-link to="/config" class="nav-links__link">
-					<div>Config</div>
+					<div class="nav-links__text">Config</div>
 				</router-link>
 			</div>
     </div>
@@ -91,7 +91,7 @@ export default {
 		font-size: 1rem;
 		display: flex;
 		align-items: center;
-		color: $--color-text-alt;
+		color: $--color-text;
 		@include mobile{
 			padding: 2rem;
 			font-size: 2rem;
@@ -100,13 +100,24 @@ export default {
 			padding: 0 1rem;
 		}
 		@include desktop{
-			&:hover{
-				color: $oc-gray-6;
+			.nav-links__text{
+				position: relative;
+				&::after{
+					content: "";
+					position: absolute;
+					top: 100%;
+					left: 0;
+					width: 100%;
+					height: 2px;
+					background: transparent;
+				}
 			}
-		}
-		&.router-link-exact-active{
-			color: $--color-text !important;
-			font-weight: bold;
+			&:hover>.nav-links__text::after{
+				background: $--color-text;
+			}
+			&.router-link-exact-active>.nav-links__text::after{
+				background: $--color-text;
+			}
 		}
 	}
 }
