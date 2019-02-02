@@ -9,21 +9,22 @@ $fullhd: 1824px;
 $--color-temp: blue;
 $--color-temp-alt: lime;
 
-$--background-nav: $oc-gray-9;
-$--background-main: rgb(129, 160, 201);
-//$--background-main: $--color-temp-alt;
-$--background-footer: $--background-nav;
-
-/*
-$--background-content: darken($--background-main,50%);
-$--background-content-2n: darken($--background-main,35%);
-*/
-$--background-title: $oc-gray-9;
+$--background-nav:  $oc-gray-9 ;
+$--background-main:  linear-gradient(to top, #243949 0%, #517fa4 100%);
+$--background-main: #517fa4;
 $--background-content: #30384a;
 $--background-content-2n: #242A37;
 
+$--background-content:  #212f3c ;
+$--background-content-2n:  #17202a ;
+
+$--background-title: $--background-nav;
+
+
+
 $--color-text: $oc-gray-1;
-$--color-text-alt: $oc-gray-4;
+$--color-text-faded: $oc-gray-4;
+$--color-text-alt: $oc-gray-6;
 
 $--color-selected-text: $oc-gray-8;
 $--color-selected-background: $oc-gray-2;
@@ -31,5 +32,9 @@ $--color-selected-background: $oc-gray-2;
 $--color-link: #EBD575;
 $--color-hover: rgba(255,255,255,0.25);
 
-$--color-accent: rgba(0,0,0,0.6);
-$--color-accent-alt: rgba(0,0,0,0.6);
+:root{
+  --colorNav: #212529;
+  --colorBG: #13547a;
+  --colorContentA: #212f3c;
+  --colorContentB: #17202a;
+}

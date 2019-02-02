@@ -126,8 +126,6 @@ export default {
   background: $--background-content;
   color: $--color-text;
   padding: 1em;
-  color: $oc-gray-0;
-  //font-size: 0.8em;
 }
 
 .horizontal-buttons{
@@ -169,12 +167,12 @@ export default {
 	color: $--color-text;
 	background-color: $--background-content;
 	>.shortname{
-		color:$oc-gray-4;
+		color:$--color-text;
 		font-weight: bolder;
 		width: 4rem;
 	}
 	>.longname{
-		color:$oc-gray-6;
+		color:$--color-text-alt;
 		margin-left: 1rem;
 	}
 }

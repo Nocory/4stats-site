@@ -1,21 +1,15 @@
 <template>
   <div class="threadlist-component">
     <div class="mobile-wrapper">
-      <div class="component-title is-hidden-mobile">
-        Active threads on /{{ selectedBoard }}/
+      <div class="component-title">
+        <div class="headline">Active threads on /{{ selectedBoard }}/</div>
+        <div class="back-button is-hidden-tablet" @click="closeThreadSideBar">x</div>
       </div>
-
-      <div class="mobile-headline-wrapper is-hidden-tablet">
-        <h4 class="headline">Active threads on /{{ selectedBoard }}/</h4>
-        <div class="back-button" @click="closeThreadSideBar">x</div>
-      </div>
-      
       <div v-if="selectedBoard" class="threadlist component-content">
         <a v-for="(thread,index) in threadData[selectedBoard].slice(0,elementProperties.threadsToShow)" :key="thread.no" class="thread" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
           <div class="img-wrapper">
             <img class="img-wrapper__img" :src="thread.image" :alt="`${selectedBoard} thread image ${index}`" referrerpolicy="same-origin" @error="$store.commit('replaceThreadThumbnail',{selectedBoard, index})">
           </div>
-          
           <div class="text-wrapper">
             <div v-if="thread.sticky" class="text-wrapper__stats">
               <u>Sticky Thread</u> - {{ thread.age > 1000 * 60 * 60 * 24 ? Math.floor(thread.age / (1000 * 60 * 60 * 24)) + 'd' : ''}} {{ Math.floor(thread.age % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)) + 'h'}} {{ Math.floor(thread.age % (1000 * 60 * 60) / (1000 * 60)) + 'm'}}
@@ -67,10 +61,6 @@ export default {
 		},
 		closeThreadSideBar(){
 			document.querySelector(".mobile-wrapper").classList.remove("thread-sidebar-revealed")
-		},
-		handleSwipe(direction){
-			if(direction == "right") this.closeThreadSideBar()
-			if(direction == "left") this.revealThreadSideBar(false)
 		}
 	},
 	created(){
@@ -82,10 +72,6 @@ export default {
 				this.revealThreadSideBar(true)
 			}
 		})
-		/*
-		const threadlistTouch = require("js/threadlistTouch")
-    threadlistTouch(document,this.handleSwipe)
-    */
 
 		const componentEl = document.querySelector(".mobile-wrapper")
 		let start = [0,0]
@@ -121,9 +107,9 @@ export default {
       if(absX < 64 && absy < 64)return
 			if(absX > absy * 2.5){
 				if(delta[0] > 0){
-					this.handleSwipe("right")
+					this.closeThreadSideBar()
 				}else{
-					this.handleSwipe("left")
+					this.revealThreadSideBar(false)
 				}
 			}
 		},{
@@ -136,7 +122,7 @@ export default {
 <style scoped lang="scss">
 @include mobile{
   .threadlist-component{
-    z-index: 999;
+    z-index: 11;
     position: absolute;
     top: 0;
     left: 0;
@@ -145,27 +131,18 @@ export default {
     overflow: hidden;
   }
 
-  .mobile-wrapper{
-    transition: transform 0.5s ease-out;
-    --extraTranslateX: 0%;
-    &.is-touching{
-      transition: none;
-    }
 
+
+  .mobile-wrapper{
     transform: translateX(calc(100% + 24px + var(--extraTranslateX)));
     &.thread-sidebar-revealed{
       transform: translateX(calc(0%  + var(--extraTranslateX)));
     }
   }
 
-  .mobile-headline-wrapper{
-    z-index: 99;
-    //position: absolute;
-    bottom: 100%;
-    left: 0;
+  .component-title{
     display: flex;
     align-items: center;
-    background: $--background-nav;
     width: 100%;
     height: 3rem;
     font-size: 1.25rem;
@@ -178,16 +155,18 @@ export default {
     }
     >.back-button{
       cursor: pointer;
-      color: $oc-gray-0;
-      padding: 0 2rem;
+      font-weight: bold;
+      font-size: 2rem;
+      color: $--color-text;
+      min-width: 3rem;
       min-height: 100%;
       display: flex;
+      justify-content: center;
       align-items: center;
     }
   }
   
   .threadlist{
-    position: relative;
     box-shadow: -8px 0px 20px -4px rgba(0, 0, 0, 0.75);
     margin-left: 12px;
   }
@@ -198,16 +177,20 @@ export default {
     @include float-shadow-box;
   }
   pointer-events: none;
-  display: flex;
-  flex-direction: column;
 }
 
 .mobile-wrapper{
   pointer-events: all;
-  flex-grow: 1;
   position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
+
+  transition: transform 0.5s ease-out;
+  --extraTranslateX: 0%;
+  &.is-touching{
+    transition: none;
+  }
 }
 
 .threadlist{
@@ -222,7 +205,6 @@ export default {
   flex: 1 1 0;
   display: flex;
   color: $--color-text;
-  //background: $--color-highlight-2;
   &:nth-child(2n){
     background: $--background-content-2n;
   }
@@ -238,10 +220,10 @@ export default {
   border-bottom: 4px solid transparent;
 
   &__stats {
-    color: $--color-text-alt;
+    color: $--color-text-faded;
     padding: 0rem;
     margin: 0.5rem;
-    text-decoration: $--color-text-alt underline;
+    text-decoration: $--color-text-faded underline;
   }
 
   &__sub {

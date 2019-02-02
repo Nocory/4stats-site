@@ -9,7 +9,6 @@
         Hope nothing is broken.
       </p>
     </div>
-
   </div>
 </template>
 
@@ -27,12 +26,8 @@
   display: flex;
   flex-direction: column;
   padding: 1em;
-  color: $oc-gray-0;
+  color: $--color-text;
   //font-size: 0.8em;
-}
-
-a {
-  color: $--color-link;
 }
 
 hr{

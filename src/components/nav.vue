@@ -44,7 +44,7 @@ export default {
 
 .component-nav{
 	position: relative;
-	background: $--background-nav;
+	background: var(--colorNav);
 	color: $--color-text;
 	height: 3rem;
   @include desktop{

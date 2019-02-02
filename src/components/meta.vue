@@ -74,7 +74,7 @@ hr{
     line-height: 1.2;
   }
   &__cat{
-    color: darken($--color-text,33%);
+    color: $--color-text-alt;
   }
 }
 </style>

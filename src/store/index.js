@@ -7,13 +7,7 @@ import pino from 'js/pino'
 import axios from "axios"
 import socket from "js/socket.js"
 
-const adjustActivityIfFewPosts = (data,board) =>{
-	/*
-	if(board == "sp"){
-		data.topPPM = 35
-		data.relativeActivity = data.postsPerMinute / data.topPPM
-	}
-	*/
+const adjustActivityIfFewPosts = data => {
 	if(data.avgPostsPerDay < 1000){
 		data.relativeActivity -= 9999
 	}
@@ -28,35 +22,8 @@ const store = new Vuex.Store({
 	state: {
 		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || config.allBoards,
 		selectedBoard: localStorage.getItem("selectedBoard") || config.safeInitialBoard[Math.floor(Math.random() * config.safeInitialBoard.length)],
-		boardData: config.allBoards.reduce((obj,key) => ({...obj, [key]: {
-			postsPerMinute: 0,
-			threadsPerHour: 0,
-			avgPostsPerDay: 0,
-			topPPM: 0,
-			imagesPerReply: 0,
-			relativeActivity: 0
-		}}),{}), //technology
-		threadData: config.allBoards.reduce((obj,key) => ({...obj, [key]: []}),{}),
-		userCount: 0
-	},
-	getters: {
-		mostActiveBoard : state => {
-			let activeBoard = ""
-			let activity = 0
-			for(let board in state.boardData){
-				if(state.boardData[board].relativeActivity > activity){
-					activeBoard = board
-					activity = state.boardData[board].relativeActivity
-				}
-			}
-			if(activity > 1.5){
-				return activeBoard
-			}else{
-				return ""
-			}
-		},
-		combinedBoardStats : state => {
-			let combinedStats = {
+		boardData: config.allBoards.reduce((acc,key) => {
+			acc[key] = {
 				postsPerMinute: 0,
 				threadsPerHour: 0,
 				avgPostsPerDay: 0,
@@ -64,24 +31,32 @@ const store = new Vuex.Store({
 				imagesPerReply: 0,
 				relativeActivity: 0
 			}
-			for(let board in state.boardData){
-				combinedStats.postsPerMinute += state.boardData[board].postsPerMinute
-				combinedStats.threadsPerHour += state.boardData[board].threadsPerHour
-				combinedStats.avgPostsPerDay += state.boardData[board].avgPostsPerDay
-				combinedStats.topPPM += state.boardData[board].topPPM
-				combinedStats.imagesPerReply += state.boardData[board].imagesPerReply
-				combinedStats.relativeActivity += state.boardData[board].relativeActivity
+			return acc
+		},{}),
+		threadData: config.allBoards.reduce((acc,key) => {
+			acc[key] = []
+			return acc
+		},{}),
+		userCount: 0
+	},
+	getters: {
+		combinedBoardStats : state => {
+			const combinedStats = {
+				postsPerMinute: 0,
+				threadsPerHour: 0,
+				avgPostsPerDay: 0,
+				topPPM: 0,
+				imagesPerReply: 0,
+				relativeActivity: 0
 			}
+
+			Object.values(state.boardData).reduce((acc,val) => {
+				for(let key in val) acc[key] += val[key]
+				return acc
+			},combinedStats)
 			combinedStats.imagesPerReply /= config.allBoards.length
 			combinedStats.relativeActivity /= config.allBoards.length
 			return combinedStats
-		},
-		getTotalPPM : state => {
-			let totalPPM = 0
-			for(let board in state.boardData){
-				totalPPM += state.boardData[board].postsPerMinute
-			}
-			return totalPPM
 		}
 	},
 	mutations: {
@@ -97,21 +72,16 @@ const store = new Vuex.Store({
 		},
 		setInitialData(state,payload){
 			for(let key in payload){
-				adjustActivityIfFewPosts(payload[key],key)
+				adjustActivityIfFewPosts(payload[key])
 				if(["qa","s4s","vip"].includes(key)) payload[key].hasSticky = false
 			}
 			Vue.set(state, 'boardData', payload)
 		},
 		updateBoardData(state,payload){
-			adjustActivityIfFewPosts(payload.data,payload.board)
+			adjustActivityIfFewPosts(payload.data)
 			if(["qa","s4s","vip"].includes(payload.board)) payload.data.hasSticky = false
 			
-			if(state.boardData[payload.board]){
-				state.boardData[payload.board] = payload.data
-			}else{
-				Vue.set(state.boardData, payload.board, payload.data)
-				pino.warn(`${payload.board} missing from list. Adding it now. This shouldn't happen really.`)
-			}
+			Object.assign(state.boardData[payload.board],payload.data)
 		},
 		updateThreadData(state,payload){
 			for(let thread of payload.threads){

@@ -1,9 +1,9 @@
 import momenttz from './moment-timezone-with-data-custom.js'
 window.moment = momenttz
-window.moment.tz.setDefault("UTC");
+window.moment.tz.setDefault("UTC")
 
 const Chart = require('chart.js/dist/Chart.js')
-//import Chart from 'chart.js/dist/Chart.js';
+//import Chart from 'chart.js/dist/Chart.js'
 //import Chart from 'chart.js';
 Chart.defaults.global.defaultFontFamily = 'monospace'
 Chart.defaults.global.defaultFontSize = 14
@@ -123,7 +123,7 @@ const init = id => {
 // 87000, 219000, 8200
 let updateChart = (options,updateTime = 0) => {
 	if(options.yIsLimited){
-		const sortedNewDataSets = newDataSets.reduce((acc,val) => [...acc,(val.data.slice().sort((a,b) => a.y - b.y))],[])
+		const sortedNewDataSets = newDataSets.reduce((acc,val) => [...acc,val.data.slice().sort((a,b) => a.y - b.y)],[])
 		const maxY = sortedNewDataSets.reduce((acc,val) => Math.max(acc,val[val.length - 1].y),0)
 		let maxToUse = 1
 		console.log(sortedNewDataSets.length)

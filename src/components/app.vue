@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <component-nav/>
-		
     <div class="router-view">
       <keep-alive>
         <router-view/>
       </keep-alive>
     </div>
-		
     <component-footer/>
   </div>
 </template>
@@ -44,7 +42,5 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
-	background-repeat: repeat;
 }
 </style>

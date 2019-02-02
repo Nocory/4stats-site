@@ -192,7 +192,6 @@ export default {
 				pino.debug(`chart.vue toggleBoard: Requesting timeline for /${board}/ ${this.activeOptions.term}`)
 				this.requestTimeline(board, this.activeOptions.term)
 			} else {
-				console.log("t",board)
 				chartFunctions.addBoard(board,timelineData.history,this.activeOptions)
 				chartFunctions.updateChart(this.activeOptions)
 			}
@@ -291,8 +290,8 @@ export default {
 	>.property-button-group{
 		cursor: pointer;
 		display: flex;
-		background-color: $--background-content;
-		border: 1px solid $oc-gray-7;
+		background-color: $--background-content-2n;
+		border: 1px solid $oc-gray-6;
 		margin-right: 1rem;
 		+.property-button-group-day>a{
 			width: 4em !important;
@@ -302,15 +301,14 @@ export default {
 			padding: 0.5em 0em;
 			position: relative;
 			font-size: 0.75rem;
-			color: $--color-text;
 			overflow: hidden;
 			z-index: 99;
 		}
 	}
 	>input{
 		margin-right: 1rem;
-		background-color: $--background-content;
-		border: 1px solid $oc-gray-7;
+		background-color: $--background-content-2n;
+		border: 1px solid $oc-gray-6;
 		width: 10em;
 		padding: 0.5em 0em;
 		position: relative;
@@ -346,14 +344,14 @@ export default {
 			width: 4rem;
 			font-size: 0.75rem;
 			color: $--color-text;
-			background-color: $--background-content;
+			background-color: $--background-content-2n;
 			overflow: hidden;
 			z-index: 99;
 			transition: color 0.25s ease-out;
 			border: 1px solid $oc-gray-6;
 			&.button-selected{
 				font-weight: bolder;
-				color: $--background-content;
+				color: $--background-content-2n;
 			}
 		}
 	}
@@ -385,7 +383,7 @@ export default {
 
 .property-title{
 	text-align: left;
-	color: $oc-gray-0;
+	color: $--color-text;
 	padding: 0.5rem;
 	
 	padding-left: 3rem;

@@ -23,7 +23,7 @@ export default {
 
 .component-footer{
   position: relative;
-  background: $--background-footer;
+  background: $--background-nav;
   z-index: 10;
   padding: 1rem;
   @include desktop{
@@ -44,24 +44,11 @@ export default {
 
 p {
   font-size: 0.875rem;
-  color: $oc-gray-5;
+  color: $--color-text-alt;
   margin: 0;
 }
 
 a {
-  color: $--color-text;
   text-decoration: underline;
-}
-
-hr{
-  position: relative;
-  width:256px;
-  max-width: 90%;
-}
-
-.button{
-  background: $oc-gray-9;
-  color: $oc-gray-0;
-  border: 2px solid $--color-link;
 }
 </style>

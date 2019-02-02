@@ -33,7 +33,7 @@ export default {
 	data: () => ({
 		longBoardNames : config.boardNames,
 		sortBoardListBy: localStorage.getItem("sortBoardListBy") || "avgPostsPerDay",
-		isThreadlistReversed: false
+		reverseOrder: false
 	}),
 	computed: {
 		...mapState([
@@ -54,13 +54,13 @@ export default {
 				})
 			}
 			
-			if(this.isThreadlistReversed) result.reverse()
+			if(this.reverseOrder) result.reverse()
 			return result
 		}
 	},
 	methods:{
 		categoryClicked(sortBy){
-			this.isThreadlistReversed = sortBy == this.sortBoardListBy ? !this.isThreadlistReversed : false
+			this.reverseOrder = sortBy == this.sortBoardListBy ? !this.reverseOrder : false
 			this.sortBoardListBy = sortBy
 			localStorage.setItem("sortBoardListBy",sortBy)
 		},
@@ -99,7 +99,7 @@ export default {
     @include float-shadow-box;
   }
   >.partyhat{
-    z-index: 9999;
+    z-index: 100;
     object-fit: contain;
 		position: absolute;
 		top: -56px;
@@ -197,7 +197,7 @@ export default {
 
 [data-hover-text]:hover::after{
   line-height: 2;
-  z-index: 999;
+  z-index: 101;
   position: absolute;
   content: attr(data-hover-text);
   padding: 0.25rem 1rem;
