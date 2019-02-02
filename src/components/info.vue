@@ -5,8 +5,7 @@
     </div>
     <div class="component-content">
       <p>
-        Lots of CSS updates.<br>
-        Hope nothing is broken.
+        API will be offline for a few hours.
       </p>
     </div>
   </div>

@@ -45,9 +45,11 @@ import feedbackComponent from "../components/feedback.vue"
 
 const routes = [
 	{ path: '/', component: indexComponent },
+	/*
 	{ path: '/postAnalysis', component: postAnalysisComponent },
 	{ path: '/config', component: configComponent },
 	{ path: '/feedback', component: feedbackComponent },
+	*/
 	{ path: '*', component: indexComponent }
 ]
 
