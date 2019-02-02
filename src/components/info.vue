@@ -5,7 +5,7 @@
     </div>
     <div class="component-content">
       <p>
-        API will be offline for a few hours.
+        Back to normal.
       </p>
     </div>
   </div>
