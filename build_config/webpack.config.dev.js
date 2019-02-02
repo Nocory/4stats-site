@@ -1,4 +1,5 @@
-const path = require('path')
+//const path = require('path')
+const webpack = require('webpack');
 
 module.exports = {
 	mode: "development",
@@ -10,6 +11,10 @@ module.exports = {
 		compress: true,
 		host: "localhost",
 		port: 3000,
-		overlay: true
+		overlay: true,
+		hot: true
 	},
+	plugins: [
+		new webpack.HotModuleReplacementPlugin()
+	]
 }

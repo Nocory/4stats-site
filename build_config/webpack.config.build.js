@@ -1,11 +1,9 @@
-const PurgecssPlugin = require('purgecss-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-const Visualizer = require('webpack-visualizer-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
-const path = require('path')
-const glob = require('glob')
+//const Visualizer = require('webpack-visualizer-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+//const path = require('path')
+//const glob = require('glob')
 
 module.exports = {
 	mode: "production",
@@ -35,6 +33,7 @@ module.exports = {
     }
 	},
 	plugins: [
+    //new MomentLocalesPlugin(),
 		new OptimizeCssAssetsPlugin(),
 		//new Visualizer(),
 		//new BundleAnalyzerPlugin()
