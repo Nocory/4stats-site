@@ -15,6 +15,17 @@
       </div>
       <div class="qa-card">
         <div class="qa-card__question">
+          seeing historical spikes for certain boards is super interesting, but what would be even better is to have a small tag with the reason why it happened that links to some threads for example for the 2016 elections have the spike tagged at the top "election results" and some of the threads of that night
+        </div>
+        <div class="qa-card__answer">
+          Something like that would take quite some time to create and also to maintain.<br>
+          Most of the larger spikes are from well known events anyway (Elections, E3, world cup, April 1st, etc.)<br>
+          For smaller activity jumps you would have to decide what the cutoff is and then the tagging becomes a bit arbitrary anyways.<br>
+          I think it makes more sense to simply look up the day in some wiki or archive, if someone is really curious.
+        </div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-card__question">
           Have you ever thought of implementing some kind of measure of "interestingness" of a thread?<br>
           Something like Reply Length vs Reply Rate, or maybe Number of Replies based on certain keywords?<br>
           Also, it can be useful to add a feature to look for certain thread title keywords, such as "general" or "storytime"...
