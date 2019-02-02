@@ -121,7 +121,7 @@ export default {
             if(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 24){
               res.data[board].threadAgeStr = Math.floor(res.data[board].threadAgeSeconds_mean / (60 * 60 * 24))+"d "
             }
-            res.data[board].threadAgeStr += Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60 * 24) / (60 * 60)).toString().padStart(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 10 ? 2 : 1,"0") + ":" + (Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60) / 60)).toString().padStart(2,"0") + "h"
+            res.data[board].threadAgeStr += Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60 * 24) / (60 * 60)).toString().padStart(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 10 ? 2 : 1,"0") + ":" + Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60) / 60).toString().padStart(2,"0") + "h"
             /*
             res.data[board].threadAgeSeconds_mean < 60 * 60 * 24 ?
               Math.floor(res.data[board].dataAge / 60) + "m" : 
@@ -238,7 +238,7 @@ export default {
   display: flex;
   cursor: pointer;
   font-size: 0.8rem;
-  color: $--color-text-alt;
+  color: $--color-text;
   transition: transform 0.5s ease;
   >div{
     position: relative;
@@ -306,7 +306,7 @@ export default {
   padding: 0 1em;
   white-space: nowrap;
   background-color: rgba(0,0,0,0.85);
-  color: $--color-text-alt;
+  color: $--color-text;
 }
 
 .tooltip--bottom{
