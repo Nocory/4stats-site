@@ -7,8 +7,8 @@
         {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 15 minutes'},
         {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-below-widescreen']},
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
-        {category: 'relativeActivity', text: 'rel. to peak', tooltip: 'Current posts/minute relative to the boards usual peak daily posts/minute', classes: ['']},
-        {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current posts/minute relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-below-fullhd']},
+        {category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current activity relative to the boards usual daily posts/minute peak', classes: ['']},
+        {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current activity relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-below-fullhd']},
       ]" :key="item.name" :class="['header__col',{'header__col--selected' : sortBoardListBy == item.category, 'tooltip--bottom' : item.tooltip}, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
     </div>
     <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="rows component-content">

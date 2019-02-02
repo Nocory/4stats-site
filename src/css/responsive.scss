@@ -1,9 +1,5 @@
-@include mobile{  .is-hidden-mobile{display: none !important}  }
-@include tablet{
-  .is-hidden-tablet{
-    display: none !important
-  }
-}
+@include mobile{  .is-hidden-mobile{display: none !important} }
+@include tablet{  .is-hidden-tablet{display: none !important} }
 @include touch{  .is-hidden-touch{display: none !important}  }
 @include desktop{  .is-hidden-desktop{display: none !important}  }
 @include widescreen{  .is-hidden-desktop{display: none !important}  }

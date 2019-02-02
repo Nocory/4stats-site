@@ -84,15 +84,11 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-	@include mobile{
+	@include touch{
 		padding: 1rem;
   }
-  
-	@include tablet{
-		padding: 1rem;
-	}
 
-	@include widescreen{
+	@include desktop{
 		padding: 2rem 2rem 2rem;
 	}
 }
@@ -150,7 +146,7 @@ form{
 .qa-card{
   position: relative;
 
-  width: 80%;
+  width: 100%;
   max-width: 512px;
 
   margin: 0.5rem 0;
