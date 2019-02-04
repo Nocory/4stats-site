@@ -8,7 +8,7 @@
 				<component-info/>
 			</div>
 		</div>
-		<component-chart class="is-hidden-below-desktop"/>
+		<component-chart v-if="renderChart" class="is-hidden-below-desktop"/>
     <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">
   </div>
 </template>
@@ -18,14 +18,25 @@ import componentBoardlist from './boardlist.vue'
 import componentThreadlist from './threadlist.vue'
 import componentMeta from './meta.vue'
 import componentInfo from './info.vue'
+//import componentColorEdit from './colorEdit.vue'
 export default {
-	data: () => ({}),
+	data: () => ({
+		renderChart : window.innerWidth >= 1024
+	}),
 	components: {
 		componentBoardlist,
 		componentThreadlist,
 		componentMeta,
 		componentInfo,
+		//componentColorEdit,
 		componentChart: () => import(/* webpackChunkName: "chart" */'./chart.vue')
+	},
+	mounted(){
+		window.addEventListener("resize",() => {
+			this.renderChart = window.innerWidth >= 1024
+		},{
+			passive: true
+		})
 	}
 }
 </script>
