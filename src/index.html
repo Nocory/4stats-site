@@ -31,8 +31,13 @@
 	<div id="app">
 	</div>
 	
-	<form name="feedback" netlify hidden netlify-honeypot="dont">
-		<input type="text" name="dont">
+	<form
+		name="feedback"
+		data-netlify="true"
+		netlify-honeypot="honey-field"
+		hidden
+	>
+		<input type="text" name="honey-field">
 		<input type="text" name="message" required minlength="10" maxlength="1000">
 		<input type="hidden" name="form-name" value="feedback">
 	</form>

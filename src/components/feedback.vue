@@ -2,9 +2,15 @@
   <div class="component-feedback">
     
     <div class="container">
-      <form name="feedback" method="post" netlify autocomplete="off" netlify-honeypot="dont">
+      <form
+        name="feedback"
+        method="post"
+        data-netlify="true"
+        netlify-honeypot="honey-field"
+        autocomplete="off"
+      >
         <input type="hidden" name="form-name" value="feedback">
-        <input type="text" name="dont" class="is-hidden">
+        <input type="text" name="honey-field" class="honey-field">
         <div netlify-recaptcha></div>
         <textarea rows="10" name="message" required minlength="10" maxlength="1000" placeholder="type..."/>
         <button type="submit">Send</button>
@@ -113,6 +119,12 @@ form{
   justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
+
+  >.honey-field{
+    height: 0px;
+    padding: 0px;
+    border: 0px;
+  }
 
   >textarea{
     width: 100%;
