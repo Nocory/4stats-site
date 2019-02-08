@@ -44,12 +44,11 @@ export default {
 
 .component-nav{
 	position: relative;
-	background: var(--colorNav);
+	//background: var(--colorNav);
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-weight: lighter;
 	color: $--color-text;
-	height: 3rem;
-  @include desktop{
-    @include float-shadow-box;
-	}
+	height: 4rem;
 	z-index: 2;
 }
 
@@ -69,7 +68,7 @@ export default {
 
 .site-title{
 	color: $--color-text;
-	font-size: 1.5rem;
+	font-size: 2rem;
 	@include tablet{
 		padding: 0 1rem;
 	}
@@ -88,7 +87,7 @@ export default {
 	}
 	&__link{
 		position: relative;
-		font-size: 1rem;
+		font-size: 1.5rem;
 		display: flex;
 		align-items: center;
 		color: $--color-text;

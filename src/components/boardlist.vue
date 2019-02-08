@@ -172,7 +172,8 @@ export default {
   &:nth-of-type(2n){
     background: $--background-content-2n;
   }
-  border-top: 1px solid rgba(0,0,0,0.5);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(0,0,0,0.25);
   &:hover{
     background-color: $--color-hover;
   }

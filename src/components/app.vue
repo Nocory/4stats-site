@@ -29,7 +29,8 @@ export default {
   position: relative;
   min-height: 100vh;
 	font-family: monospace;
-	background: $--background-main;
+	background: $--background-nav;
+	background: linear-gradient(60deg, #29323c 0%, #485563 100%);
 	@include mobile{
 		touch-action: pan-y;
 	}

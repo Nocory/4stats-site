@@ -8,7 +8,7 @@
 				<component-info/>
 			</div>
 		</div>
-		<component-chart v-if="renderChart" class="is-hidden-below-desktop"/>
+		<component-chart v-if="renderChart" class="is-hidden-below-tablet"/>
     <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">
   </div>
 </template>
@@ -21,7 +21,7 @@ import componentInfo from './info.vue'
 //import componentColorEdit from './colorEdit.vue'
 export default {
 	data: () => ({
-		renderChart : window.innerWidth >= 1024
+		renderChart : window.innerWidth >= 768
 	}),
 	components: {
 		componentBoardlist,
@@ -33,7 +33,7 @@ export default {
 	},
 	mounted(){
 		window.addEventListener("resize",() => {
-			this.renderChart = window.innerWidth >= 1024
+			this.renderChart = window.innerWidth >= 768
 		},{
 			passive: true
 		})
@@ -64,7 +64,8 @@ export default {
 
 	@include tablet{
 		grid-template: 	"boards threads" 	auto
-										"boards threads" 	auto /
+										"boards threads" 	auto
+										"chart chart" 	auto /
 										1fr 		1fr;
 		grid-gap: 0rem;
 		max-width: 100%;
@@ -77,7 +78,6 @@ export default {
 										1fr 		1fr;
 		grid-gap: 1rem;
 		max-width: calc(100% - 32px);
-		padding: 1rem 0;
 	}
 
 	@include widescreen{
@@ -88,7 +88,7 @@ export default {
 		grid-gap: 1rem;
 		width: $fullhd;
 		max-width: calc(100% - 64px);
-		padding: 1rem 0 2rem;
+		padding: 0rem 0 2rem;
 	}
 }
 
