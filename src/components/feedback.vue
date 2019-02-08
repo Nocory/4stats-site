@@ -21,6 +21,18 @@
       </div>
       <div class="qa-card">
         <div class="qa-card__question">
+          Hi, why were the charts removed? thx
+        </div>
+        <div class="qa-card__answer">
+          They should be still there.<br>
+          What kind of device, browser and resolution are you using?<br>
+          Any device with at least desktop or tablet landscape width should render the chart.<br>
+          <br>
+          I could add a button though for tablet portrait widths to force-load the chart.
+        </div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-card__question">
           seeing historical spikes for certain boards is super interesting, but what would be even better is to have a small tag with the reason why it happened that links to some threads for example for the 2016 elections have the spike tagged at the top "election results" and some of the threads of that night
         </div>
         <div class="qa-card__answer">
