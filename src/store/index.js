@@ -21,7 +21,7 @@ const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	state: {
 		enabledBoards: JSON.parse(localStorage.getItem("enabledBoards")) || config.allBoards,
-		selectedBoard: localStorage.getItem("selectedBoard") || config.safeInitialBoard[Math.floor(Math.random() * config.safeInitialBoard.length)],
+		selectedBoard: window.innerWidth >= 768 ? localStorage.getItem("selectedBoard") || config.safeInitialBoard[Math.floor(Math.random() * config.safeInitialBoard.length)] : "",
 		boardData: config.allBoards.reduce((acc,key) => {
 			acc[key] = {
 				postsPerMinute: 0,
@@ -104,6 +104,7 @@ const store = new Vuex.Store({
 	},
 	actions: {
 		getActiveThreads(context,board = context.state.selectedBoard){
+			if(!board) return
 			pino.debug("Requesting /activeThreads /%s/ from API",board)
 			axios.get(config.url + `/activeThreads/${board}`)
 				.then(function (response) {
