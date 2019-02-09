@@ -19,7 +19,7 @@ $--background-content-2n: #242A37;
 $--background-content:  #212f3c ;
 $--background-content-2n:  #17202a ;
 $--background-content:  transparent ;
-$--background-content-2n:  transparent ;
+$--background-content-2n:  rgba(0,0,0,0.25) ;
 
 $--background-title: $--background-nav;
 
@@ -30,7 +30,7 @@ $--color-text-faded: $oc-gray-4;
 $--color-text-alt: $oc-gray-6;
 
 $--color-selected-text: $oc-gray-8;
-$--color-selected-background: $oc-gray-2;
+$--color-selected-background: $oc-gray-4;
 
 $--color-link: #EBD575;
 $--color-hover: rgba(255,255,255,0.25);

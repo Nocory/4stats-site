@@ -206,7 +206,7 @@ export default {
   display: flex;
   color: $--color-text;
   border-top: 1px solid rgba(255,255,255,0.25);
-  &:nth-child(2n){
+  &:nth-child(2n-1){
     background: $--background-content-2n;
   }
 }

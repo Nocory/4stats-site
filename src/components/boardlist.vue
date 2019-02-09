@@ -169,7 +169,7 @@ export default {
 
 .row{
   line-height: 1.25rem;
-  &:nth-of-type(2n){
+  &:nth-of-type(2n-1){
     background: $--background-content-2n;
   }
   border-top: 1px solid rgba(255,255,255,0.2);

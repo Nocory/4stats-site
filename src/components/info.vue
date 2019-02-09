@@ -22,6 +22,8 @@
 }
 
 .component-content{
+  //background: $--background-content-2n;
+  border-top: 1px solid rgba(255,255,255,0.2);
   display: flex;
   flex-direction: column;
   padding: 1em;
