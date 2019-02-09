@@ -5,7 +5,11 @@
     </div>
     <div class="component-content">
       <p>
-        Back to normal.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+        Aliquam placerat ipsum id nulla maximus maximus. Morbi tincidunt aliquet libero non interdum.<br>
+        <hr>
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;<br>
+        Duis orci mauris, facilisis sit amet sagittis vel, accumsan eget dui.
       </p>
     </div>
   </div>

@@ -77,17 +77,17 @@ export default {
 										"chart 	chart" 		auto /
 										1fr 		1fr;
 		grid-gap: 1rem;
-		max-width: calc(100% - 32px);
+		max-width: calc(100% - 16px);
 	}
 
 	@include widescreen{
 		grid-template: 	"boards threads right" 	auto
 										"boards threads right" 	auto
 										"chart 	chart 	right" 	auto /
-										1fr 		1fr 		.618fr;
+										1fr 		1fr 		.5fr;
 		grid-gap: 1rem;
 		width: $fullhd;
-		max-width: calc(100% - 64px);
+		max-width: calc(100% - 16px);
 		padding: 0rem 0 2rem;
 	}
 }
