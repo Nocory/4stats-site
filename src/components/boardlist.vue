@@ -136,7 +136,7 @@ export default {
   z-index: 100;
   height: 2.25rem;
   align-items: stretch;
-  background: $--background-title;
+  //background: $--background-title;
   &__col{
     display: flex;
     align-items: center;
@@ -173,7 +173,7 @@ export default {
     background: $--background-content-2n;
   }
   border-top: 1px solid rgba(255,255,255,0.2);
-  border-top: 1px solid rgba(0,0,0,0.25);
+  //border-top: 1px solid rgba(0,0,0,0.25);
   &:hover{
     background-color: $--color-hover;
   }
