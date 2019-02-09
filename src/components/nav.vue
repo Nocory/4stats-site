@@ -58,7 +58,7 @@ export default {
 	align-items: center;
 	height: 100%;
 	width: $fullhd;
-	max-width: calc(100% - 64px);
+	max-width: calc(100% - 16px);
 	margin: auto;
 }
 

@@ -31,6 +31,8 @@ export default {
 	font-family: monospace;
 	background: $--background-nav;
 	background: linear-gradient(60deg, #29323c 0%, #485563 100%);
+	background: linear-gradient(60deg, #29323c 0%, #485563 100%);
+	background-image: linear-gradient(to top, #29323c 0%, #304352 100%);
 	@include mobile{
 		touch-action: pan-y;
 	}
