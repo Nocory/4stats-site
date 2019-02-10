@@ -7,7 +7,7 @@
       'Replies/thread' and 'Avg. thread age' values are calculated from visible threads only.<br>
       (not mobile friendly)
     </div>
-    <div class="container">
+    <div class="container is-hidden-below-widescreen">
       <!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
       
       <button class="refresh-button" @click="reloadStats(true)">
