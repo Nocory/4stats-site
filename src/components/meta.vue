@@ -63,7 +63,7 @@ export default {
 }
 
 hr{
-  background: $--color-text;
+  background: var(--color-text);
   margin: 0.5rem 0;
   width: 10%;
 }
@@ -76,7 +76,7 @@ hr{
     line-height: 1.2;
   }
   &__cat{
-    color: $--color-text-alt;
+    color: var(--color-text-alt);
   }
 }
 </style>

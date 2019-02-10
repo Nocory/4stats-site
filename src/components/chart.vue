@@ -291,7 +291,7 @@ export default {
 	>.property-button-group{
 		cursor: pointer;
 		display: flex;
-		background-color: $--background-content-2n;
+		background-color: var(--background-content-2n);
 		border: 1px solid $oc-gray-6;
 		margin-right: 1rem;
 		+.property-button-group-day>a{
@@ -308,13 +308,13 @@ export default {
 	}
 	>input{
 		margin-right: 1rem;
-		background-color: $--background-content-2n;
+		background-color: var(--background-content-2n);
 		border: 1px solid $oc-gray-6;
 		width: 10em;
 		padding: 0.5em 0em;
 		position: relative;
 		font-size: 0.75rem;
-		color: $--color-text;
+		color: var(--color-text);
 		overflow: hidden;
 		z-index: 99;
 	}
@@ -344,15 +344,15 @@ export default {
 			padding: 0.5em 0.25em;
 			width: 4rem;
 			font-size: 0.75rem;
-			color: $--color-text;
-			background-color: $--background-content-2n;
+			color: var(--color-text);
+			background-color: var(--background-content-2n);
 			overflow: hidden;
 			z-index: 99;
 			transition: color 0.25s ease-out;
 			border: 1px solid $oc-gray-6;
 			&.button-selected{
 				font-weight: bolder;
-				color: $--background-content-2n;
+				color: var(--color-selected-text);
 			}
 		}
 	}
@@ -367,7 +367,7 @@ export default {
   left: 0px;
   min-height: 3px;
   width: 100%;
-  background: $--color-selected-background;
+  background: var(--color-selected-background);
   transform: translateY(3px);
   transition: transform 0.25s ease-out;
 }
@@ -384,7 +384,7 @@ export default {
 
 .property-title{
 	text-align: left;
-	color: $--color-text;
+	color: var(--color-text);
 	padding: 0.5rem;
 	
 	padding-left: 3rem;

@@ -169,13 +169,13 @@ export default {
 
 .explanation{
   text-align: center;
-  color: $--color-text;
+  color: var(--color-text);
   margin-bottom: 1rem;
   padding: 0.5rem;
   font-size: 0.8em;
   max-width: 1024px;
-  background-color: $--background-content;
-  border: 2px solid $--background-content;
+  background-color: var(--background-content);
+  border: 2px solid var(--background-content);
   @include desktop{
     @include float-shadow-box;
   }
@@ -211,10 +211,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $--background-content;
+  background: var(--background-content);
   &__text{
     font-weight: bold;
-    color: $--color-text;
+    color: var(--color-text);
     &--clicked{
       animation-duration: 1s;
       animation-name: postAnalysisRefreshAnim;
@@ -238,7 +238,7 @@ export default {
   display: flex;
   cursor: pointer;
   font-size: 0.8rem;
-  color: $--color-text;
+  color: var(--color-text);
   transition: transform 0.5s ease;
   >div{
     position: relative;
@@ -262,7 +262,7 @@ export default {
 	top: 0;
   z-index: 100;
   line-height: 2.25rem;
-  background: $--background-title;
+  //background: $--background-title;
   &__col{
     &::before{
       content: "";
@@ -271,7 +271,7 @@ export default {
       left: 0px;
       height: 3px;
       width: 100%;
-      background: $--color-selected-background;
+      background: var(--color-selected-background);
       transform: scaleY(0);
       transform-origin: center bottom;
       transition: transform 0.25s ease;
@@ -285,11 +285,11 @@ export default {
 .row{
   line-height: 1.25rem;
   &:nth-of-type(2n){
-    background: $--background-content-2n;
+    background: var(--background-content-2n);
   }
   border-top: 1px solid rgba(0,0,0,0.5);
   &:hover{
-    background-color: $--color-hover;
+    background-color: var(--color-hover);
   }
 }
 
@@ -306,7 +306,7 @@ export default {
   padding: 0 1em;
   white-space: nowrap;
   background-color: rgba(0,0,0,0.85);
-  color: $--color-text;
+  color: var(--color-text);
 }
 
 .tooltip--bottom{

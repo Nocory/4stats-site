@@ -18,6 +18,14 @@
 					<div class="nav-links__text">Config</div>
 				</router-link>
 			</div>
+			<div class="spacer"></div>
+			<label class="switch">
+				<input type="checkbox"  v-model="dayMode" @input="setDayMode">
+				<div class="slider">
+					<div class="moon-symbol">🌙</div>
+					<div class="sun-symbol">&#9728;</div>
+				</div>
+			</label>
     </div>
 		<div class="burger-button is-hidden-tablet" @click.stop="toggleBurgerMenu(undefined)"></div>
   </div>
@@ -25,7 +33,19 @@
 
 <script>
 export default {
+	data: () => ({
+		dayMode: JSON.parse(localStorage.getItem("dayMode")) || false
+	}),
 	methods: {
+		setDayMode(event){
+			localStorage.setItem("dayMode",event.target.checked)
+			if(event.target.checked){
+				document.documentElement.classList.add("day-mode")
+			}else{
+				document.documentElement.classList.remove("day-mode")
+			}
+			
+		},
 		toggleBurgerMenu(showOnMobile){
 			const el = document.querySelector(".nav-links")
 			if(showOnMobile === undefined){
@@ -47,7 +67,7 @@ export default {
 	//background: var(--colorNav);
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	font-weight: lighter;
-	color: $--color-text;
+	color: var(--color-text);
 	height: 4rem;
 	z-index: 2;
 }
@@ -67,7 +87,7 @@ export default {
 }
 
 .site-title{
-	color: $--color-text;
+	color: var(--color-text);
 	font-size: 2rem;
 	@include tablet{
 		padding: 0 1rem;
@@ -82,7 +102,7 @@ export default {
 		position: fixed;
 		top: 3rem;
 		right: 0;
-		background: $--background-nav;
+		background: var(--background-nav);
 		height: auto;
 	}
 	&__link{
@@ -90,7 +110,7 @@ export default {
 		font-size: 1.5rem;
 		display: flex;
 		align-items: center;
-		color: $--color-text;
+		color: var(--color-text);
 		@include mobile{
 			padding: 2rem;
 			font-size: 2rem;
@@ -112,12 +132,90 @@ export default {
 				}
 			}
 			&:hover>.nav-links__text::after{
-				background: $--color-text;
+				background: var(--color-text);
 			}
 			&.router-link-exact-active>.nav-links__text::after{
-				background: $--color-text;
+				background: var(--color-text);
 			}
 		}
+	}
+}
+
+
+
+.switch{
+	cursor: pointer;
+  position: relative;
+	display: flex;
+	align-items: center;
+	height: 100%;
+  width: 3rem;
+	>input{
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+	.slider {
+		box-sizing: content-box;
+		position: relative;
+		left: 0;
+		width: 100%;
+		height: 1.5rem;
+		background: $oc-gray-6;
+		transition: 0.25s ease-out;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		//border-radius: 0.25rem;
+		//border: 1px solid transparent;
+		>.sun-symbol{
+			//text-shadow: 0px 0px 16px rgba(255,255,255,0.25);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			font-size: 0.8rem;
+			opacity: 0.5;
+			height: 1.2rem;
+			width: 1.2rem;
+			top: 0.15rem;
+			left: 0.15rem;
+		}
+
+		>.moon-symbol{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			font-size: 0.8rem;
+			opacity: 0.5;
+			height: 1.2rem;
+			width: 1.2rem;
+			top: 0.15rem;
+			right: 0.15rem;
+		}
+	}
+
+	.slider:before {
+		position: absolute;
+		content: "";
+		height: 1.2rem;
+		width: 1.2rem;
+		top: 0;
+		left: 0;
+		transform: translate(0.15rem,0.15rem);
+		background: white;
+		transition: 0.25s ease-out;
+		//border-radius: 0.25rem;
+	}
+
+	input:checked + .slider {
+		background: rgb(114, 156, 219);
+		//border: 1px solid #aaa;
+	}
+
+	input:checked + .slider:before {
+		transform: translate(calc(3rem - 100% - 0.15rem),0.15rem);
 	}
 }
 
@@ -135,15 +233,15 @@ export default {
 		content: "";
 		width: 2rem;
 		height: 1.5rem;
-		border-top: 4px solid $--color-text;
-		border-bottom: 4px solid $--color-text;
+		border-top: 4px solid var(--color-text);
+		border-bottom: 4px solid var(--color-text);
 	}
 	&:after{
 		position: absolute;
 		content: "";
 		width: 2rem;
 		height: 4px;
-		background: $--color-text;
+		background: var(--color-text);
 	}
 }
 </style>

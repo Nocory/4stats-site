@@ -56,6 +56,7 @@ const init = id => {
 			legend: {
 				labels: {
 					fontColor: '#f8f9fa'
+					//fontColor: '#bbb'
 				}
 			},
 			tooltips: {

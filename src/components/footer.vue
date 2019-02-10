@@ -23,7 +23,7 @@ export default {
 
 .component-footer{
   position: relative;
-  background: $--background-nav;
+  background: var(--background-nav);
   z-index: 10;
   padding: 1rem;
   @include desktop{
@@ -44,7 +44,7 @@ export default {
 
 p {
   font-size: 0.875rem;
-  color: $--color-text-alt;
+  color: var(--color-text-alt);
   margin: 0;
 }
 

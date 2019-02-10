@@ -115,7 +115,7 @@ export default {
   display: flex;
   cursor: pointer;
   font-size: 0.8rem;
-  color: $--color-text;
+  color: var(--color-text);
   transition: transform 0.5s ease;
   >div{
     position: relative;
@@ -156,7 +156,7 @@ export default {
       left: 0px;
       height: 3px;
       width: 100%;
-      background: $--color-selected-background;
+      background: var(--color-selected-background);
       transform: scaleY(0);
       transform-origin: center bottom;
       transition: transform 0.25s ease;
@@ -170,16 +170,16 @@ export default {
 .row{
   line-height: 1.25rem;
   &:nth-of-type(2n-1){
-    background: $--background-content-2n;
+    background: var(--background-content-2n);
   }
   border-top: 1px solid rgba(255,255,255,0.2);
   //border-top: 1px solid rgba(0,0,0,0.25);
   &:hover{
-    background-color: $--color-hover;
+    background-color: var(--color-hover);
   }
   &--selected{
-    background-color: $--color-selected-background !important;
-    color: $--color-selected-text;
+    background-color: var(--color-selected-background) !important;
+    color: var(--color-selected-text);
   }
   &--has-sticky{
     position: absolute;
@@ -206,7 +206,7 @@ export default {
   background-color: rgba(0,0,0,0.85);
   //border: 1px solid $--color-text;
   @include float-shadow-box;
-  color: $--color-text;
+  color: var(--color-text);
   @include touch{
     display: none;
   }
@@ -240,10 +240,10 @@ export default {
     background-color: transparent;
   }
   10% {
-    background-color: $--color-hover;
+    background-color: var(--color-hover);
   }
   55% {
-    background-color: $--color-hover;
+    background-color: var(--color-hover);
   }
   100% {
     background-color: transparent;

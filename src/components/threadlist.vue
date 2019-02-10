@@ -146,7 +146,7 @@ export default {
     width: 100%;
     height: 3rem;
     font-size: 1.25rem;
-    color: $--color-text;
+    color: var(--color-text);
     >.headline{
       flex: 1;
       white-space: nowrap;
@@ -157,7 +157,7 @@ export default {
       cursor: pointer;
       font-weight: bold;
       font-size: 2rem;
-      color: $--color-text;
+      color: var(--color-text);
       min-width: 3rem;
       min-height: 100%;
       display: flex;
@@ -204,10 +204,10 @@ export default {
   min-height: 120px;
   flex: 1 1 0;
   display: flex;
-  color: $--color-text;
+  color: var(--color-text);
   border-top: 1px solid rgba(255,255,255,0.25);
   &:nth-child(2n-1){
-    background: $--background-content-2n;
+    background: var(--background-content-2n);
   }
 }
 
@@ -221,10 +221,10 @@ export default {
   border-bottom: 4px solid transparent;
 
   &__stats {
-    color: $--color-text-faded;
+    color: var(--color-text-faded);
     padding: 0rem;
     margin: 0.5rem;
-    text-decoration: $--color-text-faded underline;
+    text-decoration: var(--color-text-faded) underline;
   }
 
   &__sub {

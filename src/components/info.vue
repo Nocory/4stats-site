@@ -31,12 +31,12 @@
   display: flex;
   flex-direction: column;
   padding: 1em;
-  color: $--color-text;
+  color: var(--color-text);
   //font-size: 0.8em;
 }
 
 hr{
-  background: $--color-text;
+  background: var(--color-text);
   margin: 0.5rem 0;
   width: 10%;
 }

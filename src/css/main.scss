@@ -12,7 +12,7 @@ html{
 }
 
 a{
-  color: $--color-text;
+  color: var(--color-text);
   text-decoration: none;
 }
 
@@ -22,7 +22,7 @@ a{
 
 .component-title{
   background: transparent;
-  color: $--color-text;
+  color: var(--color-text);
   padding: 0rem 0.5rem;
   line-height: 2.25rem;
   text-align: left;
@@ -30,6 +30,6 @@ a{
 }
 
 .component-content{
-  background: $--background-content;
-  color: $--color-text;
+  background: var(--background-content);
+  color: var(--color-text);
 }
