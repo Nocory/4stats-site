@@ -21,7 +21,7 @@ a{
 }
 
 .component-title{
-  background: transparent;
+  background: var(--background-nav);
   color: var(--color-text);
   padding: 0rem 0.5rem;
   line-height: 2.25rem;
@@ -30,6 +30,6 @@ a{
 }
 
 .component-content{
-  background: var(--background-content);
+  //background: var(--background-content);
   color: var(--color-text);
 }

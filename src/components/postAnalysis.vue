@@ -97,7 +97,7 @@ export default {
 				element.classList.add("refresh-button__text--clicked")
 				element.addEventListener(
 					"animationend",
-					event => {
+					() => {
 						element.classList.remove("refresh-button__text--clicked")
 					},{
 						once: true,
@@ -174,8 +174,7 @@ export default {
   padding: 0.5rem;
   font-size: 0.8em;
   max-width: 1024px;
-  background-color: var(--background-content);
-  border: 2px solid var(--background-content);
+  background-color: var(--background-content-2n);
   @include desktop{
     @include float-shadow-box;
   }
@@ -262,6 +261,7 @@ export default {
 	top: 0;
   z-index: 100;
   line-height: 2.25rem;
+  background: var(--background-nav);
   //background: $--background-title;
   &__col{
     &::before{
@@ -284,10 +284,11 @@ export default {
 
 .row{
   line-height: 1.25rem;
+  background: var(--background-content);
   &:nth-of-type(2n){
     background: var(--background-content-2n);
   }
-  border-top: 1px solid rgba(0,0,0,0.5);
+  border-top: 1px solid var(--border-content);
   &:hover{
     background-color: var(--color-hover);
   }

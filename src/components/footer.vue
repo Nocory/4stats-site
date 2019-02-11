@@ -23,7 +23,7 @@ export default {
 
 .component-footer{
   position: relative;
-  background: var(--background-nav);
+	background: var(--background-nav);
   z-index: 10;
   padding: 1rem;
   @include desktop{

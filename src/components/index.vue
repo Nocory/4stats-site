@@ -76,8 +76,9 @@ export default {
 										"boards threads" 	auto
 										"chart 	chart" 		auto /
 										1fr 		1fr;
-		grid-gap: 1rem;
-		max-width: calc(100% - 16px);
+		width: $fullhd;
+		grid-gap: 0rem;
+		max-width: calc(100%);
 	}
 
 	@include widescreen{
@@ -86,9 +87,8 @@ export default {
 										"chart 	chart 	right" 	auto /
 										1fr 		1fr 		.5fr;
 		grid-gap: 1rem;
-		width: $fullhd;
-		max-width: calc(100% - 16px);
-		padding: 0rem 0 2rem;
+		max-width: calc(100% - 2rem);
+		padding: 1rem 0 2rem;
 	}
 }
 

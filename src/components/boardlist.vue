@@ -5,7 +5,7 @@
       <div v-for="item in [
         {category: 'name', text: 'Board', tooltip: ''},
         {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 15 minutes'},
-        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-below-widescreen']},
+        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-below-desktop']},
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
         {category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current activity relative to the boards usual daily posts/minute peak', classes: ['']},
         {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current activity relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-below-fullhd']},
@@ -15,7 +15,7 @@
       <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'row--selected' : (selectedBoard == boardName)}" class="row" @click.stop="boardClicked(boardName)">
         <div v-once :data-hover-text="longBoardNames[boardName]" class="tooltip--right">{{ boardName == "s4s" ? "[s4s]" : "/"+boardName+"/" }}</div>
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
-        <div class="is-hidden-below-widescreen">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
+        <div class="is-hidden-below-desktop">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
         <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
         <div class="">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
         <div class="is-hidden-below-fullhd">{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}</div>
@@ -111,6 +111,7 @@ export default {
 }
 
 .header, .row{
+  white-space: nowrap;
   position: relative;
   display: flex;
   cursor: pointer;
@@ -136,7 +137,7 @@ export default {
   z-index: 100;
   height: 2.25rem;
   align-items: stretch;
-  //background: $--background-title;
+  background: var(--background-nav);
   &__col{
     display: flex;
     align-items: center;
@@ -169,11 +170,11 @@ export default {
 
 .row{
   line-height: 1.25rem;
-  &:nth-of-type(2n-1){
+  background: var(--background-content);
+  &:nth-of-type(2n){
     background: var(--background-content-2n);
   }
-  border-top: 1px solid rgba(255,255,255,0.2);
-  //border-top: 1px solid rgba(0,0,0,0.25);
+  border-top: 1px solid var(--border-content);
   &:hover{
     background-color: var(--color-hover);
   }
@@ -204,7 +205,6 @@ export default {
   padding: 0.25rem 1rem;
   white-space: nowrap;
   background-color: rgba(0,0,0,0.85);
-  //border: 1px solid $--color-text;
   @include float-shadow-box;
   color: var(--color-text);
   @include touch{

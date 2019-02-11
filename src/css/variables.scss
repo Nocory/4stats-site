@@ -4,7 +4,7 @@ $gap: 64px;
 $tablet: 768px;
 $desktop: 1024px; //1025
 $widescreen: 1224px; //more
-$fullhd: 1600px;
+$fullhd: 1664px;
 
 /*
 $--background-content: #30384a;
@@ -31,37 +31,52 @@ $--color-hover: rgba(255,255,255,0.25);
   --color-temp: blue;
   --color-temp-alt: lime;
   ///////////////////////
-  --background-nav:  #{$oc-gray-9} ;
+  --background-nav:  #222831 ;
+  //--background-nav:  transparent ;
   --background-main: linear-gradient(to top, #29323c 0%, #304352 100%);
+  --background-main: #8baaaa;
+  --background-main: linear-gradient(120deg, #8baaaa 0%, #485563 100%);
+  --background-main: #596b6b;
+  --background-main: #638596;
+  //--background-main: rgb(38, 56, 44);
 
-  --background-content:  transparent ;
-  --background-content-2n:  rgba(0,0,0,0.25) ;
+  --box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.25);
+
+  --background-content:  #2f3644 ;
+  --background-content:  #2d3541 ;
+  --background-content-2n:  #222831 ;
+  --border-content:  rgba(255,255,255,0.25) ;
+  //--border-content:  #{$oc-gray-7};
+  //--background-content:  #22323f ;
+  //--background-content-2n:  #2b3f51 ;
   
-  --color-text: #{$oc-gray-2};
+  --color-text: #{$oc-gray-1};
   --color-text-faded: #{$oc-gray-4};
   --color-text-alt: #{$oc-gray-6};
 
   --color-selected-text: #{$oc-gray-8};
   --color-selected-background: #{$oc-gray-4};
 
-  --color-link: #EBD575;
-  --color-hover: rgba(255,255,255,0.25);
+  --color-hover: #{$oc-gray-5};
 }
 
 :root.day-mode{
-  --background-nav:  #{$oc-gray-9} ;
-  --background-main: seashell;
+  --background-nav: #{$oc-orange-0};
+  --background-main: #{$oc-gray-0};
+  --background-main: #{$oc-gray-0};
 
-  --background-content:  transparent ;
-  --background-content-2n:  rgba(0,0,0,0.1) ;
+  --background-content:  #{$oc-gray-0}; ;
+  --background-content-2n:  #{$oc-gray-0};
+  --border-content:  rgba(0,0,0,0.2) ;
+
+  --box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.1);
   
   --color-text: #{$oc-gray-7};
-  --color-text-faded: #{$oc-gray-6};
-  --color-text-alt: #{$oc-gray-5};
+  --color-text-faded: #{$oc-gray-7};
+  --color-text-alt: #{$oc-gray-6};
 
   --color-selected-text: #{$oc-gray-4};
   --color-selected-background: #{$oc-gray-8};
 
-  --color-link: #EBD575;
   --color-hover: rgba(255,255,255,0.25);
 }

@@ -19,11 +19,11 @@
 				</router-link>
 			</div>
 			<div class="spacer"></div>
-			<label class="switch">
-				<input type="checkbox"  v-model="dayMode" @input="setDayMode">
+			<label class="switch" v-if="showThemeToggle">
+				<input type="checkbox" v-model="dayMode" @input="setDayMode">
 				<div class="slider">
-					<div class="moon-symbol">🌙</div>
-					<div class="sun-symbol">&#9728;</div>
+					<div class="moon-symbol">☽</div>
+					<div class="sun-symbol">☼</div>
 				</div>
 			</label>
     </div>
@@ -34,6 +34,7 @@
 <script>
 export default {
 	data: () => ({
+		showThemeToggle: location.hostname=='localhost',
 		dayMode: JSON.parse(localStorage.getItem("dayMode")) || false
 	}),
 	methods: {
@@ -44,7 +45,6 @@ export default {
 			}else{
 				document.documentElement.classList.remove("day-mode")
 			}
-			
 		},
 		toggleBurgerMenu(showOnMobile){
 			const el = document.querySelector(".nav-links")
@@ -56,6 +56,14 @@ export default {
 				el.classList.add("is-hidden-mobile")
 			}
 		}
+	},
+	mounted(){
+		//TODO: the nav bar shouldn't really handle global CSS theme
+		if(this.dayMode){
+			document.documentElement.classList.add("day-mode")
+		}else{
+			document.documentElement.classList.remove("day-mode")
+		}
 	}
 }
 </script>
@@ -64,12 +72,11 @@ export default {
 
 .component-nav{
 	position: relative;
-	//background: var(--colorNav);
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	font-weight: lighter;
+	background: var(--background-nav);
 	color: var(--color-text);
-	height: 4rem;
+	height: 3rem;
 	z-index: 2;
+	@include float-shadow-box;
 }
 
 .container{
@@ -78,7 +85,7 @@ export default {
 	align-items: center;
 	height: 100%;
 	width: $fullhd;
-	max-width: calc(100% - 16px);
+	max-width: calc(100% - 1rem);
 	margin: auto;
 }
 
@@ -88,7 +95,7 @@ export default {
 
 .site-title{
 	color: var(--color-text);
-	font-size: 2rem;
+	font-size: 1.5rem;
 	@include tablet{
 		padding: 0 1rem;
 	}
@@ -107,7 +114,7 @@ export default {
 	}
 	&__link{
 		position: relative;
-		font-size: 1.5rem;
+		font-size: 1.125rem;
 		display: flex;
 		align-items: center;
 		color: var(--color-text);
@@ -119,8 +126,9 @@ export default {
 			padding: 0 1rem;
 		}
 		@include desktop{
-			.nav-links__text{
+			>.nav-links__text{
 				position: relative;
+				line-height: 1;
 				&::after{
 					content: "";
 					position: absolute;
@@ -132,7 +140,7 @@ export default {
 				}
 			}
 			&:hover>.nav-links__text::after{
-				background: var(--color-text);
+				background: var(--color-text-alt);
 			}
 			&.router-link-exact-active>.nav-links__text::after{
 				background: var(--color-text);
@@ -151,9 +159,10 @@ export default {
 	height: 100%;
   width: 3rem;
 	>input{
+		position: absolute;
 		opacity: 0;
-		width: 0;
-		height: 0;
+		max-width: 0;
+		max-height: 0;
 	}
 	.slider {
 		box-sizing: content-box;
@@ -166,29 +175,31 @@ export default {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		//border-radius: 0.25rem;
+		border-radius: 0.25rem;
 		//border: 1px solid transparent;
-		>.sun-symbol{
-			//text-shadow: 0px 0px 16px rgba(255,255,255,0.25);
+
+		>.moon-symbol{
+			color: black;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			position: absolute;
-			font-size: 0.8rem;
-			opacity: 0.5;
+			font-size: 1.25rem;
+			opacity: 1;
 			height: 1.2rem;
 			width: 1.2rem;
 			top: 0.15rem;
 			left: 0.15rem;
 		}
-
-		>.moon-symbol{
+		>.sun-symbol{
+			//text-shadow: 0px 0px 16px rgba(255,255,255,0.25);
+			color: black;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			position: absolute;
-			font-size: 0.8rem;
-			opacity: 0.5;
+			font-size: 1.25rem;
+			opacity: 1;
 			height: 1.2rem;
 			width: 1.2rem;
 			top: 0.15rem;
@@ -206,11 +217,11 @@ export default {
 		transform: translate(0.15rem,0.15rem);
 		background: white;
 		transition: 0.25s ease-out;
-		//border-radius: 0.25rem;
+		border-radius: 0.25rem;
 	}
 
 	input:checked + .slider {
-		background: rgb(114, 156, 219);
+		background: rgb(255, 221, 158);
 		//border: 1px solid #aaa;
 	}
 
