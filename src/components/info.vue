@@ -4,9 +4,7 @@
       Info
     </div>
     <div class="component-content">
-      <p>
-        Back to normal.
-      </p>
+      <b><a href="https://dev.4stats.io">dev.4stats.io</a></b>
     </div>
   </div>
 </template>
@@ -27,6 +25,10 @@
   padding: 1em;
   color: $--color-text;
   //font-size: 0.8em;
+}
+
+b{
+  text-decoration: underline;
 }
 
 hr{
