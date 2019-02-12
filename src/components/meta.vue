@@ -71,7 +71,6 @@ hr{
 .component-content{
   //background: $--background-content-2n;
   background: var(--background-content);
-  border-top: 1px solid var(--border-content);
   padding: 1rem;
   >div{
     line-height: 1.2;

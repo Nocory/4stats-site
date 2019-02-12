@@ -174,7 +174,9 @@ export default {
   &:nth-of-type(2n){
     background: var(--background-content-2n);
   }
-  border-top: 1px solid var(--border-content);
+  &:not(:first-child){
+    border-top: 1px solid var(--border-content);
+  }
   &:hover{
     background-color: var(--color-hover);
   }

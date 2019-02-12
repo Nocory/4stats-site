@@ -22,8 +22,8 @@
 			<label class="switch" v-if="showThemeToggle">
 				<input type="checkbox" v-model="dayMode" @input="setDayMode">
 				<div class="slider">
-					<div class="moon-symbol">☽</div>
-					<div class="sun-symbol">☼</div>
+					<div class="moon-symbol">1</div>
+					<div class="sun-symbol">2</div>
 				</div>
 			</label>
     </div>
@@ -34,7 +34,7 @@
 <script>
 export default {
 	data: () => ({
-		showThemeToggle: location.hostname=='localhost',
+		showThemeToggle: location.hostname=='localhost' || location.hostname == "home.conroy.link",
 		dayMode: JSON.parse(localStorage.getItem("dayMode")) || false
 	}),
 	methods: {
@@ -221,7 +221,7 @@ export default {
 	}
 
 	input:checked + .slider {
-		background: rgb(255, 221, 158);
+		//background: rgb(255, 221, 158);
 		//border: 1px solid #aaa;
 	}
 

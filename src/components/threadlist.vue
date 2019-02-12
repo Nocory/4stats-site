@@ -205,7 +205,9 @@ export default {
   flex: 1 1 0;
   display: flex;
   color: var(--color-text);
-  border-top: 1px solid var(--border-content);
+  &:not(:first-child){
+    border-top: 1px solid var(--border-content);
+  }
   background: var(--background-content);
   &:nth-child(2n){
     background: var(--background-content-2n);
