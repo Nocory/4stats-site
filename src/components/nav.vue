@@ -34,7 +34,7 @@
 <script>
 export default {
 	data: () => ({
-		showThemeToggle: location.hostname=='localhost' || location.hostname == "home.conroy.link",
+		showThemeToggle: ["localhost","home.conroy.link","dev.4stats.io"].includes(location.hostname),
 		dayMode: JSON.parse(localStorage.getItem("dayMode")) || false
 	}),
 	methods: {
