@@ -80,6 +80,7 @@ export default {
 }
 
 .container{
+	//font-weight: lighter;
 	display: flex;
 	position: relative;
 	align-items: center;
@@ -95,7 +96,8 @@ export default {
 
 .site-title{
 	color: var(--color-text);
-	font-size: 1.5rem;
+	font-size: 1.75rem;
+	font-weight: lighter;
 	@include tablet{
 		padding: 0 1rem;
 	}
@@ -132,7 +134,7 @@ export default {
 				&::after{
 					content: "";
 					position: absolute;
-					top: 100%;
+					top: 110%;
 					left: 0;
 					width: 100%;
 					height: 2px;

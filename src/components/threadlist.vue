@@ -17,7 +17,7 @@
             <div v-else class="text-wrapper__stats">
               {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ thread.age > 1000 * 60 * 60 * 24 ? Math.floor(thread.age / (1000 * 60 * 60 * 24)) + 'd' : ''}} {{ Math.floor(thread.age % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)) + 'h'}} {{ Math.floor(thread.age % (1000 * 60 * 60) / (1000 * 60)) + 'm'}}
             </div>
-            <div class="text-wrapper__sub" v-html="thread.sub || '(no title)'"/>
+            <div class="text-wrapper__sub" v-if="thread.sub" v-html="thread.sub || '(no title)'"/>
             <div class="text-wrapper__com" v-html="thread.com"/>
           </div>
         </a>
@@ -233,7 +233,8 @@ export default {
   &__sub {
     padding: 0rem;
     margin: 0.5rem;
-    font-weight: bold;
+    font-weight: normal;
+    font-size: 1.25em;
     white-space: nowrap;
   }
 

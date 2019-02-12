@@ -128,7 +128,7 @@ export default {
       flex: none;
       text-align: left;
       padding: 0 0 0 1em;
-      font-weight: bold;
+      font-weight: normal;
     }
   }
 }
@@ -157,13 +157,16 @@ export default {
       left: 0px;
       height: 3px;
       width: 100%;
-      background: var(--color-selected-background);
+      background: var(--color-text);
       transform: scaleY(0);
       transform-origin: center bottom;
       transition: transform 0.25s ease;
     }
-    &--selected::before{
-      transform: scaleY(1);
+    &--selected{
+      font-weight: bold;
+      &::before{
+        transform: scaleY(1);
+      }
     }
   }
 }

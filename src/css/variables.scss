@@ -31,6 +31,8 @@ $--color-hover: rgba(255,255,255,0.25);
   --color-temp: blue;
   --color-temp-alt: lime;
   ///////////////////////
+  --font-global: 'Roboto Mono';
+
   --background-nav:  #222831 ;
   --background-main: linear-gradient(to top, #29323c 0%, #304352 100%);
   --background-main: #8baaaa;
@@ -62,6 +64,8 @@ $--color-hover: rgba(255,255,255,0.25);
 }
 
 :root.day-mode{
+  --font-global: 'Roboto Mono';
+
   --background-nav:  transparent ;
   --background-main: #29303a;
   --background-main:  #2d3844 ;

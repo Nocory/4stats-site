@@ -28,7 +28,7 @@ export default {
 	flex-direction: column;
   position: relative;
   min-height: 100vh;
-	font-family: monospace;
+	font-family: var(--font-global);
 	background: linear-gradient(60deg, #29323c 0%, #485563 100%);
 	background: linear-gradient(60deg, #29323c 0%, #485563 100%);
 	background: linear-gradient(to top, #29323c 0%, #304352 100%);
