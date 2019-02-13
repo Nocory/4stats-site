@@ -138,11 +138,14 @@ export default {
   height: 2.25rem;
   align-items: stretch;
   background: var(--background-nav);
+  color: var(--color-text);
   &__col{
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 100%;
+    color: var(--color-text);
+    transition: color 0.5s ease;
     &:first-child{
       width: 64px;
       flex: none;
@@ -155,16 +158,20 @@ export default {
       position: absolute;
       bottom: 0px;
       left: 0px;
-      height: 3px;
+      height: 100%;
       width: 100%;
       background: var(--color-text);
       transform: scaleY(0);
       transform-origin: center bottom;
-      transition: transform 0.25s ease;
+      //transform-origin: 50% 50%;
+      transition: transform 0.5s ease;
     }
     &--selected{
-      font-weight: bold;
+      //font-weight: bold;
+      color: var(--color-selected-text);
+      //background: var(--color-selected-background);
       &::before{
+        z-index: -1;
         transform: scaleY(1);
       }
     }
@@ -202,7 +209,8 @@ export default {
 // Hover //
 ///////////
 
-[data-hover-text]:hover::after{
+.tooltip--bottom:hover::after,
+.tooltip--right:hover::after{
   line-height: 2;
   z-index: 101;
   position: absolute;

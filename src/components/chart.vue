@@ -273,13 +273,19 @@ export default {
 <style scoped lang="scss">
 
 .chart-component{
-	//background: #222;
 	@include float-shadow-box;
 }
 
 .component-content{
 	text-align: center;
   background: var(--background-content);
+}
+
+.property-title{
+	text-align: left;
+	color: var(--color-text);
+	padding: 0.5rem;
+	padding-left: 3rem;
 }
 
 .property-button-wrapper {
@@ -302,7 +308,6 @@ export default {
 			padding: 0.5em 0em;
 			position: relative;
 			font-size: 0.75rem;
-			overflow: hidden;
 			z-index: 99;
 		}
 	}
@@ -346,7 +351,6 @@ export default {
 			font-size: 0.75rem;
 			color: var(--color-text);
 			background-color: var(--background-content-2n);
-			overflow: hidden;
 			z-index: 99;
 			transition: color 0.25s ease-out;
 			border: 1px solid $oc-gray-6;
@@ -358,35 +362,30 @@ export default {
 	}
 }
 
-.property-button-group>a:after,
-.board-button:after {
-  content: "";
-	position: absolute;
-	z-index: -5;
-  bottom: 0px;
-  left: 0px;
-  min-height: 3px;
-  width: 100%;
-  background: var(--color-selected-background);
-  transform: translateY(3px);
-  transition: transform 0.25s ease-out;
-}
-
-.board-button:after{
-  min-height: 100%;
-	transform: translateY(100%);
-}
-
-.button-selected:after {
-  content: "";
-  transform: translateY(0px) !important;
-}
-
-.property-title{
-	text-align: left;
+.property-button-group>a,
+.board-button {
 	color: var(--color-text);
-	padding: 0.5rem;
-	
-	padding-left: 3rem;
+	transition: color 0.25s ease-out;
+	&:after{
+		content: "";
+		position: absolute;
+		z-index: -5;
+		bottom: 0px;
+		left: 0px;
+		height: 100%;
+		width: 100%;
+		background: var(--color-selected-background);
+		transform: scaleY(0);
+		transform-origin: center bottom;
+		transition: transform 0.25s ease-out;
+	}
+	&.button-selected{
+		color: var(--color-selected-text);
+		&:after {
+			content: "";
+			transform: scaleY(1);
+		}
+	}
 }
+
 </style>

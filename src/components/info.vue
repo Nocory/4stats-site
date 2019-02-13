@@ -29,6 +29,8 @@
   flex-direction: column;
   padding: 1em;
   color: var(--color-text);
+  
+  line-height: 1.2;
   //font-size: 0.8em;
 }
 

@@ -221,7 +221,7 @@ export default {
   font-size: 0.75rem;
   line-height: 1.5;
   
-  border-bottom: 4px solid transparent;
+  border-bottom: 2px solid transparent;
 
   &__stats {
     color: var(--color-text-faded);
@@ -231,16 +231,16 @@ export default {
   }
 
   &__sub {
+    color: #b294bb;
     padding: 0rem;
     margin: 0.5rem;
-    font-weight: normal;
     font-size: 1.25em;
     white-space: nowrap;
   }
 
   &__com {
     padding: 0rem;
-    margin: 0.5rem;
+    margin: 0 0.5rem;
   }
 }
 

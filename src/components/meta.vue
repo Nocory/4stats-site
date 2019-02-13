@@ -60,6 +60,7 @@ export default {
   display: flex;
   flex-direction: column;
   @include float-shadow-box;
+  line-height: 1.2;
 }
 
 hr{
@@ -72,9 +73,7 @@ hr{
   //background: $--background-content-2n;
   background: var(--background-content);
   padding: 1rem;
-  >div{
-    line-height: 1.2;
-  }
+  //font-size: 0.75rem;
   &__cat{
     color: var(--color-text-alt);
   }

@@ -39,9 +39,10 @@ $--color-hover: rgba(255,255,255,0.25);
   --background-main: linear-gradient(120deg, #8baaaa 0%, #485563 100%);
   --background-main: #596b6b;
   --background-main: #638596;
+  --background-main: #4b6156;
   //--background-main: #222831 ;
   
-  --border-content:  rgba(255,255,255,0.25) ;
+  --border-content:  rgba(255,255,255,0.2) ;
   --box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.25);
 
   --background-content:  #2f3644 ;
@@ -53,7 +54,7 @@ $--color-hover: rgba(255,255,255,0.25);
   //--background-content:  #222;
   //--background-content-2n:  #333;
   
-  --color-text: #{$oc-gray-1};
+  --color-text: #{$oc-gray-0};
   --color-text-faded: #{$oc-gray-4};
   --color-text-alt: #{$oc-gray-6};
 
@@ -69,6 +70,7 @@ $--color-hover: rgba(255,255,255,0.25);
   --background-nav:  transparent ;
   --background-main: #29303a;
   --background-main:  #2d3844 ;
+  //--background-main: #1d1f21;
   --background-content:  transparent ;
   --background-content-2n:  #252b35 ;
 
