@@ -1,9 +1,7 @@
 [build]
   publish = "dist"
   command = "npm run build"
-  environment = {
-    NODE_VERSION = "11"
-  }
+  environment = { NODE_VERSION = "11" }
   
 [context.production]
   NODE_ENV = "production"
