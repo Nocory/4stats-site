@@ -36,6 +36,6 @@ module.exports = {
     //new MomentLocalesPlugin(),
 		new OptimizeCssAssetsPlugin(),
 		//new Visualizer(),
-		new BundleAnalyzerPlugin()
+		//new BundleAnalyzerPlugin()
 	]
 }
