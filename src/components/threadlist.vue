@@ -231,10 +231,12 @@ export default {
   }
 
   &__sub {
-    color: #b294bb;
+    font-weight: bold;
+    //color: #b294bb;
+    //color: #d3b2dd;
     padding: 0rem;
     margin: 0.5rem;
-    font-size: 1.25em;
+    font-size: 1em;
     white-space: nowrap;
   }
 

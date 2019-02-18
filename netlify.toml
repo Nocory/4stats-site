@@ -1,6 +1,22 @@
 [build]
   publish = "dist"
   command = "npm run build"
+  environment = {
+    NODE_VERSION = "11"
+  }
   
 [context.production]
   NODE_ENV = "production"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = "/*"
+  [headers.values]
+    Link = '''
+    </app.css>; rel=preload; as=style, \
+    </app.js>; rel=preload; as=script'''
