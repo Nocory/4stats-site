@@ -35,18 +35,18 @@ import Vue from "vue/dist/vue.runtime.esm.js"
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-import app from "components/app.vue"
+import app from "./app.vue"
 import store from "store/index.js"
 
-import indexComponent from "../components/index.vue"
-import postAnalysisComponent from "../components/postAnalysis.vue"
-import configComponent from "../components/config.vue"
-import feedbackComponent from "../components/feedback.vue"
+import indexComponent from "../pages/index.vue"
+import postAnalysisComponent from "../pages/postAnalysis.vue"
+//import configComponent from "../pages/config.vue"
+import feedbackComponent from "../pages/feedback.vue"
 
 const routes = [
 	{ path: '/', component: indexComponent },
 	{ path: '/postAnalysis', component: postAnalysisComponent },
-	{ path: '/config', component: configComponent },
+	//{ path: '/config', component: configComponent },
 	{ path: '/feedback', component: feedbackComponent },
 	{ path: '*', component: indexComponent }
 ]

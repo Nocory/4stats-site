@@ -14,12 +14,10 @@
 				<router-link to="/feedback" class="nav-links__link">
 					<div class="nav-links__text">Feedback/Contact</div>
 				</router-link>
-				<router-link to="/config" class="nav-links__link">
-					<div class="nav-links__text">Config</div>
-				</router-link>
 			</div>
 			<div class="spacer"></div>
-			<label class="switch" v-if="showThemeToggle">
+			test
+			<label class="is-hidden-below-widescreen switch" v-if="showThemeToggle">
 				<input type="checkbox" v-model="dayMode" @input="setDayMode">
 				<div class="slider">
 					<div class="moon-symbol">1</div>

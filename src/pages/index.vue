@@ -7,17 +7,17 @@
 				<component-meta/>
 				<component-info/>
 			</div>
+			<img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">
 		</div>
 		<component-chart v-if="renderChart" class="is-hidden-below-tablet"/>
-    <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">
   </div>
 </template>
 
 <script>
-import componentBoardlist from './boardlist.vue'
-import componentThreadlist from './threadlist.vue'
-import componentMeta from './meta.vue'
-import componentInfo from './info.vue'
+import componentBoardlist from 'components/boardlist.vue'
+import componentThreadlist from 'components/threadlist.vue'
+import componentMeta from 'components/meta.vue'
+import componentInfo from 'components/info.vue'
 //import componentColorEdit from './colorEdit.vue'
 export default {
 	data: () => ({
@@ -29,7 +29,7 @@ export default {
 		componentMeta,
 		componentInfo,
 		//componentColorEdit,
-		componentChart: () => import(/* webpackChunkName: "chart" */'./chart.vue')
+		componentChart: () => import(/* webpackChunkName: "chart" */'components/chart.vue')
 	},
 	mounted(){
 		window.addEventListener("resize",() => {
@@ -42,15 +42,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.really-makes-you-think-doesnt-it{
-	z-index: -1;
-	position: absolute;
-	bottom: -5rem;
-	right: 0;
-	width: 20%;
-	filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.25));
-}
 
 .index-component {
 	position: relative;
@@ -109,12 +100,22 @@ export default {
 .right{
 	grid-area: right;
 	min-width: 100%;
+	position: relative;
 	>.right-wrapper{
 		position: sticky;
 		top: 1rem;
 		>div:not(:first-child){
 			margin-top: 1rem;
 		}
+	}
+
+	>.really-makes-you-think-doesnt-it{
+		z-index: -1;
+		position: absolute;
+		bottom: -6rem;
+		right: -0rem;
+		width: 100%;
+		filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.25));
 	}
 }
 </style>

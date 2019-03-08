@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import componentNav from './nav.vue'
-import componentFooter from './footer.vue'
+import componentNav from 'components/nav.vue'
+import componentFooter from 'components/footer.vue'
 export default {
 	components: {
 		componentNav,
