@@ -2,35 +2,7 @@
   <div class="component-feedback">
     
     <div class="container">
-      <form
-        name="feedback"
-        method="post"
-        data-netlify="true"
-        netlify-honeypot="honey-field"
-        autocomplete="off"
-      >
-        <input type="hidden" name="form-name" value="feedback">
-        <input type="text" name="honey-field" class="honey-field">
-        <div netlify-recaptcha></div>
-        <textarea rows="10" name="message" required minlength="10" maxlength="1000" placeholder="type..."/>
-        <button type="submit">Send</button>
-      </form>
-      <div class="explanation">
-        If you have a question and submit it anonymously, I will add a reply to the list below for a few days.<br>
-        (Or mention 4stats.io somewhere on 4chan and I will usually see it after a few hours during late euro times)
-      </div>
-      <div class="qa-card">
-        <div class="qa-card__question">
-          Hi, why were the charts removed? thx
-        </div>
-        <div class="qa-card__answer">
-          They should be still there.<br>
-          What kind of device, browser and resolution are you using?<br>
-          Any device with at least desktop or tablet landscape width should render the chart.<br>
-          <br>
-          I could add a button though for tablet portrait widths to force-load the chart.
-        </div>
-      </div>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSewTqwFoSGR40rhSsLshM9mBbi3jfLdijYXjs9dksvnpEM0wQ/viewform?embedded=true" width="640" height="530" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
       <div class="qa-card">
         <div class="qa-card__question">
           seeing historical spikes for certain boards is super interesting, but what would be even better is to have a small tag with the reason why it happened that links to some threads for example for the 2016 elections have the spike tagged at the top "election results" and some of the threads of that night
@@ -121,57 +93,15 @@ export default {
   align-items: center;
 }
 
-form{
-  z-index: 2;
-  width: 512px;
+iframe{
   max-width: 100%;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-
-  >.honey-field{
-    height: 0px;
-    padding: 0px;
-    border: 0px;
-  }
-
-  >textarea{
-    width: 100%;
-    border-radius: 4px;
-    padding: 1rem;
-    @include float-shadow-box;
-    margin-bottom: 1rem;
-  }
-
-  >button{
-    padding: 0.5rem 2rem;
-    border-radius: 4px;
-    border-style: solid;
-    @include float-shadow-box;
-  }
-}
-
-.explanation{
-  text-align: center;
-  color: $oc-gray-7;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  font-size: 0.8em;
-  font-weight: bold;
-  max-width: 100%;
-  background-color: #f1f1f1;
-  //border: 2px solid $--color-highlight-1;
-  @include float-shadow-box;
 }
 
 .qa-card{
   position: relative;
 
-  width: 100%;
-  max-width: 512px;
+  width: 640px;
+  max-width: 100%;
 
   margin: 0.5rem 0;
   padding: 1rem;

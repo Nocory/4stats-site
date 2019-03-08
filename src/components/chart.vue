@@ -273,12 +273,19 @@ export default {
 <style scoped lang="scss">
 
 .chart-component{
-	//background: #222;
 	@include float-shadow-box;
 }
 
 .component-content{
 	text-align: center;
+  background: var(--background-content);
+}
+
+.property-title{
+	text-align: left;
+	color: var(--color-text);
+	padding: 0.5rem;
+	padding-left: 3rem;
 }
 
 .property-button-wrapper {
@@ -290,7 +297,7 @@ export default {
 	>.property-button-group{
 		cursor: pointer;
 		display: flex;
-		background-color: $--background-content-2n;
+		background-color: var(--background-content-2n);
 		border: 1px solid $oc-gray-6;
 		margin-right: 1rem;
 		+.property-button-group-day>a{
@@ -301,19 +308,18 @@ export default {
 			padding: 0.5em 0em;
 			position: relative;
 			font-size: 0.75rem;
-			overflow: hidden;
 			z-index: 99;
 		}
 	}
 	>input{
 		margin-right: 1rem;
-		background-color: $--background-content-2n;
+		background-color: var(--background-content-2n);
 		border: 1px solid $oc-gray-6;
 		width: 10em;
 		padding: 0.5em 0em;
 		position: relative;
 		font-size: 0.75rem;
-		color: $--color-text;
+		color: var(--color-text);
 		overflow: hidden;
 		z-index: 99;
 	}
@@ -343,49 +349,43 @@ export default {
 			padding: 0.5em 0.25em;
 			width: 4rem;
 			font-size: 0.75rem;
-			color: $--color-text;
-			background-color: $--background-content-2n;
-			overflow: hidden;
+			color: var(--color-text);
+			background-color: var(--background-content-2n);
 			z-index: 99;
 			transition: color 0.25s ease-out;
 			border: 1px solid $oc-gray-6;
 			&.button-selected{
 				font-weight: bolder;
-				color: $--background-content-2n;
+				color: var(--color-selected-text);
 			}
 		}
 	}
 }
 
-.property-button-group>a:after,
-.board-button:after {
-  content: "";
-	position: absolute;
-	z-index: -5;
-  bottom: 0px;
-  left: 0px;
-  min-height: 3px;
-  width: 100%;
-  background: $--color-selected-background;
-  transform: translateY(3px);
-  transition: transform 0.25s ease-out;
+.property-button-group>a,
+.board-button {
+	color: var(--color-text);
+	transition: color 0.25s ease-out;
+	&:after{
+		content: "";
+		position: absolute;
+		z-index: -5;
+		bottom: 0px;
+		left: 0px;
+		height: 100%;
+		width: 100%;
+		background: var(--color-selected-background);
+		transform: scaleY(0);
+		transform-origin: center bottom;
+		transition: transform 0.25s ease-out;
+	}
+	&.button-selected{
+		color: var(--color-selected-text);
+		&:after {
+			content: "";
+			transform: scaleY(1);
+		}
+	}
 }
 
-.board-button:after{
-  min-height: 100%;
-	transform: translateY(100%);
-}
-
-.button-selected:after {
-  content: "";
-  transform: translateY(0px) !important;
-}
-
-.property-title{
-	text-align: left;
-	color: $--color-text;
-	padding: 0.5rem;
-	
-	padding-left: 3rem;
-}
 </style>

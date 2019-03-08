@@ -33,8 +33,8 @@ module.exports = {
 					options: {
 						// you can also read from a file, e.g. `variables.scss`
 						data: `
-							@import "~css/variables.scss";
-							@import "~css/mixins.scss";
+							@import "~css/injected/variables.scss";
+							@import "~css/injected/mixins.scss";
 						`
 					}
 				}
@@ -88,7 +88,7 @@ module.exports = {
 		}),
 		//new HtmlWebpackInlineSourcePlugin(),
 		new CopyWebpackPlugin([
-			{ from: 'src/static/_headers', to: '_headers', toType: 'file'}, // hints for netlify http2 push
+			//{ from: 'src/static/_headers', to: '_headers', toType: 'file'}, // hints for netlify http2 push
 			{ from: 'src/static', to: '' }
 		]),
 		new MiniCssExtractPlugin({

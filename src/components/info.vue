@@ -4,7 +4,10 @@
       Info
     </div>
     <div class="component-content">
-      <b><a href="https://dev.4stats.io">dev.4stats.io</a></b>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
+        Aliquam placerat ipsum id nulla maximus maximus. Morbi tincidunt aliquet libero non interdum.
+      </p>
     </div>
   </div>
 </template>
@@ -20,10 +23,14 @@
 }
 
 .component-content{
+  //background: $--background-content-2n;
+  background: var(--background-content);
   display: flex;
   flex-direction: column;
   padding: 1em;
-  color: $--color-text;
+  color: var(--color-text);
+  
+  line-height: 1.2;
   //font-size: 0.8em;
 }
 
@@ -32,7 +39,7 @@ b{
 }
 
 hr{
-  background: $--color-text;
+  background: var(--color-text);
   margin: 0.5rem 0;
   width: 10%;
 }

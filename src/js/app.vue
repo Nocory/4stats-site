@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import componentNav from './nav.vue'
-import componentFooter from './footer.vue'
+import componentNav from 'components/nav.vue'
+import componentFooter from 'components/footer.vue'
 export default {
 	components: {
 		componentNav,
@@ -28,8 +28,11 @@ export default {
 	flex-direction: column;
   position: relative;
   min-height: 100vh;
-	font-family: monospace;
-	background: $--background-main;
+	font-family: var(--font-global);
+	background: linear-gradient(60deg, #29323c 0%, #485563 100%);
+	background: linear-gradient(60deg, #29323c 0%, #485563 100%);
+	background: linear-gradient(to top, #29323c 0%, #304352 100%);
+	background: var(--background-main);
 	@include mobile{
 		touch-action: pan-y;
 	}

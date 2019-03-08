@@ -1,5 +1,5 @@
 //const path = require('path')
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
 	mode: "development",
@@ -9,7 +9,8 @@ module.exports = {
 		//contentBase: path.join("dist"),
 		//publicPath: path.join("dist"),
 		compress: true,
-		host: "localhost",
+		disableHostCheck: true,
+		host: '0.0.0.0',
 		port: 3000,
 		overlay: true,
 		hot: true

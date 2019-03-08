@@ -60,21 +60,22 @@ export default {
   display: flex;
   flex-direction: column;
   @include float-shadow-box;
+  line-height: 1.2;
 }
 
 hr{
-  background: $--color-text;
+  background: var(--color-text);
   margin: 0.5rem 0;
   width: 10%;
 }
 
 .component-content{
+  //background: $--background-content-2n;
+  background: var(--background-content);
   padding: 1rem;
-  >div{
-    line-height: 1.2;
-  }
+  //font-size: 0.75rem;
   &__cat{
-    color: $--color-text-alt;
+    color: var(--color-text-alt);
   }
 }
 </style>

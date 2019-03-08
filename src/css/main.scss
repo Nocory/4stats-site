@@ -1,18 +1,18 @@
 @charset "UTF-8";
 
 @import "sanitize.css";
-
-@import "variables.scss";
 @import "responsive.scss";
+@import "theme.scss";
 
 html{
-  line-height: 1.5;
   font-size: 16px;
-	overflow-y: scroll;
+  overflow-y: scroll;
+  line-height: 1.5;
+  //scroll-behavior: smooth;
 }
 
 a{
-  color: $--color-text;
+  color: var(--color-text);
   text-decoration: none;
 }
 
@@ -21,15 +21,16 @@ a{
 }
 
 .component-title{
-  background: $--background-title;
-  color: $--color-text;
+  background: var(--background-nav);
+  color: var(--color-text);
   padding: 0rem 0.5rem;
   line-height: 2.25rem;
   text-align: left;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .component-content{
-  background: $--background-content;
-  color: $--color-text;
+  //background: var(--background-content);
+  border-top: 1px solid var(--color-text);
+  color: var(--color-text);
 }

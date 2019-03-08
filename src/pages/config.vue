@@ -123,8 +123,8 @@ export default {
 .category__content{
   display: flex;
   flex-direction: column;
-  background: $--background-content;
-  color: $--color-text;
+  background: var(--background-content);
+  color: var(--color-text);
   padding: 1em;
 }
 
@@ -138,8 +138,8 @@ export default {
 	width: 8rem;
 	border-radius: 4px;
 	border-style: solid;
-	color: $--color-text;
-	background-color: $--background-content;
+	color: var(--color-text);
+	background-color: var(--background-content);
 	margin-right: 1rem;
 	@include float-shadow-box;
 }
@@ -164,15 +164,15 @@ export default {
 	width: 100%;
 	height: 3rem;
 	padding: 1rem;
-	color: $--color-text;
-	background-color: $--background-content;
+	color: var(--color-text);
+	background-color: var(--background-content);
 	>.shortname{
-		color:$--color-text;
+		color: var(--color-text);
 		font-weight: bolder;
 		width: 4rem;
 	}
 	>.longname{
-		color:$--color-text-alt;
+		color: var(--color-text-alt);
 		margin-left: 1rem;
 	}
 }

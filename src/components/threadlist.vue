@@ -17,7 +17,7 @@
             <div v-else class="text-wrapper__stats">
               {{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ thread.age > 1000 * 60 * 60 * 24 ? Math.floor(thread.age / (1000 * 60 * 60 * 24)) + 'd' : ''}} {{ Math.floor(thread.age % (1000 * 60 * 60 * 24) / (1000 * 60 * 60)) + 'h'}} {{ Math.floor(thread.age % (1000 * 60 * 60) / (1000 * 60)) + 'm'}}
             </div>
-            <div class="text-wrapper__sub" v-html="thread.sub || '(no title)'"/>
+            <div class="text-wrapper__sub" v-if="thread.sub" v-html="thread.sub || '(no title)'"/>
             <div class="text-wrapper__com" v-html="thread.com"/>
           </div>
         </a>
@@ -146,7 +146,7 @@ export default {
     width: 100%;
     height: 3rem;
     font-size: 1.25rem;
-    color: $--color-text;
+    color: var(--color-text);
     >.headline{
       flex: 1;
       white-space: nowrap;
@@ -157,7 +157,7 @@ export default {
       cursor: pointer;
       font-weight: bold;
       font-size: 2rem;
-      color: $--color-text;
+      color: var(--color-text);
       min-width: 3rem;
       min-height: 100%;
       display: flex;
@@ -204,9 +204,13 @@ export default {
   min-height: 120px;
   flex: 1 1 0;
   display: flex;
-  color: $--color-text;
+  color: var(--color-text);
+  &:not(:first-child){
+    border-top: 1px solid var(--border-content);
+  }
+  background: var(--background-content);
   &:nth-child(2n){
-    background: $--background-content-2n;
+    background: var(--background-content-2n);
   }
 }
 
@@ -217,25 +221,28 @@ export default {
   font-size: 0.75rem;
   line-height: 1.5;
   
-  border-bottom: 4px solid transparent;
+  border-bottom: 2px solid transparent;
 
   &__stats {
-    color: $--color-text-faded;
+    color: var(--color-text-faded);
     padding: 0rem;
     margin: 0.5rem;
-    text-decoration: $--color-text-faded underline;
+    text-decoration: var(--color-text-faded) underline;
   }
 
   &__sub {
+    font-weight: bold;
+    //color: #b294bb;
+    //color: #d3b2dd;
     padding: 0rem;
     margin: 0.5rem;
-    font-weight: bold;
+    font-size: 1em;
     white-space: nowrap;
   }
 
   &__com {
     padding: 0rem;
-    margin: 0.5rem;
+    margin: 0 0.5rem;
   }
 }
 

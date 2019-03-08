@@ -5,7 +5,7 @@
       <div v-for="item in [
         {category: 'name', text: 'Board', tooltip: ''},
         {category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 15 minutes'},
-        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-below-widescreen']},
+        {category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-below-desktop']},
         {category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'},
         {category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current activity relative to the boards usual daily posts/minute peak', classes: ['']},
         {category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current activity relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-below-fullhd']},
@@ -15,7 +15,7 @@
       <div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-'+boardName" :class="{'row--selected' : (selectedBoard == boardName)}" class="row" @click.stop="boardClicked(boardName)">
         <div v-once :data-hover-text="longBoardNames[boardName]" class="tooltip--right">{{ boardName == "s4s" ? "[s4s]" : "/"+boardName+"/" }}</div>
         <div class="">{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
-        <div class="is-hidden-below-widescreen">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
+        <div class="is-hidden-below-desktop">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
         <div class="">{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
         <div class="">{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
         <div class="is-hidden-below-fullhd">{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}</div>
@@ -111,11 +111,12 @@ export default {
 }
 
 .header, .row{
+  white-space: nowrap;
   position: relative;
   display: flex;
   cursor: pointer;
   font-size: 0.8rem;
-  color: $--color-text;
+  color: var(--color-text);
   transition: transform 0.5s ease;
   >div{
     position: relative;
@@ -127,7 +128,7 @@ export default {
       flex: none;
       text-align: left;
       padding: 0 0 0 1em;
-      font-weight: bold;
+      font-weight: normal;
     }
   }
 }
@@ -136,12 +137,15 @@ export default {
   z-index: 100;
   height: 2.25rem;
   align-items: stretch;
-  background: $--background-title;
+  background: var(--background-nav);
+  color: var(--color-text);
   &__col{
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 100%;
+    color: var(--color-text);
+    transition: color 0.5s ease;
     &:first-child{
       width: 64px;
       flex: none;
@@ -154,31 +158,41 @@ export default {
       position: absolute;
       bottom: 0px;
       left: 0px;
-      height: 3px;
+      height: 100%;
       width: 100%;
-      background: $--color-selected-background;
+      background: var(--color-text);
       transform: scaleY(0);
       transform-origin: center bottom;
-      transition: transform 0.25s ease;
+      //transform-origin: 50% 50%;
+      transition: transform 0.5s ease;
     }
-    &--selected::before{
-      transform: scaleY(1);
+    &--selected{
+      //font-weight: bold;
+      color: var(--color-selected-text);
+      //background: var(--color-selected-background);
+      &::before{
+        z-index: -1;
+        transform: scaleY(1);
+      }
     }
   }
 }
 
 .row{
   line-height: 1.25rem;
+  background: var(--background-content);
   &:nth-of-type(2n){
-    background: $--background-content-2n;
+    background: var(--background-content-2n);
   }
-  border-top: 1px solid rgba(0,0,0,0.5);
+  &:not(:first-child){
+    border-top: 1px solid var(--border-content);
+  }
   &:hover{
-    background-color: $--color-hover;
+    background-color: var(--color-hover);
   }
   &--selected{
-    background-color: $--color-selected-background !important;
-    color: $--color-selected-text;
+    background-color: var(--color-selected-background) !important;
+    color: var(--color-selected-text);
   }
   &--has-sticky{
     position: absolute;
@@ -195,7 +209,8 @@ export default {
 // Hover //
 ///////////
 
-[data-hover-text]:hover::after{
+.tooltip--bottom:hover::after,
+.tooltip--right:hover::after{
   line-height: 2;
   z-index: 101;
   position: absolute;
@@ -203,9 +218,8 @@ export default {
   padding: 0.25rem 1rem;
   white-space: nowrap;
   background-color: rgba(0,0,0,0.85);
-  //border: 1px solid $--color-text;
   @include float-shadow-box;
-  color: $--color-text;
+  color: var(--color-text);
   @include touch{
     display: none;
   }
@@ -239,10 +253,10 @@ export default {
     background-color: transparent;
   }
   10% {
-    background-color: $--color-hover;
+    background-color: var(--color-hover);
   }
   55% {
-    background-color: $--color-hover;
+    background-color: var(--color-hover);
   }
   100% {
     background-color: transparent;
