@@ -160,7 +160,7 @@ export default {
       left: 0px;
       height: 100%;
       width: 100%;
-      background: var(--color-text);
+      background: var(--color-selected-background);
       transform: scaleY(0);
       transform-origin: center bottom;
       //transform-origin: 50% 50%;

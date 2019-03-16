@@ -172,7 +172,7 @@ export default {
 		width: 4rem;
 	}
 	>.longname{
-		color: var(--color-text-alt);
+		color: var(--color-text-faded2);
 		margin-left: 1rem;
 	}
 }

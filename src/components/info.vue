@@ -4,10 +4,7 @@
       Info
     </div>
     <div class="component-content">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
-        Aliquam placerat ipsum id nulla maximus maximus. Morbi tincidunt aliquet libero non interdum.
-      </p>
+      <p>Something new</p>
     </div>
   </div>
 </template>

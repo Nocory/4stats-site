@@ -29,9 +29,6 @@ export default {
   position: relative;
   min-height: 100vh;
 	font-family: var(--font-global);
-	background: linear-gradient(60deg, #29323c 0%, #485563 100%);
-	background: linear-gradient(60deg, #29323c 0%, #485563 100%);
-	background: linear-gradient(to top, #29323c 0%, #304352 100%);
 	background: var(--background-main);
 	@include mobile{
 		touch-action: pan-y;

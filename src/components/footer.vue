@@ -44,7 +44,7 @@ export default {
 
 p {
   font-size: 0.875rem;
-  color: var(--color-text-alt);
+  color: var(--color-text-faded2);
   margin: 0;
 }
 
