@@ -2,10 +2,11 @@
   <div class="index-component">
 		<component-boardlist/>
 		<component-threadlist/>
-		<div class="right is-hidden-below-widescreen">
+		<div v-if="renderRight" class="right is-hidden-below-widescreen">
 			<div class="right-wrapper">
 				<component-meta/>
 				<component-info/>
+				<!--<component-sideImage/>-->
 			</div>
 			<img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png">
 		</div>
@@ -16,24 +17,28 @@
 <script>
 import componentBoardlist from 'components/boardlist.vue'
 import componentThreadlist from 'components/threadlist.vue'
-import componentMeta from 'components/meta.vue'
-import componentInfo from 'components/info.vue'
+//import componentMeta from 'components/meta.vue'
+//import componentInfo from 'components/info.vue'
+//import componentSideImage from 'components/sideImage.vue'
 //import componentColorEdit from './colorEdit.vue'
 export default {
 	data: () => ({
-		renderChart : window.innerWidth >= 768
+		renderChart : window.innerWidth >= 768,
+		renderRight : window.innerWidth >= 1224
 	}),
 	components: {
 		componentBoardlist,
 		componentThreadlist,
-		componentMeta,
-		componentInfo,
+		componentMeta: () => import(/* webpackChunkName: "right" */'components/meta.vue'),
+		componentInfo: () => import(/* webpackChunkName: "right" */'components/info.vue'),
+		componentSideImage: () => import(/* webpackChunkName: "right" */'components/sideImage.vue'),
 		//componentColorEdit,
 		componentChart: () => import(/* webpackChunkName: "chart" */'components/chart.vue')
 	},
 	mounted(){
 		window.addEventListener("resize",() => {
 			this.renderChart = window.innerWidth >= 768
+			this.renderRight = window.innerWidth >= 1224
 		},{
 			passive: true
 		})

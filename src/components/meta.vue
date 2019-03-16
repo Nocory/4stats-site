@@ -75,7 +75,7 @@ hr{
   padding: 1rem;
   //font-size: 0.75rem;
   &__cat{
-    color: var(--color-text-alt);
+    color: var(--color-text-faded2);
   }
 }
 </style>

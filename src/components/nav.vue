@@ -3,10 +3,10 @@
     <div class="container" @click.stop="toggleBurgerMenu(false)">
       <router-link to="/">
         <div class="site-title">4stats.io</div>
-      </router-link>
+			</router-link>
 			<div class="nav-links is-hidden-mobile">
 				<router-link to="/" class="nav-links__link">
-					<div class="nav-links__text">Main</div>
+					<div class="nav-links__text">Board-Stats</div>
 				</router-link>
 				<router-link to="/postAnalysis" class="nav-links__link is-hidden-below-widescreen">
 					<div class="nav-links__text">Post-Analysis</div>
@@ -16,7 +16,6 @@
 				</router-link>
 			</div>
 			<div class="spacer"></div>
-			test
 			<label class="is-hidden-below-widescreen switch" v-if="showThemeToggle">
 				<input type="checkbox" v-model="dayMode" @input="setDayMode">
 				<div class="slider">
@@ -74,7 +73,7 @@ export default {
 	color: var(--color-text);
 	height: 3rem;
 	z-index: 2;
-	@include float-shadow-box;
+	//@include float-shadow-box;
 }
 
 .container{
@@ -126,25 +125,26 @@ export default {
 			padding: 0 1rem;
 		}
 		@include desktop{
+			padding: 0;
 			>.nav-links__text{
 				position: relative;
 				line-height: 1;
-				&::after{
-					content: "";
-					position: absolute;
-					top: 110%;
-					left: 0;
-					width: 100%;
-					height: 2px;
-					background: transparent;
-				}
+				height: 100%;
+				display: flex;
+				align-items: center;
+				padding: 0 1rem;
+				font-weight: light;
 			}
-			&:hover>.nav-links__text::after{
-				background: var(--color-text-alt);
+			&.router-link-exact-active>.nav-links__text{
+				background: var(--color-selected-background);
+				color: var(--color-selected-text);
+				font-weight: bold;
 			}
+			/*
 			&.router-link-exact-active>.nav-links__text::after{
 				background: var(--color-text);
 			}
+			*/
 		}
 	}
 }
