@@ -7,60 +7,46 @@
 
       <div class="property-title">Charting {{ activeOptions.term === "day" ? "posts/day" : activeOptions.property === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
 
-      <div class="property-button-wrapper">
-        <div class="property-button-group">
-          <a :class="{ 'button-selected': activeOptions.term == 'day'}" @click="setActiveTerm('dayOptions')">Daily</a>
-          <a :class="{ 'button-selected': activeOptions.term == 'hour' }" @click="setActiveTerm('hourOptions')"> Hourly</a>
-          <a :class="{ 'button-selected': activeOptions.term == 'cycle' }" @click="setActiveTerm('cycleOptions')"> Cycle</a>
+      <div class="option-wrapper">
+        <div class="option-group">
+          <button class="option-button" :class="{ 'option-button--selected': activeOptions.term == 'day'}" @click="setActiveTerm('day')">Daily</button>
+          <button class="option-button" :class="{ 'option-button--selected': activeOptions.term == 'hour' }" @click="setActiveTerm('hour')">Hourly</button>
+          <button class="option-button" :class="{ 'option-button--selected': activeOptions.term == 'cycle' }" @click="setActiveTerm('cycle')">Cycle</button>
         </div>
 
-        <template v-if="activeOptions.term == 'day'">
-          <div class="property-button-group property-button-group-day">
-            <a :class="{ 'button-selected': activeOptions.days == 365*20 }" @click="setChartOption('days',365*20)">All</a>
-            <a :class="{ 'button-selected': activeOptions.days == 365*5 }" @click="setChartOption('days',365*5)">5y</a>
-            <a :class="{ 'button-selected': activeOptions.days == 365*3 }" @click="setChartOption('days',365*3)">3y</a>
-            <a :class="{ 'button-selected': activeOptions.days == 365*1 }" @click="setChartOption('days',365*1)">1y</a>
-            <a :class="{ 'button-selected': activeOptions.days == 365*0.5 }" @click="setChartOption('days',365*0.5)">6m</a>
-          </div>
+				<div class="option-group">
+					<button v-for="option in {
+							'day': [[365*20,'All'],[365*5,'5y'],[365*3,'3y'],[365*1,'1y'],[365*0.5,'6m']],
+							'hour': [[28,'4w'],[7,'1w'],[3,'3d']],
+							'cycle': [[3,'3d'],[1,'1d']],
+						}[activeOptions.term]" :key="option[1]"
+						class="option-button option-button--narrow"
+						:class="{ 'option-button--selected': activeOptions.days == option[0] }" @click="setChartOption('days',option[0])">
+							{{option[1]}}
+						</button>
+				</div>
+
+				<div class="option-group" v-if="activeOptions.term == 'day'">
 					<input type="date" v-model=activeOptions.dateStartString @input="setTimelineRange()">
+				</div>
+
+				<div class="option-group" v-if="activeOptions.term == 'day'">
 					<input type="date" v-model=activeOptions.dateEndString @input="setTimelineRange()">
-        </template>
+				</div>
 
-        <template v-if="activeOptions.term == 'hour'">
-          <div class="property-button-group property-button-group-day">
-            <a :class="{ 'button-selected': activeOptions.days == 28 }" @click="setChartOption('days',28)">4w</a>
-            <a :class="{ 'button-selected': activeOptions.days == 7 }" @click="setChartOption('days',7)">1w</a>
-            <a :class="{ 'button-selected': activeOptions.days == 3 }" @click="setChartOption('days',3)">3d</a>
-          </div>
-          <div class="property-button-group">
-            <a :class="{ 'button-selected': activeOptions.property == 'postsPerMinute' }" @click="setChartOption('property','postsPerMinute')">Posts/Minute</a>
-            <a :class="{ 'button-selected': activeOptions.property == 'activity' }" @click="setChartOption('property','activity')">Activity</a>
-          </div>
-          <div class="property-button-group">
-            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</a>
-            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel',3)">Smooth</a>
-            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</a>
-          </div>
-        </template>
+				<div class="option-group" v-if="['hour','cycle'].includes(activeOptions.term)">
+					<button class="option-button" :class="{ 'option-button--selected': activeOptions.property == 'postsPerMinute' }" @click="setChartOption('property','postsPerMinute')">Posts/Minute</button>
+					<button class="option-button" :class="{ 'option-button--selected': activeOptions.property == 'activity' }" @click="setChartOption('property','activity')">Activity</button>
+				</div>
+				
+				<div class="option-group" v-if="['hour','cycle'].includes(activeOptions.term)">
+					<button class="option-button" :class="{ 'option-button--selected': activeOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</button>
+					<button class="option-button" :class="{ 'option-button--selected': activeOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel',3)">Smooth</button>
+					<button class="option-button" :class="{ 'option-button--selected': activeOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</button>
+				</div>
 
-        <template v-if="activeOptions.term == 'cycle'">
-          <div class="property-button-group property-button-group-day">
-            <a :class="{ 'button-selected': activeOptions.days == 3 }" @click="setChartOption('days',3)">3d</a>
-            <a :class="{ 'button-selected': activeOptions.days == 1 }" @click="setChartOption('days',1)">1d</a>
-          </div>
-          <div class="property-button-group">
-            <a :class="{ 'button-selected': activeOptions.property == 'postsPerMinute' }" @click="setChartOption('property','postsPerMinute')">Posts/Minute</a>
-            <a :class="{ 'button-selected': activeOptions.property == 'activity' }" @click="setChartOption('property','activity')">Activity</a>
-          </div>
-          <div class="property-button-group">
-            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel',0)">Accurate</a>
-            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel',3)">Smooth</a>
-            <a :class="{ 'button-selected': activeOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel',6)">Silky</a>
-          </div>
-        </template>
-
-        <div class="property-button-group">
-          <a :class="{ 'button-selected': activeOptions.yIsLimited}" @click="toggleYLimit">Limit y-axis</a>
+        <div class="option-group">
+          <button class="option-button" :class="{ 'option-button--selected': activeOptions.yIsLimited}" @click="toggleYLimit">Limit y-axis</button>
         </div>
       </div>
 
@@ -68,31 +54,14 @@
         <canvas id="myChart"/>
       </div>
 
-      <div class="board-buttons" >
-        <!--
-      <div
-        v-for="board in allBoards"
-        :key="board"
-        :class="{'button-selected': graphedBoards.includes(board)}"
-        class="board-buttons__button"
-        @click="toggleBoard(board)">
-        /{{ board }}/
-      </div>
-			-->
+      <div class="board-buttons">
         <div v-for="board in allBoards" :key="board" class="button-padder" @click="toggleBoard(board)">
-          <!--<div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">/{{ board }}/</div>-->
-					<div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">{{ board == "s4s" ? "[s4s]" : "/"+board+"/" }}</div>
+					<div :class="{'board-button--selected': graphedBoards.includes(board)}" class="board-button">{{ board == "s4s" ? "[s4s]" : "/"+board+"/" }}</div>
         </div>
         <div class="button-padder" @click="toggleBoard('all')">
-          <!--<div :class="{'button-selected': graphedBoards.includes(board)}" class="board-button">/{{ board }}/</div>-->
-					<div :class="{'button-selected': graphedBoards.includes('all')}" class="board-button">/all/</div>
+					<div :class="{'board-button--selected': graphedBoards.includes('all')}" class="board-button">/all/</div>
         </div>
       </div>
-    <!--
-      <a class="board-buttons" @click="toggleBoard('combined')">
-        <div class="board-button" :class="{'button-selected': graphedBoards.includes('combined')}">[ALL]</div>
-      </a>
-			-->
     </div>
 
   </div>
@@ -106,6 +75,30 @@ import chartFunctions from "js/chartFunctions"
 export default {
 	data: () => ({
 		activeOptions: {},
+		options: {
+			day: {
+				term: "day",
+				days: 365,
+				dateStartString: "",
+				dateEndString: "",
+				dateStart: new Date(),
+				dateEnd: new Date(),
+				yIsLimited: false
+			},
+			hour: {
+				term: "hour",
+				days: 7,
+				smoothingLevel: 3,
+				property: "postsPerMinute"
+			},
+			cycle: {
+				term: "cycle",
+				days: 3,
+				smoothingLevel: 0,
+				property: "postsPerMinute"
+			}
+		},
+		/*
 		dayOptions: {
 			term: "day",
 			days: 365,
@@ -127,6 +120,7 @@ export default {
 			smoothingLevel: 0,
 			property: "postsPerMinute"
 		},
+		*/
 		history: {
 			cycle: {},
 			hour: {},
@@ -158,7 +152,7 @@ export default {
 			for(let board of this.graphedBoards) this.checkIfRequestOrAdd(board)
 		},
 		setActiveTerm(termOptions){
-			this.activeOptions = this[termOptions]
+			this.activeOptions = this.options[termOptions]
 			for(let board of this.graphedBoards) this.checkIfRequestOrAdd(board)
 		},
 		setChartOption(key,value){
@@ -248,7 +242,7 @@ export default {
 		}
 	},
 	created(){
-		this.activeOptions = this.dayOptions
+		this.activeOptions = this.options.day
 		this.setTimelineRange(this.activeOptions.days)
 	},
 	mounted() {
@@ -288,40 +282,48 @@ export default {
 	padding-left: 3rem;
 }
 
-.property-button-wrapper {
+.option-wrapper{
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
 	align-items: center;
 	padding-left: 3rem;
-	>.property-button-group{
-		cursor: pointer;
-		display: flex;
-		background-color: var(--background-content-2n);
-		border: 1px solid $oc-gray-6;
-		margin-right: 1rem;
-		+.property-button-group-day>a{
-			width: 4em !important;
-		}
-		>a{
-			width: 8em;
-			padding: 0.5em 0em;
-			position: relative;
-			font-size: 0.75rem;
-			z-index: 99;
-		}
+}
+
+.option-group{
+	display: flex;
+	border: 1px solid $oc-gray-6;
+	margin-right: 1rem;
+}
+
+.option-group>input{
+	background-color: var(--background-nav);
+	border: none;
+	width: 10em;
+	padding: 0.5em 0em;
+	position: relative;
+	font-size: 0.75rem;
+	color: var(--color-text);
+	overflow: hidden;
+	z-index: 99;
+}
+
+.option-button{
+	cursor: pointer;
+	width: 6rem;
+	padding: 0.5em 0em;
+	position: relative;
+	font-size: 0.75rem;
+	z-index: 99;
+	background: var(--background-nav);
+	border: none;
+	color: var(--color-text);
+	@include selected-underline(".option-button--selected");
+	&--narrow{
+		width: 3rem !important;
 	}
-	>input{
-		margin-right: 1rem;
-		background-color: var(--background-content-2n);
-		border: 1px solid $oc-gray-6;
-		width: 10em;
-		padding: 0.5em 0em;
-		position: relative;
-		font-size: 0.75rem;
-		color: var(--color-text);
-		overflow: hidden;
-		z-index: 99;
+	&:focus{
+		outline: none;
 	}
 }
 
@@ -350,40 +352,14 @@ export default {
 			width: 4rem;
 			font-size: 0.75rem;
 			color: var(--color-text);
-			background-color: var(--background-content-2n);
+			background: var(--background-nav);
 			z-index: 99;
-			transition: color 0.25s ease-out;
+			//transition: all 0.25s ease-out;
 			border: 1px solid $oc-gray-6;
-			&.button-selected{
-				font-weight: bolder;
+			&.board-button--selected{
 				color: var(--color-selected-text);
+				background: var(--color-selected-background);
 			}
-		}
-	}
-}
-
-.property-button-group>a,
-.board-button {
-	color: var(--color-text);
-	transition: color 0.25s ease-out;
-	&:after{
-		content: "";
-		position: absolute;
-		z-index: -5;
-		bottom: 0px;
-		left: 0px;
-		height: 100%;
-		width: 100%;
-		background: var(--color-selected-background);
-		transform: scaleY(0);
-		transform-origin: center bottom;
-		transition: transform 0.25s ease-out;
-	}
-	&.button-selected{
-		color: var(--color-selected-text);
-		&:after {
-			content: "";
-			transform: scaleY(1);
 		}
 	}
 }
