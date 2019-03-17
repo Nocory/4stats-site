@@ -153,6 +153,8 @@ export default {
       padding: 0 0 0 1em;
       font-weight: bold;
     }
+    @include selected-underline(".header__col--selected")
+    /*
     &::before{
       content: "";
       position: absolute;
@@ -175,6 +177,7 @@ export default {
         transform: scaleY(1);
       }
     }
+    */
   }
 }
 
@@ -209,8 +212,8 @@ export default {
 // Hover //
 ///////////
 
-.tooltip--bottom:hover::after,
-.tooltip--right:hover::after{
+.tooltip--bottom:hover::before,
+.tooltip--right:hover::before{
   line-height: 2;
   z-index: 101;
   position: absolute;
@@ -227,13 +230,13 @@ export default {
 
 .tooltip--bottom{
   text-decoration: underline dotted;
-  &:hover::after{
+  &:hover::before{
     left: 0px;
     top: 125%;
   }
 }
 
-.tooltip--right:hover::after{
+.tooltip--right:hover::before{
     left: 100%;
 }
 

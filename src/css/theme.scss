@@ -5,13 +5,22 @@
   --font-global: Consolas, monospace;
 
   --background-nav: #1e2631 ;
-  --background-main: #a2aab4;
+  --background-main: linear-gradient(160deg, #092e44 0%, #80d0c7 100%);
+  --background-main: linear-gradient(120deg, #243949 0%, #517fa4 100%);
+  --background-main: linear-gradient(160deg, #092e44 0%, #517fa4 100%);
+  --background-main: linear-gradient(120deg, #243949 0%, #517fa4 100%);
   
   --border-content:  rgba(255,255,255,0.2) ;
   --box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.25);
 
   --background-content:  #333f4e ;
   --background-content-2n:  #252e3a ;
+
+  --background-content:  rgb(49, 57, 66) ;
+  --background-content-2n:  rgb(49, 57, 66) ;
+
+  --background-content: #{darken(#517fa4,28%)} ;
+  --background-content-2n:  #{darken(#517fa4,35%)} ;
 
   //--border-content:  #{$oc-gray-7};
   //--background-content:  #222;
@@ -28,12 +37,5 @@
 }
 
 :root.day-mode{
-  --font-global: Consolas, monospace;
-
-  --background-main: linear-gradient(160deg, rgb(186, 186, 204) 0%, #a2aab4 100%);
-
-  --background-nav: #1e2631 ;
-
-  --background-content: #333f4e ;
-  --background-content-2n: #252e3a ;
+  --box-shadow: 0px 4px 8px -2px rgba(0,0,0,0.5);
 }

@@ -69,7 +69,7 @@ export default {
 
 .component-nav{
 	position: relative;
-	background: var(--background-nav);
+	//background: var(--background-nav);
 	color: var(--color-text);
 	height: 3rem;
 	z-index: 2;
@@ -85,6 +85,7 @@ export default {
 	width: $fullhd;
 	max-width: calc(100% - 1rem);
 	margin: auto;
+	border-bottom: 2px solid var(--color-selected-background);
 }
 
 .spacer{
@@ -135,11 +136,21 @@ export default {
 				padding: 0 1rem;
 				font-weight: light;
 			}
-			&.router-link-exact-active>.nav-links__text{
-				background: var(--color-selected-background);
-				color: var(--color-selected-text);
-				font-weight: bold;
+			@include selected-underline(".router-link-exact-active")
+			/*
+			&:after{
+				content: "";
+				position: absolute;
+				left: 0px;
+				bottom: 0px;
+				height: 0px;
+				width: 100%;
+				background: white;
 			}
+			&.router-link-exact-active:after{
+				height: 4px;
+			}
+			*/
 			/*
 			&.router-link-exact-active>.nav-links__text::after{
 				background: var(--color-text);
@@ -153,10 +164,12 @@ export default {
 
 .switch{
 	cursor: pointer;
-  position: relative;
+	position: fixed;
+	z-index: 999;
+	top: 1rem;
+	right: 20rem;
 	display: flex;
 	align-items: center;
-	height: 100%;
   width: 3rem;
 	>input{
 		position: absolute;
