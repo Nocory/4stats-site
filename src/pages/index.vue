@@ -31,7 +31,7 @@ export default {
 		componentThreadlist,
 		componentMeta: () => import(/* webpackChunkName: "right" */'components/meta.vue'),
 		componentInfo: () => import(/* webpackChunkName: "right" */'components/info.vue'),
-		componentSideImage: () => import(/* webpackChunkName: "right" */'components/sideImage.vue'),
+		//componentSideImage: () => import(/* webpackChunkName: "right" */'components/sideImage.vue'),
 		//componentColorEdit,
 		componentChart: () => import(/* webpackChunkName: "chart" */'components/chart.vue')
 	},

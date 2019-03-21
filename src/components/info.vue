@@ -1,10 +1,13 @@
 <template>
   <div class="meta-component" v-once>
-    <div class="component-title">
-      Info
-    </div>
+    <div class="component-title">Info</div>
     <div class="component-content">
-      <p>Something new</p>
+      <p>I was playing a round of CS:GO and my video card just fucking dies mid-game.</p>
+      <p>Shit sucks</p>
+      <br>
+      <p>Made it all the way from 2012 till now.</p>
+      <br>
+      <p>Thanks for reading my blog.</p>
     </div>
   </div>
 </template>
