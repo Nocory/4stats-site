@@ -1,8 +1,8 @@
 <template>
-  <div class="component-nav">
-    <div class="container" @click.stop="toggleBurgerMenu(false)">
-      <router-link to="/">
-        <div class="site-title">4stats.io</div>
+	<div class="component-nav">
+		<div class="container" @click.stop="toggleBurgerMenu(false)">
+			<router-link to="/">
+				<div class="site-title">4stats.io</div>
 			</router-link>
 			<div class="nav-links is-hidden-mobile">
 				<router-link to="/" class="nav-links__link">
@@ -17,48 +17,48 @@
 			</div>
 			<div class="spacer"></div>
 			<label class="is-hidden-below-widescreen switch" v-if="showThemeToggle">
-				<input type="checkbox" v-model="dayMode" @input="setDayMode">
+				<input type="checkbox" v-model="dayMode" @input="setDayMode" />
 				<div class="slider">
 					<div class="moon-symbol">1</div>
 					<div class="sun-symbol">2</div>
 				</div>
 			</label>
-    </div>
+		</div>
 		<div class="burger-button is-hidden-tablet" @click.stop="toggleBurgerMenu(undefined)"></div>
-  </div>
+	</div>
 </template>
 
 <script>
 export default {
 	data: () => ({
-		showThemeToggle: ["localhost","home.conroy.link","dev.4stats.io"].includes(location.hostname),
+		showThemeToggle: ["localhost", "home.conroy.link", "dev.4stats.io"].includes(location.hostname),
 		dayMode: JSON.parse(localStorage.getItem("dayMode")) || false
 	}),
 	methods: {
-		setDayMode(event){
-			localStorage.setItem("dayMode",event.target.checked)
-			if(event.target.checked){
+		setDayMode(event) {
+			localStorage.setItem("dayMode", event.target.checked)
+			if (event.target.checked) {
 				document.documentElement.classList.add("day-mode")
-			}else{
+			} else {
 				document.documentElement.classList.remove("day-mode")
 			}
 		},
-		toggleBurgerMenu(showOnMobile){
+		toggleBurgerMenu(showOnMobile) {
 			const el = document.querySelector(".nav-links")
-			if(showOnMobile === undefined){
+			if (showOnMobile === undefined) {
 				el.classList.toggle("is-hidden-mobile")
-			}else if(showOnMobile){
+			} else if (showOnMobile) {
 				el.classList.remove("is-hidden-mobile")
-			}else{
+			} else {
 				el.classList.add("is-hidden-mobile")
 			}
 		}
 	},
-	mounted(){
+	mounted() {
 		//TODO: the nav bar shouldn't really handle global CSS theme
-		if(this.dayMode){
+		if (this.dayMode) {
 			document.documentElement.classList.add("day-mode")
-		}else{
+		} else {
 			document.documentElement.classList.remove("day-mode")
 		}
 	}
@@ -66,8 +66,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.component-nav{
+.component-nav {
 	position: relative;
 	//background: var(--background-nav);
 	color: var(--color-text);
@@ -76,7 +75,7 @@ export default {
 	//@include float-shadow-box;
 }
 
-.container{
+.container {
 	//font-weight: lighter;
 	display: flex;
 	position: relative;
@@ -88,23 +87,23 @@ export default {
 	border-bottom: 2px solid var(--color-selected-background);
 }
 
-.spacer{
+.spacer {
 	flex-grow: 1;
 }
 
-.site-title{
+.site-title {
 	color: var(--color-text);
 	font-size: 1.75rem;
 	font-weight: lighter;
-	@include tablet{
+	@include tablet {
 		padding: 0 1rem;
 	}
 }
 
-.nav-links{
+.nav-links {
 	display: flex;
 	height: 100%;
-	@include mobile{
+	@include mobile {
 		flex-direction: column;
 		position: fixed;
 		top: 3rem;
@@ -112,22 +111,22 @@ export default {
 		background: var(--background-nav);
 		height: auto;
 	}
-	&__link{
+	&__link {
 		position: relative;
 		font-size: 1.125rem;
 		display: flex;
 		align-items: center;
 		color: var(--color-text);
-		@include mobile{
+		@include mobile {
 			padding: 2rem;
 			font-size: 2rem;
 		}
-		@include tablet{
+		@include tablet {
 			padding: 0 1rem;
 		}
-		@include desktop{
+		@include desktop {
 			padding: 0;
-			>.nav-links__text{
+			> .nav-links__text {
 				position: relative;
 				line-height: 1;
 				height: 100%;
@@ -136,33 +135,12 @@ export default {
 				padding: 0 1rem;
 				font-weight: light;
 			}
-			@include selected-underline(".router-link-exact-active")
-			/*
-			&:after{
-				content: "";
-				position: absolute;
-				left: 0px;
-				bottom: 0px;
-				height: 0px;
-				width: 100%;
-				background: white;
-			}
-			&.router-link-exact-active:after{
-				height: 4px;
-			}
-			*/
-			/*
-			&.router-link-exact-active>.nav-links__text::after{
-				background: var(--color-text);
-			}
-			*/
+			@include selected-underline(".router-link-exact-active");
 		}
 	}
 }
 
-
-
-.switch{
+.switch {
 	cursor: pointer;
 	position: fixed;
 	z-index: 999;
@@ -170,8 +148,8 @@ export default {
 	right: 20rem;
 	display: flex;
 	align-items: center;
-  width: 3rem;
-	>input{
+	width: 3rem;
+	> input {
 		position: absolute;
 		opacity: 0;
 		max-width: 0;
@@ -191,7 +169,7 @@ export default {
 		border-radius: 0.25rem;
 		//border: 1px solid transparent;
 
-		>.moon-symbol{
+		> .moon-symbol {
 			color: black;
 			display: flex;
 			justify-content: center;
@@ -204,7 +182,7 @@ export default {
 			top: 0.15rem;
 			left: 0.15rem;
 		}
-		>.sun-symbol{
+		> .sun-symbol {
 			//text-shadow: 0px 0px 16px rgba(255,255,255,0.25);
 			color: black;
 			display: flex;
@@ -227,7 +205,7 @@ export default {
 		width: 1.2rem;
 		top: 0;
 		left: 0;
-		transform: translate(0.15rem,0.15rem);
+		transform: translate(0.15rem, 0.15rem);
 		background: white;
 		transition: 0.25s ease-out;
 		border-radius: 0.25rem;
@@ -239,11 +217,11 @@ export default {
 	}
 
 	input:checked + .slider:before {
-		transform: translate(calc(3rem - 100% - 0.15rem),0.15rem);
+		transform: translate(calc(3rem - 100% - 0.15rem), 0.15rem);
 	}
 }
 
-.burger-button{
+.burger-button {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -252,7 +230,7 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	&:before{
+	&:before {
 		position: absolute;
 		content: "";
 		width: 2rem;
@@ -260,7 +238,7 @@ export default {
 		border-top: 4px solid var(--color-text);
 		border-bottom: 4px solid var(--color-text);
 	}
-	&:after{
+	&:after {
 		position: absolute;
 		content: "";
 		width: 2rem;

@@ -4,14 +4,14 @@
 @import "responsive.scss";
 @import "theme.scss";
 
-html{
+html {
   font-size: 16px;
   overflow-y: scroll;
   line-height: 1.5;
   //scroll-behavior: smooth;
 }
 
-a{
+a {
   color: var(--color-text);
   text-decoration: none;
 }
@@ -20,7 +20,7 @@ a{
   color: #b5bd68;
 }
 
-.component-title{
+.component-title {
   background: var(--background-nav);
   color: var(--color-text);
   padding: 0rem 0.5rem;
@@ -29,7 +29,7 @@ a{
   font-weight: normal;
 }
 
-.component-content{
+.component-content {
   //background: var(--background-content);
   border-top: 1px solid var(--color-text);
   color: var(--color-text);

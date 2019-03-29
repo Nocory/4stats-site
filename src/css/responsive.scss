@@ -1,14 +1,50 @@
-@include mobile{  .is-hidden-mobile{display: none !important} }
-@include tablet{  .is-hidden-tablet{display: none !important} }
-@include touch{  .is-hidden-touch{display: none !important}  }
-@include desktop{  .is-hidden-desktop{display: none !important}  }
-@include widescreen{  .is-hidden-desktop{display: none !important}  }
-@include fullhd{  .is-hidden-fullhd{display: none !important}  }
+@include mobile {
+  .is-hidden-mobile {
+    display: none !important;
+  }
+}
+@include tablet {
+  .is-hidden-tablet {
+    display: none !important;
+  }
+}
+@include touch {
+  .is-hidden-touch {
+    display: none !important;
+  }
+}
+@include desktop {
+  .is-hidden-desktop {
+    display: none !important;
+  }
+}
+@include widescreen {
+  .is-hidden-desktop {
+    display: none !important;
+  }
+}
+@include fullhd {
+  .is-hidden-fullhd {
+    display: none !important;
+  }
+}
 
-@include below-desktop{  .is-hidden-below-desktop{display: none !important}  }
-@include below-widescreen{  .is-hidden-below-widescreen{display: none !important}  }
-@include below-fullhd{  .is-hidden-below-fullhd{display: none !important}  }
+@include below-desktop {
+  .is-hidden-below-desktop {
+    display: none !important;
+  }
+}
+@include below-widescreen {
+  .is-hidden-below-widescreen {
+    display: none !important;
+  }
+}
+@include below-fullhd {
+  .is-hidden-below-fullhd {
+    display: none !important;
+  }
+}
 
-.is-hidden{
+.is-hidden {
   display: none !important;
 }
