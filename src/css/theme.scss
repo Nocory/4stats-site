@@ -4,38 +4,25 @@
   ///////////////////////
   --font-global: Consolas, monospace;
 
-  --background-nav: #1e2631;
-  --background-main: linear-gradient(160deg, #092e44 0%, #80d0c7 100%);
-  --background-main: linear-gradient(120deg, #243949 0%, #517fa4 100%);
-  --background-main: linear-gradient(160deg, #092e44 0%, #517fa4 100%);
-  --background-main: linear-gradient(120deg, #243949 0%, #517fa4 100%);
+  --background-main: var(--md-blue-grey-200);
+
+  --background-nav: var(--md-blue-grey-900);
 
   --border-content: rgba(255, 255, 255, 0.2);
   --box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
-  --background-content: #333f4e;
-  --background-content-2n: #252e3a;
+  --background-content: var(--md-blue-grey-700);
+  --background-content-2n: var(--md-blue-grey-900);
 
-  --background-content: rgb(49, 57, 66);
-  --background-content-2n: rgb(49, 57, 66);
+  --color-text: var(--md-grey-50);
+  --color-text-faded: var(--md-grey-400);
+  --color-text-faded2: var(--md-grey-400);
 
-  --background-content: #{darken(#517fa4, 28%)};
-  --background-content-2n: #{darken(#517fa4, 35%)};
+  --color-selected-text: var(--md-grey-800);
+  --color-selected-background: var(--md-blue-grey-100);
 
-  //--border-content:  #{$oc-gray-7};
-  //--background-content:  #222;
-  //--background-content-2n:  #333;
-
-  --color-text: #{$oc-gray-0};
-  --color-text-faded: #{$oc-gray-4};
-  --color-text-faded2: #{$oc-gray-6};
-
-  --color-selected-text: #{$oc-gray-8};
-  --color-selected-background: #{$oc-gray-2};
-
-  --color-hover: #{$oc-gray-6};
+  --color-hover: var(--md-blue-grey-300);
 }
 
 :root.day-mode {
-  --box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.5);
 }

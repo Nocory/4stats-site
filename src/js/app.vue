@@ -35,7 +35,7 @@ export default {
 }
 
 .router-view {
-	z-index: 1;
+	z-index: 2;
 	flex-grow: 1;
 	position: relative;
 	display: flex;

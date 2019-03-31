@@ -134,7 +134,6 @@ export default {
 		justify-content: flex-end;
 		width: 100%;
 		color: var(--color-text);
-		transition: color 0.5s ease;
 		&:first-child {
 			width: 64px;
 			flex: none;

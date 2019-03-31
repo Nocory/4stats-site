@@ -2,7 +2,7 @@
 	<div class="meta-component" v-once>
 		<div class="component-title">Info</div>
 		<div class="component-content">
-			<p>I hope you enjoy numbers.</p>
+			<p>tinkering with the css</p>
 		</div>
 	</div>
 </template>

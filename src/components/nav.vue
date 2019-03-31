@@ -68,11 +68,13 @@ export default {
 <style scoped lang="scss">
 .component-nav {
 	position: relative;
-	//background: var(--background-nav);
+	background: var(--background-nav);
 	color: var(--color-text);
 	height: 3rem;
-	z-index: 2;
-	//@include float-shadow-box;
+	z-index: 3;
+	@include widescreen {
+		@include float-shadow-box;
+	}
 }
 
 .container {
@@ -84,7 +86,7 @@ export default {
 	width: $fullhd;
 	max-width: calc(100% - 1rem);
 	margin: auto;
-	border-bottom: 2px solid var(--color-selected-background);
+	//border-bottom: 2px solid var(--color-selected-background);
 }
 
 .spacer {
@@ -117,6 +119,10 @@ export default {
 		display: flex;
 		align-items: center;
 		color: var(--color-text);
+		opacity: 0.5;
+		&.router-link-exact-active {
+			opacity: 1;
+		}
 		@include mobile {
 			padding: 2rem;
 			font-size: 2rem;
@@ -133,9 +139,9 @@ export default {
 				display: flex;
 				align-items: center;
 				padding: 0 1rem;
-				font-weight: light;
+				font-weight: bold;
 			}
-			@include selected-underline(".router-link-exact-active");
+			//@include selected-underline(".router-link-exact-active");
 		}
 	}
 }

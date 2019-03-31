@@ -88,3 +88,13 @@ $displayMap: (
     transform: scaleY(1);
   }
 }
+
+@mixin selected-underline($class) {
+  color: var(--color-text-faded);
+  &#{$class} {
+    color: var(--color-text);
+    font-weight: bold;
+    text-decoration: underline;
+    text-shadow: 0px 0px 32px var(--md-blue-grey-400);
+  }
+}
