@@ -279,21 +279,19 @@ export default {
 	background: var(--background-nav);
 	//background: $--background-title;
 	&__col {
-		&::before {
-			content: "";
-			position: absolute;
-			bottom: 0px;
-			left: 0px;
-			height: 3px;
-			width: 100%;
-			background: var(--color-selected-background);
-			transform: scaleY(0);
-			transform-origin: center bottom;
-			transition: transform 0.25s ease;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		width: 100%;
+		color: var(--color-text);
+		&:first-child {
+			width: 64px;
+			flex: none;
+			justify-content: flex-start;
+			padding: 0 0 0 1em;
+			font-weight: bold;
 		}
-		&--selected::before {
-			transform: scaleY(1);
-		}
+		@include selected-underline(".header__col--selected");
 	}
 }
 
