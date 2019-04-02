@@ -73,13 +73,13 @@ const store = new Vuex.Store({
     setInitialData(state, payload) {
       for (let key in payload) {
         adjustActivityIfFewPosts(payload[key])
-        if (["qa", "s4s", "vip"].includes(key)) payload[key].hasSticky = false
+        if (["s4s", "vip"].includes(key)) payload[key].hasSticky = false
       }
       Vue.set(state, "boardData", payload)
     },
     updateBoardData(state, payload) {
       adjustActivityIfFewPosts(payload.data)
-      if (["qa", "s4s", "vip"].includes(payload.board)) payload.data.hasSticky = false
+      if (["s4s", "vip"].includes(payload.board)) payload.data.hasSticky = false
 
       Object.assign(state.boardData[payload.board], payload.data)
     },
