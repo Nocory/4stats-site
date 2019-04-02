@@ -1,8 +1,9 @@
 <template>
 	<div class="meta-component" v-once>
-		<div class="component-title">Info</div>
+		<div class="component-title">Hope you got lots of likes anon</div>
 		<div class="component-content">
-			<p>tinkering with the css</p>
+			<!--<p>tinkering with the css</p>-->
+			<img src="~/static/eZ1yRsk.png" />
 		</div>
 	</div>
 </template>
@@ -21,7 +22,7 @@
 	background: var(--background-content);
 	display: flex;
 	flex-direction: column;
-	padding: 1em;
+	//padding: 1em;
 	color: var(--color-text);
 
 	line-height: 1.2;
@@ -40,5 +41,9 @@ hr {
 
 p {
 	margin: 0;
+}
+
+img {
+	width: 100%;
 }
 </style>
