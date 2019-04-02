@@ -40,12 +40,14 @@ import store from "store/index.js"
 
 import indexComponent from "../pages/index.vue"
 import postAnalysisComponent from "../pages/postAnalysis.vue"
+import aboutComponent from "../pages/about.vue"
 //import configComponent from "../pages/config.vue"
 import feedbackComponent from "../pages/feedback.vue"
 
 const routes = [
   { path: "/", component: indexComponent },
   { path: "/postAnalysis", component: postAnalysisComponent },
+  { path: "/about", component: aboutComponent },
   //{ path: '/config', component: configComponent },
   { path: "/feedback", component: feedbackComponent },
   { path: "*", component: indexComponent }

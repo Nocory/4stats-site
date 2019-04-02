@@ -14,6 +14,9 @@
 				<router-link to="/feedback" class="nav-links__link">
 					<div class="nav-links__text">Feedback/Contact</div>
 				</router-link>
+				<router-link to="/about" class="nav-links__link">
+					<div class="nav-links__text">About</div>
+				</router-link>
 			</div>
 			<div class="spacer"></div>
 			<label class="is-hidden-below-widescreen switch" v-if="showThemeToggle">
