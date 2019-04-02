@@ -2,7 +2,10 @@
 	<div class="boardlist-component">
 		<!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
 		<div class="header">
-			<div v-for="item in [{ category: 'name', text: 'Board', tooltip: '' }, { category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 15 minutes' }, { category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-below-desktop'] }, { category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.' }, { category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current activity relative to the boards usual daily posts/minute peak', classes: [''] }, { category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current activity relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-below-fullhd'] }]" :key="item.name" :class="['header__col', { 'header__col--selected': sortBoardListBy == item.category, 'tooltip--bottom': item.tooltip }, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">{{ item.text }}</div>
+			<div v-for="item in [{ category: 'name', text: 'Board', tooltip: '' }, { category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 30 minutes' }, { category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-below-desktop'] }, { category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.' }, { category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current activity relative to the boards usual daily posts/minute peak', classes: [''] }, { category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current activity relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-below-fullhd'] }]" :key="item.name" :class="['header__col', { 'header__col--selected': sortBoardListBy == item.category, 'tooltip--bottom': item.tooltip }, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">
+				{{ item.text }}
+				<div v-if="sortBoardListBy == item.category" class="sortArrow" :class="{ 'sortArrow--reversed': sortBoardListBy == 'name' ? !reverseOrder : reverseOrder }"></div>
+			</div>
 		</div>
 		<transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="rows component-content">
 			<div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-' + boardName" :class="{ 'row--selected': selectedBoard == boardName }" class="row" @click.stop="boardClicked(boardName)">
@@ -129,6 +132,7 @@ export default {
 	background: var(--background-nav);
 	color: var(--color-text);
 	&__col {
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
@@ -142,6 +146,20 @@ export default {
 			font-weight: bold;
 		}
 		@include selected-underline(".header__col--selected");
+		> .sortArrow {
+			&:after {
+				content: "";
+				position: absolute;
+				right: 0%;
+				border-left: 4px solid transparent;
+				border-right: 4px solid transparent;
+				border-top: 4px solid var(--color-text);
+				transition: all 0.25s ease-out;
+			}
+			&--reversed:after {
+				transform: rotate(-180deg);
+			}
+		}
 	}
 }
 
