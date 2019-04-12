@@ -1,5 +1,5 @@
 <template>
-	<div class="component-feedback">
+	<div class="component-feedback" v-once>
 		<div class="container">
 			<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSewTqwFoSGR40rhSsLshM9mBbi3jfLdijYXjs9dksvnpEM0wQ/viewform?embedded=true" width="640" height="530" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 			<div class="qa-card">
@@ -57,16 +57,7 @@
 
 <script>
 import axios from "axios"
-export default {
-	methods: {
-		send() {
-			var params = new URLSearchParams()
-			params.append("param1", "value1")
-			params.append("param2", "value2")
-			axios.post("/", params)
-		}
-	}
-}
+export default {}
 </script>
 
 <style scoped lang="scss">

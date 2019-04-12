@@ -1,5 +1,5 @@
 <template>
-	<div class="component-about">
+	<div class="component-about" v-once>
 		<div class="explanation">
 			<h3>Boardstats:</h3>
 			<p>
