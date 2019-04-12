@@ -29,9 +29,9 @@ export default {
 	components: {
 		componentBoardlist,
 		componentThreadlist,
-		componentMeta: () => import(/* webpackChunkName: "rightArea" */ "components/meta.vue"),
-		componentInfo: () => import(/* webpackChunkName: "rightArea" */ "components/info.vue"),
-		//componentSideImage: () => import(/* webpackChunkName: "rightArea" */'components/sideImage.vue'),
+		componentMeta: () => import(/* webpackChunkName: "sidebar" */ "components/meta.vue"),
+		componentInfo: () => import(/* webpackChunkName: "sidebar" */ "components/info.vue"),
+		//componentSideImage: () => import(/* webpackChunkName: "sidebar" */'components/sideImage.vue'),
 		//componentColorEdit,
 		componentChart: () => import(/* webpackChunkName: "chart" */ "components/chart.vue")
 	},
