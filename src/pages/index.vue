@@ -29,23 +29,27 @@ export default {
 	components: {
 		componentBoardlist,
 		componentThreadlist,
-		componentMeta: () => import(/* webpackChunkName: "right" */ "components/meta.vue"),
-		componentInfo: () => import(/* webpackChunkName: "right" */ "components/info.vue"),
-		//componentSideImage: () => import(/* webpackChunkName: "right" */'components/sideImage.vue'),
+		componentMeta: () => import(/* webpackChunkName: "rightArea" */ "components/meta.vue"),
+		componentInfo: () => import(/* webpackChunkName: "rightArea" */ "components/info.vue"),
+		//componentSideImage: () => import(/* webpackChunkName: "rightArea" */'components/sideImage.vue'),
 		//componentColorEdit,
 		componentChart: () => import(/* webpackChunkName: "chart" */ "components/chart.vue")
 	},
 	mounted() {
-		window.addEventListener(
-			"resize",
-			() => {
-				this.renderChart = window.innerWidth >= 768
-				this.renderRight = window.innerWidth >= 1224
-			},
-			{
-				passive: true
-			}
-		)
+		window.addEventListener("resize", this.documentResize, {
+			passive: true
+		})
+	},
+	beforeDestroy() {
+		window.removeEventListener("resize", this.documentResize, {
+			passive: true
+		})
+	},
+	methods: {
+		documentResize() {
+			this.renderChart = window.innerWidth >= 768
+			this.renderRight = window.innerWidth >= 1224
+		}
 	}
 }
 </script>
