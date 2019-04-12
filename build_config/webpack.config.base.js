@@ -71,13 +71,7 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin(["../dist"], {
-      root: __dirname,
-      verbose: true,
-      dry: false,
-      watch: false,
-      allowExternal: true
-    }),
+    new CleanWebpackPlugin(),
 
     new webpack.EnvironmentPlugin(["NODE_ENV"]),
 
