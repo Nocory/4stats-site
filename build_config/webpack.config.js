@@ -1,6 +1,6 @@
 const npmEvent = process.env.npm_lifecycle_event
 
-const merge = require('webpack-merge')
+const merge = require("webpack-merge")
 
 console.log("NODE VERSION:", process.version)
 console.log("NODE_ENV:", process.env.NODE_ENV)

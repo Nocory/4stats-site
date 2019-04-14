@@ -5,6 +5,8 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 //const path = require('path')
 //const glob = require('glob')
 
+//const PrepackWebpackPlugin = require("prepack-webpack-plugin").default
+
 module.exports = {
   mode: "production",
   optimization: {
@@ -37,5 +39,6 @@ module.exports = {
     new OptimizeCssAssetsPlugin()
     //new Visualizer(),
     //new BundleAnalyzerPlugin()
+    //new PrepackWebpackPlugin()
   ]
 }
