@@ -8,8 +8,6 @@
 			(not mobile friendly)
 		</div>
 		<div class="container is-hidden-below-widescreen">
-			<!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
-
 			<button class="refresh-button" @click="reloadStats(true)">
 				<div class="refresh-button__text">&#11118;</div>
 			</button>
@@ -32,7 +30,11 @@
 						{ category: 'dataAge', text: 'Last checked', tooltip: 'more active boards get checked more frequently' }
 					]"
 					:key="item.name"
-					:class="['header__col', { 'header__col--selected': sortListBy == item.category, 'tooltip--bottom': item.tooltip }, ...item.classes]"
+					:class="[
+						'header__col',
+						{ 'header__col--selected': sortListBy == item.category, 'tooltip--bottom': item.tooltip },
+						...item.classes
+					]"
 					:data-hover-text="item.tooltip"
 					@click.stop="categoryClicked(item.category)"
 				>
@@ -41,13 +43,17 @@
 			</div>
 			<transition-group v-if="postAnalysis.a" tag="div" class="rows component-content">
 				<div v-for="boardName in sortedList" :key="boardName" class="row">
-					<div class="row__item tooltip--right" :data-hover-text="longBoardNames[boardName]">{{ boardName == "s4s" ? "[s4s]" : "/" + boardName + "/" }}</div>
+					<div class="row__item tooltip--right" :data-hover-text="longBoardNames[boardName]">
+						{{ boardName == "s4s" ? "[s4s]" : "/" + boardName + "/" }}
+					</div>
 					<div class="row__item">{{ postAnalysis[boardName].OPLength_mean.toFixed(2) }}</div>
 					<div class="row__item">{{ postAnalysis[boardName].replyLength_mean.toFixed(2) }}</div>
 					<div class="row__item">{{ (postAnalysis[boardName].OPsWithTitles_ratio * 100).toFixed(2) + "%" }}</div>
 					<div class="row__item">{{ postAnalysis[boardName].repliesPerThread_mean.toFixed(2) }}</div>
 					<!--<div class="">{{ (postAnalysis[boardName].repliesPerIP).toFixed(2) }}</div>-->
-					<div class="row__item">{{ forcedAnon.includes(boardName) ? "forced anon" : (postAnalysis[boardName].postsWithNames_ratio * 100).toFixed(2) + "%" }}</div>
+					<div class="row__item">
+						{{ forcedAnon.includes(boardName) ? "forced anon" : (postAnalysis[boardName].postsWithNames_ratio * 100).toFixed(2) + "%" }}
+					</div>
 					<div class="row__item">{{ (postAnalysis[boardName].repliesWithImages_ratio * 100).toFixed(2) + "%" }}</div>
 					<div class="row__item">{{ (postAnalysis[boardName].repliesWithText_ratio * 100).toFixed(2) + "%" }}</div>
 					<!--<div class="">{{ !postAnalysis[boardName].filesize_mean ? 'OP file only' : Math.round(postAnalysis[boardName].filesize_mean / 1000)+" KB" }}</div>-->
@@ -120,7 +126,13 @@ export default {
 					const nowUnix = Date.now() / 1000
 					for (let board in res.data) {
 						res.data[board].dataAge = nowUnix - res.data[board].created_unix
-						res.data[board].dataAgeStr = res.data[board].dataAge < 60 * 60 ? Math.floor(res.data[board].dataAge / 60) + "m" : Math.floor(res.data[board].dataAge / (60 * 60)) + ":" + (Math.floor(res.data[board].dataAge / 60) % 60).toString().padStart(2, "0") + "h"
+						res.data[board].dataAgeStr =
+							res.data[board].dataAge < 60 * 60
+								? Math.floor(res.data[board].dataAge / 60) + "m"
+								: Math.floor(res.data[board].dataAge / (60 * 60)) +
+								  ":" +
+								  (Math.floor(res.data[board].dataAge / 60) % 60).toString().padStart(2, "0") +
+								  "h"
 
 						res.data[board].repliesPerIP = res.data[board].repliesPerThread_mean / res.data[board].IPsPerThread_mean
 
@@ -162,16 +174,6 @@ export default {
 	position: relative;
 	z-index: 10;
 	width: 100%;
-	> .partyhat {
-		z-index: 9999;
-		object-fit: contain;
-		position: absolute;
-		top: -56px;
-		left: -36px;
-		width: 80px;
-		transform: rotate(-22deg);
-		pointer-events: none;
-	}
 	@include desktop {
 		padding: 1rem;
 	}
@@ -196,16 +198,6 @@ export default {
 
 .container {
 	position: relative;
-	& > .partyhat {
-		z-index: 9999;
-		object-fit: contain;
-		position: absolute;
-		top: -56px;
-		left: -36px;
-		width: 80px;
-		transform: rotate(-22deg);
-		pointer-events: none;
-	}
 	@include desktop {
 		@include float-shadow-box;
 	}

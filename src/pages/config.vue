@@ -5,7 +5,12 @@
 				<div class="component-title">Boardlist</div>
 				<div class="category__content">
 					<div class="horizontal-buttons">
-						<button v-for="category in categories" :key="category[0]" class="button" @click="selectedCategory = selectedCategory == category[0] ? '' : category[0]">
+						<button
+							v-for="category in categories"
+							:key="category[0]"
+							class="button"
+							@click="selectedCategory = selectedCategory == category[0] ? '' : category[0]"
+						>
 							{{ category[1] }} -
 							{{
 								tempEnabledBoards.reduce((acc, val) => {
@@ -29,7 +34,13 @@
 							</button>
 						</div>
 						<div class="boards">
-							<div v-for="board in availableBoards[selectedCategory]" :key="board" :class="{ enabled: tempEnabledBoards.includes(board) }" class="board" @click.stop="toggleBoard(board)">
+							<div
+								v-for="board in availableBoards[selectedCategory]"
+								:key="board"
+								:class="{ enabled: tempEnabledBoards.includes(board) }"
+								class="board"
+								@click.stop="toggleBoard(board)"
+							>
 								<div class="shortname">/{{ board }}/</div>
 								<div class="longname is-hidden-touch">{{ longBoardNames[board] }}</div>
 							</div>

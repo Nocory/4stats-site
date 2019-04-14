@@ -13,9 +13,10 @@
 			<div class="component-content__text">~{{ Math.round(combinedBoardStats.avgPostsPerDay / 1000) }}k posts/day</div>
 			<hr />
 			<div class="component-content__cat">4stats.io:</div>
-			<!--<div v-if="showUserCount">{{ userCount }} user{{userCount == 1 ? '' : 's'}} on site</div>-->
 			<div class="component-content__text">{{ userCount }} user{{ userCount == 1 ? "" : "s" }} on site</div>
-			<div class="component-content__text">Just updated {{ recentlyUpdatedBoard == "s4s" ? "[s4s]" : "/" + recentlyUpdatedBoard + "/" }}</div>
+			<div class="component-content__text">
+				Just updated {{ recentlyUpdatedBoard == "s4s" ? "[s4s]" : "/" + recentlyUpdatedBoard + "/" }}
+			</div>
 			<div class="component-content__cat" v-if="error">Error -> {{ error }}</div>
 		</div>
 	</div>
@@ -28,8 +29,7 @@ export default {
 	data() {
 		return {
 			recentlyUpdatedBoard: "?",
-			error: "",
-			showUserCount: JSON.parse(localStorage.getItem("showUserCount")) || false
+			error: ""
 		}
 	},
 	computed: {

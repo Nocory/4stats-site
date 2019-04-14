@@ -4,13 +4,28 @@
 			Board Timeline (all times are UTC)
 		</div>
 		<div class="component-content">
-			<div class="property-title">Charting {{ activeOptions.term === "day" ? "posts/day" : activeOptions.property === "postsPerMinute" ? "posts/minute" : "relative activity" }}</div>
+			<div class="property-title">
+				Charting
+				{{
+					activeOptions.term === "day" ? "posts/day" : activeOptions.property === "postsPerMinute" ? "posts/minute" : "relative activity"
+				}}
+			</div>
 
 			<div class="option-wrapper">
 				<div class="option-group">
-					<button class="option-button" :class="{ 'option-button--selected': activeOptions.term == 'day' }" @click="setActiveTerm('day')">Daily</button>
-					<button class="option-button" :class="{ 'option-button--selected': activeOptions.term == 'hour' }" @click="setActiveTerm('hour')">Hourly</button>
-					<button class="option-button" :class="{ 'option-button--selected': activeOptions.term == 'cycle' }" @click="setActiveTerm('cycle')">Cycle</button>
+					<button class="option-button" :class="{ 'option-button--selected': activeOptions.term == 'day' }" @click="setActiveTerm('day')">
+						Daily
+					</button>
+					<button class="option-button" :class="{ 'option-button--selected': activeOptions.term == 'hour' }" @click="setActiveTerm('hour')">
+						Hourly
+					</button>
+					<button
+						class="option-button"
+						:class="{ 'option-button--selected': activeOptions.term == 'cycle' }"
+						@click="setActiveTerm('cycle')"
+					>
+						Cycle
+					</button>
 				</div>
 
 				<div class="option-group">
@@ -38,18 +53,50 @@
 				</div>
 
 				<div class="option-group" v-if="['hour', 'cycle'].includes(activeOptions.term)">
-					<button class="option-button" :class="{ 'option-button--selected': activeOptions.property == 'postsPerMinute' }" @click="setChartOption('property', 'postsPerMinute')">Posts/Minute</button>
-					<button class="option-button" :class="{ 'option-button--selected': activeOptions.property == 'activity' }" @click="setChartOption('property', 'activity')">Activity</button>
+					<button
+						class="option-button"
+						:class="{ 'option-button--selected': activeOptions.property == 'postsPerMinute' }"
+						@click="setChartOption('property', 'postsPerMinute')"
+					>
+						Posts/Minute
+					</button>
+					<button
+						class="option-button"
+						:class="{ 'option-button--selected': activeOptions.property == 'activity' }"
+						@click="setChartOption('property', 'activity')"
+					>
+						Activity
+					</button>
 				</div>
 
 				<div class="option-group" v-if="['hour', 'cycle'].includes(activeOptions.term)">
-					<button class="option-button" :class="{ 'option-button--selected': activeOptions.smoothingLevel == 0 }" @click="setChartOption('smoothingLevel', 0)">Accurate</button>
-					<button class="option-button" :class="{ 'option-button--selected': activeOptions.smoothingLevel == 3 }" @click="setChartOption('smoothingLevel', 3)">Smooth</button>
-					<button class="option-button" :class="{ 'option-button--selected': activeOptions.smoothingLevel == 6 }" @click="setChartOption('smoothingLevel', 6)">Silky</button>
+					<button
+						class="option-button"
+						:class="{ 'option-button--selected': activeOptions.smoothingLevel == 0 }"
+						@click="setChartOption('smoothingLevel', 0)"
+					>
+						Accurate
+					</button>
+					<button
+						class="option-button"
+						:class="{ 'option-button--selected': activeOptions.smoothingLevel == 3 }"
+						@click="setChartOption('smoothingLevel', 3)"
+					>
+						Smooth
+					</button>
+					<button
+						class="option-button"
+						:class="{ 'option-button--selected': activeOptions.smoothingLevel == 6 }"
+						@click="setChartOption('smoothingLevel', 6)"
+					>
+						Silky
+					</button>
 				</div>
 
 				<div class="option-group">
-					<button class="option-button" :class="{ 'option-button--selected': activeOptions.yIsLimited }" @click="toggleYLimit">Limit y-axis</button>
+					<button class="option-button" :class="{ 'option-button--selected': activeOptions.yIsLimited }" @click="toggleYLimit">
+						Limit y-axis
+					</button>
 				</div>
 			</div>
 
@@ -59,7 +106,9 @@
 
 			<div class="board-buttons">
 				<div v-for="board in allBoards" :key="board" class="button-padder" @click="toggleBoard(board)">
-					<div :class="{ 'board-button--selected': graphedBoards.includes(board) }" class="board-button">{{ board == "s4s" ? "[s4s]" : "/" + board + "/" }}</div>
+					<div :class="{ 'board-button--selected': graphedBoards.includes(board) }" class="board-button">
+						{{ board == "s4s" ? "[s4s]" : "/" + board + "/" }}
+					</div>
 				</div>
 				<div class="button-padder" @click="toggleBoard('all')">
 					<div :class="{ 'board-button--selected': graphedBoards.includes('all') }" class="board-button">/all/</div>
@@ -225,7 +274,11 @@ export default {
 
 			let historyData = {
 				latestTime: newData[newData.length - 1].time,
-				validUntil: Math.max(Date.now() + 1000 * 60 * 1, newData[newData.length - 1].time + (term == "cycle" ? 1000 * 60 * 5 : term == "hour" ? 1000 * 60 * 90 : 1000 * 60 * 60 * 48)) - 10000,
+				validUntil:
+					Math.max(
+						Date.now() + 1000 * 60 * 1,
+						newData[newData.length - 1].time + (term == "cycle" ? 1000 * 60 * 5 : term == "hour" ? 1000 * 60 * 90 : 1000 * 60 * 60 * 48)
+					) - 10000,
 				history: newData.map(el => ({
 					//x: term == "hour" ? el.time : new Date(el.time).setHours(0,0,1,0),
 					x: el.time,
@@ -262,7 +315,9 @@ export default {
 					const timelineData = this.history[this.activeOptions.term][mutation.payload.board] || {}
 					timelineData.lastUpdate = Date.now()
 					if (Date.now() > timelineData.validUntil || 0) {
-						pino.debug(`chart.vue on boardUpdate: Automatically requesting timeline for /${mutation.payload.board}/ ${this.activeOptions.term}`)
+						pino.debug(
+							`chart.vue on boardUpdate: Automatically requesting timeline for /${mutation.payload.board}/ ${this.activeOptions.term}`
+						)
 						this.requestTimeline(mutation.payload.board, this.activeOptions.term)
 					}
 				}

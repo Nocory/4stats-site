@@ -17,10 +17,7 @@
 <script>
 import componentBoardlist from "components/boardlist.vue"
 import componentThreadlist from "components/threadlist.vue"
-//import componentMeta from 'components/meta.vue'
-//import componentInfo from 'components/info.vue'
 //import componentSideImage from 'components/sideImage.vue'
-//import componentColorEdit from './colorEdit.vue'
 export default {
 	data: () => ({
 		renderChart: window.innerWidth >= 768,
@@ -32,7 +29,6 @@ export default {
 		componentMeta: () => import(/* webpackChunkName: "sidebar" */ "components/meta.vue"),
 		componentInfo: () => import(/* webpackChunkName: "sidebar" */ "components/info.vue"),
 		//componentSideImage: () => import(/* webpackChunkName: "sidebar" */'components/sideImage.vue'),
-		//componentColorEdit,
 		componentChart: () => import(/* webpackChunkName: "chart" */ "components/chart.vue")
 	},
 	mounted() {

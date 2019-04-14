@@ -1,20 +1,86 @@
 <template>
 	<div class="boardlist-component">
-		<!--<img src="../static/xmashat.gif" class="partyhat is-hidden-touch">-->
 		<div class="header">
-			<div v-for="item in [{ category: 'name', text: 'Board', tooltip: '' }, { category: 'postsPerMinute', text: 'Posts/min', tooltip: 'Over the last 30 minutes' }, { category: 'threadsPerHour', text: 'Threads/hour', tooltip: 'Over the last hour', classes: ['is-hidden-below-desktop'] }, { category: 'avgPostsPerDay', text: 'Avg.Posts/day', tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.' }, { category: 'relativeActivity', text: 'Activity Now', tooltip: 'Current activity relative to the boards usual daily posts/minute peak', classes: [''] }, { category: 'activityThisToD', text: 'rel. to ToD', tooltip: 'Current activity relative to the boards average posts/minute this time of day over the last 8 weeks', classes: ['is-hidden-below-fullhd'] }]" :key="item.name" :class="['header__col', { 'header__col--selected': sortBoardListBy == item.category, 'tooltip--bottom': item.tooltip }, ...item.classes]" :data-hover-text="item.tooltip" @click.stop="categoryClicked(item.category)">
+			<div
+				v-for="item in [
+					{ category: 'name', text: 'Board', tooltip: '' },
+					{
+						category: 'postsPerMinute',
+						text: 'Posts/min',
+						tooltip: 'Over the last 30 minutes'
+					},
+					{
+						category: 'threadsPerHour',
+						text: 'Threads/hour',
+						tooltip: 'Over the last hour',
+						classes: ['is-hidden-below-desktop']
+					},
+					{
+						category: 'avgPostsPerDay',
+						text: 'Avg.Posts/day',
+						tooltip: 'Over the last 4 weeks. Weighted towards more recent weeks.'
+					},
+					{
+						category: 'relativeActivity',
+						text: 'Activity Now',
+						tooltip: 'Current activity relative to the boards usual daily posts/minute peak',
+						classes: ['']
+					},
+					{
+						category: 'activityThisToD',
+						text: 'rel. to ToD',
+						tooltip: 'Current activity relative to the boards average posts/minute this time of day over the last 8 weeks',
+						classes: ['is-hidden-below-fullhd']
+					}
+				]"
+				:key="item.name"
+				:class="[
+					'header__col',
+					{
+						'header__col--selected': sortBoardListBy == item.category,
+						'tooltip--bottom': item.tooltip
+					},
+					...item.classes
+				]"
+				:data-hover-text="item.tooltip"
+				@click.stop="categoryClicked(item.category)"
+			>
 				{{ item.text }}
-				<div v-if="sortBoardListBy == item.category" class="sortArrow" :class="{ 'sortArrow--reversed': sortBoardListBy == 'name' ? !reverseOrder : reverseOrder }"></div>
+				<div
+					v-if="sortBoardListBy == item.category"
+					class="sortArrow"
+					:class="{
+						'sortArrow--reversed': sortBoardListBy == 'name' ? !reverseOrder : reverseOrder
+					}"
+				></div>
 			</div>
 		</div>
 		<transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="rows component-content">
-			<div v-for="boardName in sortedBoardlist" :key="boardName" :id="'board-' + boardName" :class="{ 'row--selected': selectedBoard == boardName }" class="row" @click.stop="boardClicked(boardName)">
-				<div v-once :data-hover-text="longBoardNames[boardName]" class="tooltip--right">{{ boardName == "s4s" ? "[s4s]" : "/" + boardName + "/" }}</div>
+			<div
+				v-for="boardName in sortedBoardlist"
+				:key="boardName"
+				:id="'board-' + boardName"
+				:class="{ 'row--selected': selectedBoard == boardName }"
+				class="row"
+				@click.stop="boardClicked(boardName)"
+			>
+				<div v-once :data-hover-text="longBoardNames[boardName]" class="tooltip--right">
+					{{ boardName == "s4s" ? "[s4s]" : "/" + boardName + "/" }}
+				</div>
 				<div class>{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
-				<div class="is-hidden-below-desktop">{{ Math.round(boardData[boardName].threadsPerHour) }}</div>
-				<div class>{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }} {{ Math.round(boardData[boardName].avgPostsPerDay) }}</div>
-				<div class>{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}</div>
-				<div class="is-hidden-below-fullhd">{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}</div>
+				<div class="is-hidden-below-desktop">
+					{{ Math.round(boardData[boardName].threadsPerHour) }}
+				</div>
+				<div class>
+					{{ boardData[boardName].postCountDevelopment && false ? boardData[boardName].postCountDevelopment.toFixed(2) : "" }}
+					{{ Math.round(boardData[boardName].avgPostsPerDay) }}
+				</div>
+				<div class>
+					{{ boardData[boardName].relativeActivity >= 0 ? Math.round(boardData[boardName].relativeActivity * 100) + "%" : "-" }}
+				</div>
+				<div class="is-hidden-below-fullhd">
+					{{ boardData[boardName].activityThisToD >= 0 ? Math.round(boardData[boardName].activityThisToD * 100) + "%" : "-" }}
+				</div>
 				<img class="row--has-sticky" v-if="boardData[boardName].hasSticky" src="../static/sticky.gif" />
 			</div>
 		</transition-group>
@@ -88,16 +154,6 @@ export default {
 	z-index: 10;
 	@include desktop {
 		@include float-shadow-box;
-	}
-	> .partyhat {
-		z-index: 100;
-		object-fit: contain;
-		position: absolute;
-		top: -56px;
-		left: -36px;
-		width: 80px;
-		transform: rotate(-22deg);
-		pointer-events: none;
 	}
 }
 

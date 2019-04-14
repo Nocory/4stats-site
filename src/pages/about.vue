@@ -8,7 +8,8 @@
 				Slower boards don't have their current activity level displayed, since the value would be too volatile.<br />
 				<br />
 				'Activity Now' is the boards current activity level, relative to its own average daily peak (95th percentile of posts/minute).<br />
-				'rel. to ToD' (relative to time of day) is the boards current activity level, relative to what's usually seen this time of day and day of the week.
+				'rel. to ToD' (relative to time of day) is the boards current activity level, relative to what's usually seen this time of day and
+				day of the week.
 			</p>
 			<hr />
 			<h3>Threadlist:</h3>
@@ -22,10 +23,12 @@
 			<p>
 				I initially started checking stats mid-2017 for most SFW boards and end-2017 for most NSFW boards.<br />
 				For most boards the timeline only goes back to that point.<br />
-				A friendly admin from <a href="https://rbt.asia">rbt.asia</a> and <a href="https://desuarchive.org">desuarchive.org</a> offered to help out and provided data to reconstruct an earlier timeline for those boards they cover.<br />
+				A friendly admin from <a href="https://rbt.asia">rbt.asia</a> and <a href="https://desuarchive.org">desuarchive.org</a> offered to
+				help out and provided data to reconstruct an earlier timeline for those boards they cover.<br />
 				Some other data for /pol/, /tv/, /sp/ and /x/ was taken from <a href="https://4plebs.org/">4plebs.org</a><br />
 				<br />
-				'Cycle' values are the data points the backend generates from each catalog check. These are used to calculate long term stats, as well as further hourly and daily data points for the chart.<br />
+				'Cycle' values are the data points the backend generates from each catalog check. These are used to calculate long term stats, as
+				well as further hourly and daily data points for the chart.<br />
 				'Activity' is equivalent to the boardslist 'Activity Now' category.
 			</p>
 			<hr />

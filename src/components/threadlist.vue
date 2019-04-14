@@ -3,16 +3,46 @@
 		<div class="mobile-wrapper">
 			<div class="component-title">
 				<div class="headline">Active threads on /{{ selectedBoard }}/</div>
-				<div class="back-button is-hidden-tablet" @click="closeThreadSideBar">x</div>
+				<div class="back-button is-hidden-tablet" @click="closeThreadSideBar">
+					x
+				</div>
 			</div>
 			<div v-if="selectedBoard" class="threadlist component-content">
-				<a v-for="(thread, index) in threadData[selectedBoard].slice(0, elementProperties.threadsToShow)" :key="thread.no" class="thread" :href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`" target="_blank" rel="noopener">
+				<a
+					v-for="(thread, index) in threadData[selectedBoard].slice(0, threadsToShow)"
+					:key="thread.no"
+					class="thread"
+					:href="`https://boards.4chan.org/${selectedBoard}/thread/${thread.no}`"
+					target="_blank"
+					rel="noopener"
+				>
 					<div class="img-wrapper">
-						<img class="img-wrapper__img" :src="thread.image" :alt="`${selectedBoard} thread image ${index}`" referrerpolicy="same-origin" @error="$store.commit('replaceThreadThumbnail', { selectedBoard, index })" />
+						<img
+							class="img-wrapper__img"
+							:src="thread.image"
+							:alt="`${selectedBoard} thread image ${index}`"
+							referrerpolicy="same-origin"
+							@error="
+								$store.commit('replaceThreadThumbnail', {
+									selectedBoard,
+									index
+								})
+							"
+						/>
 					</div>
 					<div class="text-wrapper">
-						<div v-if="thread.sticky" class="text-wrapper__stats"><u>Sticky Thread</u> - {{ thread.age > 1000 * 60 * 60 * 24 ? Math.floor(thread.age / (1000 * 60 * 60 * 24)) + "d" : "" }} {{ Math.floor((thread.age % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + "h" }} {{ Math.floor((thread.age % (1000 * 60 * 60)) / (1000 * 60)) + "m" }}</div>
-						<div v-else class="text-wrapper__stats">{{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies - {{ thread.age > 1000 * 60 * 60 * 24 ? Math.floor(thread.age / (1000 * 60 * 60 * 24)) + "d" : "" }} {{ Math.floor((thread.age % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + "h" }} {{ Math.floor((thread.age % (1000 * 60 * 60)) / (1000 * 60)) + "m" }}</div>
+						<div v-if="thread.sticky" class="text-wrapper__stats">
+							<u>Sticky Thread</u> -
+							{{ thread.age > 1000 * 60 * 60 * 24 ? Math.floor(thread.age / (1000 * 60 * 60 * 24)) + "d" : "" }}
+							{{ Math.floor((thread.age % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + "h" }}
+							{{ Math.floor((thread.age % (1000 * 60 * 60)) / (1000 * 60)) + "m" }}
+						</div>
+						<div v-else class="text-wrapper__stats">
+							{{ thread.postsPerMinute.toFixed(2) }} posts/min - {{ thread.replies || -1 }} replies -
+							{{ thread.age > 1000 * 60 * 60 * 24 ? Math.floor(thread.age / (1000 * 60 * 60 * 24)) + "d" : "" }}
+							{{ Math.floor((thread.age % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + "h" }}
+							{{ Math.floor((thread.age % (1000 * 60 * 60)) / (1000 * 60)) + "m" }}
+						</div>
 						<div class="text-wrapper__sub" v-if="thread.sub" v-html="thread.sub || '(no title)'" />
 						<div class="text-wrapper__com" v-html="thread.com" />
 					</div>
@@ -30,12 +60,9 @@ export default {
 	},
 	computed: {
 		...mapState(["threadData", "enabledBoards", "selectedBoard"]),
-		elementProperties: function() {
+		threadsToShow: function() {
 			const newListHeight = 36 + this.enabledBoards.length * 21
-			return {
-				listHeight: newListHeight,
-				threadsToShow: localStorage.getItem("forceActiveThreadCount") || Math.max(Math.floor(newListHeight / 128), 5)
-			}
+			return Math.max(Math.floor(newListHeight / 128), 5)
 		}
 	},
 	methods: {

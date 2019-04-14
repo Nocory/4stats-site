@@ -38,7 +38,9 @@
 
 html {
   cursor: default; /* 1 */
-  font-family: system-ui, /* macOS 10.11-10.12 */ -apple-system, /* Windows 6+ */ Segoe UI, /* Android 4+ */ Roboto, /* Ubuntu 10.10+ */ Ubuntu, /* Gnome 3+ */ Cantarell, /* KDE Plasma 4+ */ Oxygen, /* fallback */ sans-serif, /* macOS emoji */ "Apple Color Emoji", /* Windows emoji */ "Segoe UI Emoji", /* Windows emoji */ "Segoe UI Symbol", /* Linux emoji */ "Noto Color Emoji"; /* 2 */
+  font-family: system-ui, /* macOS 10.11-10.12 */ -apple-system, /* Windows 6+ */ Segoe UI, /* Android 4+ */ Roboto, /* Ubuntu 10.10+ */ Ubuntu,
+    /* Gnome 3+ */ Cantarell, /* KDE Plasma 4+ */ Oxygen, /* fallback */ sans-serif, /* macOS emoji */ "Apple Color Emoji", /* Windows emoji */ "Segoe UI Emoji",
+    /* Windows emoji */ "Segoe UI Symbol", /* Linux emoji */ "Noto Color Emoji"; /* 2 */
 
   line-height: 1.15; /* 3 */
   -moz-tab-size: 4; /* 4 */
@@ -107,7 +109,8 @@ nav ul {
 
 pre {
   font-family:
-     /* macOS 10.10+ */ Menlo, /* Windows 6+ */ Consolas, /* Android 4+ */ Roboto Mono, /* Ubuntu 10.10+ */ Ubuntu Monospace, /* KDE Plasma 4+ */ Oxygen Mono, /* Linux/OpenOffice fallback */ Liberation Mono, /* fallback */ monospace; /* 1 */
+     /* macOS 10.10+ */ Menlo, /* Windows 6+ */ Consolas, /* Android 4+ */ Roboto Mono, /* Ubuntu 10.10+ */ Ubuntu Monospace,
+    /* KDE Plasma 4+ */ Oxygen Mono, /* Linux/OpenOffice fallback */ Liberation Mono, /* fallback */ monospace; /* 1 */
 
   font-size: 1em; /* 2 */
 }
@@ -151,7 +154,8 @@ code,
 kbd,
 samp {
   font-family:
-     /* macOS 10.10+ */ Menlo, /* Windows 6+ */ Consolas, /* Android 4+ */ Roboto Mono, /* Ubuntu 10.10+ */ Ubuntu Monospace, /* KDE Plasma 4+ */ Oxygen Mono, /* Linux/OpenOffice fallback */ Liberation Mono, /* fallback */ monospace; /* 1 */
+     /* macOS 10.10+ */ Menlo, /* Windows 6+ */ Consolas, /* Android 4+ */ Roboto Mono, /* Ubuntu 10.10+ */ Ubuntu Monospace,
+    /* KDE Plasma 4+ */ Oxygen Mono, /* Linux/OpenOffice fallback */ Liberation Mono, /* fallback */ monospace; /* 1 */
 
   font-size: 1em; /* 2 */
 }
