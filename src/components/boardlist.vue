@@ -252,6 +252,7 @@ export default {
 
 .tooltip--bottom:hover::before,
 .tooltip--right:hover::before {
+	pointer-events: none;
 	line-height: 2;
 	z-index: 101;
 	position: absolute;
