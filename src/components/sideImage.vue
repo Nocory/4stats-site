@@ -1,6 +1,6 @@
 <template>
 	<div class="sideImage-component" v-once>
-		<img src="~/static/Rockwell_TheKansasCitySpirit_small.jpg" />
+		<img src="~/static/1543041166611cc.jpg" />
 	</div>
 </template>
 

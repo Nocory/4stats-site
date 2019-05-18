@@ -2,8 +2,9 @@
 	<div class="meta-component" v-once>
 		<div class="component-title">Info</div>
 		<div class="component-content">
-			<p>test</p>
-			<!--<img src="~/static/eZ1yRsk.png" />-->
+			<p>&gt;scroll to timeline</p>
+			<p>&gt;click /a/, /b/, /tv/</p>
+			<!--<img src="~/static/1543041166611.jpg" />-->
 		</div>
 	</div>
 </template>
@@ -45,5 +46,6 @@ p {
 
 img {
 	width: 100%;
+	object-fit: contain;
 }
 </style>

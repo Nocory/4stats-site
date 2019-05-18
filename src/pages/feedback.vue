@@ -11,6 +11,22 @@
 				>Loading...</iframe
 			>
 			<div class="qa-card">
+				<div class="qa-card__time">May 18, 2019</div>
+				<div class="qa-card__question">
+					what's the monthly cost to run this website?
+				</div>
+				<div class="qa-card__answer">
+					It's ~13 $ for 2 small VPS.<br />
+					One for the Stats-Gatherer that fetches data from 4chan and one for the API, that sends data to the browser clients.<br />
+					<br />
+					I always kept them separate, just so that issues with the public facing API server won't have the possibility to interrupt the
+					stats gathering. Though in the past there has never been a problem and I might merge the two into a single VPS.<br />
+					<br />
+					The .io domain is ~35 $ per year, so the total comes to ~192 $ per year right now.<br />
+					121 $ if I merge the 2 servers.
+				</div>
+			</div>
+			<div class="qa-card">
 				<div class="qa-card__time">Mar 27, 2019</div>
 				<div class="qa-card__question">
 					<span class="greentext">&gt;Something like that would take quite some time to create and also to maintain.</span>
@@ -79,7 +95,6 @@
 </template>
 
 <script>
-import axios from "axios"
 export default {}
 </script>
 
