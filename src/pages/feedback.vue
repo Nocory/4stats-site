@@ -11,6 +11,20 @@
 				>Loading...</iframe
 			>
 			<div class="qa-card">
+				<div class="qa-card__time">May 27, 2019</div>
+				<div class="qa-card__question">
+					Any chance we can get a breakdown of what country flags are posting most often on /pol/ & /int/ ?
+				</div>
+				<div class="qa-card__answer">
+					Yeah, I have data for /pol/ and /int/ posts from the beginning of the year till now.<br />
+					I first need to do some overhaul of the script that gathers the data for the 'Post-Analysis' page though.<br />
+					<br />
+					At the beginning of the year I planned to let it only run for a week or so, but now it has been collecting posts for almost 5
+					months and the small VPS it's running on is almost full, so that has to be taken care of.<br />
+					If I find the time I will put that info up on the site during the next week or two.
+				</div>
+			</div>
+			<div class="qa-card">
 				<div class="qa-card__time">May 18, 2019</div>
 				<div class="qa-card__question">
 					what's the monthly cost to run this website?
