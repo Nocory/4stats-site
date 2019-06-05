@@ -2,9 +2,7 @@
 	<div class="meta-component" v-once>
 		<div class="component-title">Info</div>
 		<div class="component-content">
-			<p>/tv/ possibly just had their most active day yet.</p>
-			<p>The day of the GoT finale saw more posts than for any capeshit, star wars movie or academy awards event.</p>
-			<p>Recent episodes also marked the first days that /tv/ regularly received more posts than /b/.</p>
+			<p>waiting for E3</p>
 			<!--<img src="~/static/1543041166611.jpg" />-->
 		</div>
 	</div>
