@@ -11,6 +11,18 @@
 				>Loading...</iframe
 			>
 			<div class="qa-card">
+				<div class="qa-card__time">Jun 10, 2019</div>
+				<div class="qa-card__question">
+					Shit's broke, man. Websocket won't connect.
+				</div>
+				<div class="qa-card__answer">
+					A network switch for the server node that the API is located on failed and is currently being replaced.<br />
+					The stats-gatherer has its own server and will continue checking the boards, but the data won't get forwarded to clients until
+					this gets fixed.<br />
+					Not much to do but wait.
+				</div>
+			</div>
+			<div class="qa-card">
 				<div class="qa-card__time">May 27, 2019</div>
 				<div class="qa-card__question">
 					Any chance we can get a breakdown of what country flags are posting most often on /pol/ & /int/ ?
