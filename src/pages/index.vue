@@ -6,7 +6,7 @@
 			<div class="right-wrapper">
 				<component-meta />
 				<!--<component-info />-->
-				<component-sideImage />
+				<!--<component-sideImage />-->
 			</div>
 			<img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png" />
 		</div>
