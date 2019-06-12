@@ -2,7 +2,14 @@
 	<div class="meta-component" v-once>
 		<div class="component-title">Info</div>
 		<div class="component-content">
-			<p>waiting for E3</p>
+			<p>
+				Removed the "Post-Analysis" page.<br />
+				<br />
+				Will post a summary of some of the collected stats though, like flag-frequency for the boards that show them and some other things
+				as well.<br />
+				<br />
+				Should be up in a few days.
+			</p>
 			<!--<img src="~/static/1543041166611.jpg" />-->
 		</div>
 	</div>

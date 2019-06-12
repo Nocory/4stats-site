@@ -5,7 +5,7 @@
 		<div v-if="renderRight" class="right is-hidden-below-widescreen">
 			<div class="right-wrapper">
 				<component-meta />
-				<!--<component-info />-->
+				<component-info />
 				<!--<component-sideImage />-->
 			</div>
 			<img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png" />
