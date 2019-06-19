@@ -34,8 +34,10 @@
 							:key="flag[0]"
 							class="row flag-row"
 							:data-hover-text="flag[0]"
-							@click.stop="flagHovered(flag[0])"
-							:class="{ 'flag-hovered': flag[0] == hoveredFlag }"
+							@click.stop="flagClicked(flag[0])"
+							@mouseover="flagHovered(flag[0])"
+							@mouseleave="flagHovered('NONE')"
+							:class="{ 'flag-clicked': flag[0] == clickedFlag, 'flag-hovered': flag[0] == hoveredFlag }"
 						>
 							<div class="row__item">{{ index + 1 }}</div>
 							<div class="row__item wide-field tooltip--right" :class="{ 'troll-country': troll_flags.includes(flag[0]) }">
@@ -54,6 +56,7 @@
 <script>
 export default {
 	data: () => ({
+		clickedFlag: "NONE",
 		hoveredFlag: "NONE",
 		sortListBy: "flag",
 		isListReversed: false,
@@ -93,6 +96,9 @@ export default {
 	}),
 	computed: {},
 	methods: {
+		flagClicked(flag) {
+			this.clickedFlag = flag
+		},
 		flagHovered(flag) {
 			this.hoveredFlag = flag
 		},
@@ -206,13 +212,17 @@ export default {
 .flag-row {
 	line-height: 1.25rem;
 	background: var(--background-content);
-	transition: 0.2s all ease-out;
+	transition: 0.1s all ease-out;
 	&:nth-of-type(2n) {
 		background: var(--background-content-2n);
 	}
 	border-top: 1px solid var(--border-content);
 	&:hover,
 	&.flag-hovered {
+		background-color: var(--md-blue-grey-200);
+		color: var(--md-blue-grey-900);
+	}
+	&.flag-clicked {
 		background-color: #eee;
 		color: #111;
 		font-weight: bold;
