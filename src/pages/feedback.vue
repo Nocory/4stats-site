@@ -11,6 +11,18 @@
 				>Loading...</iframe
 			>
 			<div class="qa-card">
+				<div class="qa-card__time">Jun 17, 2019</div>
+				<div class="qa-card__question">
+					Ideas:<br />
+					Sentiment analysis (by thread and/or by board)
+				</div>
+				<div class="qa-card__answer">
+					Not really possible since I only fetch the catalog and see the OPs, not whole threads.<br />
+					Even then it's kind of tricky, since the text of posts isn't formatted in any kind of normal way like some blog post or news
+					article.
+				</div>
+			</div>
+			<div class="qa-card">
 				<div class="qa-card__time">Jun 10, 2019</div>
 				<div class="qa-card__question">
 					Shit's broke, man. Websocket won't connect.
