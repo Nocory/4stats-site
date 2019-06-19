@@ -3,12 +3,12 @@
 		<div class="component-title">Info</div>
 		<div class="component-content">
 			<p>
-				Removed the "Post-Analysis" page.<br />
+				Flag analysis page is up.<br />
 				<br />
-				Will post a summary of some of the collected stats though, like flag-frequency for the boards that show them and some other things
-				as well.<br />
-				<br />
-				Should be up in a few days.
+				<router-link to="/flagAnalysis" class="nav-links__link is-hidden-below-widescreen">
+					<div class="nav-links__text">*click me*</div> </router-link
+				><br />
+				Ideally view this on at least a proper widescreen to see all the columns side by side.
 			</p>
 			<!--<img src="~/static/1543041166611.jpg" />-->
 		</div>
@@ -56,5 +56,9 @@ p {
 img {
 	width: 100%;
 	object-fit: contain;
+}
+
+a {
+	text-decoration: underline;
 }
 </style>

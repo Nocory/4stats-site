@@ -3,7 +3,7 @@ import pino from "./pino"
 pino.info("NODE_ENV is:", process.env.NODE_ENV)
 
 if (location.hostname === "dev.4stats.io") {
-  ;(function() {
+  (function() {
     var errorBoxElement = false
     var showError = function(error) {
       if (!errorBoxElement) {
@@ -39,14 +39,15 @@ import app from "./app.vue"
 import store from "store/index.js"
 
 import indexComponent from "../pages/index.vue"
-import postAnalysisComponent from "../pages/postAnalysis.vue"
+//import flagAnalysisComponent from "../pages/snapperAnalysis.vue"
+const flagAnalysisComponent = () => import("../pages/snapperAnalysis.vue")
 import aboutComponent from "../pages/about.vue"
 //import configComponent from "../pages/config.vue"
 import feedbackComponent from "../pages/feedback.vue"
 
 const routes = [
   { path: "/", component: indexComponent },
-  { path: "/postAnalysis", component: postAnalysisComponent },
+  { path: "/flagAnalysis", component: flagAnalysisComponent },
   { path: "/about", component: aboutComponent },
   //{ path: '/config', component: configComponent },
   { path: "/feedback", component: feedbackComponent },

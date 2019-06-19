@@ -8,11 +8,9 @@
 				<router-link to="/" class="nav-links__link">
 					<div class="nav-links__text">Board-Stats</div>
 				</router-link>
-				<!--
-				<router-link to="/postAnalysis" class="nav-links__link is-hidden-below-widescreen">
-					<div class="nav-links__text">Post-Analysis</div>
+				<router-link to="/flagAnalysis" class="nav-links__link is-hidden-below-widescreen">
+					<div class="nav-links__text">Flag-Analysis</div>
 				</router-link>
-				-->
 				<router-link to="/feedback" class="nav-links__link">
 					<div class="nav-links__text">Feedback/Contact</div>
 				</router-link>
