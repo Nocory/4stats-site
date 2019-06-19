@@ -212,7 +212,7 @@ export default {
 .flag-row {
 	line-height: 1.25rem;
 	background: var(--background-content);
-	transition: 0.1s all ease-out;
+	//transition: 0.1s all ease-out;
 	&:nth-of-type(2n) {
 		background: var(--background-content-2n);
 	}
