@@ -6,18 +6,20 @@
 			captured.<br />
 			<br />
 			Click a row to highlight the flag in all columns.<br />
-			Best viewed on full-hd screens... not going to bother to make this somehow responsive right now.
+			Best viewed on larger screens.
 		</div>
 		<div class="flex-container">
 			<div class="outer-container" v-for="(board, index) in [[bant, 'bant'], [sp, 'sp'], [int, 'int'], [pol, 'pol']]" :key="board[1]">
-				<div class="board-name">/{{ board[1] }}/ --- {{ board[0].posts }} posts</div>
+				<div class="board-name">
+					/{{ board[1] }}/ <span class="is-hidden-below-desktop"> -- {{ (board[0].posts / 1000000).toFixed(1) }}m posts</span>
+				</div>
 				<div class="inner-container">
 					<div class="row header">
 						<div
 							v-for="item in [
-								{ category: 'index', text: '#', tooltip: '' },
+								{ category: 'index', text: '#', tooltip: '', classes: 'is-hidden-below-widescreen' },
 								{ category: 'flag', text: 'Flag', tooltip: '', classes: 'wide-field' },
-								{ category: 'occurence', text: 'Posts', tooltip: '' },
+								{ category: 'occurence', text: 'Posts', tooltip: '', classes: 'is-hidden-below-desktop' },
 								{ category: 'percentage', text: '%', tooltip: '' }
 							]"
 							:key="item.category"
@@ -39,11 +41,11 @@
 							@mouseleave="flagHovered('NONE')"
 							:class="{ 'flag-clicked': flag[0] == clickedFlag, 'flag-hovered': flag[0] == hoveredFlag }"
 						>
-							<div class="row__item">{{ index + 1 }}</div>
-							<div class="row__item wide-field tooltip--right" :class="{ 'troll-country': troll_flags.includes(flag[0]) }">
+							<div class="row__item is-hidden-below-widescreen">{{ index + 1 }}</div>
+							<div class="row__item wide-field" :class="{ 'troll-country': troll_flags.includes(flag[0]) }">
 								{{ flag[0] }}
 							</div>
-							<div class="row__item">{{ flag[1] }}</div>
+							<div class="row__item is-hidden-below-desktop">{{ flag[1] }}</div>
 							<div class="row__item">{{ (flag[2] * 100).toFixed(2) }}</div>
 						</div>
 					</transition-group>
@@ -142,7 +144,10 @@ export default {
 }
 
 .flex-container {
+	width: 1440px;
+	max-width: 100%;
 	display: flex;
+	//border: 1px solid red;
 	flex-wrap: wrap;
 }
 
@@ -153,11 +158,21 @@ export default {
 	line-height: 2.25rem;
 	text-align: left;
 	font-weight: normal;
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem;
 }
 
 .outer-container {
+	flex: 1;
 	padding: 0 1rem;
+	@include below-fullhd {
+		padding: 0 0.66rem 0 0;
+	}
+	@include below-widescreen {
+		padding: 0 0.33rem 0 0;
+	}
+	&:last-child {
+		padding: 0;
+	}
 }
 
 .inner-container {
@@ -175,12 +190,15 @@ export default {
 	font-size: 0.8rem;
 	color: var(--color-text);
 	transition: transform 0.5s ease;
+	display: flex;
 	> .row__item {
 		position: relative;
-		min-width: 0;
-		flex: 1 1 0;
+		//min-width: 0;
+		//flex: 1 1 0;
 		text-align: right;
 		padding: 0 1em 0 0;
+		//min-width: 4rem;
+		flex: none;
 		width: 4rem;
 		&.troll-country {
 			color: hsl(0, 100%, 79%);
@@ -189,17 +207,26 @@ export default {
 		&:first-child {
 			text-align: left;
 			padding: 0 0 0 1em;
-			max-width: 2rem;
+			flex: none;
+			width: 2rem;
 		}
 	}
 	.wide-field {
-		width: 10rem;
 		flex: none;
 		text-align: left;
 		padding: 0 0 0 1em;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		flex: 1;
+		min-width: 6rem;
+		//width: 10rem;
+		@include below-fullhd {
+			//width: 8rem;
+		}
+		@include below-widescreen {
+			//width: 6rem;
+		}
 	}
 }
 
@@ -233,7 +260,6 @@ export default {
 ///////////
 
 [data-hover-text]:hover::after {
-	line-height: 2;
 	z-index: 999;
 	position: absolute;
 	content: attr(data-hover-text);
@@ -242,18 +268,7 @@ export default {
 	white-space: nowrap;
 	background-color: rgba(0, 0, 0, 0.85);
 	color: var(--color-text);
-}
-
-.tooltip--bottom {
-	text-decoration: underline dotted;
-}
-
-.tooltip--bottom:hover::after {
-	left: 0px;
-	top: 125%;
-}
-
-.tooltip--right:hover::after {
-	left: 100%;
+	left: 2rem;
+	height: 100%;
 }
 </style>
