@@ -163,7 +163,7 @@ export default {
 
 .outer-container {
 	flex: 1;
-	padding: 0 1rem;
+	padding: 0 1rem 0 0;
 	@include below-fullhd {
 		padding: 0 0.66rem 0 0;
 	}
