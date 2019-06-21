@@ -1,11 +1,15 @@
 <template>
 	<div class="postAnalysis-component">
 		<div class="explanation">
-			While the main page shows data calculated from the catalog, these numbers are based on individual posts.<br />
-			Checking all threads on all boards takes a longer time, so updates are less frequent.<br />
-			Stats are calculated from currently visible content and any seen posts made in the last 3 days.<br />
-			'Replies/thread' and 'Avg. thread age' values are calculated from visible threads only.<br />
-			(not mobile friendly)
+			Discontinued<br />
+			<br />
+			This was only ever supposed to run for a few days and now it has pretty much filled up the SSD of the VPS it was running on.<br />
+			<br />
+			I also prefer the site to be more basic and just show some rough activity stats on the main page.<br />
+			At least for me it also takes the fun out of it, if you try to analyze the different boards in too much detail.<br />
+			<br />
+			To finish things off, below I roughly summarized some of the gathered data and also listed some stats for flags on various boards.<br />
+			This covers posts from approximately January to June 2019.
 		</div>
 		<div class="container is-hidden-below-widescreen">
 			<button class="refresh-button" @click="reloadStats(true)">
@@ -141,11 +145,11 @@ export default {
 							res.data[board].threadAgeStr = Math.floor(res.data[board].threadAgeSeconds_mean / (60 * 60 * 24)) + "d "
 						}
 						res.data[board].threadAgeStr +=
-							Math.floor((res.data[board].threadAgeSeconds_mean % (60 * 60 * 24)) / (60 * 60))
+							Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60 * 24) / (60 * 60))
 								.toString()
 								.padStart(res.data[board].threadAgeSeconds_mean >= 60 * 60 * 10 ? 2 : 1, "0") +
 							":" +
-							Math.floor((res.data[board].threadAgeSeconds_mean % (60 * 60)) / 60)
+							Math.floor(res.data[board].threadAgeSeconds_mean % (60 * 60) / 60)
 								.toString()
 								.padStart(2, "0") +
 							"h"
@@ -184,12 +188,12 @@ export default {
 }
 
 .explanation {
-	text-align: center;
+	//text-align: center;
 	color: var(--color-text);
 	margin-bottom: 1rem;
-	padding: 0.5rem;
+	padding: 1rem;
 	font-size: 0.8em;
-	max-width: 1024px;
+	max-width: 512px;
 	background-color: var(--background-content-2n);
 	@include desktop {
 		@include float-shadow-box;
