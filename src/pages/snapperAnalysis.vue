@@ -1,38 +1,38 @@
 <template>
 	<div class="postAnalysis-component">
 		<div class="explanation">
-			These stats cover posts from approximately early January to early June 2019.<br />
-			Not all posts from that duration are included due to resource limitations, though I am confident, that &gt;95% of posts were
-			captured.<br />
+			These stats cover posts from approximately early January to early June 2019. Not all posts from that duration are included due to
+			resource limitations, though I am confident, that &gt;95% of posts were captured.<br />
 			<br />
 			Click a row to highlight the flag in all columns.<br />
-			Best viewed on larger screens.
+			<br />
+			'act' (activity) is the flag frequency relative to that countries population (2017 census).
 		</div>
 		<div class="flex-container">
-			<div class="outer-container" v-for="(board, index) in [[bant, 'bant'], [sp, 'sp'], [int, 'int'], [pol, 'pol']]" :key="board[1]">
+			<div class="outer-container" v-for="(board, index) in [bant, sp, int, pol]" :key="board.name">
 				<div class="board-name">
-					/{{ board[1] }}/ <span class="is-hidden-below-desktop"> -- {{ (board[0].posts / 1000000).toFixed(1) }}m posts</span>
+					/{{ board.name }}/ <span class="is-hidden-below-desktop"> -- {{ (board.posts / 1000000).toFixed(1) }}m posts</span>
 				</div>
 				<div class="inner-container">
 					<div class="row header">
 						<div
 							v-for="item in [
-								{ category: 'index', text: '#', tooltip: '', classes: 'is-hidden-below-widescreen' },
-								{ category: 'flag', text: 'Flag', tooltip: '', classes: 'wide-field' },
-								{ category: 'occurence', text: 'Posts', tooltip: '', classes: 'is-hidden-below-desktop' },
-								{ category: 'percentage', text: '%', tooltip: '' }
+								{ category: 'posts', text: '#', tooltip: '', classes: 'is-hidden-below-fullhd' },
+								{ category: 'name', text: 'Flag', tooltip: '', classes: 'wide-field' },
+								{ category: 'posts', text: 'Posts', tooltip: '', classes: 'is-hidden-below-widescreen' },
+								{ category: 'posts', text: '%', tooltip: '', classes: 'narrow-field' },
+								{ category: 'act', text: 'act', tooltip: '', classes: 'narrow-field' }
 							]"
 							:key="item.category"
 							:class="['row__item', ...item.classes]"
 							:data-hover-text="item.tooltip"
-							@click.stop="categoryClicked(item.category)"
 						>
 							{{ item.text }}
 						</div>
 					</div>
-					<transition-group v-if="board[0].flags" tag="div" class="rows component-content">
+					<transition-group tag="div" class="rows component-content">
 						<div
-							v-for="(flag, index) in board[0].flags"
+							v-for="(flag, index) in board.sortedFlags"
 							:key="flag[0]"
 							class="row flag-row"
 							:data-hover-text="flag[0]"
@@ -41,12 +41,17 @@
 							@mouseleave="flagHovered('NONE')"
 							:class="{ 'flag-clicked': flag[0] == clickedFlag, 'flag-hovered': flag[0] == hoveredFlag }"
 						>
-							<div class="row__item is-hidden-below-widescreen">{{ index + 1 }}</div>
-							<div class="row__item wide-field" :class="{ 'troll-country': troll_flags.includes(flag[0]) }">
+							<div v-once class="row__item is-hidden-below-fullhd">{{ index + 1 }}</div>
+							<div v-once class="row__item wide-field" :class="{ 'troll-country': troll_flags.includes(flag[0]) }">
 								{{ flag[0] }}
 							</div>
-							<div class="row__item is-hidden-below-desktop">{{ flag[1] }}</div>
-							<div class="row__item">{{ (flag[2] * 100).toFixed(2) }}</div>
+							<div v-once class="row__item is-hidden-below-widescreen">{{ flag[1][0] }}</div>
+							<div v-once class="row__item narrow-field">{{ (flag[1][1] * 100).toFixed(2) }}</div>
+							<div v-once class="row__item narrow-field" v-if="users.flags[flag[0]]">
+								<!--{{ (flag[1][0] / board.postsOfUsers / (users.flags[flag[0]][0] / users.totalUsers)).toFixed(2) }}-->
+								{{ (flag[1][0] / board.postsOfUsers / (users.flags[flag[0]][1] / users.totalPopulation)).toFixed(2) }}
+							</div>
+							<div v-once class="row__item narrow-field" v-else>-</div>
 						</div>
 					</transition-group>
 				</div>
@@ -66,6 +71,7 @@ export default {
 		sp: require("./snapper_analysis/flags_sp.json"),
 		int: require("./snapper_analysis/flags_int.json"),
 		pol: require("./snapper_analysis/flags_pol.json"),
+		users: require("./snapper_analysis/internet_users.json"),
 		troll_flags: [
 			"Anarcho-Capitalist",
 			"Anarchist",
@@ -96,20 +102,52 @@ export default {
 			"Black Lives Matter"
 		]
 	}),
-	computed: {},
+	computed: {
+		/*
+		sortedBant: function() {
+			const result = Object.entries(this.bant.flags).sort((a, b) => a[0][0] - b[0][0])
+			return result
+		},
+		sortedSp: function() {
+			const result = Object.entries(this.sp.flags).sort((a, b) => a[0][0] - b[0][0])
+			return result
+		},
+		sortedInt: function() {
+			const result = Object.entries(this.int.flags).sort((a, b) => a[0][0] - b[0][0])
+			return result
+		},
+		sortedPol: function() {
+			const result = Object.entries(this.pol.flags).sort((a, b) => a[0][0] - b[0][0])
+			return result
+		},
+		totalUsersAndPopulation: function() {
+			const res = [0, 0]
+			for (let value of Object.values(this.users.flags)) {
+				res[0] += value[0]
+				res[1] += value[1]
+			}
+			return res
+		}
+		*/
+	},
 	methods: {
 		flagClicked(flag) {
 			this.clickedFlag = flag
 		},
 		flagHovered(flag) {
 			this.hoveredFlag = flag
-		},
-		categoryClicked(sortBy) {
-			this.isListReversed = sortBy == this.sortListBy ? !this.isListReversed : false
-			this.sortListBy = sortBy
 		}
 	},
-	mounted() {}
+	mounted() {
+		for (const board of [this.bant, this.sp, this.int, this.pol]) {
+			let postsOfUsers = 0
+			for (const country of Object.entries(this.users.flags)) {
+				postsOfUsers += (board.flags[country[0]] || [0])[0]
+			}
+			this.$set(board, "postsOfUsers", postsOfUsers)
+			this.$set(board, "sortedFlags", Object.entries(board.flags).sort((a, b) => b[1][0] - a[1][0]))
+		}
+	}
 }
 </script>
 
@@ -220,13 +258,15 @@ export default {
 		white-space: nowrap;
 		flex: 1;
 		min-width: 6rem;
-		//width: 10rem;
-		@include below-fullhd {
-			//width: 8rem;
-		}
-		@include below-widescreen {
-			//width: 6rem;
-		}
+	}
+	.narrow-field {
+		flex: none;
+		text-align: right;
+		padding: 0 1em 0 0;
+		white-space: nowrap;
+		flex: 1;
+		max-width: 3rem;
+		width: 3rem;
 	}
 }
 
