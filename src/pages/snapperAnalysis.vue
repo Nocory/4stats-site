@@ -48,8 +48,8 @@
 							</div>
 							<div class="row__item is-hidden-below-widescreen">{{ flag[1][0] }}</div>
 							<div class="row__item narrow-field">{{ (flag[1][1] * 100).toFixed(2) }}</div>
-							<div class="row__item narrow-field" v-if="users.flags[flag[0]]">
-								{{ flag[1][2] }}
+							<div class="row__item narrow-field" v-if="flag[1][2]">
+								{{ flag[1][2].toFixed(2) }}
 								<!--{{ (flag[1][0] / board.postsOfUsers / (users.flags[flag[0]][0] / users.totalUsers)).toFixed(2) }}-->
 								<!--{{ (flag[1][0] / board.postsOfUsers / (users.flags[flag[0]][1] / users.totalPopulation)).toFixed(2) }}-->
 								<!--{{ (flag[1][0] / board.sortedFlags[0][1][0] / (users.flags[flag[0]] / users.flags["United States"])).toFixed(2) }}-->
@@ -157,39 +157,21 @@ export default {
 	},
 	created() {
 		// 897608
-		/*
-		let totalUsers = 0
-		let totalPopulation = 0
-		for (const entry of Object.values(this.users.flags)) {
-			totalUsers += entry[0]
-			totalPopulation += entry[1]
-		}
-		this.$set(this.users, "totalUsers", totalUsers)
-		this.$set(this.users, "totalPopulation", totalPopulation)
-		*/
 		for (const board of [this.bant, this.sp, this.int, this.pol]) {
-			/*
-			let postsOfUsers = 0
-			for (const country of Object.entries(this.users.flags)) {
-				postsOfUsers += (board.flags[country[0]] || [0])[0]
-			}
-			this.$set(board, "postsOfUsers", postsOfUsers)
-			*/
 			const entries = Object.entries(board.flags)
 			const totalPosts = entries.reduce((acc, val) => acc + val[1][0], 0)
 			// calculate percentage
 			for (const flag of entries) {
 				flag[1][1] = flag[1][0] / totalPosts
-				flag[1][2] = flag[1][0] / board.flags["United States"][0] / (this.users.flags[flag[0]] / this.users.flags["United States"])
-				flag[1][2] = flag[1][2].toFixed(2)
-
-				//(flag[1][0] / board.sortedFlags[0][1][0] / (users.flags[flag[0]] / users.flags["United States"])).toFixed(2)
+				if (this.users.flags[flag[0]] && this.users.flags[flag[0]] > 10000) {
+					flag[1][2] = flag[1][0] / board.flags["United States"][0] / (this.users.flags[flag[0]] / this.users.flags["United States"])
+				} else {
+					flag[1][2] = flag[1][2] || 0
+				}
 			}
 
 			this.$set(board, "totalPosts", totalPosts)
-			//this.$set(board, "sortedFlags", Object.entries(board.flags))
 			this.sortFlags(board, "posts")
-			//this.$set(board, "sortedFlags", Object.entries(board.flags).sort((a, b) => b[1][0] - a[1][0]))
 		}
 	},
 	mounted() {}
