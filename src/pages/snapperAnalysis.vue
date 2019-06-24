@@ -6,7 +6,8 @@
 			<br />
 			Click a row to highlight the flag in all columns.<br />
 			<br />
-			'act' (activity) is the flag frequency relative to that countries population (2017 census).
+			'rel' (relative) is the flag frequency of a country, relative to the US, when adjusting for population.<br />
+			Think of it as posting activity per capita.
 		</div>
 		<div class="flex-container">
 			<div class="outer-container" v-for="(board, index) in [bant, sp, int, pol]" :key="board.name">
@@ -17,15 +18,15 @@
 					<div class="row header">
 						<div
 							v-for="item in [
-								{ category: 'posts', text: '#', tooltip: '', classes: 'is-hidden-below-fullhd' },
+								{ category: 'NONE', text: '#', tooltip: '', classes: 'is-hidden-below-fullhd' },
 								{ category: 'name', text: 'Flag', tooltip: '', classes: 'wide-field' },
 								{ category: 'posts', text: 'Posts', tooltip: '', classes: 'is-hidden-below-widescreen' },
 								{ category: 'posts', text: '%', tooltip: '', classes: 'narrow-field' },
-								{ category: 'act', text: 'act', tooltip: '', classes: 'narrow-field' }
+								{ category: 'rel', text: 'rel', tooltip: '', classes: 'narrow-field' }
 							]"
-							:key="item.category"
+							:key="item.text"
 							:class="['row__item', ...item.classes]"
-							:data-hover-text="item.tooltip"
+							@click="sortFlags(board, item.category)"
 						>
 							{{ item.text }}
 						</div>
@@ -41,17 +42,19 @@
 							@mouseleave="flagHovered('NONE')"
 							:class="{ 'flag-clicked': flag[0] == clickedFlag, 'flag-hovered': flag[0] == hoveredFlag }"
 						>
-							<div v-once class="row__item is-hidden-below-fullhd">{{ index + 1 }}</div>
-							<div v-once class="row__item wide-field" :class="{ 'troll-country': troll_flags.includes(flag[0]) }">
+							<div class="row__item is-hidden-below-fullhd">{{ index + 1 }}</div>
+							<div class="row__item wide-field" :class="{ 'troll-country': troll_flags.includes(flag[0]) }">
 								{{ flag[0] }}
 							</div>
-							<div v-once class="row__item is-hidden-below-widescreen">{{ flag[1][0] }}</div>
-							<div v-once class="row__item narrow-field">{{ (flag[1][1] * 100).toFixed(2) }}</div>
-							<div v-once class="row__item narrow-field" v-if="users.flags[flag[0]]">
+							<div class="row__item is-hidden-below-widescreen">{{ flag[1][0] }}</div>
+							<div class="row__item narrow-field">{{ (flag[1][1] * 100).toFixed(2) }}</div>
+							<div class="row__item narrow-field" v-if="users.flags[flag[0]]">
+								{{ flag[1][2] }}
 								<!--{{ (flag[1][0] / board.postsOfUsers / (users.flags[flag[0]][0] / users.totalUsers)).toFixed(2) }}-->
-								{{ (flag[1][0] / board.postsOfUsers / (users.flags[flag[0]][1] / users.totalPopulation)).toFixed(2) }}
+								<!--{{ (flag[1][0] / board.postsOfUsers / (users.flags[flag[0]][1] / users.totalPopulation)).toFixed(2) }}-->
+								<!--{{ (flag[1][0] / board.sortedFlags[0][1][0] / (users.flags[flag[0]] / users.flags["United States"])).toFixed(2) }}-->
 							</div>
-							<div v-once class="row__item narrow-field" v-else>-</div>
+							<div class="row__item narrow-field" v-else>-</div>
 						</div>
 					</transition-group>
 				</div>
@@ -65,7 +68,7 @@ export default {
 	data: () => ({
 		clickedFlag: "NONE",
 		hoveredFlag: "NONE",
-		sortListBy: "flag",
+		sortListBy: "posts",
 		isListReversed: false,
 		bant: require("./snapper_analysis/flags_bant.json"),
 		sp: require("./snapper_analysis/flags_sp.json"),
@@ -136,18 +139,60 @@ export default {
 		},
 		flagHovered(flag) {
 			this.hoveredFlag = flag
+		},
+		sortFlags(obj, sortBy = "posts") {
+			console.log(obj.name, sortBy)
+			switch (sortBy) {
+				case "posts":
+					this.$set(this[obj.name], "sortedFlags", Object.entries(obj.flags).sort((a, b) => b[1][0] - a[1][0]))
+					break
+				case "name":
+					this.$set(this[obj.name], "sortedFlags", Object.entries(obj.flags).sort())
+					break
+				case "rel":
+					this.$set(this[obj.name], "sortedFlags", Object.entries(obj.flags).sort((a, b) => b[1][2] - a[1][2]))
+					break
+			}
 		}
 	},
-	mounted() {
+	created() {
+		// 897608
+		/*
+		let totalUsers = 0
+		let totalPopulation = 0
+		for (const entry of Object.values(this.users.flags)) {
+			totalUsers += entry[0]
+			totalPopulation += entry[1]
+		}
+		this.$set(this.users, "totalUsers", totalUsers)
+		this.$set(this.users, "totalPopulation", totalPopulation)
+		*/
 		for (const board of [this.bant, this.sp, this.int, this.pol]) {
+			/*
 			let postsOfUsers = 0
 			for (const country of Object.entries(this.users.flags)) {
 				postsOfUsers += (board.flags[country[0]] || [0])[0]
 			}
 			this.$set(board, "postsOfUsers", postsOfUsers)
-			this.$set(board, "sortedFlags", Object.entries(board.flags).sort((a, b) => b[1][0] - a[1][0]))
+			*/
+			const entries = Object.entries(board.flags)
+			const totalPosts = entries.reduce((acc, val) => acc + val[1][0], 0)
+			// calculate percentage
+			for (const flag of entries) {
+				flag[1][1] = flag[1][0] / totalPosts
+				flag[1][2] = flag[1][0] / board.flags["United States"][0] / (this.users.flags[flag[0]] / this.users.flags["United States"])
+				flag[1][2] = flag[1][2].toFixed(2)
+
+				//(flag[1][0] / board.sortedFlags[0][1][0] / (users.flags[flag[0]] / users.flags["United States"])).toFixed(2)
+			}
+
+			this.$set(board, "totalPosts", totalPosts)
+			//this.$set(board, "sortedFlags", Object.entries(board.flags))
+			this.sortFlags(board, "posts")
+			//this.$set(board, "sortedFlags", Object.entries(board.flags).sort((a, b) => b[1][0] - a[1][0]))
 		}
-	}
+	},
+	mounted() {}
 }
 </script>
 
