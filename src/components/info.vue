@@ -3,12 +3,11 @@
 		<div class="component-title">Info</div>
 		<div class="component-content">
 			<p>
-				Flag analysis page is up.<br />
+				Analyzed a week of posts and calculated the words, that appear more frequently on each board compared to the site average.<br />
 				<br />
-				<router-link to="/flagAnalysis" class="nav-links__link is-hidden-below-widescreen">
-					<div class="nav-links__text">*click me*</div> </router-link
-				><br />
-				Ideally view this on at least a proper widescreen to see all the columns side by side.
+				<a href="https://pastebin.com/raw/f7yKWUiu">https://pastebin.com/raw/f7yKWUiu</a><br />
+				<br />
+				Some common words were filtered out. <a href="https://pastebin.com/raw/i0vWw1bQ">*link*</a>
 			</p>
 			<!--<img src="~/static/1543041166611.jpg" />-->
 		</div>
