@@ -3,11 +3,10 @@
 		<div class="component-title">Info</div>
 		<div class="component-content">
 			<p>
-				Analyzed a week of posts and calculated the words, that appear more frequently on each board compared to the site average.<br />
+				Analyzed 4 weeks of posts and calculated the words, that appear more frequently on each board compared to the site average.<br />
 				<br />
-				<a href="https://pastebin.com/raw/f7yKWUiu">https://pastebin.com/raw/f7yKWUiu</a><br />
-				<br />
-				Some common words were filtered out. <a href="https://pastebin.com/raw/i0vWw1bQ">*link*</a>
+				<a href="https://pastebin.com/raw/4eQgizjJ">https://pastebin.com/raw/4eQgizjJ</a><br />
+				(Improved. Words are stemmed, so it looks a bit weird though.)
 			</p>
 			<!--<img src="~/static/1543041166611.jpg" />-->
 		</div>
