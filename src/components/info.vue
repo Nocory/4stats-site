@@ -5,8 +5,8 @@
 			<p>
 				Analyzed 4 weeks of posts and calculated the words, that appear more frequently on each board compared to the site average.<br />
 				<br />
-				<a href="https://pastebin.com/raw/4eQgizjJ">https://pastebin.com/raw/4eQgizjJ</a><br />
-				(Improved. Words are stemmed, so it looks a bit weird though.)
+				<a href="https://pastebin.com/raw/PMGUT48D">https://pastebin.com/raw/PMGUT48D</a><br />
+				(further improved)
 			</p>
 			<!--<img src="~/static/1543041166611.jpg" />-->
 		</div>
