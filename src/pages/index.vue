@@ -5,8 +5,8 @@
 		<div v-if="renderRight" class="right is-hidden-below-widescreen">
 			<div class="right-wrapper">
 				<component-meta />
-				<component-info />
-				<!--<component-sideImage />-->
+				<!--<component-info />-->
+				<component-sideImage />
 			</div>
 			<img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png" />
 		</div>
@@ -17,7 +17,7 @@
 <script>
 import componentBoardlist from "components/boardlist.vue"
 import componentThreadlist from "components/threadlist.vue"
-import componentSideImage from "components/sideImage.vue"
+//import componentSideImage from "components/sideImage.vue"
 export default {
 	data: () => ({
 		renderChart: window.innerWidth >= 768,
