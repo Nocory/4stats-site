@@ -1,6 +1,6 @@
 <template>
   <div v-once class="sideImage-component">
-    <img src="~/static/h.png" />
+    <img src="~/static/1543041166611cc.jpg" />
   </div>
 </template>
 
