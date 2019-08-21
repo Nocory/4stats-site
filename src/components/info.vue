@@ -3,7 +3,10 @@
     <div class="component-title">Info</div>
     <div class="component-content">
       <p>
-        Have a nice day
+        Have a nice day<br />
+        <br />
+        Will see if I can make the /all/ chart update automatically.<br />
+        Not sure what the problem is and unfortunately I don't have much time right now.
       </p>
       <!--<img src="~/static/1543041166611.jpg" />-->
     </div>
