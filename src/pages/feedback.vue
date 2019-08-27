@@ -3,6 +3,18 @@
     <div class="container">
       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSewTqwFoSGR40rhSsLshM9mBbi3jfLdijYXjs9dksvnpEM0wQ/viewform?embedded=true" width="640" height="530" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
       <div class="qa-card">
+        <div class="qa-card__time">Aug 27, 2019</div>
+        <div class="qa-card__question">
+          Hey anon, why don't sticky threads show a post rate?
+        </div>
+        <div class="qa-card__answer">
+          Since stickies are usually rolling and capped at 1000, the general method of (posts / (current_time - thread_creation_time)) doesn't work here.<br />
+          I'd have to add a special case, where it gets the time from the first reply instead of the OP, when replies are >= 1k.<br />
+          Not difficult, but it wasn't a priority so far and I still want to rewrite the stats-gatherer in the near future anyway if possible, where I would then also do this change.<br />
+          (if I actually find the time)
+        </div>
+      </div>
+      <div class="qa-card">
         <div class="qa-card__time">Aug 21, 2019</div>
         <div class="qa-card__question">
           Any way I could make tiers for boards, so things I browse ranked on the left and the rest on the right for instance?
