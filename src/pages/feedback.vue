@@ -3,6 +3,30 @@
     <div class="container">
       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSewTqwFoSGR40rhSsLshM9mBbi3jfLdijYXjs9dksvnpEM0wQ/viewform?embedded=true" width="640" height="530" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
       <div class="qa-card">
+        <div class="qa-card__time">Sep 10, 2019</div>
+        <div class="qa-card__question">
+          Idea: Like the flag analysis - A word analysis by board from posts collected during a certain period (January to July 2019?). Should include: Word count by board, word frequency by board (relative and total), ability to plot word frequencies in two (if possible, three) dimensions, ability to type in a word and get relative and total word frequency by board<br />
+          <br />
+          e.g. Search "newfag" and /b/ might be #1 with about 1 million uses, against a total of 500 million words mentioned on /b/, for a relative frequency of 0.02%.<br />
+          <br />
+          I could use it to make PCA graphs to "group" boards by keywords.
+        </div>
+        <div class="qa-card__answer">
+          I would love to do that, but I have so little time right now.<br />
+          I really would like to get the board-snapshotter running again (it's basically like a mini-archiver), before the end of the year, when I make another stats-thread.<br />
+          So until then, I plan on rewriting and putting it up again, so I have at least 1 month of fresh data at the end of the year
+        </div>
+      </div>
+      <div class="qa-card">
+        <div class="qa-card__time">Sep 1, 2019</div>
+        <div class="qa-card__question">
+          Use hash of images on 4chan and see most frequently posted images uploaded to their particular boards over a month's time? Now that would be interesting to see.
+        </div>
+        <div class="qa-card__answer">
+          That's not possible, since the stats are calculated from the catalog and not by fetching all threads with all their posts and images individually.
+        </div>
+      </div>
+      <div class="qa-card">
         <div class="qa-card__time">Aug 27, 2019</div>
         <div class="qa-card__question">
           Hey anon, why don't sticky threads show a post rate?
