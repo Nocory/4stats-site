@@ -2,13 +2,15 @@
   <div v-once class="meta-component">
     <div class="component-title">Info</div>
     <div class="component-content">
+      <!--
       <p>
         Have a nice day<br />
         <br />
         Will see if I can make the /all/ chart update automatically.<br />
         Not sure what the problem is and unfortunately I don't have much time right now.
       </p>
-      <!--<img src="~/static/1543041166611.jpg" />-->
+      -->
+      <img src="~/static/bird2.jpg" />
     </div>
   </div>
 </template>
@@ -27,7 +29,7 @@
   background: var(--background-content);
   display: flex;
   flex-direction: column;
-  padding: 1em;
+  //padding: 1em;
   color: var(--color-text);
 
   line-height: 1.2;

@@ -8,7 +8,7 @@
         <component-info />
         <!--<component-sideImage />-->
       </div>
-      <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png" />
+      <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/partythunk.png" />
     </div>
     <component-chart v-if="renderChart" class="is-hidden-below-tablet" />
   </div>

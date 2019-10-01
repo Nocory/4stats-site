@@ -35,3 +35,14 @@ a {
   border-top: 1px solid var(--color-text);
   color: var(--color-text);
 }
+
+.partyhat {
+  z-index: 9999;
+  object-fit: contain;
+  position: absolute;
+  top: -56px;
+  left: -36px;
+  max-width: 80px;
+  transform: rotate(-22deg);
+  pointer-events: none;
+}
