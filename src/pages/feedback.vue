@@ -8,9 +8,8 @@
           Could you possibly include information on what boards have the most stickies? I'm curious if there's a correlation between board usage and amount of stickies
         </div>
         <div class="qa-card__answer">
-          I would love to do that, but I have so little time right now.<br />
-          I really would like to get the board-snapshotter running again (it's basically like a mini-archiver), before the end of the year, when I make another stats-thread.<br />
-          So until then, I plan on rewriting and putting it up again, so I have at least 1 month of fresh data at the end of the year
+          I don't keep any thread or post data. I only save the number of new posts and threads between update cycles.<br />
+          So I don't really have the data to calculate anything involving the amount of stickies.
         </div>
       </div>
       <div class="qa-card">
