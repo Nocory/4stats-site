@@ -3,6 +3,17 @@
     <div class="container">
       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSewTqwFoSGR40rhSsLshM9mBbi3jfLdijYXjs9dksvnpEM0wQ/viewform?embedded=true" width="640" height="530" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
       <div class="qa-card">
+        <div class="qa-card__time">Oct 16, 2019</div>
+        <div class="qa-card__question">
+          Could you possibly include information on what boards have the most stickies? I'm curious if there's a correlation between board usage and amount of stickies
+        </div>
+        <div class="qa-card__answer">
+          I would love to do that, but I have so little time right now.<br />
+          I really would like to get the board-snapshotter running again (it's basically like a mini-archiver), before the end of the year, when I make another stats-thread.<br />
+          So until then, I plan on rewriting and putting it up again, so I have at least 1 month of fresh data at the end of the year
+        </div>
+      </div>
+      <div class="qa-card">
         <div class="qa-card__time">Sep 10, 2019</div>
         <div class="qa-card__question">
           Idea: Like the flag analysis - A word analysis by board from posts collected during a certain period (January to July 2019?). Should include: Word count by board, word frequency by board (relative and total), ability to plot word frequencies in two (if possible, three) dimensions, ability to type in a word and get relative and total word frequency by board<br />
