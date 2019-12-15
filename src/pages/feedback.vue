@@ -12,6 +12,17 @@
           So I don't really have the data to calculate anything involving the amount of stickies.
         </div>
       </div>
+
+      <div class="qa-card">
+        <div class="qa-card__time">Sep 10, 2019</div>
+        <div class="qa-card__question">
+          RE: Use hash of images on 4chan. Not the person who originally submitted that, but is fetching just the text of posts inside of threads without images or thumbnails possible? If it is I believe that 4chan already provides an MD5 hash. Besides that would be something you'd need to do anyway for the word analysis by board, unless you wanted to only do a word analysis on OP posts. Thanks for reading my comment!
+        </div>
+        <div class="qa-card__answer">
+          564365436543
+        </div>
+      </div>
+
       <div class="qa-card">
         <div class="qa-card__time">Sep 10, 2019</div>
         <div class="qa-card__question">
@@ -212,7 +223,6 @@ iframe {
   margin: 0.5rem 0;
   padding: 1rem;
   //
-  background: $oc-gray-0;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -222,13 +232,11 @@ iframe {
   @include float-shadow-box;
 
   &__time {
-    color: $oc-gray-6;
     font-size: 0.875rem;
   }
 
   &__question {
     position: relative;
-    color: $oc-gray-7;
     font-weight: bolder;
     margin-bottom: 1rem;
     &::after {
@@ -238,15 +246,12 @@ iframe {
       bottom: -0.5rem;
       height: 2px;
       width: 4rem;
-      background: $oc-blue-8;
     }
   }
   &__answer {
-    color: $oc-gray-7;
   }
 }
 
 .greentext {
-  background: $oc-gray-8;
 }
 </style>

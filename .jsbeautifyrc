@@ -1,6 +1,0 @@
-{
-	"editor.formatOnSave": true,
-	"indent_with_tabs": true,
-	"brace_style": "collapse,preserve-inline",
-	"wrap_line_length": 128
-}

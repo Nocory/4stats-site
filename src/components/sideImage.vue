@@ -1,8 +1,17 @@
 <template>
-  <div v-once class="sideImage-component">
-    <img src="~/static/1543041166611cc.jpg" />
-  </div>
+  <baseComponent v-once class="sideImage-component">
+    <!--<img src="~/static/1543041166611cc.jpg" />-->
+  </baseComponent>
 </template>
+
+<script>
+import baseComponent from "components/baseComponent.vue"
+export default {
+  components: {
+    baseComponent
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .sideImage-component {

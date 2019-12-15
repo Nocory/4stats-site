@@ -3,7 +3,7 @@ import pino from "./pino"
 pino.info("NODE_ENV is:", process.env.NODE_ENV)
 
 if (location.hostname === "dev.4stats.io") {
-  (function() {
+  ;(function() {
     var errorBoxElement = false
     var showError = function(error) {
       if (!errorBoxElement) {
@@ -29,6 +29,7 @@ if (location.hostname === "dev.4stats.io") {
   })()
 }
 
+import "material-colors/dist/colors.css"
 import "css/main.scss"
 
 import Vue from "vue/dist/vue.runtime.esm.js"

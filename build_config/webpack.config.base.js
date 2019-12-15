@@ -5,7 +5,7 @@ const path = require("path")
 
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 //const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
-const CleanWebpackPlugin = require("clean-webpack-plugin")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const VueLoaderPlugin = require("vue-loader/lib/plugin")
@@ -35,8 +35,7 @@ module.exports = {
           {
             loader: "sass-loader",
             options: {
-              data: `
-							@import "~css/injected/variables.scss";
+              prependData: `
 							@import "~css/injected/mixins.scss";
 						`
             }
@@ -45,11 +44,28 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|woff|woff2|svg)$/,
-        loader: "url-loader?limit=1024&name=fonts/[name]_[hash:8].[ext]"
+        //loader: "url-loader?limit=1024&name=fonts/[name]_[hash:8].[ext]",
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
+              esModule: false
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,
-        loader: "url-loader?limit=1024&name=img/[name]_[hash:8].[ext]"
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
+              esModule: false
+            }
+          }
+        ]
       },
       {
         test: /\.js$/,

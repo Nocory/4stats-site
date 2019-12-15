@@ -1,7 +1,7 @@
 <template>
-  <div class="boardlist-component">
-    <img src="../static/partyhat.gif" class="partyhat is-hidden-touch" />
-    <div class="header">
+  <div class="boardlist-component relative cursor-pointer">
+    <img src="../static/xmashat.gif" class="partyhat is-hidden-below-widescreen" />
+    <div class="row h-10 text-xs border-b-2 border-gray-400 categories">
       <div
         v-for="item in [
           { category: 'name', text: 'Board', tooltip: '' },
@@ -36,9 +36,8 @@
         ]"
         :key="item.name"
         :class="[
-          'header__col',
           {
-            'header__col--selected': sortBoardListBy == item.category,
+            'font-bold': sortBoardListBy == item.category,
             'tooltip--bottom': item.tooltip
           },
           ...item.classes
@@ -56,8 +55,15 @@
         ></div>
       </div>
     </div>
-    <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="rows component-content">
-      <div v-for="boardName in sortedBoardlist" :id="'board-' + boardName" :key="boardName" :class="{ 'row--selected': selectedBoard == boardName }" class="row" @click.stop="boardClicked(boardName)">
+    <transition-group v-if="combinedBoardStats.avgPostsPerDay" tag="div" class="board-rows text-sm">
+      <div
+        v-for="boardName in sortedBoardlist"
+        :id="'board-' + boardName"
+        :key="boardName"
+        :class="{ 'row--selected': selectedBoard == boardName }"
+        class="row border-b border-gray-500"
+        @click.stop="boardClicked(boardName)"
+      >
         <div v-once :data-hover-text="longBoardNames[boardName]" class="tooltip--right">
           {{ boardName == "s4s" ? "[s4s]" : "/" + boardName + "/" }}
         </div>
@@ -144,139 +150,72 @@ export default {
 
 <style scoped lang="scss">
 .boardlist-component {
-  position: relative;
-  z-index: 10;
-  @include desktop {
+  @include widescreen {
     @include float-shadow-box;
+  }
+  background: var(--nav-bg);
+}
+
+.categories {
+  color: var(--nav-text-color);
+}
+
+.board-rows {
+  display: flex;
+  flex-direction: column;
+  > .row {
+    transition: transform 0.5s ease;
+    background: var(--bg1);
+    &:nth-child(2n) {
+      background: var(--bg2);
+    }
+    &--selected {
+      background: rgba(192, 207, 231, 0.9) !important;
+      //background: #cfd8dc;
+      //font-weight: bolder;
+      color: #111 !important;
+    }
+    &:hover {
+      background: rgba(192, 207, 231, 0.75) !important;
+      color: #222 !important;
+    }
   }
 }
 
-.header,
 .row {
-  white-space: nowrap;
   position: relative;
   display: flex;
-  cursor: pointer;
-  font-size: 0.8rem;
-  color: var(--color-text);
-  transition: transform 0.5s ease;
+  align-items: center;
   > div {
     position: relative;
-    flex: 1 1 0;
-    text-align: right;
-    padding: 0 1em 0 0;
     &:first-child {
       width: 64px;
       flex: none;
       text-align: left;
-      padding: 0 0 0 1em;
-      font-weight: normal;
+      padding-left: 1em;
+      //font-weight: normal;
+    }
+    &:not(:first-child) {
+      flex: 1 1 0;
+      text-align: right;
+      padding-right: 1em;
     }
   }
 }
 
-.header {
-  z-index: 100;
-  height: 2.25rem;
-  align-items: stretch;
-  background: var(--background-nav);
-  color: var(--color-text);
-  &__col {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-    color: var(--color-text);
-    &:first-child {
-      width: 64px;
-      flex: none;
-      justify-content: flex-start;
-      padding: 0 0 0 1em;
-      font-weight: bold;
-    }
-    @include selected-underline(".header__col--selected");
-    > .sortArrow {
-      &:after {
-        content: "";
-        position: absolute;
-        right: 0%;
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-top: 4px solid var(--color-text);
-        transition: all 0.25s ease-out;
-      }
-      &--reversed:after {
-        transform: rotate(-180deg);
-      }
-    }
-  }
-}
-
-.row {
-  line-height: 1.25rem;
-  background: var(--background-content);
-  &:nth-of-type(2n) {
-    background: var(--background-content-2n);
-  }
-  &:not(:first-child) {
-    border-top: 1px solid var(--border-content);
-  }
-  &:hover {
-    background-color: var(--color-hover);
-  }
-  &--selected {
-    background-color: var(--color-selected-background) !important;
-    color: var(--color-selected-text);
-  }
-  &--has-sticky {
-    position: absolute;
-    top: 12.5%;
-    left: 64px;
-    height: 75%;
-    object-fit: cover;
-    z-index: 99;
-    background-color: transparent;
-  }
-}
-
-///////////
-// Hover //
-///////////
-
-.tooltip--bottom:hover::before,
-.tooltip--right:hover::before {
-  pointer-events: none;
-  line-height: 2;
-  z-index: 101;
+.row--has-sticky {
   position: absolute;
-  content: attr(data-hover-text);
-  padding: 0.25rem 1rem;
-  white-space: nowrap;
-  background-color: rgba(0, 0, 0, 0.85);
-  @include float-shadow-box;
-  color: var(--color-text);
-  @include touch {
-    display: none;
-  }
-}
-
-.tooltip--bottom {
-  text-decoration: underline dotted;
-  &:hover::before {
-    left: 0px;
-    top: 125%;
-  }
-}
-
-.tooltip--right:hover::before {
-  left: 100%;
+  top: 12.5%;
+  left: 64px;
+  height: 75%;
+  object-fit: cover;
+  z-index: 99;
+  background-color: transparent;
 }
 
 ////////////////
 // Animations //
 ////////////////
-
 .just-updated > div {
   animation-duration: 3s;
   animation-name: updateAnim;
@@ -286,16 +225,43 @@ export default {
 
 @keyframes updateAnim {
   0% {
-    background-color: transparent;
+    background: rgba(192, 207, 231, 0);
   }
-  10% {
-    background-color: var(--color-hover);
-  }
-  55% {
-    background-color: var(--color-hover);
+  38.2% {
+    background: rgba(192, 207, 231, 1);
   }
   100% {
-    background-color: transparent;
+    background: rgba(192, 207, 231, 0);
   }
+}
+
+/////////////
+// Tooltip //
+/////////////
+.tooltip--bottom:hover::before,
+.tooltip--right:hover::before {
+  pointer-events: none;
+  line-height: 2;
+  z-index: 101;
+  position: absolute;
+  content: attr(data-hover-text);
+  padding: 0.25rem 1rem;
+  white-space: nowrap;
+  background-color: var(--nav-bg);
+  @include float-shadow-box;
+  color: var(--nav-text-color);
+  @include touch {
+    display: none;
+  }
+}
+.tooltip--bottom {
+  text-decoration: underline dotted;
+  &:hover::before {
+    left: 0px;
+    top: 125%;
+  }
+}
+.tooltip--right:hover::before {
+  left: 100%;
 }
 </style>

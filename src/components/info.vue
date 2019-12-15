@@ -1,39 +1,32 @@
 <template>
-  <div v-once class="meta-component">
-    <div class="component-title">Info</div>
-    <div class="component-content">
-      <!--
-      <p>
-        Have a nice day<br />
-        <br />
-        Will see if I can make the /all/ chart update automatically.<br />
-        Not sure what the problem is and unfortunately I don't have much time right now.
-      </p>
-      -->
-      <img src="~/static/bird2.jpg" />
+  <base-component title="Info" class="base-component">
+    <div class="component-content p-4 leading-normal text-sm">
+      Redoing some of the styling right now.<br />
+      Some parts aren't consistent yet, but I will hopefully get that done soon.<br />
+      <br />
+      The other pages will be back soon as well.
+      <!--<img src="../static/bird2.jpg" />-->
     </div>
-  </div>
+  </base-component>
 </template>
 
+<script>
+import baseComponent from "components/baseComponent.vue"
+export default {
+  components: {
+    baseComponent
+  }
+}
+</script>
+
 <style scoped lang="scss">
-.meta-component {
-  display: flex;
-  flex-direction: column;
-  @include float-shadow-box;
-  position: relative;
-  //height: 100px;
+.base-component {
+  background: var(--bg2);
 }
 
 .component-content {
-  //background: $--background-content-2n;
-  background: var(--background-content);
   display: flex;
   flex-direction: column;
-  //padding: 1em;
-  color: var(--color-text);
-
-  line-height: 1.2;
-  //font-size: 0.8em;
 }
 
 b {

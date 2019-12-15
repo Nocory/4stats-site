@@ -1,9 +1,16 @@
 <template>
   <div class="component-nav">
-    <div class="container" @click.stop="toggleBurgerMenu(false)">
+    <div class="container">
       <router-link to="/">
         <div class="site-title">4stats.io</div>
       </router-link>
+      <div class="spacer"></div>
+      <!--
+      <label class="text-xs px-4" for="dayMode">Experimental daymode toggle</label>
+      <input id="dayMode" type="checkbox" name="" :checked="dayMode" @click="setDayMode" />
+      -->
+
+      <!--
       <div class="nav-links is-hidden-mobile">
         <router-link to="/" class="nav-links__link">
           <div class="nav-links__text">Board-Stats</div>
@@ -18,6 +25,7 @@
           <div class="nav-links__text">About</div>
         </router-link>
       </div>
+      -->
       <!--
       <div class="spacer"></div>
       <label v-if="showThemeToggle" class="is-hidden-below-widescreen switch">
@@ -29,7 +37,7 @@
       </label>
 			-->
     </div>
-    <div class="burger-button is-hidden-tablet" @click.stop="toggleBurgerMenu(undefined)"></div>
+    <!--<div class="burger-button is-hidden-tablet" @click.stop="toggleBurgerMenu(undefined)"></div>-->
   </div>
 </template>
 
@@ -73,10 +81,10 @@ export default {
 <style scoped lang="scss">
 .component-nav {
   position: relative;
-  background: var(--background-nav);
-  color: var(--color-text);
   height: 3rem;
   z-index: 1;
+  color: var(--nav-text-color);
+  background-color: var(--nav-bg);
   @include widescreen {
     @include float-shadow-box;
   }
@@ -172,7 +180,6 @@ export default {
     left: 0;
     width: 100%;
     height: 1.5rem;
-    background: $oc-gray-6;
     transition: 0.25s ease-out;
     display: flex;
     justify-content: center;

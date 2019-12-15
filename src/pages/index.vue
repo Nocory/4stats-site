@@ -1,16 +1,16 @@
 <template>
   <div class="index-component">
-    <component-boardlist />
-    <component-threadlist />
-    <div v-if="renderRight" class="right is-hidden-below-widescreen">
+    <component-boardlist class="grid-boardlist" />
+    <component-threadlist class="grid-threadlist" />
+    <div v-if="renderRight" class="grid-right is-hidden-below-widescreen">
       <div class="right-wrapper">
         <component-meta />
         <component-info />
-        <!--<component-sideImage />-->
+        <component-sideImage />
       </div>
-      <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/partythunk.png" />
+      <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/xmasthunk.png" />
     </div>
-    <component-chart v-if="renderChart" class="is-hidden-below-tablet" />
+    <component-chart v-if="renderChart" class="is-hidden-below-tablet grid-chart" />
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
     componentThreadlist,
     componentMeta: () => import(/* webpackChunkName: "sidebar" */ "components/meta.vue"),
     componentInfo: () => import(/* webpackChunkName: "sidebar" */ "components/info.vue"),
-    //componentSideImage: () => import(/* webpackChunkName: "sidebar" */ "components/sideImage.vue"),
+    componentSideImage: () => import(/* webpackChunkName: "sidebar" */ "components/sideImage.vue"),
     componentChart: () => import(/* webpackChunkName: "chart" */ "components/chart.vue")
   },
   data: () => ({
@@ -88,36 +88,36 @@ export default {
       "boards threads right" auto
       "boards threads right" auto
       "chart 	chart 	right" auto /
-      1fr 1fr 0.5fr;
-    grid-gap: 1rem;
+      1fr 1fr 0.382fr;
+    grid-gap: 2rem;
     max-width: calc(100% - 2rem);
     padding: 1rem 0 2rem;
   }
 }
 
-.boardlist-component {
+.grid-boardlist {
   grid-area: boards;
   min-width: 100%;
 }
 
-.threadlist-component {
+.grid-threadlist {
   grid-area: threads;
   min-width: 100%;
 }
 
-.chart-component {
+.grid-chart {
   grid-area: chart;
 }
 
-.right {
+.grid-right {
   grid-area: right;
   min-width: 100%;
   position: relative;
   > .right-wrapper {
     position: sticky;
-    top: 1rem;
+    top: 2rem;
     > div:not(:first-child) {
-      margin-top: 1rem;
+      margin-top: 2rem;
     }
   }
 

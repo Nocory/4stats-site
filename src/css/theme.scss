@@ -1,28 +1,72 @@
 :root {
+  --md-grey-50: #fafafa;
+  --md-grey-100: #f5f5f5;
+  --md-grey-200: #eeeeee;
+  --md-grey-300: #e0e0e0;
+  --md-grey-400: #bdbdbd;
+  --md-grey-500: #9e9e9e;
+  --md-grey-600: #757575;
+  --md-grey-700: #616161;
+  --md-grey-800: #424242;
+  --md-grey-900: #212121;
+
+  --md-blue-grey-50: #eceff1;
+  --md-blue-grey-100: #cfd8dc;
+  --md-blue-grey-200: #b0bec5;
+  --md-blue-grey-300: #90a4ae;
+  --md-blue-grey-400: #78909c;
+  --md-blue-grey-500: #607d8b;
+  --md-blue-grey-600: #546e7a;
+  --md-blue-grey-700: #455a64;
+  --md-blue-grey-800: #37474f;
+  --md-blue-grey-900: #263238;
+}
+
+:root {
   --color-temp: blue;
   --color-temp-alt: lime;
-  ///////////////////////
+
   --font-global: Consolas, monospace;
-
-  --background-main: var(--md-blue-grey-200);
-
-  --background-nav: var(--md-blue-grey-900);
-
-  --border-content: rgba(255, 255, 255, 0.4);
   --box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 
-  --background-content: var(--md-blue-grey-700);
-  --background-content-2n: var(--md-blue-grey-900);
+  //--bg1: hsla(218, 21%, 16%, 0.675);
+  //--bg2: hsla(218, 21%, 16%, 0.825);
+  --text-color: var(--md-grey-50);
+  --text-color-faded: var(--md-blue-grey-200);
 
-  --color-text: var(--md-grey-50);
-  --color-text-faded: var(--md-grey-400);
-  --color-text-faded2: var(--md-grey-400);
+  --app-bg: linear-gradient(to bottom left, hsl(90, 66%, 80%) 0%, hsl(0, 66%, 80%) 100%);
+  --app-bg: linear-gradient(to bottom left, hsl(90, 33%, 70%) 0%, hsl(0, 33%, 70%) 100%);
 
-  --color-selected-text: var(--md-grey-800);
-  --color-selected-background: var(--md-blue-grey-100);
+  --nav-text-color: var(--md-grey-50);
+  --nav-bg: hsl(220, 26%, 14%);
 
-  --color-hover: var(--md-blue-grey-300);
+  --bg1: var(--md-blue-grey-700);
+  --bg2: var(--md-blue-grey-900);
+
+  --greentext: #b5bd68;
+
+  color: var(--text-color);
+  .greentext {
+    color: var(--greentext);
+  }
+  .color-faded {
+    color: var(--text-color-faded) !important;
+  }
 }
 
 :root.day-mode {
+  --text-color: var(--md-blue-grey-900);
+  --text-color-faded: var(--md-blue-grey-600);
+
+  --app-bg: linear-gradient(to bottom left, hsl(90, 33%, 70%) 0%, hsl(0, 33%, 70%) 100%);
+  --app-bg: linear-gradient(to bottom left, hsl(90, 25%, 67%) 0%, hsl(0, 25%, 67%) 100%);
+  --app-bg: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+
+  --nav-text-color: var(--md-grey-100);
+  --nav-bg: hsl(220, 25%, 25%);
+
+  --bg2: var(--md-grey-100);
+  --bg1: var(--md-blue-grey-100);
+
+  --greentext: hsl(80, 100%, 30%);
 }
