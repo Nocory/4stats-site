@@ -158,6 +158,28 @@ export default {
 
 .categories {
   color: var(--nav-text-color);
+  > div {
+    height: 100%;
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    > .sortArrow {
+      &:after {
+        content: "";
+        position: absolute;
+        right: 0%;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid var(--nav-text-color);
+        transition: all 0.382s ease-out;
+      }
+      &--reversed:after {
+        transform: rotate(-180deg);
+      }
+    }
+  }
 }
 
 .board-rows {
