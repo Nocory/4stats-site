@@ -125,11 +125,9 @@
             {{ board == "s4s" ? "[s4s]" : "/" + board + "/" }}
           </div>
         </div>
-        <!--
-        <div class="button-padder" @click="toggleBoard('all')">
-          <div :class="{ 'board-button--selected': graphedBoards.includes('all') }" class="board-button">/all/</div>
+        <div class="board-button m-1 w-16 text-center border border-gray-600" @click="toggleBoard('all')">
+          <div :class="{ 'board-button--selected': graphedBoards.includes('all') }" class="cursor-pointer px-0 py-2">/all/</div>
         </div>
-        -->
       </div>
     </div>
   </base-component>
