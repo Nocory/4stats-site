@@ -1,10 +1,13 @@
 <template>
   <base-component title="Info" class="base-component">
     <div class="component-content p-4 leading-normal text-sm">
-      Redoing some of the styling right now.<br />
-      Some parts aren't consistent yet, but I will hopefully get that done soon.<br />
+      <a href="https://boards.4channel.org/qa/thread/3075847"
+        >There is a stat-thread for 2019 up on /qa/<br />
+        Check it out if you want.
+      </a>
       <br />
-      The other pages will be back soon as well.
+      I edited this info-text a few days ago already, but just noticed I forgot to push it to the live site.<br />
+      The thread is still up though.
       <!--<img src="../static/bird2.jpg" />-->
     </div>
   </base-component>
