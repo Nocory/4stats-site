@@ -1,7 +1,8 @@
 <template>
   <div class="postAnalysis-component">
     <div class="explanation">
-      These stats cover posts from approximately early January to early June 2019. Not all posts from that duration are included due to resource limitations, though I am confident, that &gt;95% of posts were captured.<br />
+      These stats cover posts from approximately early January to early June 2019. Not all posts from that duration are included due to
+      resource limitations, though I am confident, that &gt;95% of posts were captured.<br />
       <br />
       Click a row to highlight the flag in all columns.<br />
       <br />
@@ -31,7 +32,16 @@
             </div>
           </div>
           <transition-group tag="div" class="rows component-content">
-            <div v-for="(flag, index) in board.sortedFlags" :key="flag[0]" class="row flag-row" :data-hover-text="flag[0]" @click.stop="flagClicked(flag[0])" :class="{ 'flag-clicked': flag[0] == clickedFlag, 'flag-hovered': flag[0] == hoveredFlag }" @mouseover="flagHovered(flag[0])" @mouseleave="flagHovered('NONE')">
+            <div
+              v-for="(flag, index) in board.sortedFlags"
+              :key="flag[0]"
+              class="row flag-row"
+              :data-hover-text="flag[0]"
+              :class="{ 'flag-clicked': flag[0] == clickedFlag, 'flag-hovered': flag[0] == hoveredFlag }"
+              @click.stop="flagClicked(flag[0])"
+              @mouseover="flagHovered(flag[0])"
+              @mouseleave="flagHovered('NONE')"
+            >
               <div class="row__item is-hidden-below-fullhd">{{ index + 1 }}</div>
               <div class="row__item wide-field" :class="{ 'troll-country': troll_flags.includes(flag[0]) }">
                 {{ flag[0] }}
@@ -65,7 +75,35 @@ export default {
     int: require("./snapper_analysis/flags_int.json"),
     pol: require("./snapper_analysis/flags_pol.json"),
     users: require("./snapper_analysis/internet_users.json"),
-    troll_flags: ["Anarcho-Capitalist", "Anarchist", "Black Nationalist", "Confederate", "Communist", "Catalonia", "Democrat", "European", "Fascist", "Gadsden", "Gay", "Jihadi", "Kekistani", "Muslim", "National Bolshevik", "Nazi", "Hippie", "Pirate", "Republican", "Templar", "Tree Hugger", "United Nations", "White Supremacist", "DEUS VULT", "LGBT", "Commie", "Black Lives Matter"]
+    troll_flags: [
+      "Anarcho-Capitalist",
+      "Anarchist",
+      "Black Nationalist",
+      "Confederate",
+      "Communist",
+      "Catalonia",
+      "Democrat",
+      "European",
+      "Fascist",
+      "Gadsden",
+      "Gay",
+      "Jihadi",
+      "Kekistani",
+      "Muslim",
+      "National Bolshevik",
+      "Nazi",
+      "Hippie",
+      "Pirate",
+      "Republican",
+      "Templar",
+      "Tree Hugger",
+      "United Nations",
+      "White Supremacist",
+      "DEUS VULT",
+      "LGBT",
+      "Commie",
+      "Black Lives Matter"
+    ]
   }),
   computed: {
     /*
@@ -126,13 +164,21 @@ export default {
       console.log(obj.name, sortBy)
       switch (sortBy) {
         case "posts":
-          this.$set(this[obj.name], "sortedFlags", Object.entries(obj.flags).sort((a, b) => b[1][0] - a[1][0]))
+          this.$set(
+            this[obj.name],
+            "sortedFlags",
+            Object.entries(obj.flags).sort((a, b) => b[1][0] - a[1][0])
+          )
           break
         case "name":
           this.$set(this[obj.name], "sortedFlags", Object.entries(obj.flags).sort())
           break
         case "rel":
-          this.$set(this[obj.name], "sortedFlags", Object.entries(obj.flags).sort((a, b) => b[1][2] - a[1][2]))
+          this.$set(
+            this[obj.name],
+            "sortedFlags",
+            Object.entries(obj.flags).sort((a, b) => b[1][2] - a[1][2])
+          )
           break
       }
     }
@@ -159,12 +205,12 @@ export default {
 
 .explanation {
   //text-align: center;
-  color: var(--color-text);
+  color: white;
   margin-bottom: 1rem;
   padding: 1rem;
   font-size: 0.8em;
   max-width: 512px;
-  background-color: var(--background-content-2n);
+  background: rgba(0, 0, 0, 0.8);
   @include desktop {
     @include float-shadow-box;
   }
@@ -179,7 +225,7 @@ export default {
 }
 
 .board-name {
-  background: var(--background-nav);
+  background: rgba(0, 0, 0, 0.8);
   color: var(--color-text);
   padding: 0rem 0.5rem;
   line-height: 2.25rem;
@@ -262,15 +308,15 @@ export default {
 .header {
   z-index: 100;
   line-height: 2.25rem !important;
-  background: var(--background-nav) !important;
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .flag-row {
   line-height: 1.25rem;
-  background: var(--background-content);
+  background: rgba(0, 0, 0, 0.7);
   //transition: 0.1s all ease-out;
   &:nth-of-type(2n) {
-    background: var(--background-content-2n);
+    background: rgba(0, 0, 0, 0.8);
   }
   border-top: 1px solid var(--border-content);
   &:hover,
