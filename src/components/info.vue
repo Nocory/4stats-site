@@ -1,14 +1,7 @@
 <template>
-  <base-component title="Info" class="base-component">
-    <div class="component-content p-4 leading-normal text-sm">
-      <a href="https://boards.4channel.org/qa/thread/3075847"
-        >There is a stat-thread for 2019 up on /qa/<br />
-        Check it out if you want.
-      </a>
-      <br />
-      I edited this info-text a few days ago already, but just noticed I forgot to push it to the live site.<br />
-      The thread is still up though.
-      <!--<img src="../static/bird2.jpg" />-->
+  <base-component title="2020" class="base-component">
+    <div class="component-content leading-normal text-sm">
+      <img src="../static/1552405664437.jpg" />
     </div>
   </base-component>
 </template>
