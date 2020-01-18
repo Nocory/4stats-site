@@ -1,6 +1,6 @@
 <template>
   <div class="boardlist-component relative cursor-pointer">
-    <img src="../static/xmashat.gif" class="partyhat is-hidden-below-widescreen" />
+    <!--<img src="../static/xmashat.gif" class="partyhat is-hidden-below-widescreen" />-->
     <div class="row h-10 text-xs border-b-2 border-gray-400 categories">
       <div
         v-for="item in [
@@ -152,6 +152,8 @@ export default {
 .boardlist-component {
   @include widescreen {
     @include float-shadow-box;
+    border-radius: 0.25rem;
+    overflow: hidden;
   }
   background: var(--nav-bg);
 }

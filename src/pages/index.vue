@@ -5,10 +5,10 @@
     <div v-if="renderRight" class="grid-right is-hidden-below-widescreen">
       <div class="right-wrapper">
         <component-meta />
-        <component-info />
+        <!--<component-info />-->
         <component-sideImage />
       </div>
-      <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/xmasthunk.png" />
+      <img class="really-makes-you-think-doesnt-it is-hidden-touch" src="~/thunk.png" />
     </div>
     <component-chart v-if="renderChart" class="is-hidden-below-tablet grid-chart" />
   </div>
@@ -23,7 +23,7 @@ export default {
     componentBoardlist,
     componentThreadlist,
     componentMeta: () => import(/* webpackChunkName: "sidebar" */ "components/meta.vue"),
-    componentInfo: () => import(/* webpackChunkName: "sidebar" */ "components/info.vue"),
+    //componentInfo: () => import(/* webpackChunkName: "sidebar" */ "components/info.vue"),
     componentSideImage: () => import(/* webpackChunkName: "sidebar" */ "components/sideImage.vue"),
     componentChart: () => import(/* webpackChunkName: "chart" */ "components/chart.vue")
   },
@@ -113,6 +113,7 @@ export default {
   grid-area: right;
   min-width: 100%;
   position: relative;
+
   > .right-wrapper {
     position: sticky;
     top: 2rem;

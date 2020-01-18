@@ -1,7 +1,7 @@
 <template>
-  <baseComponent v-once class="sideImage-component">
-    <!--<img src="~/static/1543041166611cc.jpg" />-->
-  </baseComponent>
+  <base-component v-once class="base-component">
+    <img src="~/static/1543041166611cc.jpg" />
+  </base-component>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.sideImage-component {
+.base-component {
   display: flex;
   flex-direction: column;
   position: relative;
