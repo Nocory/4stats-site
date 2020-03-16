@@ -152,8 +152,6 @@ export default {
 .boardlist-component {
   @include widescreen {
     @include float-shadow-box;
-    border-radius: 0.25rem;
-    overflow: hidden;
   }
   background: var(--nav-bg);
 }
