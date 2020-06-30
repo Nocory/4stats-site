@@ -5,12 +5,6 @@
         Data source: <a href="https://4chan.org" target="_blank" rel="noopener">https://4chan.org</a>.<br />
         The information above is gathered via the <a href="https://github.com/4chan/4chan-API" target="_blank" rel="noopener">4chan API</a>.
       </p>
-      <p>
-        This project on Github:
-        <a href="https://github.com/Nocory/4stats-gatherer" target="_blank" rel="noopener">Stats-Gatherer</a> /
-        <a href="https://github.com/Nocory/4stats-api" target="_blank" rel="noopener">API-Server</a> /
-        <a href="https://github.com/Nocory/4stats-site" target="_blank" rel="noopener">Website</a>
-      </p>
     </div>
   </div>
 </template>
