@@ -58,6 +58,7 @@ let config = {
       "vg",
       "vp",
       "vr",
+      "vrpg",
       "wsr",
       "x",
       // image generals
@@ -141,6 +142,7 @@ let config = {
     vip: "Very Important Posts",
     vp: "Pokémon",
     vr: "Retro Games",
+    vrpg: "Video Games/RPG",
     w: "Anime/Wallpapers",
     wg: "Wallpapers/General",
     wsg: "Worksafe GIF",
