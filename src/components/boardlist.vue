@@ -67,7 +67,7 @@
         <div v-once :data-hover-text="longBoardNames[boardName]" class="tooltip--right">
           {{ boardName == "s4s" ? "[s4s]" : "/" + boardName + "/" }}
         </div>
-        <div class>{{ boardData[boardName].postsPerMinute.toFixed(2) }}</div>
+        <div class>{{ (boardData[boardName].postsPerMinute || 0).toFixed(2) }}</div>
         <div class="is-hidden-below-desktop">
           {{ Math.round(boardData[boardName].threadsPerHour) }}
         </div>
