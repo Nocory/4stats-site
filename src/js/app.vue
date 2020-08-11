@@ -1,6 +1,15 @@
 <template>
   <div id="app">
     <component-nav />
+    <iframe
+      class="is-hidden-mobile"
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/-18HZzSMa1o"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
     <div class="router-view">
       <keep-alive>
         <router-view />
@@ -46,6 +55,20 @@ export default {
   background-size: cover;
   background-position: center;
   */
+}
+
+iframe {
+  @include mobile {
+    overflow-x: hidden;
+  }
+  @include desktop {
+    margin: 1rem auto;
+  }
+  max-width: 100%;
+  min-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 
 .router-view {
