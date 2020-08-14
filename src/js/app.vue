@@ -1,15 +1,6 @@
 <template>
   <div id="app">
     <component-nav />
-    <iframe
-      class="is-hidden-mobile"
-      width="560"
-      height="315"
-      src="https://www.youtube.com/embed/-18HZzSMa1o"
-      frameborder="0"
-      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
     <div class="router-view">
       <keep-alive>
         <router-view />
