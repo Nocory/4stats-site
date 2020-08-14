@@ -60,6 +60,7 @@ let config = {
       "vp",
       "vr",
       "vrpg",
+      "vst",
       "wsr",
       "x",
       // image generals
@@ -145,6 +146,7 @@ let config = {
     vp: "Pokémon",
     vr: "Retro Games",
     vrpg: "Video Games/RPG",
+    vst: "Video Games/Strategy",
     w: "Anime/Wallpapers",
     wg: "Wallpapers/General",
     wsg: "Worksafe GIF",
