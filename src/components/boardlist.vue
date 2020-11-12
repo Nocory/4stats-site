@@ -94,7 +94,7 @@ import config from "js/config"
 export default {
   data: () => ({
     longBoardNames: config.boardNames,
-    sortBoardListBy: localStorage.getItem("sortBoardListBy") || "avgPostsPerDay",
+    sortBoardListBy: localStorage.getItem("sortBoardListBy") || "name",
     reverseOrder: false
   }),
   computed: {
