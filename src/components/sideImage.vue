@@ -1,6 +1,6 @@
 <template>
   <base-component v-once class="base-component">
-    <img src="~/static/1543041166611cc.jpg" />
+    <img src="~/static/d.jpg" />
   </base-component>
 </template>
 
